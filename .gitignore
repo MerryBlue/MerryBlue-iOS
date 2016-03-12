@@ -1,27 +1,5 @@
-### https://raw.github.com/github/gitignore/ad500c8a491fc51b00b10e1d57c1d10e1f677eb8/Global/xcode.gitignore
-
-# Xcode
-#
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
-
-## Build generated
-build/
-DerivedData
-
-## Various settings
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-xcuserdata
-
-## Other
-*.xccheckout
-*.moved-aside
-*.xcuserstate
-
-
+Crashlytics.framework/
+DigitsKit.framework/
+Fabric.framework/
+TwitterCore.framework/
+TwitterKit.framework/
