@@ -15,6 +15,20 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let userName = Twitter.sharedInstance().session()?.userName {
+            // ログイン済みは即座にメインページに遷移
+            userName
+            
+            // let vc: UIViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabView") as! UITabBarController
+            // self.view.window?.rootViewController!.presentViewController(vc, animated: true, completion: nil)
+            
+            let tabBarController: UITabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabView") as! UITabBarController
+            UIApplication.sharedApplication().keyWindow?.rootViewController = tabBarController
+            return
+        }
+        
+        // ログインボタンの設定
         let logInButton = TWTRLogInButton { (session, error) in
             if let unwrappedSession = session {
                 let alert = UIAlertController(title: "Logged In",
