@@ -13,6 +13,14 @@
 		457E0BEF1C933D25000A665A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 457E0BED1C933D25000A665A /* Main.storyboard */; };
 		457E0BF11C933D25000A665A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 457E0BF01C933D25000A665A /* Assets.xcassets */; };
 		457E0BF41C933D25000A665A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 457E0BF21C933D25000A665A /* LaunchScreen.storyboard */; };
+		45EBEDE21C93F2B6002C6040 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EBEDE01C93F2B6002C6040 /* Fabric.framework */; };
+		45EBEDE31C93F2B6002C6040 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EBEDE11C93F2B6002C6040 /* Crashlytics.framework */; };
+		45EBEDEA1C93F488002C6040 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EBEDE71C93F488002C6040 /* TwitterCore.framework */; };
+		45EBEDED1C93F5D2002C6040 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EBEDEB1C93F5D2002C6040 /* TwitterKit.framework */; };
+		45EBEDEE1C93F5D2002C6040 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45EBEDEC1C93F5D2002C6040 /* TwitterKitResources.bundle */; };
+		45EBEDF11C93F62F002C6040 /* DigitsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EBEDEF1C93F62F002C6040 /* DigitsKit.framework */; };
+		45EBEDF21C93F62F002C6040 /* DigitsKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45EBEDF01C93F62F002C6040 /* DigitsKitResources.bundle */; };
+		45EBEDF41C93F6CE002C6040 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EBEDF31C93F6CE002C6040 /* SignInViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +32,14 @@
 		457E0BF01C933D25000A665A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		457E0BF31C933D25000A665A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		457E0BF51C933D25000A665A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45EBEDE01C93F2B6002C6040 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		45EBEDE11C93F2B6002C6040 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		45EBEDE71C93F488002C6040 /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
+		45EBEDEB1C93F5D2002C6040 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwitterKit.framework; path = DigitsKit.framework/Versions/A/Resources/DigitsKitResources.bundle/TwitterKit.framework; sourceTree = "<group>"; };
+		45EBEDEC1C93F5D2002C6040 /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = DigitsKit.framework/Versions/A/Resources/DigitsKitResources.bundle/TwitterKitResources.bundle; sourceTree = "<group>"; };
+		45EBEDEF1C93F62F002C6040 /* DigitsKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DigitsKit.framework; sourceTree = "<group>"; };
+		45EBEDF01C93F62F002C6040 /* DigitsKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = DigitsKitResources.bundle; path = DigitsKit.framework/Versions/A/Resources/DigitsKitResources.bundle; sourceTree = "<group>"; };
+		45EBEDF31C93F6CE002C6040 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +47,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45EBEDED1C93F5D2002C6040 /* TwitterKit.framework in Frameworks */,
+				45EBEDEA1C93F488002C6040 /* TwitterCore.framework in Frameworks */,
+				45EBEDE31C93F2B6002C6040 /* Crashlytics.framework in Frameworks */,
+				45EBEDE21C93F2B6002C6040 /* Fabric.framework in Frameworks */,
+				45EBEDF11C93F62F002C6040 /* DigitsKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +63,7 @@
 			children = (
 				457E0BE61C933D25000A665A /* MerryBlue */,
 				457E0BE51C933D25000A665A /* Products */,
+				45EBEDE41C93F46F002C6040 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,14 +79,37 @@
 			isa = PBXGroup;
 			children = (
 				457E0BE71C933D25000A665A /* AppDelegate.swift */,
-				457E0BE91C933D25000A665A /* FirstViewController.swift */,
-				457E0BEB1C933D25000A665A /* SecondViewController.swift */,
+				45EBEDF51C93F6E4002C6040 /* ViewController */,
 				457E0BED1C933D25000A665A /* Main.storyboard */,
 				457E0BF01C933D25000A665A /* Assets.xcassets */,
 				457E0BF21C933D25000A665A /* LaunchScreen.storyboard */,
 				457E0BF51C933D25000A665A /* Info.plist */,
 			);
 			path = MerryBlue;
+			sourceTree = "<group>";
+		};
+		45EBEDE41C93F46F002C6040 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				45EBEDEF1C93F62F002C6040 /* DigitsKit.framework */,
+				45EBEDF01C93F62F002C6040 /* DigitsKitResources.bundle */,
+				45EBEDE01C93F2B6002C6040 /* Fabric.framework */,
+				45EBEDE71C93F488002C6040 /* TwitterCore.framework */,
+				45EBEDEB1C93F5D2002C6040 /* TwitterKit.framework */,
+				45EBEDEC1C93F5D2002C6040 /* TwitterKitResources.bundle */,
+				45EBEDE11C93F2B6002C6040 /* Crashlytics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		45EBEDF51C93F6E4002C6040 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				457E0BEB1C933D25000A665A /* SecondViewController.swift */,
+				457E0BE91C933D25000A665A /* FirstViewController.swift */,
+				45EBEDF31C93F6CE002C6040 /* SignInViewController.swift */,
+			);
+			name = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,6 +122,7 @@
 				457E0BE01C933D25000A665A /* Sources */,
 				457E0BE11C933D25000A665A /* Frameworks */,
 				457E0BE21C933D25000A665A /* Resources */,
+				45EBEDDF1C93EE9A002C6040 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -99,6 +145,7 @@
 				TargetAttributes = {
 					457E0BE31C933D25000A665A = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = R76V8JJ8QF;
 					};
 				};
 			};
@@ -125,19 +172,38 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45EBEDF21C93F62F002C6040 /* DigitsKitResources.bundle in Resources */,
 				457E0BF41C933D25000A665A /* LaunchScreen.storyboard in Resources */,
 				457E0BF11C933D25000A665A /* Assets.xcassets in Resources */,
 				457E0BEF1C933D25000A665A /* Main.storyboard in Resources */,
+				45EBEDEE1C93F5D2002C6040 /* TwitterKitResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		45EBEDDF1C93EE9A002C6040 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 383c02e04f42e38d407da4295be284d1e327a6be 5a874b4f1b6ceeeb5c3c01f592214cfeb0c57c6d30b43a1a88350b24124e3100";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		457E0BE01C933D25000A665A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45EBEDF41C93F6CE002C6040 /* SignInViewController.swift in Sources */,
 				457E0BEC1C933D25000A665A /* SecondViewController.swift in Sources */,
 				457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */,
 				457E0BEA1C933D25000A665A /* FirstViewController.swift in Sources */,
@@ -251,10 +317,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/DigitsKit.framework/Versions/A/Resources/DigitsKitResources.bundle",
+				);
 				INFOPLIST_FILE = MerryBlue/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.elzup.MerryBlue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -262,10 +337,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/DigitsKit.framework/Versions/A/Resources/DigitsKitResources.bundle",
+				);
 				INFOPLIST_FILE = MerryBlue/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.elzup.MerryBlue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -288,6 +371,7 @@
 				457E0BFA1C933D25000A665A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
