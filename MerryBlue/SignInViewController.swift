@@ -27,12 +27,14 @@ class SignInViewController: UIViewController {
             UIApplication.sharedApplication().keyWindow?.rootViewController = tabBarController
             return
         }
-        
-        // ログインボタンの設定
-        let logInButton = TWTRLogInButton { (session, error) in
-            if let unwrappedSession = session {
+    }
+    
+    @IBOutlet var loginButton: UIButton!
+    @IBAction func loginAction(sender: AnyObject?) {
+        Twitter.sharedInstance().logInWithCompletion {(session, error) in
+            if let s = session {
                 let alert = UIAlertController(title: "Logged In",
-                    message: "User \(unwrappedSession.userName) has logged in",
+                    message: "User \(s.userName) has logged in",
                     preferredStyle: UIAlertControllerStyle.Alert
                 )
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
@@ -44,9 +46,5 @@ class SignInViewController: UIViewController {
                 NSLog("Login error: %@", error!.localizedDescription);
             }
         }
-        
-        // TODO: Change where the log in button is positioned in your view
-        logInButton.center = self.view.center
-        self.view.addSubview(logInButton)
     }
 }

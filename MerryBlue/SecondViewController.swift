@@ -19,7 +19,7 @@ class SecondViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     @IBOutlet var logoutButton: UIButton!
     @IBAction func logoutAction(sender: AnyObject?) {
         let store = Twitter.sharedInstance().sessionStore

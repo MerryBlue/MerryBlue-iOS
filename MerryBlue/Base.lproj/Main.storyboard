@@ -91,11 +91,27 @@
                     <view key="view" contentMode="scaleToFill" id="SC5-Fx-wEW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.012851760355118685" green="0.0" blue="0.62041884816753923" alpha="1" colorSpace="calibratedRGB"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="7mO-Da-kSk">
+                                <rect key="frame" x="87" y="112" width="200" height="200"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yIW-eu-uaL">
+                                <rect key="frame" x="59" y="426" width="256" height="56"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                <state key="normal" title="Login with Twitter">
+                                    <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginAction:" destination="fi1-cV-wfn" eventType="touchUpInside" id="IIF-CL-XqE"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.24313725490196078" green="0.41960784313725491" blue="0.63529411764705879" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="loginButton" destination="yIW-eu-uaL" id="Lxo-gJ-4za"/>
                         <segue destination="49e-Tb-3d3" kind="show" id="KPx-hZ-ysb"/>
                     </connections>
                 </viewController>
@@ -126,6 +142,7 @@
     </scenes>
     <resources>
         <image name="first" width="30" height="30"/>
+        <image name="logo" width="76" height="76"/>
         <image name="second" width="30" height="30"/>
     </resources>
 </document>
