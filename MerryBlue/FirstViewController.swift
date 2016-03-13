@@ -13,8 +13,7 @@ class FirstViewController: TWTRTimelineViewController {
     
     override func viewDidLoad() {
         let client = TWTRAPIClient()
-        let ds = TWTRSearchTimelineDataSource(searchQuery: "elzup", APIClient: client)
-        self.dataSource = ds
+        self.dataSource = TWTRListTimelineDataSource(listSlug: "cps-lab", listOwnerScreenName: "arzzup", APIClient: client)
         // self.showTweetActions = true
     }
 

@@ -10,10 +10,10 @@
 		457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE71C933D25000A665A /* AppDelegate.swift */; };
 		457E0BEA1C933D25000A665A /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE91C933D25000A665A /* FirstViewController.swift */; };
 		457E0BEC1C933D25000A665A /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BEB1C933D25000A665A /* SecondViewController.swift */; };
-		457E0BEF1C933D25000A665A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 457E0BED1C933D25000A665A /* Main.storyboard */; };
 		457E0BF11C933D25000A665A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 457E0BF01C933D25000A665A /* Assets.xcassets */; };
 		457E0BF41C933D25000A665A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 457E0BF21C933D25000A665A /* LaunchScreen.storyboard */; };
 		45933CB21C95206000FC46C9 /* UserUICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45933CB11C95206000FC46C9 /* UserUICollectionViewCell.swift */; };
+		45BD1C0B1C9590A2002A2159 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C0A1C9590A2002A2159 /* MainTabBarController.swift */; };
 		45EBEDE21C93F2B6002C6040 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EBEDE01C93F2B6002C6040 /* Fabric.framework */; };
 		45EBEDE31C93F2B6002C6040 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EBEDE11C93F2B6002C6040 /* Crashlytics.framework */; };
 		45EBEDEA1C93F488002C6040 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EBEDE71C93F488002C6040 /* TwitterCore.framework */; };
@@ -30,11 +30,11 @@
 		457E0BE71C933D25000A665A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		457E0BE91C933D25000A665A /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		457E0BEB1C933D25000A665A /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
-		457E0BEE1C933D25000A665A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		457E0BF01C933D25000A665A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		457E0BF31C933D25000A665A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		457E0BF51C933D25000A665A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45933CB11C95206000FC46C9 /* UserUICollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserUICollectionViewCell.swift; sourceTree = "<group>"; };
+		45BD1C0A1C9590A2002A2159 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		45EBEDE01C93F2B6002C6040 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		45EBEDE11C93F2B6002C6040 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		45EBEDE71C93F488002C6040 /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
@@ -82,10 +82,10 @@
 		457E0BE61C933D25000A665A /* MerryBlue */ = {
 			isa = PBXGroup;
 			children = (
+				45BD1C0C1C9590AB002A2159 /* Controller */,
 				45933CB01C95203500FC46C9 /* View */,
 				45EBEDF51C93F6E4002C6040 /* ViewController */,
 				457E0BE71C933D25000A665A /* AppDelegate.swift */,
-				457E0BED1C933D25000A665A /* Main.storyboard */,
 				457E0BF01C933D25000A665A /* Assets.xcassets */,
 				457E0BF21C933D25000A665A /* LaunchScreen.storyboard */,
 				457E0BF51C933D25000A665A /* Info.plist */,
@@ -99,6 +99,14 @@
 				45933CB11C95206000FC46C9 /* UserUICollectionViewCell.swift */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		45BD1C0C1C9590AB002A2159 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				45BD1C0A1C9590A2002A2159 /* MainTabBarController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		45EBEDE41C93F46F002C6040 /* Frameworks */ = {
@@ -189,7 +197,6 @@
 				45EBEDF21C93F62F002C6040 /* DigitsKitResources.bundle in Resources */,
 				457E0BF41C933D25000A665A /* LaunchScreen.storyboard in Resources */,
 				457E0BF11C933D25000A665A /* Assets.xcassets in Resources */,
-				457E0BEF1C933D25000A665A /* Main.storyboard in Resources */,
 				45EBEDEE1C93F5D2002C6040 /* TwitterKitResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,6 +227,7 @@
 				45EBEDF71C94CB17002C6040 /* AddWatchModalViewController.swift in Sources */,
 				45EBEDF41C93F6CE002C6040 /* SignInViewController.swift in Sources */,
 				457E0BEC1C933D25000A665A /* SecondViewController.swift in Sources */,
+				45BD1C0B1C9590A2002A2159 /* MainTabBarController.swift in Sources */,
 				457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */,
 				457E0BEA1C933D25000A665A /* FirstViewController.swift in Sources */,
 				45933CB21C95206000FC46C9 /* UserUICollectionViewCell.swift in Sources */,
@@ -229,14 +237,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		457E0BED1C933D25000A665A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				457E0BEE1C933D25000A665A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		457E0BF21C933D25000A665A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
