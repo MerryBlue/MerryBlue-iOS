@@ -11,16 +11,11 @@ import TwitterKit
 
 class FirstViewController: TWTRTimelineViewController {
     
-    override func viewDidLoad() {
+    convenience init() {
         let client = TWTRAPIClient()
-        let ds = TWTRSearchTimelineDataSource(searchQuery: "elzup", APIClient: client)
-        self.dataSource = ds
-        // self.showTweetActions = true
+        let dataSource = TWTRListTimelineDataSource(listSlug: "cps-lab", listOwnerScreenName: "arzzup", APIClient: client)
+        self.init(dataSource: dataSource)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    
 }
 

@@ -15,37 +15,26 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let store = Twitter.sharedInstance().sessionStore
-        if let userID = store.session()!.userID {
-            store.logOutUserID(userID)
-        }
-        
-        if let userName = Twitter.sharedInstance().session()?.userName {
-            // let vc: UIViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabView") as! UITabBarController
-            // self.view.window?.rootViewController!.presentViewController(vc, animated: true, completion: nil)
-            let tabBarController: UITabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabView") as! UITabBarController
-            UIApplication.sharedApplication().keyWindow?.rootViewController = tabBarController
-            return
-        }
-    }
-    
-    @IBOutlet var loginButton: UIButton!
-    @IBAction func loginAction(sender: AnyObject?) {
-        Twitter.sharedInstance().logInWithCompletion {(session, error) in
-            if let s = session {
-                let alert = UIAlertController(title: "Logged In",
-                    message: "User \(s.userName) has logged in",
-                    preferredStyle: UIAlertControllerStyle.Alert
-                )
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
-                
-                let tabBarController: UITabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabView") as! UITabBarController
-                UIApplication.sharedApplication().keyWindow?.rootViewController = tabBarController
+        let logInButton = TWTRLogInButton { (session, error) in
+            if session != nil {
+                UIApplication.sharedApplication().keyWindow?.rootViewController = MainTabBarController()
             } else {
                 NSLog("Login error: %@", error!.localizedDescription);
             }
         }
+        
+        // TODO: Change where the log in button is positioned in your view
+        logInButton.center = self.view.center
+        self.view.addSubview(logInButton)
+    }
+    override func viewDidAppear(animated: Bool) {
+        guard let session = Twitter.sharedInstance().sessionStore.session() else {
+            return
+        }
+        // self.presentViewController(MainTabBarController(), animated: true, completion: nil)
+        self.presentViewController(FirstViewController(), animated: true, completion: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     }
 }
