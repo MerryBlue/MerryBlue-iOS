@@ -9,13 +9,13 @@
 import UIKit
 import TwitterKit
 
-class FirstViewController: UIViewController {
+class FirstViewController: TWTRTimelineViewController {
     
-    let modalView = AddWatchUserModalViewController()
-    let modalTextLabel = UILabel()
-
     override func viewDidLoad() {
-        super.viewDidLoad()
+        let client = TWTRAPIClient()
+        let ds = TWTRSearchTimelineDataSource(searchQuery: "elzup", APIClient: client)
+        self.dataSource = ds
+        // self.showTweetActions = true
     }
 
     override func didReceiveMemoryWarning() {

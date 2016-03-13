@@ -16,6 +16,11 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let store = Twitter.sharedInstance().sessionStore
+        if let userID = store.session()!.userID {
+            store.logOutUserID(userID)
+        }
+        
         if let userName = Twitter.sharedInstance().session()?.userName {
             // let vc: UIViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabView") as! UITabBarController
             // self.view.window?.rootViewController!.presentViewController(vc, animated: true, completion: nil)
