@@ -28,11 +28,10 @@ class SignInViewController: UIViewController {
         self.view.addSubview(logInButton)
     }
     override func viewDidAppear(animated: Bool) {
-        guard let session = Twitter.sharedInstance().sessionStore.session() else {
+        guard let _ = Twitter.sharedInstance().sessionStore.session() else {
             return
         }
-        // self.presentViewController(MainTabBarController(), animated: true, completion: nil)
-        self.presentViewController(FirstViewController(), animated: true, completion: nil)
+        self.presentViewController(MainTabBarController(), animated: true, completion: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

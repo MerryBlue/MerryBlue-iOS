@@ -10,19 +10,19 @@ import Foundation
 import UIKit
 
 class MainTabBarController: UITabBarController {
-    var firstView: FirstViewController!
-    var secondView: SecondViewController!
+    var watcherView: WatcherViewController!
+    var profileView: ProfileViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        firstView = FirstViewController()
-        secondView = SecondViewController()
+        watcherView = WatcherViewController()
+        profileView = ProfileViewController()
         
-        firstView.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Featured, tag: 1)
-        secondView.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Bookmarks, tag: 2)
+        watcherView.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Featured, tag: 1)
+        profileView.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Bookmarks, tag: 2)
         
-        let myTabs: Array<UIViewController> = [firstView, secondView]
+        let myTabs: Array<UIViewController> = [watcherView, profileView]
         
         self.setViewControllers(myTabs, animated: false)
     }

@@ -9,7 +9,7 @@
 import UIKit
 import TwitterKit
 
-class FirstViewController: TWTRTimelineViewController {
+class WatcherViewController: TWTRTimelineViewController {
     
     convenience init() {
         let client = TWTRAPIClient()

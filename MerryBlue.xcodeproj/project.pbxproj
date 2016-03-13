@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE71C933D25000A665A /* AppDelegate.swift */; };
-		457E0BEA1C933D25000A665A /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE91C933D25000A665A /* FirstViewController.swift */; };
-		457E0BEC1C933D25000A665A /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BEB1C933D25000A665A /* SecondViewController.swift */; };
+		457E0BEA1C933D25000A665A /* WatcherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE91C933D25000A665A /* WatcherViewController.swift */; };
+		457E0BEC1C933D25000A665A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BEB1C933D25000A665A /* ProfileViewController.swift */; };
 		457E0BF11C933D25000A665A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 457E0BF01C933D25000A665A /* Assets.xcassets */; };
 		457E0BF41C933D25000A665A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 457E0BF21C933D25000A665A /* LaunchScreen.storyboard */; };
 		45933CB21C95206000FC46C9 /* UserUICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45933CB11C95206000FC46C9 /* UserUICollectionViewCell.swift */; };
@@ -28,8 +28,8 @@
 /* Begin PBXFileReference section */
 		457E0BE41C933D25000A665A /* MerryBlue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MerryBlue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		457E0BE71C933D25000A665A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		457E0BE91C933D25000A665A /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		457E0BEB1C933D25000A665A /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		457E0BE91C933D25000A665A /* WatcherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatcherViewController.swift; sourceTree = "<group>"; };
+		457E0BEB1C933D25000A665A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		457E0BF01C933D25000A665A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		457E0BF31C933D25000A665A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		457E0BF51C933D25000A665A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -126,9 +126,9 @@
 		45EBEDF51C93F6E4002C6040 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				457E0BEB1C933D25000A665A /* SecondViewController.swift */,
-				457E0BE91C933D25000A665A /* FirstViewController.swift */,
 				45EBEDF31C93F6CE002C6040 /* SignInViewController.swift */,
+				457E0BE91C933D25000A665A /* WatcherViewController.swift */,
+				457E0BEB1C933D25000A665A /* ProfileViewController.swift */,
 				45EBEDF61C94CB17002C6040 /* AddWatchModalViewController.swift */,
 			);
 			name = ViewController;
@@ -226,10 +226,10 @@
 			files = (
 				45EBEDF71C94CB17002C6040 /* AddWatchModalViewController.swift in Sources */,
 				45EBEDF41C93F6CE002C6040 /* SignInViewController.swift in Sources */,
-				457E0BEC1C933D25000A665A /* SecondViewController.swift in Sources */,
+				457E0BEC1C933D25000A665A /* ProfileViewController.swift in Sources */,
 				45BD1C0B1C9590A2002A2159 /* MainTabBarController.swift in Sources */,
 				457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */,
-				457E0BEA1C933D25000A665A /* FirstViewController.swift in Sources */,
+				457E0BEA1C933D25000A665A /* WatcherViewController.swift in Sources */,
 				45933CB21C95206000FC46C9 /* UserUICollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
