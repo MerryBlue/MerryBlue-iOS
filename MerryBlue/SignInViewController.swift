@@ -15,10 +15,27 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let logInButton = TWTRLogInButton { (session, error) in
-            if let unwrappedSession = session {
+        
+        let store = Twitter.sharedInstance().sessionStore
+        if let userID = store.session()!.userID {
+            store.logOutUserID(userID)
+        }
+        
+        if let userName = Twitter.sharedInstance().session()?.userName {
+            // let vc: UIViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabView") as! UITabBarController
+            // self.view.window?.rootViewController!.presentViewController(vc, animated: true, completion: nil)
+            let tabBarController: UITabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabView") as! UITabBarController
+            UIApplication.sharedApplication().keyWindow?.rootViewController = tabBarController
+            return
+        }
+    }
+    
+    @IBOutlet var loginButton: UIButton!
+    @IBAction func loginAction(sender: AnyObject?) {
+        Twitter.sharedInstance().logInWithCompletion {(session, error) in
+            if let s = session {
                 let alert = UIAlertController(title: "Logged In",
-                    message: "User \(unwrappedSession.userName) has logged in",
+                    message: "User \(s.userName) has logged in",
                     preferredStyle: UIAlertControllerStyle.Alert
                 )
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
@@ -30,9 +47,5 @@ class SignInViewController: UIViewController {
                 NSLog("Login error: %@", error!.localizedDescription);
             }
         }
-        
-        // TODO: Change where the log in button is positioned in your view
-        logInButton.center = self.view.center
-        self.view.addSubview(logInButton)
     }
 }
