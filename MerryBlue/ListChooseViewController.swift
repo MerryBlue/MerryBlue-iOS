@@ -5,21 +5,17 @@ import TwitterKit
 class ListChooseViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     private var tableView: UITableView!
-    var texts: Array<String> = []
+    var tweetLists: Array<TwitterList> = []
     var selectedIndex: NSIndexPath!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.texts.append("hoge")
-        self.texts.append("fuga")
-        TwitterManager.getLists()
         setNavigationBar()
-        setTableView()
     }
     
     override func viewDidAppear(animated: Bool) {
-        setSelectedCell()
+        TwitterManager.getLists(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -29,18 +25,19 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     
     // セルの行数
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return texts.count
+        return tweetLists.count
     }
     
     //セルの内容を変更
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Cell")
         
-        cell.textLabel?.text = texts[indexPath.row]
+        cell.textLabel?.text = tweetLists[indexPath.row].name
         return cell
     }
     
-    private func setTableView() {
+    internal func setTableView(lists: [TwitterList]) {
+        tweetLists = lists
         // Status Barの高さを取得する.
         let barHeight: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
         // Viewの高さと幅を取得する.
@@ -71,8 +68,8 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     
     // Cell が選択された場合
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
-        let selectedText = self.texts[indexPath.row]
-        ConfigManager.setName(selectedText)
+        let selectedListId = self.tweetLists[indexPath.row].id
+        ConfigManager.setListId(selectedListId)
         selectCell(indexPath)
     }
     
@@ -98,14 +95,16 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func goBack() {
-        print("back")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    private func setSelectedCell() {
-        let selectedText = ConfigManager.getName()
+    internal func setSelectedCell() {
+        guard let liistId = ConfigManager.getListId() else {
+            return
+        }
+        
         for i in 0..<tableView.numberOfRowsInSection(0) {
-            if texts[i] == selectedText {
+            if tweetLists[i].id == liistId {
                 selectCell(NSIndexPath(forRow: i, inSection: 0))
                 break
             }

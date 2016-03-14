@@ -13,7 +13,7 @@ import SwiftyJSON
 class TwitterManager {
     static let HOST = "https://api.twitter.com/1.1"
     
-    static func getLists(userId: NSString) {
+    static func getLists(view: ListChooseViewController, userId: NSString = Twitter.sharedInstance().sessionStore.session()!.userID) -> Void {
         let client = TWTRAPIClient()
         let statusesShowEndpont = HOST + "/lists/list.json"
         let params = [
@@ -36,14 +36,14 @@ class TwitterManager {
             // var jsonError : NSError?
             // let json : AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &jsonError)
             let json = JSON(data: data!)
-            print(json)
+            var lists: [TwitterList] = []
+            
+            for (_, datum) in json {
+                lists.append(TwitterList(jsonData: datum))
+            }
+            view.setTableView(lists)
+            view.setSelectedCell()
+            // return lists
         }
-    }
-    
-    static func getLists() {
-        guard let session = Twitter.sharedInstance().sessionStore.session() else {
-            return
-        }
-        return getLists(session.userID)
     }
 }
