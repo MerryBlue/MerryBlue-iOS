@@ -71,11 +71,11 @@
 		457E0BDB1C933D25000A665A = {
 			isa = PBXGroup;
 			children = (
-				45BD1C1B1C9688A8002A2159 /* MarryBlue-Bridging-Header.h */,
 				457E0BE61C933D25000A665A /* MerryBlue */,
 				457E0BE51C933D25000A665A /* Products */,
 				45EBEDE41C93F46F002C6040 /* Frameworks */,
 				F44374A9BA852C42BA3591FF /* Pods */,
+				45BD1C1B1C9688A8002A2159 /* MarryBlue-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};

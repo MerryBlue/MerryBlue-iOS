@@ -22,8 +22,18 @@ class MainTabBarController: UITabBarController {
         watcherView = WatcherViewController()
         profileView = ProfileViewController()
         
-        watcherView.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Featured, tag: 1)
-        profileView.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Bookmarks, tag: 2)
+        let watcherTabBarItem = UITabBarItem()
+        watcherTabBarItem.title = "watcher"
+        watcherTabBarItem.image = FAKIonIcons.iosHomeIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
+        watcherTabBarItem.tag = 1
+        let profileTabBarItem = UITabBarItem()
+        profileTabBarItem.title = "account"
+        profileTabBarItem.image = FAKIonIcons.androidPersonIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
+        watcherTabBarItem.tag = 2
+        
+        
+        watcherView.tabBarItem = watcherTabBarItem
+        profileView.tabBarItem = profileTabBarItem
         
         watcherNavView = UINavigationController(rootViewController: watcherView)
         profileNavView = UINavigationController(rootViewController: profileView)
