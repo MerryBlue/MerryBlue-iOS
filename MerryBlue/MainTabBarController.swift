@@ -13,6 +13,9 @@ class MainTabBarController: UITabBarController {
     var watcherView: WatcherViewController!
     var profileView: ProfileViewController!
     
+    var watcherNavView: UINavigationController!
+    var profileNavView: UINavigationController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,13 +25,15 @@ class MainTabBarController: UITabBarController {
         watcherView.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Featured, tag: 1)
         profileView.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Bookmarks, tag: 2)
         
-        let myTabs: Array<UIViewController> = [watcherView, profileView]
+        watcherNavView = UINavigationController(rootViewController: watcherView)
+        profileNavView = UINavigationController(rootViewController: profileView)
         
-        self.setViewControllers(myTabs, animated: false)
+        let tabs: Array<UINavigationController> = [watcherNavView, profileNavView]
+        
+        self.setViewControllers(tabs, animated: false)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
 }

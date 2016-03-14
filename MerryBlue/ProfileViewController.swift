@@ -7,17 +7,10 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        logoutButton = UIButton()
-        logoutButton.setTitle("ログアウト", forState: UIControlState.Normal)
-        logoutButton.addTarget(self, action: "onClickLogoutButton:", forControlEvents: .TouchUpInside)
-        logoutButton.frame = CGRectMake(0, 0, 200, 40)
-        logoutButton.backgroundColor = UIColor.grayColor()
-        logoutButton.layer.cornerRadius = 10.0
-        logoutButton.layer.position = CGPoint(x: self.view.frame.width/2, y:self.view.frame.height - 100)
-        
+        self.title = "Profile"
         self.view.backgroundColor = UIColor.whiteColor()
-        self.view.addSubview(logoutButton)
+        
+        self.setLogoutButton()
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,7 +25,16 @@ class ProfileViewController: UIViewController {
         }
         self.presentViewController(SignInViewController(), animated: true, completion: nil)
     }
-
-
+    
+    private func setLogoutButton() {
+        logoutButton = UIButton()
+        logoutButton.setTitle("ログアウト", forState: UIControlState.Normal)
+        logoutButton.addTarget(self, action: "onClickLogoutButton:", forControlEvents: .TouchUpInside)
+        logoutButton.frame = CGRectMake(0, 0, 200, 40)
+        logoutButton.backgroundColor = UIColor.grayColor()
+        logoutButton.layer.cornerRadius = 10.0
+        logoutButton.layer.position = CGPoint(x: self.view.frame.width/2, y:self.view.frame.height - 100)
+        self.view.addSubview(logoutButton)
+    }
 }
 

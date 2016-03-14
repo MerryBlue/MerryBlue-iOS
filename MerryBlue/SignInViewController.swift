@@ -18,6 +18,7 @@ class SignInViewController: UIViewController {
         let logInButton = TWTRLogInButton { (session, error) in
             if session != nil {
                 UIApplication.sharedApplication().keyWindow?.rootViewController = MainTabBarController()
+                self.presentMainTabBarController()
             } else {
                 NSLog("Login error: %@", error!.localizedDescription);
             }
@@ -31,9 +32,13 @@ class SignInViewController: UIViewController {
         guard let _ = Twitter.sharedInstance().sessionStore.session() else {
             return
         }
-        self.presentViewController(MainTabBarController(), animated: true, completion: nil)
+        self.presentMainTabBarController()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    }
+    
+    private func presentMainTabBarController() {
+        self.presentViewController(MainTabBarController(), animated: true, completion: nil)
     }
 }
