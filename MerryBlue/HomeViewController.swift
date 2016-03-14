@@ -1,5 +1,6 @@
 import UIKit
 import TwitterKit
+import FontAwesomeKit
 
 class HomeViewController: TWTRTimelineViewController {
     

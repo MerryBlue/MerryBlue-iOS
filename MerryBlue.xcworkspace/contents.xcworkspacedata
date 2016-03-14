@@ -5,6 +5,9 @@
       location = "group:MerryBlue.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:MerryBlue-Bridging-Header.h">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

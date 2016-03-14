@@ -13,6 +13,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         
         self.texts.append("hoge")
         self.texts.append("fuga")
+        TwitterManager.getLists()
         setNavigationBar()
         setTableView()
     }

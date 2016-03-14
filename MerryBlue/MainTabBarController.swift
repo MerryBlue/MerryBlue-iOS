@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import FontAwesomeKit
 
 class MainTabBarController: UITabBarController {
     var homeView: HomeViewController!
