@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  MerryBlue
-//
-//  Created by Hiroto Takahashi on 2016/03/12.
-//  Copyright © 2016年 Hiroto Takahashi. All rights reserved.
-//
-
 import UIKit
 import Fabric
 import Crashlytics
@@ -21,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         Fabric.with([Twitter.self, Crashlytics.self, Digits.self])
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window!.rootViewController = SignInViewController()
         self.window?.makeKeyAndVisible()
         

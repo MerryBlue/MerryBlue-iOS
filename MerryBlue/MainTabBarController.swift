@@ -1,34 +1,41 @@
-//
-//  MainTabBarController.swift
-//  MerryBlue
-//
-//  Created by Hiroto Takahashi on 2016/03/13.
-//  Copyright © 2016年 Hiroto Takahashi. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
 class MainTabBarController: UITabBarController {
-    var firstView: FirstViewController!
-    var secondView: SecondViewController!
+    var homeView: HomeViewController!
+    var profileView: ProfileViewController!
+    
+    var homeNavView: UINavigationController!
+    var profileNavView: UINavigationController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        firstView = FirstViewController()
-        secondView = SecondViewController()
+        homeView = HomeViewController()
+        profileView = ProfileViewController()
         
-        firstView.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Featured, tag: 1)
-        secondView.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Bookmarks, tag: 2)
+        let homeTabBarItem = UITabBarItem()
+        homeTabBarItem.title = "Home"
+        homeTabBarItem.image = FAKIonIcons.iosHomeIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
+        homeTabBarItem.tag = 1
+        let profileTabBarItem = UITabBarItem()
+        profileTabBarItem.title = "Account"
+        profileTabBarItem.image = FAKIonIcons.androidPersonIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
+        homeTabBarItem.tag = 2
         
-        let myTabs: Array<UIViewController> = [firstView, secondView]
         
-        self.setViewControllers(myTabs, animated: false)
+        homeView.tabBarItem = homeTabBarItem
+        profileView.tabBarItem = profileTabBarItem
+        
+        homeNavView = UINavigationController(rootViewController: homeView)
+        profileNavView = UINavigationController(rootViewController: profileView)
+        
+        let tabs: Array<UINavigationController> = [homeNavView, profileNavView]
+        
+        self.setViewControllers(tabs, animated: false)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
 }

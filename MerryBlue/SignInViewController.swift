@@ -1,13 +1,4 @@
-//
-//  SignInViewController.swift
-//  MerryBlue
-//
-//  Created by Hiroto Takahashi on 2016/03/12.
-//  Copyright © 2016年 Hiroto Takahashi. All rights reserved.
-//
-
 import Foundation
-
 import UIKit
 import TwitterKit
 
@@ -18,6 +9,7 @@ class SignInViewController: UIViewController {
         let logInButton = TWTRLogInButton { (session, error) in
             if session != nil {
                 UIApplication.sharedApplication().keyWindow?.rootViewController = MainTabBarController()
+                self.presentMainTabBarController()
             } else {
                 NSLog("Login error: %@", error!.localizedDescription);
             }
@@ -28,13 +20,16 @@ class SignInViewController: UIViewController {
         self.view.addSubview(logInButton)
     }
     override func viewDidAppear(animated: Bool) {
-        guard let session = Twitter.sharedInstance().sessionStore.session() else {
+        guard let _ = Twitter.sharedInstance().sessionStore.session() else {
             return
         }
-        // self.presentViewController(MainTabBarController(), animated: true, completion: nil)
-        self.presentViewController(FirstViewController(), animated: true, completion: nil)
+        self.presentMainTabBarController()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    }
+    
+    private func presentMainTabBarController() {
+        self.presentViewController(MainTabBarController(), animated: true, completion: nil)
     }
 }
