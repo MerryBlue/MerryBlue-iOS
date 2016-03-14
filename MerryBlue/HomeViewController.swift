@@ -1,15 +1,7 @@
-//
-//  FirstViewController.swift
-//  MerryBlue
-//
-//  Created by Hiroto Takahashi on 2016/03/12.
-//  Copyright © 2016年 Hiroto Takahashi. All rights reserved.
-//
-
 import UIKit
 import TwitterKit
 
-class WatcherViewController: TWTRTimelineViewController {
+class HomeViewController: TWTRTimelineViewController {
     
     convenience init() {
         let client = TWTRAPIClient()
@@ -17,7 +9,7 @@ class WatcherViewController: TWTRTimelineViewController {
         self.init(dataSource: dataSource)
         self.setNavigationBar()
         
-        self.title = "WatchBoard"
+        self.title = "HomeBoard"
     }
     
     private func setNavigationBar() {
@@ -28,7 +20,7 @@ class WatcherViewController: TWTRTimelineViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.navigationBar.barTintColor = UIColor.blueColor()
         self.navigationItem
-        self.navigationItem.title = "WatchBoard"
+        self.navigationItem.title = "HomeBoard"
         self.navigationItem.setRightBarButtonItem(switchListButton, animated: true)
     }
     

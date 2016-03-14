@@ -1,11 +1,3 @@
-//
-//  AddWatchModalViewController.swift
-//  MerryBlue
-//
-//  Created by Hiroto Takahashi on 2016/03/13.
-//  Copyright © 2016年 Hiroto Takahashi. All rights reserved.
-//
-
 import Foundation
 import UIKit
 

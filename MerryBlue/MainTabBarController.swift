@@ -1,44 +1,36 @@
-//
-//  MainTabBarController.swift
-//  MerryBlue
-//
-//  Created by Hiroto Takahashi on 2016/03/13.
-//  Copyright © 2016年 Hiroto Takahashi. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
 class MainTabBarController: UITabBarController {
-    var watcherView: WatcherViewController!
+    var homeView: HomeViewController!
     var profileView: ProfileViewController!
     
-    var watcherNavView: UINavigationController!
+    var homeNavView: UINavigationController!
     var profileNavView: UINavigationController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        watcherView = WatcherViewController()
+        homeView = HomeViewController()
         profileView = ProfileViewController()
         
-        let watcherTabBarItem = UITabBarItem()
-        watcherTabBarItem.title = "watcher"
-        watcherTabBarItem.image = FAKIonIcons.iosHomeIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
-        watcherTabBarItem.tag = 1
+        let homeTabBarItem = UITabBarItem()
+        homeTabBarItem.title = "Home"
+        homeTabBarItem.image = FAKIonIcons.iosHomeIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
+        homeTabBarItem.tag = 1
         let profileTabBarItem = UITabBarItem()
-        profileTabBarItem.title = "account"
+        profileTabBarItem.title = "Account"
         profileTabBarItem.image = FAKIonIcons.androidPersonIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
-        watcherTabBarItem.tag = 2
+        homeTabBarItem.tag = 2
         
         
-        watcherView.tabBarItem = watcherTabBarItem
+        homeView.tabBarItem = homeTabBarItem
         profileView.tabBarItem = profileTabBarItem
         
-        watcherNavView = UINavigationController(rootViewController: watcherView)
+        homeNavView = UINavigationController(rootViewController: homeView)
         profileNavView = UINavigationController(rootViewController: profileView)
         
-        let tabs: Array<UINavigationController> = [watcherNavView, profileNavView]
+        let tabs: Array<UINavigationController> = [homeNavView, profileNavView]
         
         self.setViewControllers(tabs, animated: false)
     }
