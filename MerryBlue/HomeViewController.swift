@@ -1,5 +1,6 @@
 import UIKit
 import TwitterKit
+import FontAwesomeKit
 
 class HomeViewController: TWTRTimelineViewController {
     
@@ -14,18 +15,20 @@ class HomeViewController: TWTRTimelineViewController {
     
     private func setNavigationBar() {
         let iconImage = FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
-        let switchListButton = UIBarButtonItem(image: iconImage, style: .Plain, target: self, action: "onClickSwitchList:")
+        let switchListButton = UIBarButtonItem(image: iconImage, style: .Plain, target: self, action: "onClickSwitchList")
         
         self.navigationController?.navigationBar
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-        self.navigationController?.navigationBar.barTintColor = UIColor.blueColor()
+        // self.navigationController?.navigationBar.barTintColor = UIColor.blueColor()
+        // self.navigationController?.navigationBar.alpha = 0.1
+        self.navigationController?.navigationBar.translucent = false
         self.navigationItem
         self.navigationItem.title = "HomeBoard"
         self.navigationItem.setRightBarButtonItem(switchListButton, animated: true)
     }
     
-    private func onClickSwitchList() {
-        NSLog("on click switch")
+    func onClickSwitchList() {
+        let vc = UINavigationController(rootViewController: ListChooseViewController())
+        self.presentViewController(vc, animated: true, completion: nil)
     }
 }
-

@@ -10,6 +10,7 @@ class ProfileViewController: UIViewController {
         self.title = "Profile"
         self.view.backgroundColor = UIColor.whiteColor()
         
+        self.setNavigationBar()
         self.setLogoutButton()
     }
 
@@ -33,8 +34,18 @@ class ProfileViewController: UIViewController {
         logoutButton.frame = CGRectMake(0, 0, 200, 40)
         logoutButton.backgroundColor = UIColor.grayColor()
         logoutButton.layer.cornerRadius = 10.0
-        logoutButton.layer.position = CGPoint(x: self.view.frame.width/2, y:self.view.frame.height - 100)
+        logoutButton.layer.position = CGPoint(x: self.view.frame.width/2, y:self.view.frame.height - 150)
         self.view.addSubview(logoutButton)
+    }
+    
+    private func setNavigationBar() {
+        self.navigationController?.navigationBar
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        // self.navigationController?.navigationBar.barTintColor = UIColor.blueColor()
+        // self.navigationController?.navigationBar.alpha = 0.1
+        self.navigationController?.navigationBar.translucent = false
+        self.navigationItem
+        self.navigationItem.title = "Account"
     }
 }
 

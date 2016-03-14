@@ -25,8 +25,6 @@ class ListChooseModalViewController: UIViewController {
         submitBtn.setTitle("Submit", forState: .Normal)
         submitBtn.addTarget(self, action: "submit:", forControlEvents: .TouchUpInside)
         self.view.addSubview(submitBtn)
-        
-        
     }
     
     override func didReceiveMemoryWarning() {

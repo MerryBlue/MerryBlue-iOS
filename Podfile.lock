@@ -2,11 +2,23 @@ PODS:
   - FontAwesomeKit/Core (2.2.0)
   - FontAwesomeKit/IonIcons (2.2.0):
     - FontAwesomeKit/Core
+  - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - FontAwesomeKit/IonIcons
+  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
+
+EXTERNAL SOURCES:
+  SwiftyJSON:
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+CHECKOUT OPTIONS:
+  SwiftyJSON:
+    :commit: 42bdb102d2624b143c07850ebdc1537d5b6579b6
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
   FontAwesomeKit: 025fd4dd1017fe4e3f8d47b03e024deedbb33cd4
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0
