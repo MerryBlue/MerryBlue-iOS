@@ -92,14 +92,13 @@
 			isa = PBXGroup;
 			children = (
 				45BD1C0C1C9590AB002A2159 /* Controller */,
+				45BD1C221C971FA1002A2159 /* Model */,
 				45933CB01C95203500FC46C9 /* View */,
 				45EBEDF51C93F6E4002C6040 /* ViewController */,
 				457E0BE71C933D25000A665A /* AppDelegate.swift */,
-				45BD1C1E1C96C5CD002A2159 /* ConfigManager.swift */,
 				457E0BF01C933D25000A665A /* Assets.xcassets */,
 				457E0BF21C933D25000A665A /* LaunchScreen.storyboard */,
 				457E0BF51C933D25000A665A /* Info.plist */,
-				45BD1C201C96EB35002A2159 /* TwitterManager.swift */,
 			);
 			path = MerryBlue;
 			sourceTree = "<group>";
@@ -118,6 +117,15 @@
 				45BD1C0A1C9590A2002A2159 /* MainTabBarController.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		45BD1C221C971FA1002A2159 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				45BD1C201C96EB35002A2159 /* TwitterManager.swift */,
+				45BD1C1E1C96C5CD002A2159 /* ConfigManager.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		45EBEDE41C93F46F002C6040 /* Frameworks */ = {
