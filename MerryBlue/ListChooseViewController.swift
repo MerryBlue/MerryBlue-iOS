@@ -5,36 +5,22 @@ import TwitterKit
 class ListChooseViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     private var tableView: UITableView!
+    var texts: Array<String> = []
+    var selectedText: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.whiteColor()
-        // Status Barの高さを取得する.
-        let barHeight: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
-        
-        // Viewの高さと幅を取得する.
-        let displayWidth: CGFloat = self.view.frame.width
-        let displayHeight: CGFloat = self.view.frame.height
-        
-        tableView = UITableView(frame: CGRect(x: 0, y: barHeight, width: displayWidth, height: displayHeight - barHeight))
-        
-        // Cell名の登録をおこなう.
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "ListNames")
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        
-        self.view.addSubview(tableView)
+        self.texts.append("hoge")
+        self.texts.append("fuga")
+        setNavigationBar()
+        setTableView()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    // セルに表示するテキスト
-    let texts = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     
     // セルの行数
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -47,5 +33,51 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         
         cell.textLabel?.text = texts[indexPath.row]
         return cell
+    }
+    
+    private func setTableView() {
+        // Status Barの高さを取得する.
+        let barHeight: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
+        // Viewの高さと幅を取得する.
+        let displayWidth: CGFloat = self.view.frame.width
+        let displayHeight: CGFloat = self.view.frame.height
+        tableView = UITableView(frame: CGRect(x: 0, y: barHeight, width: displayWidth, height: displayHeight))
+        
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "ListNames")
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        self.view.addSubview(tableView)
+    }
+    
+    private func setNavigationBar() {
+        self.navigationController?.navigationBar
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationItem
+        self.navigationItem.title = "リスト選択"
+        let backButtonItem = UIBarButtonItem(title: "完了", style: .Plain, target: self, action: "onClickBackButton")
+        self.navigationItem.setHidesBackButton(false, animated: false)
+        // HACK
+        // self.navigationItem.backBarButtonItem = backButtonItem
+        self.navigationItem.leftBarButtonItem = backButtonItem
+    }
+    
+    // Cell が選択された場合
+    func tableView(table: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
+        // [indexPath.row] から画像名を探し、UImage を設定
+        selectedText = self.texts[indexPath.row]
+        print(selectedText)
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(selectedText, forKey: "name")
+        defaults.synchronize()
+    }
+    
+    func onClickBackButton() {
+        self.goBack()
+    }
+    
+    func goBack() {
+        print("back")
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }

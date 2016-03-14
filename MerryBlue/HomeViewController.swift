@@ -25,6 +25,7 @@ class HomeViewController: TWTRTimelineViewController {
     }
     
     func onClickSwitchList() {
-        self.presentViewController(ListChooseViewController(), animated: true, completion: nil)
+        let vc = UINavigationController(rootViewController: ListChooseViewController())
+        self.presentViewController(vc, animated: true, completion: nil)
     }
 }
