@@ -14,7 +14,7 @@ class HomeViewController: TWTRTimelineViewController {
     
     private func setNavigationBar() {
         let iconImage = FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
-        let switchListButton = UIBarButtonItem(image: iconImage, style: .Plain, target: self, action: "onClickSwitchList:")
+        let switchListButton = UIBarButtonItem(image: iconImage, style: .Plain, target: self, action: "onClickSwitchList")
         
         self.navigationController?.navigationBar
         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -24,8 +24,7 @@ class HomeViewController: TWTRTimelineViewController {
         self.navigationItem.setRightBarButtonItem(switchListButton, animated: true)
     }
     
-    private func onClickSwitchList() {
-        NSLog("on click switch")
+    func onClickSwitchList() {
+        self.presentViewController(ListChooseViewController(), animated: true, completion: nil)
     }
 }
-
