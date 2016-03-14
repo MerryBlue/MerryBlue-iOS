@@ -41,7 +41,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         // Viewの高さと幅を取得する.
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height
-        tableView = UITableView(frame: CGRect(x: 0, y: barHeight, width: displayWidth, height: displayHeight))
+        tableView = UITableView(frame: CGRect(x: 0, y: 0, width: displayWidth, height: displayHeight - barHeight))
         
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "ListNames")
         tableView.dataSource = self
@@ -53,6 +53,9 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     private func setNavigationBar() {
         self.navigationController?.navigationBar
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        // self.navigationController?.navigationBar.barTintColor = UIColor.blueColor()
+        // self.navigationController?.navigationBar.alpha = 0.1
+        self.navigationController?.navigationBar.translucent = false
         self.navigationItem
         self.navigationItem.title = "リスト選択"
         let backButtonItem = UIBarButtonItem(title: "完了", style: .Plain, target: self, action: "onClickBackButton")
@@ -64,12 +67,8 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     
     // Cell が選択された場合
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
-        // [indexPath.row] から画像名を探し、UImage を設定
         selectedText = self.texts[indexPath.row]
-        print(selectedText)
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(selectedText, forKey: "name")
-        defaults.synchronize()
+        ConfigManager.setName(selectedText)
     }
     
     func onClickBackButton() {

@@ -18,7 +18,9 @@ class HomeViewController: TWTRTimelineViewController {
         
         self.navigationController?.navigationBar
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-        self.navigationController?.navigationBar.barTintColor = UIColor.blueColor()
+        // self.navigationController?.navigationBar.barTintColor = UIColor.blueColor()
+        // self.navigationController?.navigationBar.alpha = 0.1
+        self.navigationController?.navigationBar.translucent = false
         self.navigationItem
         self.navigationItem.title = "HomeBoard"
         self.navigationItem.setRightBarButtonItem(switchListButton, animated: true)
