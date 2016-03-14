@@ -6,7 +6,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     
     private var tableView: UITableView!
     var texts: Array<String> = []
-    var selectedText: String = ""
+    var selectedIndex: NSIndexPath!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,6 +15,10 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         self.texts.append("fuga")
         setNavigationBar()
         setTableView()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        setSelectedCell()
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,7 +50,6 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "ListNames")
         tableView.dataSource = self
         tableView.delegate = self
-        
         self.view.addSubview(tableView)
     }
     
@@ -67,8 +70,26 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     
     // Cell が選択された場合
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
-        selectedText = self.texts[indexPath.row]
+        let selectedText = self.texts[indexPath.row]
         ConfigManager.setName(selectedText)
+        selectCell(indexPath)
+    }
+    
+    func selectCell(indexPath: NSIndexPath) {
+        if let i = selectedIndex {
+            if indexPath.row == selectedIndex.row {
+                return
+            }
+            // 元のセルをノーマルに
+            let cell = tableView.cellForRowAtIndexPath(i)
+            cell?.setSelected(false, animated: false)
+            cell?.accessoryType = UITableViewCellAccessoryType.None
+        }
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        cell?.setSelected(true, animated: false)
+        // cell?.setHighlighted(true, animated: false)
+        cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
+        selectedIndex = indexPath
     }
     
     func onClickBackButton() {
@@ -78,5 +99,15 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     func goBack() {
         print("back")
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    private func setSelectedCell() {
+        let selectedText = ConfigManager.getName()
+        for i in 0..<tableView.numberOfRowsInSection(0) {
+            if texts[i] == selectedText {
+                selectCell(NSIndexPath(forRow: i, inSection: 0))
+                break
+            }
+        }
     }
 }
