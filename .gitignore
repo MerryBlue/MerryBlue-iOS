@@ -3,3 +3,6 @@ DigitsKit.framework/
 Fabric.framework/
 TwitterCore.framework/
 TwitterKit.framework/
+
+#CocoaPod
+Pods/*
