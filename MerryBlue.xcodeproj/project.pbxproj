@@ -22,7 +22,7 @@
 		45EBEDF11C93F62F002C6040 /* DigitsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EBEDEF1C93F62F002C6040 /* DigitsKit.framework */; };
 		45EBEDF21C93F62F002C6040 /* DigitsKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45EBEDF01C93F62F002C6040 /* DigitsKitResources.bundle */; };
 		45EBEDF41C93F6CE002C6040 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EBEDF31C93F6CE002C6040 /* SignInViewController.swift */; };
-		45EBEDF71C94CB17002C6040 /* AddWatchModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EBEDF61C94CB17002C6040 /* AddWatchModalViewController.swift */; };
+		45EBEDF71C94CB17002C6040 /* ListChooseModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EBEDF61C94CB17002C6040 /* ListChooseModalViewController.swift */; };
 		C424EB4E320AB7B9EB1F735F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23C4E9C85C6E503250322231 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -47,7 +47,7 @@
 		45EBEDEF1C93F62F002C6040 /* DigitsKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DigitsKit.framework; sourceTree = "<group>"; };
 		45EBEDF01C93F62F002C6040 /* DigitsKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = DigitsKitResources.bundle; path = DigitsKit.framework/Versions/A/Resources/DigitsKitResources.bundle; sourceTree = "<group>"; };
 		45EBEDF31C93F6CE002C6040 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		45EBEDF61C94CB17002C6040 /* AddWatchModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWatchModalViewController.swift; sourceTree = "<group>"; };
+		45EBEDF61C94CB17002C6040 /* ListChooseModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListChooseModalViewController.swift; sourceTree = "<group>"; };
 		68E3C0E592F4422A92CADB13 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,7 +138,7 @@
 				45EBEDF31C93F6CE002C6040 /* SignInViewController.swift */,
 				457E0BE91C933D25000A665A /* WatcherViewController.swift */,
 				457E0BEB1C933D25000A665A /* ProfileViewController.swift */,
-				45EBEDF61C94CB17002C6040 /* AddWatchModalViewController.swift */,
+				45EBEDF61C94CB17002C6040 /* ListChooseModalViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -290,7 +290,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45EBEDF71C94CB17002C6040 /* AddWatchModalViewController.swift in Sources */,
+				45EBEDF71C94CB17002C6040 /* ListChooseModalViewController.swift in Sources */,
 				45EBEDF41C93F6CE002C6040 /* SignInViewController.swift in Sources */,
 				457E0BEC1C933D25000A665A /* ProfileViewController.swift in Sources */,
 				45BD1C0B1C9590A2002A2159 /* MainTabBarController.swift in Sources */,
