@@ -4,6 +4,7 @@ import SwiftyJSON
 
 class TwitterManager {
     static let HOST = "https://api.twitter.com/1.1"
+    static let LIST_FILTER_MEMBER_MAX_NUM = 50
     
     static func getLists(view: ListChooseViewController, userId: NSString = Twitter.sharedInstance().sessionStore.session()!.userID) -> Void {
         let client = getClient()
@@ -23,9 +24,14 @@ class TwitterManager {
             for (_, datum) in json {
                 lists.append(TwitterList(jsonData: datum))
             }
-            view.setTableView(lists)
+            let filteredList = filterList(lists)
+            view.setTableView(filteredList)
             view.setSelectedCell()
         }
+    }
+    
+    static func filterList(lists: [TwitterList]) -> [TwitterList] {
+        return lists.filter { $0.member_count <= LIST_FILTER_MEMBER_MAX_NUM }
     }
     
     static func getListUsers(view: HomeViewController, listId: NSString) -> Void {
