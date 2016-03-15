@@ -45,8 +45,6 @@ class HomeViewController: TWTRTimelineViewController {
     
     override func didMoveToParentViewController(parent: UIViewController?) {
         super.willMoveToParentViewController(parent)
-        // super.didMoveToParentViewController(parent)
-        print("didMove")
         guard let listId: String = ConfigManager.getListId() else {
             self.openListsChooser()
             return
@@ -58,7 +56,6 @@ class HomeViewController: TWTRTimelineViewController {
         let dataSource = TWTRListTimelineDataSource(listID: listId, APIClient: client)
         self.dataSource = dataSource
         self.refresh()
-        // self.init(dataSource: dataSource)
         self.listId = listId
     }
 }

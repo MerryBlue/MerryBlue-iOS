@@ -1,11 +1,3 @@
-//
-//  TwitterManager.swift
-//  MerryBlue
-//
-//  Created by Hiroto Takahashi on 2016/03/14.
-//  Copyright © 2016年 Hiroto Takahashi. All rights reserved.
-//
-
 import Foundation
 import TwitterKit
 import SwiftyJSON
@@ -33,8 +25,6 @@ class TwitterManager {
                 print("Error: \(connectionError)")
                 return
             }
-            // var jsonError : NSError?
-            // let json : AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &jsonError)
             let json = JSON(data: data!)
             var lists: [TwitterList] = []
             
@@ -67,8 +57,6 @@ class TwitterManager {
                 print("Error: \(connectionError)")
                 return
             }
-            // var jsonError : NSError?
-            // let json : AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &jsonError)
             let json = JSON(data: data!)
             var users: [TWTRUser] = []
             
