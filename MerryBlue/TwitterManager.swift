@@ -43,7 +43,57 @@ class TwitterManager {
             }
             view.setTableView(lists)
             view.setSelectedCell()
-            // return lists
         }
+    }
+    
+    static func getListUsers(listId: NSString) -> Void {
+        let client = TWTRAPIClient(userID: getUserId())
+        
+        let statusesShowEndpont = HOST + "/lists/members.json"
+        let params = [
+            "list_id": listId
+        ]
+        var clientError: NSError?
+        
+        let request = Twitter.sharedInstance().APIClient.URLRequestWithMethod("GET", URL: statusesShowEndpont, parameters: params, error: &clientError)
+        
+        if let error = clientError {
+            print("Error: \(error)")
+            return
+        }
+        
+        client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
+            if (connectionError != nil) {
+                print("Error: \(connectionError)")
+                return
+            }
+            // var jsonError : NSError?
+            // let json : AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &jsonError)
+            let json = JSON(data: data!)
+            var users: [TWTRUser] = []
+            
+            for user in json["users"].array! {
+                users.append(TWTRUser(JSONDictionary: user.dictionaryObject))
+            }
+            // print(users)
+        }
+    }
+    
+    // TODO: unuser ?
+    static func getLastTweets(users: [TWTRUser]) -> [TWTRTweet] {
+        var lastTweets: [TWTRTweet] = []
+        for user in users {
+            // TODO:
+            // lastTweets.append()
+        }
+        return lastTweets
+    }
+    
+    static func getUserId() -> String! {
+        guard let session = Twitter.sharedInstance().sessionStore.session() else {
+            print("Error: not authorized")
+            return nil
+        }
+        return session.userID
     }
 }

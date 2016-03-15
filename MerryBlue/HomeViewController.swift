@@ -17,6 +17,7 @@ class HomeViewController: TWTRTimelineViewController {
         self.title = "HomeBoard"
         self.setNavigationBar()
         self.listId = listId
+        TwitterManager.getListUsers(listId)
     }
     
     private func setNavigationBar() {
