@@ -11,7 +11,7 @@ class HomeViewController: TWTRTimelineViewController {
             self.openListsChooser()
             return
         }
-        let client = TWTRAPIClient()
+        let client = TwitterManager.getClient()
         let dataSource = TWTRListTimelineDataSource(listID: listId, APIClient: client)
         self.init(dataSource: dataSource)
         self.title = "HomeBoard"
@@ -52,7 +52,7 @@ class HomeViewController: TWTRTimelineViewController {
         if (self.listId == listId) {
             return
         }
-        let client = TWTRAPIClient()
+        let client = TwitterManager.getClient()
         let dataSource = TWTRListTimelineDataSource(listID: listId, APIClient: client)
         self.dataSource = dataSource
         self.refresh()

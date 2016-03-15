@@ -6,20 +6,12 @@ class TwitterManager {
     static let HOST = "https://api.twitter.com/1.1"
     
     static func getLists(view: ListChooseViewController, userId: NSString = Twitter.sharedInstance().sessionStore.session()!.userID) -> Void {
-        let client = TWTRAPIClient()
+        let client = getClient()
         let statusesShowEndpont = HOST + "/lists/list.json"
-        let params = [
-            "user_id": userId
-        ]
+        let params = [ "user_id": userId ]
         var clientError: NSError?
         
         let request = Twitter.sharedInstance().APIClient.URLRequestWithMethod("GET", URL: statusesShowEndpont, parameters: params, error: &clientError)
-        
-        if let error = clientError {
-            print("Error: \(error)")
-            return
-        }
-        
         client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
             if (connectionError != nil) {
                 print("Error: \(connectionError)")
@@ -37,21 +29,12 @@ class TwitterManager {
     }
     
     static func getListUsers(listId: NSString) -> Void {
-        let client = TWTRAPIClient(userID: getUserId())
-        
+        let client = getClient()
         let statusesShowEndpont = HOST + "/lists/members.json"
-        let params = [
-            "list_id": listId
-        ]
+        let params = [ "list_id": listId ]
         var clientError: NSError?
         
         let request = Twitter.sharedInstance().APIClient.URLRequestWithMethod("GET", URL: statusesShowEndpont, parameters: params, error: &clientError)
-        
-        if let error = clientError {
-            print("Error: \(error)")
-            return
-        }
-        
         client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
             if (connectionError != nil) {
                 print("Error: \(connectionError)")
@@ -62,26 +45,18 @@ class TwitterManager {
             
             for userJson in json["users"].array! {
                 let user = TwitterUser(JSONDictionary: userJson.dictionaryObject)
-                print(userJson["status"].dictionaryObject)
                 user.lastStatus = TWTRTweet(JSONDictionary: userJson["status"].dictionaryObject)
                 users.append(user)
-                print(user)
             }
-            // print(users)
+            // TODO: dispatch
         }
     }
     
-    // TODO: unuser ?
-    static func getLastTweets(users: [TWTRUser]) -> [TWTRTweet] {
-        var lastTweets: [TWTRTweet] = []
-        for user in users {
-            // TODO:
-            // lastTweets.append()
-        }
-        return lastTweets
+    static func getClient() -> TWTRAPIClient {
+        return TWTRAPIClient(userID: getUserID())
     }
     
-    static func getUserId() -> String! {
+    static func getUserID() -> String! {
         guard let session = Twitter.sharedInstance().sessionStore.session() else {
             print("Error: not authorized")
             return nil
