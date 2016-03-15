@@ -52,8 +52,13 @@ class TwitterManager {
             for userJson in json["users"].array! {
                 users.append(TwitterUser(json: userJson)!)
             }
-            view.setupListUsers(users)
+            let sortedUsers = sortUsers(users)
+            view.setupListUsers(sortedUsers)
         }
+    }
+    
+    static func sortUsers(users: [TwitterUser]) -> [TwitterUser] {
+        return users.sort({ $0.lastStatus.createdAt.compare($1.lastStatus.createdAt) == NSComparisonResult.OrderedDescending })
     }
     
     static func getClient() -> TWTRAPIClient {
