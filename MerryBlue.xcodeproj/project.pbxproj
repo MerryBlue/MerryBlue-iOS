@@ -13,7 +13,7 @@
 		457E0BF11C933D25000A665A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 457E0BF01C933D25000A665A /* Assets.xcassets */; };
 		457E0BF41C933D25000A665A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 457E0BF21C933D25000A665A /* LaunchScreen.storyboard */; };
 		45933CB21C95206000FC46C9 /* UserUICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45933CB11C95206000FC46C9 /* UserUICollectionViewCell.swift */; };
-		45ABA1ED1C9800B9006DE856 /* TWTRUserExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ABA1EC1C9800B9006DE856 /* TWTRUserExtensions.swift */; };
+		45ABA1ED1C9800B9006DE856 /* TwitterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ABA1EC1C9800B9006DE856 /* TwitterUser.swift */; };
 		45BD1C0B1C9590A2002A2159 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C0A1C9590A2002A2159 /* MainTabBarController.swift */; };
 		45BD1C1D1C969A82002A2159 /* ListChooseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C1C1C969A82002A2159 /* ListChooseViewController.swift */; };
 		45BD1C1F1C96C5CD002A2159 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C1E1C96C5CD002A2159 /* ConfigManager.swift */; };
@@ -39,7 +39,7 @@
 		457E0BF31C933D25000A665A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		457E0BF51C933D25000A665A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45933CB11C95206000FC46C9 /* UserUICollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserUICollectionViewCell.swift; sourceTree = "<group>"; };
-		45ABA1EC1C9800B9006DE856 /* TWTRUserExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TWTRUserExtensions.swift; sourceTree = "<group>"; };
+		45ABA1EC1C9800B9006DE856 /* TwitterUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterUser.swift; sourceTree = "<group>"; };
 		45BD1C0A1C9590A2002A2159 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		45BD1C1C1C969A82002A2159 /* ListChooseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListChooseViewController.swift; sourceTree = "<group>"; };
 		45BD1C1E1C96C5CD002A2159 /* ConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 				45BD1C201C96EB35002A2159 /* TwitterManager.swift */,
 				45BD1C1E1C96C5CD002A2159 /* ConfigManager.swift */,
 				45BD1C231C97207B002A2159 /* TwitterList.swift */,
-				45ABA1EC1C9800B9006DE856 /* TWTRUserExtensions.swift */,
+				45ABA1EC1C9800B9006DE856 /* TwitterUser.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -307,7 +307,7 @@
 				45BD1C251C974518002A2159 /* TwitterList.swift in Sources */,
 				45EBEDF41C93F6CE002C6040 /* SignInViewController.swift in Sources */,
 				457E0BEC1C933D25000A665A /* ProfileViewController.swift in Sources */,
-				45ABA1ED1C9800B9006DE856 /* TWTRUserExtensions.swift in Sources */,
+				45ABA1ED1C9800B9006DE856 /* TwitterUser.swift in Sources */,
 				45BD1C0B1C9590A2002A2159 /* MainTabBarController.swift in Sources */,
 				457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */,
 				45BD1C1F1C96C5CD002A2159 /* ConfigManager.swift in Sources */,

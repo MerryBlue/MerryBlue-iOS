@@ -60,8 +60,12 @@ class TwitterManager {
             let json = JSON(data: data!)
             var users: [TWTRUser] = []
             
-            for user in json["users"].array! {
-                users.append(TWTRUser(JSONDictionary: user.dictionaryObject))
+            for userJson in json["users"].array! {
+                let user = TwitterUser(JSONDictionary: userJson.dictionaryObject)
+                print(userJson["status"].dictionaryObject)
+                user.lastStatus = TWTRTweet(JSONDictionary: userJson["status"].dictionaryObject)
+                users.append(user)
+                print(user)
             }
             // print(users)
         }
