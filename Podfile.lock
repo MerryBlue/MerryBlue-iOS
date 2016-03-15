@@ -1,11 +1,11 @@
 PODS:
-  - FontAwesomeKit/Core (2.2.0)
-  - FontAwesomeKit/IonIcons (2.2.0):
+  - FontAwesomeKit/Core (HEAD based on 2.2.0)
+  - FontAwesomeKit/IonIcons (HEAD based on 2.2.0):
     - FontAwesomeKit/Core
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
-  - FontAwesomeKit/IonIcons
+  - FontAwesomeKit/IonIcons (HEAD)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
 EXTERNAL SOURCES:

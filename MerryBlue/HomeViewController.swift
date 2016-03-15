@@ -15,16 +15,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.dataSource = self
         
         self.setNavigationBar()
+        self.title = "HomeBoard"
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         guard let listId: String = ConfigManager.getListId() else {
             self.openListsChooser()
             return
         }
-        
-        self.title = "HomeBoard"
         self.listId = listId
-    }
-    
-    override func viewDidAppear(animated: Bool) {
         TwitterManager.getListUsers(self, listId: listId)
     }
     

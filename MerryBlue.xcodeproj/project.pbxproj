@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3175253ABD35C53B66EA34D5 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A37D196D48F53B26ED1188BC /* Pods.framework */; };
 		457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE71C933D25000A665A /* AppDelegate.swift */; };
 		457E0BEA1C933D25000A665A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE91C933D25000A665A /* HomeViewController.swift */; };
 		457E0BEC1C933D25000A665A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BEB1C933D25000A665A /* ProfileViewController.swift */; };
@@ -58,6 +59,7 @@
 		45EBEDF01C93F62F002C6040 /* DigitsKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = DigitsKitResources.bundle; path = DigitsKit.framework/Versions/A/Resources/DigitsKitResources.bundle; sourceTree = "<group>"; };
 		45EBEDF31C93F6CE002C6040 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		68E3C0E592F4422A92CADB13 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		A37D196D48F53B26ED1188BC /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				45EBEDE31C93F2B6002C6040 /* Crashlytics.framework in Frameworks */,
 				45EBEDE21C93F2B6002C6040 /* Fabric.framework in Frameworks */,
 				45EBEDF11C93F62F002C6040 /* DigitsKit.framework in Frameworks */,
+				3175253ABD35C53B66EA34D5 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +150,7 @@
 				45EBEDEB1C93F5D2002C6040 /* TwitterKit.framework */,
 				45EBEDEC1C93F5D2002C6040 /* TwitterKitResources.bundle */,
 				45EBEDE11C93F2B6002C6040 /* Crashlytics.framework */,
+				A37D196D48F53B26ED1188BC /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
