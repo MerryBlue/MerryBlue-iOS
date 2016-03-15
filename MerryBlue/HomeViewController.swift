@@ -4,13 +4,19 @@ import FontAwesomeKit
 
 class HomeViewController: TWTRTimelineViewController {
     
+    var listId: String!
     convenience init() {
+        guard let listId: String = ConfigManager.getListId() else {
+            self.init()
+            self.openListsChooser()
+            return
+        }
         let client = TWTRAPIClient()
-        let dataSource = TWTRListTimelineDataSource(listSlug: "cps-lab", listOwnerScreenName: "arzzup", APIClient: client)
+        let dataSource = TWTRListTimelineDataSource(listID: listId, APIClient: client)
         self.init(dataSource: dataSource)
-        self.setNavigationBar()
-        
         self.title = "HomeBoard"
+        self.setNavigationBar()
+        self.listId = listId
     }
     
     private func setNavigationBar() {
@@ -28,7 +34,30 @@ class HomeViewController: TWTRTimelineViewController {
     }
     
     func onClickSwitchList() {
+        self.openListsChooser()
+    }
+    
+    func openListsChooser() {
         let vc = UINavigationController(rootViewController: ListChooseViewController())
         self.presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    override func didMoveToParentViewController(parent: UIViewController?) {
+        super.willMoveToParentViewController(parent)
+        // super.didMoveToParentViewController(parent)
+        print("didMove")
+        guard let listId: String = ConfigManager.getListId() else {
+            self.openListsChooser()
+            return
+        }
+        if (self.listId == listId) {
+            return
+        }
+        let client = TWTRAPIClient()
+        let dataSource = TWTRListTimelineDataSource(listID: listId, APIClient: client)
+        self.dataSource = dataSource
+        self.refresh()
+        // self.init(dataSource: dataSource)
+        self.listId = listId
     }
 }
