@@ -4,17 +4,22 @@ import FontAwesomeKit
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var tableView: UITableView!
     var listId: String!
-    var tableView: UITableView!
-    var users: [TwitterUser] = [TwitterUser]()
+    var users = [TwitterUser]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
         self.setNavigationBar()
         guard let listId: String = ConfigManager.getListId() else {
             self.openListsChooser()
             return
         }
+        
         self.title = "HomeBoard"
         self.listId = listId
     }
@@ -24,16 +29,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     internal func setupListUsers(users: [TwitterUser]) {
-        let barHeight: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
-        // Viewの高さと幅を取得する.
-        let displayWidth: CGFloat = self.view.frame.width
-        let displayHeight: CGFloat = self.view.frame.height
-        tableView = UITableView(frame: CGRect(x: 0, y: 0, width: displayWidth, height: displayHeight - barHeight))
-        tableView.registerClass(UserStatusCell.self, forCellReuseIdentifier: "userStatusCell")
         self.users = users
-        tableView.dataSource = self
-        tableView.delegate = self
-        self.view.addSubview(tableView)
+        self.tableView.reloadData()
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
