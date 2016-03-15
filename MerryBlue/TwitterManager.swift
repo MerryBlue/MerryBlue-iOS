@@ -28,7 +28,7 @@ class TwitterManager {
         }
     }
     
-    static func getListUsers(listId: NSString) -> Void {
+    static func getListUsers(view: HomeViewController, listId: NSString) -> Void {
         let client = getClient()
         let statusesShowEndpont = HOST + "/lists/members.json"
         let params = [ "list_id": listId ]
@@ -41,14 +41,12 @@ class TwitterManager {
                 return
             }
             let json = JSON(data: data!)
-            var users: [TWTRUser] = []
+            var users = [TwitterUser]()
             
             for userJson in json["users"].array! {
-                let user = TwitterUser(JSONDictionary: userJson.dictionaryObject)
-                user.lastStatus = TWTRTweet(JSONDictionary: userJson["status"].dictionaryObject)
-                users.append(user)
+                users.append(TwitterUser(json: userJson)!)
             }
-            // TODO: dispatch
+            view.setupListUsers(users)
         }
     }
     

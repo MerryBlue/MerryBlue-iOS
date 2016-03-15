@@ -17,7 +17,7 @@ class ListTimelineViewController: TWTRTimelineViewController {
         self.title = "ListTimeline"
         self.setNavigationBar()
         self.listId = listId
-        TwitterManager.getListUsers(listId)
+        // TwitterManager.getListUsers(listId)
     }
     
     private func setNavigationBar() {

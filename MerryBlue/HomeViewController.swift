@@ -2,22 +2,52 @@ import UIKit
 import TwitterKit
 import FontAwesomeKit
 
-class HomeViewController: TWTRTimelineViewController {
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var listId: String!
-    convenience init() {
+    var tableView: UITableView!
+    var users: [TwitterUser] = [TwitterUser]()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setNavigationBar()
         guard let listId: String = ConfigManager.getListId() else {
-            self.init()
             self.openListsChooser()
             return
         }
-        let client = TwitterManager.getClient()
-        let dataSource = TWTRListTimelineDataSource(listID: listId, APIClient: client)
-        self.init(dataSource: dataSource)
         self.title = "HomeBoard"
-        self.setNavigationBar()
         self.listId = listId
-        TwitterManager.getListUsers(listId)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        TwitterManager.getListUsers(self, listId: listId)
+    }
+    
+    internal func setupListUsers(users: [TwitterUser]) {
+        let barHeight: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
+        // Viewの高さと幅を取得する.
+        let displayWidth: CGFloat = self.view.frame.width
+        let displayHeight: CGFloat = self.view.frame.height
+        tableView = UITableView(frame: CGRect(x: 0, y: 0, width: displayWidth, height: displayHeight - barHeight))
+        tableView.registerClass(UserStatusCell.self, forCellReuseIdentifier: "userStatusCell")
+        self.users = users
+        tableView.dataSource = self
+        tableView.delegate = self
+        self.view.addSubview(tableView)
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.users.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell: UserStatusCell = tableView.dequeueReusableCellWithIdentifier("userStatusCell", forIndexPath: indexPath) as! UserStatusCell
+        cell.setCell(users[indexPath.row])
+        return cell
     }
     
     private func setNavigationBar() {
@@ -52,10 +82,7 @@ class HomeViewController: TWTRTimelineViewController {
         if (self.listId == listId) {
             return
         }
-        let client = TwitterManager.getClient()
-        let dataSource = TWTRListTimelineDataSource(listID: listId, APIClient: client)
-        self.dataSource = dataSource
-        self.refresh()
+        TwitterManager.getListUsers(self, listId: listId)
         self.listId = listId
     }
 }

@@ -12,9 +12,10 @@
 		457E0BEC1C933D25000A665A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BEB1C933D25000A665A /* ProfileViewController.swift */; };
 		457E0BF11C933D25000A665A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 457E0BF01C933D25000A665A /* Assets.xcassets */; };
 		457E0BF41C933D25000A665A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 457E0BF21C933D25000A665A /* LaunchScreen.storyboard */; };
-		45933CB21C95206000FC46C9 /* UserUICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45933CB11C95206000FC46C9 /* UserUICollectionViewCell.swift */; };
 		45ABA1ED1C9800B9006DE856 /* TwitterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ABA1EC1C9800B9006DE856 /* TwitterUser.swift */; };
 		45ABA1EF1C9811C1006DE856 /* ListTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ABA1EE1C9811C1006DE856 /* ListTimelineViewController.swift */; };
+		45ABA1F11C981A23006DE856 /* UserStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ABA1F01C981A23006DE856 /* UserStatusCell.swift */; };
+		45ABA1F31C986869006DE856 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45ABA1F21C986869006DE856 /* Main.storyboard */; };
 		45BD1C0B1C9590A2002A2159 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C0A1C9590A2002A2159 /* MainTabBarController.swift */; };
 		45BD1C1D1C969A82002A2159 /* ListChooseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C1C1C969A82002A2159 /* ListChooseViewController.swift */; };
 		45BD1C1F1C96C5CD002A2159 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C1E1C96C5CD002A2159 /* ConfigManager.swift */; };
@@ -39,9 +40,10 @@
 		457E0BF01C933D25000A665A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		457E0BF31C933D25000A665A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		457E0BF51C933D25000A665A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		45933CB11C95206000FC46C9 /* UserUICollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserUICollectionViewCell.swift; sourceTree = "<group>"; };
 		45ABA1EC1C9800B9006DE856 /* TwitterUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterUser.swift; sourceTree = "<group>"; };
 		45ABA1EE1C9811C1006DE856 /* ListTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTimelineViewController.swift; sourceTree = "<group>"; };
+		45ABA1F01C981A23006DE856 /* UserStatusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStatusCell.swift; sourceTree = "<group>"; };
+		45ABA1F21C986869006DE856 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		45BD1C0A1C9590A2002A2159 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		45BD1C1C1C969A82002A2159 /* ListChooseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListChooseViewController.swift; sourceTree = "<group>"; };
 		45BD1C1E1C96C5CD002A2159 /* ConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				45933CB01C95203500FC46C9 /* View */,
 				45EBEDF51C93F6E4002C6040 /* ViewController */,
 				457E0BE71C933D25000A665A /* AppDelegate.swift */,
+				45ABA1F21C986869006DE856 /* Main.storyboard */,
 				457E0BF01C933D25000A665A /* Assets.xcassets */,
 				457E0BF21C933D25000A665A /* LaunchScreen.storyboard */,
 				457E0BF51C933D25000A665A /* Info.plist */,
@@ -110,7 +113,7 @@
 		45933CB01C95203500FC46C9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				45933CB11C95206000FC46C9 /* UserUICollectionViewCell.swift */,
+				45ABA1F01C981A23006DE856 /* UserStatusCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45EBEDF21C93F62F002C6040 /* DigitsKitResources.bundle in Resources */,
+				45ABA1F31C986869006DE856 /* Main.storyboard in Resources */,
 				457E0BF41C933D25000A665A /* LaunchScreen.storyboard in Resources */,
 				457E0BF11C933D25000A665A /* Assets.xcassets in Resources */,
 				45EBEDEE1C93F5D2002C6040 /* TwitterKitResources.bundle in Resources */,
@@ -313,11 +317,11 @@
 				45ABA1ED1C9800B9006DE856 /* TwitterUser.swift in Sources */,
 				45BD1C0B1C9590A2002A2159 /* MainTabBarController.swift in Sources */,
 				457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */,
+				45ABA1F11C981A23006DE856 /* UserStatusCell.swift in Sources */,
 				45BD1C1F1C96C5CD002A2159 /* ConfigManager.swift in Sources */,
 				45ABA1EF1C9811C1006DE856 /* ListTimelineViewController.swift in Sources */,
 				45BD1C1D1C969A82002A2159 /* ListChooseViewController.swift in Sources */,
 				457E0BEA1C933D25000A665A /* HomeViewController.swift in Sources */,
-				45933CB21C95206000FC46C9 /* UserUICollectionViewCell.swift in Sources */,
 				45BD1C211C96EB35002A2159 /* TwitterManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
