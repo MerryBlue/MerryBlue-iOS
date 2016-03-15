@@ -58,7 +58,15 @@ class TwitterManager {
     }
     
     static func sortUsers(users: [TwitterUser]) -> [TwitterUser] {
-        return users.sort({ $0.lastStatus.createdAt.compare($1.lastStatus.createdAt) == NSComparisonResult.OrderedDescending })
+        return users.sort({
+            guard let u1CreatedAt = $0.lastStatus.createdAt else {
+                return false
+            }
+            guard let u2CreatedAt = $1.lastStatus.createdAt else {
+                return true
+            }
+            return u1CreatedAt.compare(u2CreatedAt) == NSComparisonResult.OrderedDescending
+        })
     }
     
     static func getClient() -> TWTRAPIClient {
