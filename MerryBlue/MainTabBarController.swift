@@ -16,7 +16,7 @@ class MainTabBarController: UITabBarController {
         
         homeView = storyboard.instantiateViewControllerWithIdentifier("homeViewController") as! HomeViewController
         
-        profileView = ProfileViewController()
+        profileView = storyboard.instantiateViewControllerWithIdentifier("profileViewController") as! ProfileViewController
         
         let homeTabBarItem = UITabBarItem()
         homeTabBarItem.title = "Home"

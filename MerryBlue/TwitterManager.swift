@@ -69,6 +69,13 @@ class TwitterManager {
         })
     }
     
+    static func logoutUser() {
+        guard let userID = getUserID() else {
+            return
+        }
+        Twitter.sharedInstance().sessionStore.logOutUserID(userID)
+    }
+    
     static func getClient() -> TWTRAPIClient {
         return TWTRAPIClient(userID: getUserID())
     }

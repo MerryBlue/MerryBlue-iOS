@@ -14,7 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         Fabric.with([Twitter.self, Crashlytics.self, Digits.self])
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window!.rootViewController = SignInViewController()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let initialViewController = storyboard.instantiateInitialViewController()
+        self.window!.rootViewController = initialViewController
         self.window?.makeKeyAndVisible()
         
         return true
