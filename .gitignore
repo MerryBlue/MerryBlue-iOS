@@ -6,3 +6,8 @@ TwitterKit.framework/
 
 #CocoaPod
 Pods/*
+
+# Deploygate
+MerryBlue.ipa
+MerryBlue.app.dSYM.zip
+
