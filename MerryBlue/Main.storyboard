@@ -175,6 +175,10 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="logoutButton" destination="8LN-Pm-1I3" id="Obr-FL-t3a"/>
+                        <outlet property="nameLabel" destination="udh-oI-pkv" id="UxI-CV-B9x"/>
+                        <outlet property="profileBackgroundImageView" destination="Wo9-S8-BTz" id="Rmx-g3-n9g"/>
+                        <outlet property="profileImageView" destination="WLT-qZ-77t" id="sDf-GP-T6t"/>
+                        <outlet property="screenNameLabel" destination="T3e-0y-hRI" id="bzf-eo-BJB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ah5-KY-JC1" userLabel="First Responder" sceneMemberID="firstResponder"/>

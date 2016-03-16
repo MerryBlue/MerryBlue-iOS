@@ -3,8 +3,13 @@ import TwitterKit
 
 class ProfileViewController: UIViewController {
     
+    @IBOutlet weak var profileBackgroundImageView: UIImageView!
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var screenNameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    
     @IBOutlet weak var logoutButton: UIButton!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Profile"
@@ -14,6 +19,7 @@ class ProfileViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        self.setProfiles()
         self.setLogoutButton()
     }
 
@@ -23,13 +29,17 @@ class ProfileViewController: UIViewController {
     }
 
     internal func onClickLogoutButton(sender: UIButton) {
-        let store = Twitter.sharedInstance().sessionStore
-        if let userID = store.session()!.userID {
-            store.logOutUserID(userID)
-        }
+        TwitterManager.logoutUser()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let initialViewController = storyboard.instantiateInitialViewController()
         self.presentViewController(initialViewController!, animated: true, completion: nil)
+    }
+    
+    private func setProfiles() {
+        // let s: TWTRAuthSession = TwitterManager.getUser()
+        nameLabel.text = "アカウントネーム"
+        screenNameLabel.text = "@screen_name"
+        // TODO:
     }
     
     private func setLogoutButton() {
