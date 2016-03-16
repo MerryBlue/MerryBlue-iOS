@@ -33,6 +33,8 @@ class SignInViewController: UIViewController {
     }
     
     private func presentMainTabBarController() {
-        self.presentViewController(MainTabBarController(), animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("main")
+        self.presentViewController(vc, animated: true, completion: nil)
     }
 }
