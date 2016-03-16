@@ -15,15 +15,12 @@ class UserTimelineViewController: TWTRTimelineViewController {
         let client = TwitterManager.getClient()
         let dataSource = TWTRUserTimelineDataSource(screenName: screenName, APIClient: client)
         self.init(dataSource: dataSource)
-        self.title = "Timeline"
+        self.title = "@\(screenName)"
         self.setNavigationBar()
         // TwitterManager.getListUsers(listId)
     }
     
     private func setNavigationBar() {
-        let iconImage = FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
-        let switchListButton = UIBarButtonItem(image: iconImage, style: .Plain, target: self, action: "onClickSwitchList")
-        
         self.navigationController?.navigationBar
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         // self.navigationController?.navigationBar.barTintColor = UIColor.blueColor()
@@ -31,7 +28,6 @@ class UserTimelineViewController: TWTRTimelineViewController {
         self.navigationController?.navigationBar.translucent = false
         self.navigationItem
         self.navigationItem.title = self.title
-        self.navigationItem.setRightBarButtonItem(switchListButton, animated: true)
         let backButtonItem = UIBarButtonItem(title: "戻る", style: .Plain, target: self, action: "onClickBackButton")
         self.navigationItem.setHidesBackButton(false, animated: false)
         // HACK

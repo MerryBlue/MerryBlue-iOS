@@ -18,7 +18,7 @@ class UserStatusCell: UITableViewCell {
     
     func setCell(user: TwitterUser) {
         self.nameLabel.text = user.name
-        self.screenNameLabel.text = user.screenName
+        self.screenNameLabel.text = "@\(user.screenName)"
         do {
             let imageData: NSData = try NSData(contentsOfURL: NSURL(string: user.profileImageURL)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
             self.iconImageView.image = UIImage(data:imageData)
