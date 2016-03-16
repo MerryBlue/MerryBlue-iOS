@@ -59,13 +59,13 @@ class TwitterManager {
     
     static func sortUsers(users: [TwitterUser]) -> [TwitterUser] {
         return users.sort({
-            guard let u1CreatedAt = $0.lastStatus.createdAt else {
+            guard let u1Status = $0.lastStatus else {
                 return false
             }
-            guard let u2CreatedAt = $1.lastStatus.createdAt else {
+            guard let u2Status = $1.lastStatus else {
                 return true
             }
-            return u1CreatedAt.compare(u2CreatedAt) == NSComparisonResult.OrderedDescending
+            return u1Status.createdAt.compare(u2Status.createdAt) == NSComparisonResult.OrderedDescending
         })
     }
     

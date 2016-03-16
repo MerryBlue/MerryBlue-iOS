@@ -15,7 +15,10 @@ class TwitterUser: TWTRUser {
     
     init?(json: SwiftyJSON.JSON) {
         super.init(JSONDictionary: json.dictionaryObject)
-        self.lastStatus = TWTRTweet(JSONDictionary: json["status"].dictionaryObject)
-        // self.profileImageURL = json["profile_image_url"].stringValue
+        if json["status"] != nil {
+            self.lastStatus = TWTRTweet(JSONDictionary: json["status"].dictionaryObject)
+        } else {
+            self.lastStatus = nil
+        }
     }
 }
