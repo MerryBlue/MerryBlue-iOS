@@ -2,48 +2,22 @@ import UIKit
 import TwitterKit
 import FontAwesomeKit
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ListTimelineViewController: TWTRTimelineViewController {
     
-    @IBOutlet weak var tableView: UITableView!
     var listId: String!
-    var users = [TwitterUser]()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        self.setNavigationBar()
-        self.title = "HomeBoard"
-    }
-    
-    override func viewDidAppear(animated: Bool) {
+    convenience init() {
         guard let listId: String = ConfigManager.getListId() else {
+            self.init()
             self.openListsChooser()
             return
         }
+        let client = TWTRAPIClient()
+        let dataSource = TWTRListTimelineDataSource(listID: listId, APIClient: client)
+        self.init(dataSource: dataSource)
+        self.title = "ListTimeline"
+        self.setNavigationBar()
         self.listId = listId
-        TwitterManager.getListUsers(self, listId: listId)
-    }
-    
-    internal func setupListUsers(users: [TwitterUser]) {
-        self.users = users
-        self.tableView.reloadData()
-    }
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.users.count
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UserStatusCell = tableView.dequeueReusableCellWithIdentifier("userStatusCell", forIndexPath: indexPath) as! UserStatusCell
-        cell.setCell(users[indexPath.row])
-        return cell
+        // TwitterManager.getListUsers(listId)
     }
     
     private func setNavigationBar() {
@@ -56,7 +30,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         // self.navigationController?.navigationBar.alpha = 0.1
         self.navigationController?.navigationBar.translucent = false
         self.navigationItem
-        self.navigationItem.title = "HomeBoard"
+        self.navigationItem.title = "ListTimeline"
         self.navigationItem.setRightBarButtonItem(switchListButton, animated: true)
     }
     
@@ -78,7 +52,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (self.listId == listId) {
             return
         }
-        TwitterManager.getListUsers(self, listId: listId)
+        let client = TWTRAPIClient()
+        let dataSource = TWTRListTimelineDataSource(listID: listId, APIClient: client)
+        self.dataSource = dataSource
+        self.refresh()
         self.listId = listId
     }
 }

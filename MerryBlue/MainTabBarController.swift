@@ -12,7 +12,10 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        homeView = HomeViewController()
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        
+        homeView = storyboard.instantiateViewControllerWithIdentifier("homeViewController") as! HomeViewController
+        
         profileView = ProfileViewController()
         
         let homeTabBarItem = UITabBarItem()

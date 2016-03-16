@@ -19,8 +19,9 @@ class SignInViewController: UIViewController {
         logInButton.center = self.view.center
         self.view.addSubview(logInButton)
     }
+    
     override func viewDidAppear(animated: Bool) {
-        guard let _ = Twitter.sharedInstance().sessionStore.session() else {
+        guard let _ = TwitterManager.getUserID() else {
             return
         }
         self.presentMainTabBarController()
