@@ -3,7 +3,7 @@ import TwitterKit
 
 class ProfileViewController: UIViewController {
     
-    private var logoutButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -11,6 +11,9 @@ class ProfileViewController: UIViewController {
         self.view.backgroundColor = UIColor.whiteColor()
         
         self.setNavigationBar()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         self.setLogoutButton()
     }
 
@@ -24,18 +27,13 @@ class ProfileViewController: UIViewController {
         if let userID = store.session()!.userID {
             store.logOutUserID(userID)
         }
-        self.presentViewController(SignInViewController(), animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let initialViewController = storyboard.instantiateInitialViewController()
+        self.presentViewController(initialViewController!, animated: true, completion: nil)
     }
     
     private func setLogoutButton() {
-        logoutButton = UIButton()
-        logoutButton.setTitle("ログアウト", forState: UIControlState.Normal)
         logoutButton.addTarget(self, action: "onClickLogoutButton:", forControlEvents: .TouchUpInside)
-        logoutButton.frame = CGRectMake(0, 0, 200, 40)
-        logoutButton.backgroundColor = UIColor.grayColor()
-        logoutButton.layer.cornerRadius = 10.0
-        logoutButton.layer.position = CGPoint(x: self.view.frame.width/2, y:self.view.frame.height - 150)
-        self.view.addSubview(logoutButton)
     }
     
     private func setNavigationBar() {
