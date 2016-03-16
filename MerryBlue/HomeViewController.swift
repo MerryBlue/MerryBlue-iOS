@@ -4,6 +4,8 @@ import FontAwesomeKit
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var delegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
     @IBOutlet weak var tableView: UITableView!
     var listId: String!
     var users = [TwitterUser]()
@@ -46,6 +48,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
+    func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let user = users[indexPath.row]
+        self.openUserTimeline(user.screenName)
+    }
+    
     private func setNavigationBar() {
         let iconImage = FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
         let switchListButton = UIBarButtonItem(image: iconImage, style: .Plain, target: self, action: "onClickSwitchList")
@@ -66,6 +73,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func openListsChooser() {
         let vc = UINavigationController(rootViewController: ListChooseViewController())
+        self.presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func openUserTimeline(screenName: String) {
+        self.delegate.userViewScreenName = screenName
+        let vc = UINavigationController(rootViewController: UserTimelineViewController())
         self.presentViewController(vc, animated: true, completion: nil)
     }
     

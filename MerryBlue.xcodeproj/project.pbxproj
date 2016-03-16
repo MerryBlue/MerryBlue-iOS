@@ -10,6 +10,7 @@
 		3175253ABD35C53B66EA34D5 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A37D196D48F53B26ED1188BC /* Pods.framework */; };
 		453B44FD1C98DADB00CE5FFE /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453B44FC1C98DADB00CE5FFE /* StringExtension.swift */; };
 		453B45001C98DF9B00CE5FFE /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453B44FF1C98DF9B00CE5FFE /* ArrayExtension.swift */; };
+		453B45021C98E49100CE5FFE /* UserTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453B45011C98E49100CE5FFE /* UserTimelineViewController.swift */; };
 		457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE71C933D25000A665A /* AppDelegate.swift */; };
 		457E0BEA1C933D25000A665A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE91C933D25000A665A /* HomeViewController.swift */; };
 		457E0BEC1C933D25000A665A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BEB1C933D25000A665A /* ProfileViewController.swift */; };
@@ -38,6 +39,7 @@
 		05B2ECBC8165248AB1EF4305 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		453B44FC1C98DADB00CE5FFE /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		453B44FF1C98DF9B00CE5FFE /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		453B45011C98E49100CE5FFE /* UserTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTimelineViewController.swift; sourceTree = "<group>"; };
 		457E0BE41C933D25000A665A /* MerryBlue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MerryBlue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		457E0BE71C933D25000A665A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		457E0BE91C933D25000A665A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				45ABA1EE1C9811C1006DE856 /* ListTimelineViewController.swift */,
 				457E0BEB1C933D25000A665A /* ProfileViewController.swift */,
 				45BD1C1C1C969A82002A2159 /* ListChooseViewController.swift */,
+				453B45011C98E49100CE5FFE /* UserTimelineViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				45BD1C1D1C969A82002A2159 /* ListChooseViewController.swift in Sources */,
 				457E0BEA1C933D25000A665A /* HomeViewController.swift in Sources */,
 				453B45001C98DF9B00CE5FFE /* ArrayExtension.swift in Sources */,
+				453B45021C98E49100CE5FFE /* UserTimelineViewController.swift in Sources */,
 				453B44FD1C98DADB00CE5FFE /* StringExtension.swift in Sources */,
 				45BD1C211C96EB35002A2159 /* TwitterManager.swift in Sources */,
 			);
