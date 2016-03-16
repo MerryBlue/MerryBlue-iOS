@@ -4,6 +4,8 @@ import TwitterKit
 
 class SignInViewController: UIViewController {
     
+    @IBOutlet weak var logInButtonView: UIView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let logInButton = TWTRLogInButton { (session, error) in
@@ -15,8 +17,8 @@ class SignInViewController: UIViewController {
             }
         }
         
-        // TODO: Change where the log in button is positioned in your view
-        logInButton.center = self.view.center
+        logInButton.center = self.logInButtonView!.center
+        // self.logInButtonView!.addSubview(logInButton)
         self.view.addSubview(logInButton)
     }
     
