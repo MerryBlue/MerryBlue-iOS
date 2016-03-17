@@ -59,8 +59,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="gKC-Kv-Yba" kind="show" id="g8t-7z-010"/>
-                        <segue destination="DHO-7w-NG4" kind="show" id="p8s-xy-Bg0"/>
+                        <segue destination="gKC-Kv-Yba" kind="relationship" relationship="viewControllers" id="qyB-M4-pCm"/>
+                        <segue destination="DHO-7w-NG4" kind="relationship" relationship="viewControllers" id="DvF-oL-7F5"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ftR-zW-8uz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -99,7 +99,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="@screen_name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EDl-0C-KW9">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@screen_name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EDl-0C-KW9">
                                                     <rect key="frame" x="62" y="33" width="231" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.51037660256410255" green="0.51037660256410255" blue="0.51037660256410255" alpha="1" colorSpace="calibratedRGB"/>
@@ -111,7 +111,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VEd-EX-aDo">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VEd-EX-aDo">
                                                     <rect key="frame" x="8" y="61" width="359" height="37"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
@@ -119,9 +119,6 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="VEd-EX-aDo" firstAttribute="top" secondItem="EDl-0C-KW9" secondAttribute="bottom" id="gN5-9h-ob6"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                         <connections>
@@ -137,6 +134,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" id="MYn-Ep-GKW"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="Y45-p5-7RE" id="6ub-eC-5hv"/>
@@ -146,7 +144,7 @@
             </objects>
             <point key="canvasLocation" x="-566.5" y="1525.5"/>
         </scene>
-        <!--Profile View Controller-->
+        <!--Item-->
         <scene sceneID="W6z-7c-8fc">
             <objects>
                 <viewController storyboardIdentifier="profileViewController" id="DHO-7w-NG4" customClass="ProfileViewController" customModule="MerryBlue" customModuleProvider="target" sceneMemberID="viewController">
@@ -183,6 +181,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="9sD-wt-iTF"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="logoutButton" destination="8LN-Pm-1I3" id="Obr-FL-t3a"/>
