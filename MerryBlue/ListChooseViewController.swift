@@ -87,7 +87,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         let list = self.tweetLists[indexPath.row]
         selectCell(indexPath)
         if list.enable() {
-            ConfigManager.setListId(list.id)
+            ListService.sharedInstance.updateHomeList(list)
             goBack()
         } else {
             // 選択不可アラート
@@ -132,12 +132,12 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     internal func setSelectedCell() {
-        guard let liistId = ConfigManager.getListId() else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
             return
         }
         
         for i in 0..<tableView.numberOfRowsInSection(0) {
-            if tweetLists[i].id == liistId {
+            if tweetLists[i].id == list.id {
                 selectCell(NSIndexPath(forRow: i, inSection: 0))
                 break
             }

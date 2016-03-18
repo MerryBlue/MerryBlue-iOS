@@ -9,7 +9,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var refreshControl: UIRefreshControl!
-    var listId: String!
+    var list: TwitterList!
     var users = [TwitterUser]()
     
     override func viewDidLoad() {
@@ -19,7 +19,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.dataSource = self
         
         self.setNavigationBar()
-        self.title = "HomeBoard"
         
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
@@ -28,24 +27,24 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.addSubview(refreshControl)
     }
     
-    // 何を更新するのかを定義
     func pullToRefresh(){
-        TwitterManager.getListUsers(self, listId: listId)
+        TwitterManager.getListUsers(self, listId: list.id)
         refreshControl.endRefreshing() // データが取れたら更新を終える（くるくる回るViewを消去）
     }
     
     override func viewDidAppear(animated: Bool) {
-        guard let listId: String = ConfigManager.getListId() else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return
         }
-        self.listId = listId
+        self.list = list
         self.activityIndicator.startAnimating()
-        TwitterManager.getListUsers(self, listId: listId)
+        TwitterManager.getListUsers(self, listId: list.id)
     }
     
     internal func setupListUsers(users: [TwitterUser]) {
         self.users = users
+        self.title = list.name
         self.tableView.reloadData()
         if self.activityIndicator.isAnimating() {
             self.activityIndicator.stopAnimating()
@@ -103,15 +102,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func didMoveToParentViewController(parent: UIViewController?) {
         super.willMoveToParentViewController(parent)
-        guard let listId: String = ConfigManager.getListId() else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return
         }
-        if (self.listId == listId) {
+        if (self.list.id == list.id) {
             return
         }
         self.activityIndicator.startAnimating()
-        TwitterManager.getListUsers(self, listId: listId)
-        self.listId = listId
+        TwitterManager.getListUsers(self, listId: list.id)
+        self.list = list
     }
 }

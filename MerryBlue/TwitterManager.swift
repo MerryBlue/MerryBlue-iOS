@@ -6,7 +6,7 @@ class TwitterManager {
     static let HOST = "https://api.twitter.com/1.1"
     static let LIST_FILTER_MEMBER_MAX_NUM = 50
     
-    static func getLists(view: ListChooseViewController, userId: NSString = Twitter.sharedInstance().sessionStore.session()!.userID) -> Void {
+    static func getLists(view: ListChooseViewController, userId: String = Twitter.sharedInstance().sessionStore.session()!.userID) -> Void {
         let client = getClient()
         let statusesShowEndpont = HOST + "/lists/list.json"
         let params = [ "user_id": userId ]
@@ -37,10 +37,13 @@ class TwitterManager {
         return lists.filter { $0.member_count <= LIST_FILTER_MEMBER_MAX_NUM }
     }
     
-    static func getListUsers(view: HomeViewController, listId: NSString) -> Void {
+    static func getListUsers(view: HomeViewController, listId: String) -> Void {
         let client = getClient()
         let statusesShowEndpont = HOST + "/lists/members.json"
-        let params = [ "list_id": listId ]
+        let params = [
+            "list_id": listId,
+            "count": "50"
+        ]
         var clientError: NSError?
         
         let request = Twitter.sharedInstance().APIClient.URLRequestWithMethod("GET", URL: statusesShowEndpont, parameters: params, error: &clientError)
