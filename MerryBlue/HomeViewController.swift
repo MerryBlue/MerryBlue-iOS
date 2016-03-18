@@ -50,7 +50,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let user = users[indexPath.row]
-        self.openUserTimeline(user.screenName)
+        self.openUserTimeline(user)
     }
     
     private func setNavigationBar() {
@@ -77,8 +77,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
-    func openUserTimeline(screenName: String) {
-        self.delegate.userViewScreenName = screenName
+    func openUserTimeline(user: TwitterUser) {
+        self.delegate.userViewUser = user
         let vc = UINavigationController(rootViewController: UserTimelineViewController())
         self.presentViewController(vc, animated: true, completion: nil)
     }

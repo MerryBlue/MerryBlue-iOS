@@ -7,16 +7,18 @@ class UserTimelineViewController: TWTRTimelineViewController {
     var delegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     convenience init() {
-        guard let screenName = (UIApplication.sharedApplication().delegate as! AppDelegate).userViewScreenName else {
+        guard let user = (UIApplication.sharedApplication().delegate as! AppDelegate).userViewUser else {
             self.init()
             self.goBack()
             return
         }
         let client = TwitterManager.getClient()
-        let dataSource = TWTRUserTimelineDataSource(screenName: screenName, APIClient: client)
+        let dataSource = TWTRUserTimelineDataSource(screenName: user.screenName, APIClient: client)
         self.init(dataSource: dataSource)
-        self.title = "@\(screenName)"
+        self.title = "@\(user.screenName)"
         self.setNavigationBar()
+
+        user.updateReadedStatusId()
         // TwitterManager.getListUsers(listId)
     }
     
