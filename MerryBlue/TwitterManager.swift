@@ -24,8 +24,9 @@ class TwitterManager {
             for (_, datum) in json {
                 lists.append(TwitterList(jsonData: datum))
             }
-            let filteredList = filterList(lists)
-            view.setTableView(filteredList)
+            // let filteredList = filterList(lists)
+            // view.setTableView(filteredList)
+            view.setTableView(lists)
             view.setSelectedCell()
         }
     }
@@ -48,6 +49,8 @@ class TwitterManager {
             }
             let json = JSON(data: data!)
             var users = [TwitterUser]()
+            
+            // do { let jsonResult: NSDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary } catch { }
             
             for userJson in json["users"].array! {
                 users.append(TwitterUser(json: userJson)!)

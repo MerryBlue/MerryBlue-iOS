@@ -7,6 +7,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var backButtonItem: UIBarButtonItem!
+
     var tweetLists: Array<TwitterList> = []
     var selectedIndex: NSIndexPath!
     
@@ -15,6 +16,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         
         tableView.dataSource = self
         tableView.delegate = self
+        
         setNavigationBar()
     }
     
@@ -51,10 +53,20 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     
     // Cell が選択された場合
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
-        let selectedListId = self.tweetLists[indexPath.row].id
-        ConfigManager.setListId(selectedListId)
+        let list = self.tweetLists[indexPath.row]
         selectCell(indexPath)
-        goBack()
+        if list.enable() {
+            ConfigManager.setListId(list.id)
+            goBack()
+        } else {
+            // 選択不可アラート
+            let ac: UIAlertController = UIAlertController(
+                title: "メンバー数制限",
+                message: "メンバー数が多すぎます(50人まで)",
+                preferredStyle: UIAlertControllerStyle.Alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(ac, animated: true, completion: nil)
+        }
     }
     
     func selectCell(indexPath: NSIndexPath) {

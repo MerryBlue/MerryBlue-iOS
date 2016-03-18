@@ -7,6 +7,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var delegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    var refreshControl: UIRefreshControl!
     var listId: String!
     var users = [TwitterUser]()
     
@@ -18,6 +20,19 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.setNavigationBar()
         self.title = "HomeBoard"
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
+        refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents:.ValueChanged)
+        
+        self.tableView.addSubview(refreshControl)
+    }
+    
+    // 何を更新するのかを定義
+    func pullToRefresh(){
+        TwitterManager.getListUsers(self, listId: listId)
+        
+        refreshControl.endRefreshing() // データが取れたら更新を終える（くるくる回るViewを消去）
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -26,12 +41,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         self.listId = listId
+        self.activityIndicator.startAnimating()
         TwitterManager.getListUsers(self, listId: listId)
     }
     
     internal func setupListUsers(users: [TwitterUser]) {
         self.users = users
         self.tableView.reloadData()
+        if self.activityIndicator.isAnimating() {
+            self.activityIndicator.stopAnimating()
+        }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -50,7 +69,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let user = users[indexPath.row]
-        self.openUserTimeline(user.screenName)
+        self.openUserTimeline(user)
     }
     
     private func setNavigationBar() {
@@ -77,8 +96,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
-    func openUserTimeline(screenName: String) {
-        self.delegate.userViewScreenName = screenName
+    func openUserTimeline(user: TwitterUser) {
+        self.delegate.userViewUser = user
         let vc = UINavigationController(rootViewController: UserTimelineViewController())
         self.presentViewController(vc, animated: true, completion: nil)
     }
@@ -92,6 +111,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (self.listId == listId) {
             return
         }
+        self.activityIndicator.startAnimating()
         TwitterManager.getListUsers(self, listId: listId)
         self.listId = listId
     }
