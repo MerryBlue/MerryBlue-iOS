@@ -51,10 +51,12 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     
     // Cell が選択された場合
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
-        let selectedListId = self.tweetLists[indexPath.row].id
-        ConfigManager.setListId(selectedListId)
-        selectCell(indexPath)
-        goBack()
+        let list = self.tweetLists[indexPath.row]
+        if list.enable() {
+            ConfigManager.setListId(list.id)
+            selectCell(indexPath)
+            goBack()
+        }
     }
     
     func selectCell(indexPath: NSIndexPath) {

@@ -24,8 +24,9 @@ class TwitterManager {
             for (_, datum) in json {
                 lists.append(TwitterList(jsonData: datum))
             }
-            let filteredList = filterList(lists)
-            view.setTableView(filteredList)
+            // let filteredList = filterList(lists)
+            // view.setTableView(filteredList)
+            view.setTableView(lists)
             view.setSelectedCell()
         }
     }

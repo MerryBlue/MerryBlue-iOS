@@ -23,5 +23,11 @@ class ListInfoCell: UITableViewCell {
         } catch {
             print("Error: Image request invalid")
         }
+        if listInfo.enable() {
+            memberNumLabel.textColor = UIColor.blackColor()
+        } else {
+            // 選択不可
+            memberNumLabel.textColor = UIColor.redColor()
+        }
     }
 }
