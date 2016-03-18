@@ -19,7 +19,7 @@ class TwitterList: NSObject, NSCoding {
         self.slug         = jsonData["slug"].stringValue
         self.desc         = jsonData["desc"].stringValue
         self.member_count = jsonData["member_count"].intValue
-        self.imageUrl     = user.profileImageMiniURL
+        self.imageUrl     = user.profileImageURL
     }
 
     required init?(coder aDecoder: NSCoder) {

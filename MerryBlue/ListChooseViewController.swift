@@ -7,6 +7,8 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var backButtonItem: UIBarButtonItem!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    var refreshControl: UIRefreshControl!
 
     var tweetLists: Array<TwitterList> = []
     var selectedIndex: NSIndexPath!
@@ -16,6 +18,11 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         
         tableView.dataSource = self
         tableView.delegate = self
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
+        refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents:.ValueChanged)
+        self.tableView.addSubview(refreshControl)
         
         setNavigationBar()
     }
@@ -98,6 +105,11 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         cell?.setHighlighted(true, animated: false)
         // cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
         selectedIndex = indexPath
+    }
+    
+    func pullToRefresh(){
+        TwitterManager.getLists(self)
+        refreshControl.endRefreshing()
     }
     
     func onClickBackButton() {

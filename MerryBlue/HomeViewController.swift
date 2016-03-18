@@ -31,7 +31,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     // 何を更新するのかを定義
     func pullToRefresh(){
         TwitterManager.getListUsers(self, listId: listId)
-        
         refreshControl.endRefreshing() // データが取れたら更新を終える（くるくる回るViewを消去）
     }
     
