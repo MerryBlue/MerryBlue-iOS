@@ -4,13 +4,17 @@ import TwitterKit
 
 class ListChooseViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    private var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var backButtonItem: UIBarButtonItem!
     var tweetLists: Array<TwitterList> = []
     var selectedIndex: NSIndexPath!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.dataSource = self
+        tableView.delegate = self
         setNavigationBar()
     }
     
@@ -30,40 +34,19 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     
     //セルの内容を変更
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Cell")
-        
-        cell.textLabel?.text = tweetLists[indexPath.row].name
+        let cell: ListInfoCell = tableView.dequeueReusableCellWithIdentifier("listInfoCell", forIndexPath: indexPath) as! ListInfoCell
+        cell.setCell(tweetLists[indexPath.row])
         return cell
     }
     
     internal func setTableView(lists: [TwitterList]) {
         tweetLists = lists
-        // Status Barの高さを取得する.
-        let barHeight: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
-        // Viewの高さと幅を取得する.
-        let displayWidth: CGFloat = self.view.frame.width
-        let displayHeight: CGFloat = self.view.frame.height
-        tableView = UITableView(frame: CGRect(x: 0, y: 0, width: displayWidth, height: displayHeight - barHeight))
-        
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "ListNames")
-        tableView.dataSource = self
-        tableView.delegate = self
-        self.view.addSubview(tableView)
+        tableView.reloadData()
     }
     
     private func setNavigationBar() {
-        self.navigationController?.navigationBar
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        // self.navigationController?.navigationBar.barTintColor = UIColor.blueColor()
-        // self.navigationController?.navigationBar.alpha = 0.1
-        self.navigationController?.navigationBar.translucent = false
-        self.navigationItem
-        self.navigationItem.title = "リスト選択"
-        let backButtonItem = UIBarButtonItem(title: "完了", style: .Plain, target: self, action: "onClickBackButton")
-        self.navigationItem.setHidesBackButton(false, animated: false)
-        // HACK
-        // self.navigationItem.backBarButtonItem = backButtonItem
-        self.navigationItem.leftBarButtonItem = backButtonItem
+        backButtonItem.action = "goBack"
+        // backButtonItem.addTarget(self, action: "tapBarButtonItem:", forControlEvents:UIControlEvents.TouchUpInside)
     }
     
     // Cell が選択された場合
@@ -71,6 +54,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         let selectedListId = self.tweetLists[indexPath.row].id
         ConfigManager.setListId(selectedListId)
         selectCell(indexPath)
+        goBack()
     }
     
     func selectCell(indexPath: NSIndexPath) {
@@ -80,13 +64,14 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
             }
             // 元のセルをノーマルに
             let cell = tableView.cellForRowAtIndexPath(i)
+            cell?.setHighlighted(false, animated: false)
             cell?.setSelected(false, animated: false)
-            cell?.accessoryType = UITableViewCellAccessoryType.None
+            // cell?.accessoryType = UITableViewCellAccessoryType.None
         }
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         cell?.setSelected(true, animated: false)
-        // cell?.setHighlighted(true, animated: false)
-        cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
+        cell?.setHighlighted(true, animated: false)
+        // cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
         selectedIndex = indexPath
     }
     

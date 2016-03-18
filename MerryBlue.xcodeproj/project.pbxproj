@@ -11,6 +11,7 @@
 		453B44FD1C98DADB00CE5FFE /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453B44FC1C98DADB00CE5FFE /* StringExtension.swift */; };
 		453B45001C98DF9B00CE5FFE /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453B44FF1C98DF9B00CE5FFE /* ArrayExtension.swift */; };
 		453B45021C98E49100CE5FFE /* UserTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453B45011C98E49100CE5FFE /* UserTimelineViewController.swift */; };
+		4551ADF51C9B33A100A00CE8 /* ListInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4551ADF41C9B33A100A00CE8 /* ListInfoCell.swift */; };
 		457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE71C933D25000A665A /* AppDelegate.swift */; };
 		457E0BEA1C933D25000A665A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE91C933D25000A665A /* HomeViewController.swift */; };
 		457E0BEC1C933D25000A665A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BEB1C933D25000A665A /* ProfileViewController.swift */; };
@@ -40,6 +41,7 @@
 		453B44FC1C98DADB00CE5FFE /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		453B44FF1C98DF9B00CE5FFE /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		453B45011C98E49100CE5FFE /* UserTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTimelineViewController.swift; sourceTree = "<group>"; };
+		4551ADF41C9B33A100A00CE8 /* ListInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListInfoCell.swift; sourceTree = "<group>"; };
 		457E0BE41C933D25000A665A /* MerryBlue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MerryBlue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		457E0BE71C933D25000A665A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		457E0BE91C933D25000A665A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				45ABA1F01C981A23006DE856 /* UserStatusCell.swift */,
+				4551ADF41C9B33A100A00CE8 /* ListInfoCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				457E0BEC1C933D25000A665A /* ProfileViewController.swift in Sources */,
 				45ABA1ED1C9800B9006DE856 /* TwitterUser.swift in Sources */,
 				45BD1C0B1C9590A2002A2159 /* MainTabBarController.swift in Sources */,
+				4551ADF51C9B33A100A00CE8 /* ListInfoCell.swift in Sources */,
 				457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */,
 				45ABA1F11C981A23006DE856 /* UserStatusCell.swift in Sources */,
 				45BD1C1F1C96C5CD002A2159 /* ConfigManager.swift in Sources */,

@@ -72,7 +72,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func openListsChooser() {
-        let vc = UINavigationController(rootViewController: ListChooseViewController())
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("lists")
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
