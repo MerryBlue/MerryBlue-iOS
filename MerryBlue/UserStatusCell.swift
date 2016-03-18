@@ -6,7 +6,7 @@ class UserStatusCell: UITableViewCell {
     @IBOutlet weak var screenNameLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var timeElapsedLabel: UILabel!
-    @IBOutlet weak var tweetTextView: UITextView!
+    @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var newCountLabel: UILabel!
     
     override func awakeFromNib() {
@@ -27,14 +27,15 @@ class UserStatusCell: UITableViewCell {
             print("Error: Image request invalid")
         }
         guard let status = user.lastStatus else {
-            self.tweetTextView.text = "ツイートが読み込めませんでした"
+            self.tweetTextLabel.text = "ツイートが読み込めませんでした"
             self.timeElapsedLabel.text = "----/--/-- --:--:--"
             return
         }
-        self.tweetTextView.text = status.text.lines[0]
-        if let line: String = status.text.lines[safe: 1] {
-            self.tweetTextView.text = self.tweetTextView.text + "\n" + line
-        }
+        self.tweetTextLabel.text = status.text
+        // self.tweetTextLabel.text = status.text.lines[0]
+        // if let line: String = status.text.lines[safe: 1] {
+        //     self.tweetTextLabel.text = self.tweetTextLabel.text + "\n" + line
+        // }
         let df = NSDateFormatter()
         df.dateFormat = "yyyy/MM/dd HH:mm:ss"
         self.timeElapsedLabel.text = df.stringFromDate(status.createdAt)
