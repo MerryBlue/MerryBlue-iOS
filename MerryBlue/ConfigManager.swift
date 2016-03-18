@@ -4,6 +4,7 @@ class ConfigManager {
     static private let configNameKey = "name"
     static private let configListIdKey = "listid"
     static private let userLastStatusKeyPrefix = "lsid-"
+    static private let userCountStatusKeyPrefix = "lscount-"
     
     static func setName(text: String) {
         updateData(configNameKey, value: text)
@@ -21,12 +22,15 @@ class ConfigManager {
     }
     
     
-    static func setLastId(screenName: String, id: String) {
-        updateData(userLastStatusKeyPrefix + screenName, value: id)
+    static func setUserInfo(userID: String, id: String, tweetCount: Int) {
+        updateData(userLastStatusKeyPrefix + userID, value: id)
     }
     
-    static func getLastId(screenName: String) -> String? {
-        return selectData(userLastStatusKeyPrefix + screenName) as? String
+    static func getUserInfo(userID: String) -> (lastTweetID: String, count: Int) {
+        return (
+            lastTweetID: (selectData(userLastStatusKeyPrefix + userID) as? String)!,
+            count: (selectData(userCountStatusKeyPrefix + userID) as? Int)!
+        )
     }
     
     
