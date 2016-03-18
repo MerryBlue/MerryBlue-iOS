@@ -52,10 +52,18 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     // Cell が選択された場合
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
         let list = self.tweetLists[indexPath.row]
+        selectCell(indexPath)
         if list.enable() {
             ConfigManager.setListId(list.id)
-            selectCell(indexPath)
             goBack()
+        } else {
+            // 選択不可アラート
+            let ac: UIAlertController = UIAlertController(
+                title: "メンバー数制限",
+                message: "メンバー数が多すぎます(50人まで)",
+                preferredStyle: UIAlertControllerStyle.Alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(ac, animated: true, completion: nil)
         }
     }
     
