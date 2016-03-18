@@ -7,6 +7,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var delegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var refreshControl: UIRefreshControl!
     var listId: String!
     var users = [TwitterUser]()
@@ -25,7 +26,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents:.ValueChanged)
         
         self.tableView.addSubview(refreshControl)
-        refreshControl.
     }
     
     // 何を更新するのかを定義
@@ -41,12 +41,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         self.listId = listId
+        self.activityIndicator.startAnimating()
         TwitterManager.getListUsers(self, listId: listId)
     }
     
     internal func setupListUsers(users: [TwitterUser]) {
         self.users = users
         self.tableView.reloadData()
+        if self.activityIndicator.isAnimating() {
+            self.activityIndicator.stopAnimating()
+        }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -107,6 +111,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (self.listId == listId) {
             return
         }
+        self.activityIndicator.startAnimating()
         TwitterManager.getListUsers(self, listId: listId)
         self.listId = listId
     }
