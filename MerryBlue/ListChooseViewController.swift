@@ -30,6 +30,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidAppear(animated: Bool) {
         let lists = ListService.sharedInstance.selectLists()
         if lists.isEmpty {
+            self.activityIndicator.startAnimating()
             TwitterManager.getLists(self)
         } else {
             setupTableView(lists)
@@ -54,20 +55,21 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     internal func setupTableView(lists: [TwitterList]) {
+        tweetLists = lists
+        tableView.reloadData()
+        
+        if self.activityIndicator.isAnimating() {
+            self.activityIndicator.stopAnimating()
+        }
+        
         if lists.isEmpty {
-            tweetLists = lists
-            tableView.reloadData()
             let ac: UIAlertController = UIAlertController(
                 title: "リストが見つかりませんでした",
                 message: "このアカウントはリストを作成, フォローしていません",
                 preferredStyle: UIAlertControllerStyle.Alert)
             ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
             presentViewController(ac, animated: true, completion: nil)
-            return
         }
-        tweetLists = lists
-        tableView.reloadData()
-        return
         // self.fetchListUpdate(lists)
     }
     
