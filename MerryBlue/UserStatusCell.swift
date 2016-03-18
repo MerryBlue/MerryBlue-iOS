@@ -7,6 +7,7 @@ class UserStatusCell: UITableViewCell {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var timeElapsedLabel: UILabel!
     @IBOutlet weak var tweetTextView: UITextView!
+    @IBOutlet weak var newCountLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,5 +38,13 @@ class UserStatusCell: UITableViewCell {
         let df = NSDateFormatter()
         df.dateFormat = "yyyy/MM/dd HH:mm:ss"
         self.timeElapsedLabel.text = df.stringFromDate(status.createdAt)
+        
+        if user.hasNew() {
+            // self.layer.addBorder(UIRectEdge.Left, color: UIColor.greenColor(), thickness: 4)
+            newCountLabel.hidden = false
+            newCountLabel.text = "new"
+        } else {
+            newCountLabel.hidden = true
+        }
     }
 }

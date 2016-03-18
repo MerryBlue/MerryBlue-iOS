@@ -7,6 +7,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var backButtonItem: UIBarButtonItem!
+
     var tweetLists: Array<TwitterList> = []
     var selectedIndex: NSIndexPath!
     
@@ -15,6 +16,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         
         tableView.dataSource = self
         tableView.delegate = self
+        
         setNavigationBar()
     }
     

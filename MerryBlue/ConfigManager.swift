@@ -3,6 +3,7 @@ import Foundation
 class ConfigManager {
     static private let configNameKey = "name"
     static private let configListIdKey = "listid"
+    static private let userLastStatusKeyPrefix = "lsid-"
     
     static func setName(text: String) {
         updateData(configNameKey, value: text)
@@ -19,6 +20,18 @@ class ConfigManager {
         return selectData(configListIdKey) as? String
     }
     
+    
+    static func setLastId(screenName: String, id: String) {
+        updateData(userLastStatusKeyPrefix + screenName, value: id)
+    }
+    
+    static func getLastId(screenName: String) -> String? {
+        return selectData(userLastStatusKeyPrefix + screenName) as? String
+    }
+    
+    
+    
+    /* */
     static func selectData(key: String) -> AnyObject? {
         let defaults = self.getDefaults()
         return defaults.objectForKey(key)
