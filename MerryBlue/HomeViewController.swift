@@ -7,6 +7,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var delegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     @IBOutlet weak var tableView: UITableView!
+    var refreshControl: UIRefreshControl!
     var listId: String!
     var users = [TwitterUser]()
     
@@ -18,6 +19,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.setNavigationBar()
         self.title = "HomeBoard"
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
+        refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents:.ValueChanged)
+        
+        self.tableView.addSubview(refreshControl)
+        refreshControl.
+    }
+    
+    // 何を更新するのかを定義
+    func pullToRefresh(){
+        TwitterManager.getListUsers(self, listId: listId)
+        
+        refreshControl.endRefreshing() // データが取れたら更新を終える（くるくる回るViewを消去）
     }
     
     override func viewDidAppear(animated: Bool) {
