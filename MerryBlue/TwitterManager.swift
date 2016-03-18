@@ -26,8 +26,10 @@ class TwitterManager {
             }
             // let filteredList = filterList(lists)
             // view.setTableView(filteredList)
-            view.setTableView(lists)
+            
+            view.setupTableView(lists)
             view.setSelectedCell()
+            ListService.sharedInstance.updateLists(lists)
         }
     }
     

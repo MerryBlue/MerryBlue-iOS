@@ -18,7 +18,7 @@ class ListInfoCell: UITableViewCell {
         self.listNameLabel.text = listInfo.name
         self.memberNumLabel.text = String(listInfo.member_count)
         do {
-            let imageData: NSData = try NSData(contentsOfURL: NSURL(string: listInfo.user.profileImageURL)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+            let imageData: NSData = try NSData(contentsOfURL: NSURL(string: listInfo.imageUrl)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
             self.iconImageView.image = UIImage(data:imageData)
         } catch {
             print("Error: Image request invalid")

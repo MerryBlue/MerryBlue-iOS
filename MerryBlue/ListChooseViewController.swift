@@ -21,7 +21,12 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     override func viewDidAppear(animated: Bool) {
-        TwitterManager.getLists(self)
+        let lists = ListService.sharedInstance.selectLists()
+        if lists.isEmpty {
+            TwitterManager.getLists(self)
+        } else {
+            setupTableView(lists)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,9 +46,17 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         return cell
     }
     
-    internal func setTableView(lists: [TwitterList]) {
+    internal func setupTableView(lists: [TwitterList]) {
         tweetLists = lists
         tableView.reloadData()
+        if lists.isEmpty {
+            let ac: UIAlertController = UIAlertController(
+                title: "リストが見つかりませんでした",
+                message: "このアカウントはリストを作成, フォローしていません",
+                preferredStyle: UIAlertControllerStyle.Alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(ac, animated: true, completion: nil)
+        }
     }
     
     private func setNavigationBar() {
