@@ -42,7 +42,7 @@ class UserStatusCell: UITableViewCell {
         if user.hasNew() {
             // self.layer.addBorder(UIRectEdge.Left, color: UIColor.greenColor(), thickness: 4)
             newCountLabel.hidden = false
-            newCountLabel.text = "new"
+            newCountLabel.text = String(user.newCount())
         } else {
             newCountLabel.hidden = true
         }

@@ -3,7 +3,6 @@ import Foundation
 class ConfigManager {
     static private let configNameKey = "name"
     static private let configListIdKey = "listid"
-    static private let userLastStatusKeyPrefix = "lsid-"
     static private let userCountStatusKeyPrefix = "lscount-"
     
     static func setName(text: String) {
@@ -22,15 +21,12 @@ class ConfigManager {
     }
     
     
-    static func setUserInfo(userID: String, id: String, tweetCount: Int) {
-        updateData(userLastStatusKeyPrefix + userID, value: id)
+    static func setUserInfo(userID: String, tweetCount: Int) {
+        updateData(userCountStatusKeyPrefix + userID, value: tweetCount)
     }
     
-    static func getUserInfo(userID: String) -> (lastTweetID: String, count: Int) {
-        return (
-            lastTweetID: (selectData(userLastStatusKeyPrefix + userID) as? String)!,
-            count: (selectData(userCountStatusKeyPrefix + userID) as? Int)!
-        )
+    static func getUserInfo(userID: String) -> Int? {
+        return selectData(userCountStatusKeyPrefix + userID) as? Int
     }
     
     

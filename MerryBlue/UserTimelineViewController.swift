@@ -18,7 +18,7 @@ class UserTimelineViewController: TWTRTimelineViewController {
         self.title = "@\(user.screenName)"
         self.setNavigationBar()
 
-        user.updateReadedStatusId()
+        user.updateReadedCount()
         // TwitterManager.getListUsers(listId)
     }
     

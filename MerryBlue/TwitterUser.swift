@@ -5,7 +5,7 @@ import SwiftyJSON
 class TwitterUser: TWTRUser {
     var lastStatus: TWTRTweet!
     var readedStatusId: String!
-    var readedCount: Int!
+    var preCount: Int!
     var tweetCount: Int!
     
     required override init!(JSONDictionary dictionary: [NSObject : AnyObject]!) {
@@ -23,27 +23,26 @@ class TwitterUser: TWTRUser {
         } else {
             self.lastStatus = nil
         }
+        self.tweetCount = json["statuses_count"].intValue
         
-        let infos = ConfigManager.getUserInfo(self.userID)
-        
-        guard let lastID = infos.lastTweetID else {
-            
+        if let count = ConfigManager.getUserInfo(self.userID) {
+            self.preCount = count
+        } else {
+            self.updateReadedCount()
         }
+        
     }
     
     func hasNew() -> Bool {
-        guard let stId = self.lastStatus.tweetID else {
-            return false
-        }
-        guard let readedId = self.readedStatusId else {
-            self.updateReadedStatusId()
-            return false
-        }
-        return stId != readedId
+        return self.tweetCount > self.preCount
     }
     
-    func updateReadedStatusId() {
-        ConfigManager.setUserInfo(self.userID, id: self.lastStatus.tweetID, tweetCount: self.tweetCount)
+    func newCount() -> Int {
+        return self.tweetCount - self.preCount
     }
     
+    func updateReadedCount() {
+        self.preCount = tweetCount
+        ConfigManager.setUserInfo(self.userID, tweetCount: self.tweetCount)
+    }
 }
