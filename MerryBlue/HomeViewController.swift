@@ -37,6 +37,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.openListsChooser()
             return
         }
+        if self.list != nil && self.list.id == list.id {
+            self.tableView.reloadData()
+            return
+        }
         self.list = list
         self.activityIndicator.startAnimating()
         TwitterManager.getListUsers(self, listId: list.id)
@@ -67,6 +71,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let user = users[indexPath.row]
+        user.updateReadedCount()
         self.openUserTimeline(user)
     }
     
