@@ -13,7 +13,15 @@ class UserTimelineViewController: TWTRTimelineViewController {
             return
         }
         let client = TwitterManager.getClient()
-        let dataSource = TWTRUserTimelineDataSource(screenName: user.screenName, APIClient: client)
+        
+        let dataSource = TWTRUserTimelineDataSource(
+            screenName:nil,
+            userID: user.userID,
+            APIClient: client,
+            maxTweetsPerRequest: 0,
+            includeReplies: true,
+            includeRetweets: true
+        )
         self.init(dataSource: dataSource)
         self.title = "@\(user.screenName)"
         self.setNavigationBar()
