@@ -4,19 +4,19 @@ import FontAwesomeKit
 
 class ListTimelineViewController: TWTRTimelineViewController {
     
-    var listId: String!
+    var list: TwitterList!
     convenience init() {
-        guard let listId: String = ConfigManager.getListId() else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
             self.init()
             self.openListsChooser()
             return
         }
         let client = TWTRAPIClient()
-        let dataSource = TWTRListTimelineDataSource(listID: listId, APIClient: client)
+        let dataSource = TWTRListTimelineDataSource(listID: list.id, APIClient: client)
         self.init(dataSource: dataSource)
         self.title = "ListTimeline"
         self.setNavigationBar()
-        self.listId = listId
+        self.list = list
         // TwitterManager.getListUsers(listId)
     }
     
@@ -45,17 +45,17 @@ class ListTimelineViewController: TWTRTimelineViewController {
     
     override func didMoveToParentViewController(parent: UIViewController?) {
         super.willMoveToParentViewController(parent)
-        guard let listId: String = ConfigManager.getListId() else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return
         }
-        if (self.listId == listId) {
+        if (self.list.id == list.id) {
             return
         }
         let client = TWTRAPIClient()
-        let dataSource = TWTRListTimelineDataSource(listID: listId, APIClient: client)
+        let dataSource = TWTRListTimelineDataSource(listID: list.id, APIClient: client)
         self.dataSource = dataSource
         self.refresh()
-        self.listId = listId
+        self.list = list
     }
 }

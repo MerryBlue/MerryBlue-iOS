@@ -32,18 +32,13 @@ class UserStatusCell: UITableViewCell {
             return
         }
         self.tweetTextLabel.text = status.text
-        // self.tweetTextLabel.text = status.text.lines[0]
-        // if let line: String = status.text.lines[safe: 1] {
-        //     self.tweetTextLabel.text = self.tweetTextLabel.text + "\n" + line
-        // }
-        let df = NSDateFormatter()
-        df.dateFormat = "yyyy/MM/dd HH:mm:ss"
-        self.timeElapsedLabel.text = df.stringFromDate(status.createdAt)
+        
+        self.timeElapsedLabel.text = status.createdAt.toFuzzy()
         
         if user.hasNew() {
             // self.layer.addBorder(UIRectEdge.Left, color: UIColor.greenColor(), thickness: 4)
             newCountLabel.hidden = false
-            newCountLabel.text = String(user.newCount())
+            newCountLabel.text = user.newCount() <= 100 ? String(user.newCount()) : "many"
         } else {
             newCountLabel.hidden = true
         }

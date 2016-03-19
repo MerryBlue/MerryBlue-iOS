@@ -2,7 +2,6 @@ import Foundation
 
 class ConfigManager {
     static private let configNameKey = "name"
-    static private let configListIdKey = "listid"
     static private let userCountStatusKeyPrefix = "lscount-"
     
     static func setName(text: String) {
@@ -12,14 +11,6 @@ class ConfigManager {
         return selectData(configNameKey) as? String
     }
    
-    static func setListId(id: String) {
-        updateData(configListIdKey, value: id)
-    }
-    
-    static func getListId() -> String? {
-        return selectData(configListIdKey) as? String
-    }
-    
     
     static func setUserInfo(userID: String, tweetCount: Int) {
         updateData(userCountStatusKeyPrefix + userID, value: tweetCount)

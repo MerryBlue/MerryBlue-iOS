@@ -7,6 +7,8 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var backButtonItem: UIBarButtonItem!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    var refreshControl: UIRefreshControl!
 
     var tweetLists: Array<TwitterList> = []
     var selectedIndex: NSIndexPath!
@@ -17,11 +19,22 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         tableView.dataSource = self
         tableView.delegate = self
         
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
+        refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents:.ValueChanged)
+        self.tableView.addSubview(refreshControl)
+        
         setNavigationBar()
     }
     
     override func viewDidAppear(animated: Bool) {
-        TwitterManager.getLists(self)
+        let lists = ListService.sharedInstance.selectLists()
+        if lists.isEmpty {
+            self.activityIndicator.startAnimating()
+            TwitterManager.getLists(self)
+        } else {
+            setupTableView(lists)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,9 +54,27 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         return cell
     }
     
-    internal func setTableView(lists: [TwitterList]) {
+    internal func setupTableView(lists: [TwitterList]) {
         tweetLists = lists
         tableView.reloadData()
+        
+        if self.activityIndicator.isAnimating() {
+            self.activityIndicator.stopAnimating()
+        }
+        
+        if lists.isEmpty {
+            let ac: UIAlertController = UIAlertController(
+                title: "リストが見つかりませんでした",
+                message: "このアカウントはリストを作成, フォローしていません",
+                preferredStyle: UIAlertControllerStyle.Alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(ac, animated: true, completion: nil)
+        }
+        // self.fetchListUpdate(lists)
+    }
+    
+    private func fetchListUpdate(lists: [TwitterList]) {
+        
     }
     
     private func setNavigationBar() {
@@ -56,7 +87,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         let list = self.tweetLists[indexPath.row]
         selectCell(indexPath)
         if list.enable() {
-            ConfigManager.setListId(list.id)
+            ListService.sharedInstance.updateHomeList(list)
             goBack()
         } else {
             // 選択不可アラート
@@ -87,6 +118,11 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         selectedIndex = indexPath
     }
     
+    func pullToRefresh(){
+        TwitterManager.getLists(self)
+        refreshControl.endRefreshing()
+    }
+    
     func onClickBackButton() {
         self.goBack()
     }
@@ -96,12 +132,12 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     internal func setSelectedCell() {
-        guard let liistId = ConfigManager.getListId() else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
             return
         }
         
         for i in 0..<tableView.numberOfRowsInSection(0) {
-            if tweetLists[i].id == liistId {
+            if tweetLists[i].id == list.id {
                 selectCell(NSIndexPath(forRow: i, inSection: 0))
                 break
             }
