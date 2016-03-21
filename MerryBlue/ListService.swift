@@ -5,12 +5,12 @@ class ListService {
     static let sharedInstance = ListService()
     private let userDefaults = NSUserDefaults.standardUserDefaults()
     
-    func updateHomeList(list: TwitterList) {
-        updateHomeListID(list.id)
+    func updateHomeList(list: TwitterList, id: Int) {
+        updateHomeListID(list.id, id: id)
     }
     
-    func selectHomeList() -> TwitterList? {
-        guard let listID = selectHomeListID() else {
+    func selectHomeList(id: Int) -> TwitterList? {
+        guard let listID = selectHomeListID(id) else {
             return nil
         }
         for list in selectLists() {
@@ -22,13 +22,13 @@ class ListService {
     }
     
     
-    func updateHomeListID(listID: String) {
-        self.userDefaults.setObject(listID, forKey: UserDefaultsKey.HomeListId)
+    func updateHomeListID(listID: String, id: Int) {
+        self.userDefaults.setObject(listID, forKey: "\(UserDefaultsKey.HomeListId)::\(String(id))")
         self.userDefaults.synchronize()
     }
     
-    func selectHomeListID() -> String? {
-        return self.userDefaults.objectForKey(UserDefaultsKey.HomeListId) as? String
+    func selectHomeListID(id: Int) -> String? {
+        return self.userDefaults.objectForKey("\(UserDefaultsKey.HomeListId)::\(String(id))") as? String
     }
     
     

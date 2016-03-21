@@ -24,8 +24,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     // 初めは時間順，オーダーメソッドが呼ばれるので逆に設定
     var orderType = HomeViewOrderType.ReadCountOrder
     
+    var homeID: Int!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.homeID = MainTabBarController.getHomeID()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -49,7 +52,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewDidAppear(animated: Bool) {
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList(homeID) else {
             self.openListsChooser()
             return
         }
@@ -159,6 +162,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func openListsChooser() {
+        delegate.openHomeID = self.homeID
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("lists")
         self.presentViewController(vc, animated: true, completion: nil)
@@ -172,7 +176,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func didMoveToParentViewController(parent: UIViewController?) {
         super.willMoveToParentViewController(parent)
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList(self.homeID) else {
             self.openListsChooser()
             return
         }

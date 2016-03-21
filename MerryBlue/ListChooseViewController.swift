@@ -12,6 +12,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
 
     var tweetLists: Array<TwitterList> = []
     var selectedIndex: NSIndexPath!
+    var homeID: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,8 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
         refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents:.ValueChanged)
         self.tableView.addSubview(refreshControl)
+        let delegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        self.homeID = delegate.openHomeID!
         
         setNavigationBar()
     }
@@ -87,7 +90,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         let list = self.tweetLists[indexPath.row]
         selectCell(indexPath)
         if list.enable() {
-            ListService.sharedInstance.updateHomeList(list)
+            ListService.sharedInstance.updateHomeList(list, id: self.homeID)
             goBack()
         } else {
             // 選択不可アラート
@@ -132,7 +135,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     internal func setSelectedCell() {
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList(self.homeID) else {
             return
         }
         
