@@ -71,21 +71,34 @@ class TwitterManager {
     
     static func requestListMembers(listID: String, count: Int = 50) -> Observable<[TwitterUser]> {
         return Observable.create { observer -> Disposable in
-            Twitter.sharedInstance()
+            _ = Twitter.sharedInstance()
                 .rx_loadListMembers(listID, client: getClient(), count: count)
                 .subscribeNext { usersData in
                     let json = JSON(data: usersData)
-                    var users = [TwitterUser]()
-                    
-                    for userJson in json["users"].array! {
-                        users.append(TwitterUser(json: userJson)!)
-                    }
+                    let users = json["users"].array!.map({ return TwitterUser(json: $0)! })
                     let sortedUsers = sortUsers(users)
                     observer.onNext(sortedUsers)
                 }
             return AnonymousDisposable {}
         }
     }
+    
+    static func requestLists(var ownerID: String! = nil) -> Observable<[TwitterList]> {
+        if ownerID == nil {
+            ownerID = self.getUserID()
+        }
+        return Observable.create { observer -> Disposable in
+            _ = Twitter.sharedInstance()
+                .rx_loadLists(ownerID, client: getClient())
+                .subscribeNext { listsData in
+                    let json = JSON(data: listsData)
+                    let lists = json.map({ return TwitterList(jsonData: $1) })
+                    observer.onNext(lists)
+            }
+            return AnonymousDisposable {}
+        }
+    }
+    
     
     static func logoutUser() {
         guard let userID = getUserID() else {

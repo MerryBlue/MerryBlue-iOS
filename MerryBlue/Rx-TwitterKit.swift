@@ -23,12 +23,39 @@ public extension Twitter {
         }
     }
     
+    /// Load the lists
+    ///
+    /// - parameter userID:  owner twitter userID.
+    /// - parameter client:  API client used to load the request.
+    ///
+    /// - returns: The users data
+    public func rx_loadLists(ownerID: String, client: TWTRAPIClient) -> Observable<NSData> {
+        return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
+            let httpMethod = "GET"
+            let url = "https://api.twitter.com/1.1/lists/list.json"
+            let parameters = ["user_id": ownerID]
+            
+            _ = self.rx_URLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
+                .subscribe(
+                    onNext: { data in
+                        guard let listsData = data as? NSData else {
+                            return
+                        }
+                        observer.onNext(listsData)
+                        observer.onCompleted()
+                    }, onError: { error in
+                        observer.onError(error)
+                    }, onCompleted: nil, onDisposed: nil)
+            return AnonymousDisposable { }
+        }
+    }
+    
     /// Load the users in list.
     ///
     /// - parameter listID:  listID.
     /// - parameter client:  API client used to load the request.
     ///
-    /// - returns: The timeline data.
+    /// - returns: The users data
     public func rx_loadListMembers(listID: String, client: TWTRAPIClient, count: Int = 50) -> Observable<NSData> {
         return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
             let httpMethod = "GET"
@@ -38,7 +65,7 @@ public extension Twitter {
                 "count": String(count)
             ]
             
-            self.rx_URLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
+            _ = self.rx_URLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
                 .subscribe(
                     onNext: { data in
                         guard let usersData = data as? NSData else {
