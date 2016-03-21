@@ -1,6 +1,7 @@
 import Foundation
 import TwitterKit
 import SwiftyJSON
+import RxSwift
 
 class TwitterManager {
     static let HOST = "https://api.twitter.com/1.1"
@@ -37,34 +38,6 @@ class TwitterManager {
         return lists.filter { $0.member_count <= LIST_FILTER_MEMBER_MAX_NUM }
     }
     
-    static func getListUsers(view: HomeViewController, listId: String) -> Void {
-        let client = getClient()
-        let statusesShowEndpont = HOST + "/lists/members.json"
-        let params = [
-            "list_id": listId,
-            "count": "50"
-        ]
-        var clientError: NSError?
-        
-        let request = Twitter.sharedInstance().APIClient.URLRequestWithMethod("GET", URL: statusesShowEndpont, parameters: params, error: &clientError)
-        client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
-            if (connectionError != nil) {
-                print("Error: \(connectionError)")
-                return
-            }
-            let json = JSON(data: data!)
-            var users = [TwitterUser]()
-            
-            // do { let jsonResult: NSDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary } catch { }
-            
-            for userJson in json["users"].array! {
-                users.append(TwitterUser(json: userJson)!)
-            }
-            let sortedUsers = sortUsers(users)
-            view.setupListUsers(sortedUsers)
-        }
-    }
-    
     static func sortUsers(users: [TwitterUser]) -> [TwitterUser] {
         return users.sort({
             guard let u1Status = $0.lastStatus else {
@@ -75,6 +48,43 @@ class TwitterManager {
             }
             return u1Status.createdAt.compare(u2Status.createdAt) == NSComparisonResult.OrderedDescending
         })
+    }
+    
+    // ---------- rx ------------ //
+    static func requestProfileInformation() -> Observable<TWTRUser> {
+        return Observable.create { observer -> Disposable in
+            Twitter.sharedInstance()
+                .rx_loadUserWithID(getUserID(), client: getClient())
+                .subscribe(onNext: { user in
+                    // self.session.user = user
+                    observer.onNext(user)
+                    observer.onCompleted()
+                    }, onError: { error in
+                        print("Failed: \(error)")
+                        observer.onError(error)
+                    }, onCompleted: nil, onDisposed: nil)
+                .addDisposableTo(DisposeBag())
+            // .addDisposableTo(self.rx_disposeBag)
+            return AnonymousDisposable {}
+        }
+    }
+    
+    static func requestListMembers(listID: String, count: Int = 50) -> Observable<[TwitterUser]> {
+        return Observable.create { observer -> Disposable in
+            Twitter.sharedInstance()
+                .rx_loadListMembers(listID, client: getClient(), count: count)
+                .subscribeNext { usersData in
+                    let json = JSON(data: usersData)
+                    var users = [TwitterUser]()
+                    
+                    for userJson in json["users"].array! {
+                        users.append(TwitterUser(json: userJson)!)
+                    }
+                    let sortedUsers = sortUsers(users)
+                    observer.onNext(sortedUsers)
+                }
+            return AnonymousDisposable {}
+        }
     }
     
     static func logoutUser() {

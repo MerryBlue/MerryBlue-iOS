@@ -1,5 +1,6 @@
 import UIKit
 import TwitterKit
+import RxSwift
 
 class ProfileViewController: UIViewController {
     
@@ -14,7 +15,6 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Profile"
         self.view.backgroundColor = UIColor.whiteColor()
-        
         self.setNavigationBar()
     }
     
@@ -36,6 +36,12 @@ class ProfileViewController: UIViewController {
     }
     
     private func setProfiles() {
+        TwitterManager.requestProfileInformation().subscribe(onNext: { user in
+            print("self on ?")
+            }, onError: { error in
+            }, onCompleted: nil, onDisposed: nil)
+        .addDisposableTo(DisposeBag())
+        
         // let s: TWTRAuthSession = TwitterManager.getUser()
         nameLabel.text = "アカウントネーム"
         screenNameLabel.text = "@screen_name"

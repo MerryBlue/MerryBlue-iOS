@@ -28,7 +28,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func pullToRefresh(){
-        TwitterManager.getListUsers(self, listId: list.id)
+        TwitterManager.requestListMembers(list.id).subscribeNext({ (users) -> Void in self.setupListUsers(users) })
         refreshControl.endRefreshing() // データが取れたら更新を終える（くるくる回るViewを消去）
     }
     
@@ -43,7 +43,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.list = list
         self.activityIndicator.startAnimating()
-        TwitterManager.getListUsers(self, listId: list.id)
+        TwitterManager.requestListMembers(list.id).subscribeNext({ (users) -> Void in self.setupListUsers(users) })
     }
     
     internal func setupListUsers(users: [TwitterUser]) {
@@ -115,7 +115,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         self.activityIndicator.startAnimating()
-        TwitterManager.getListUsers(self, listId: list.id)
+        TwitterManager.requestListMembers(list.id).subscribeNext({ (users) -> Void in self.setupListUsers(users) })
         self.list = list
     }
 }
