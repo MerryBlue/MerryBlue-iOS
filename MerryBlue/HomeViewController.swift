@@ -2,15 +2,27 @@ import UIKit
 import TwitterKit
 import FontAwesomeKit
 
+struct HomeViewOrderType {
+    static let TimeOrder = 0
+    static let ReadCountOrder = 1
+}
+
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var delegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var refreshControl: UIRefreshControl!
+    var orderButton: UIBarButtonItem!
+    var cleanButton: UIBarButtonItem!
+    
     var list: TwitterList!
     var users = [TwitterUser]()
+    var filtered: Bool!
+    // 初めは時間順，オーダーメソッドが呼ばれるので逆に設定
+    var orderType = HomeViewOrderType.ReadCountOrder
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,12 +35,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
         refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents:.ValueChanged)
+        self.filtered = false
         
         self.tableView.addSubview(refreshControl)
     }
     
     func pullToRefresh(){
-        _ = TwitterManager.requestListMembers(list.id).subscribeNext({ (users) -> Void in self.setupListUsers(users) })
+        _ = TwitterManager.requestListMembers(list.id).subscribeNext({ (users) -> Void in
+            self.orderType = (self.orderType + 1) % 2
+            self.setupListUsers(users)
+        })
         refreshControl.endRefreshing() // データが取れたら更新を終える（くるくる回るViewを消去）
     }
     
@@ -47,9 +63,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     internal func setupListUsers(users: [TwitterUser]) {
-        self.users = users
+        self.users = TwitterManager.sortUsersLastupdate(users)
         self.title = list.name
-        self.tableView.reloadData()
+        self.changeOrder()
         if self.activityIndicator.isAnimating() {
             self.activityIndicator.stopAnimating()
         }
@@ -75,9 +91,35 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.openUserTimeline(user)
     }
     
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (filtered! && !users[indexPath.row].hasNew()) {
+            cell.hidden = true
+        } else {
+            cell.hidden = false
+        }
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if (filtered! && !users[indexPath.row].hasNew()) {
+            return 0
+        }
+        return self.tableView.rowHeight
+    }
+    
     private func setNavigationBar() {
-        let iconImage = FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
-        let switchListButton = UIBarButtonItem(image: iconImage, style: .Plain, target: self, action: "onClickSwitchList")
+        let switchListButton = UIBarButtonItem(
+            image:FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
+            style: .Plain, target: self, action: "openListsChooser")
+        orderButton = UIBarButtonItem(
+            image: FAKIonIcons.funnelIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
+            style: .Plain,
+            target: self,
+            action: "changeOrder")
+        cleanButton = UIBarButtonItem(
+            image: FAKIonIcons.androidDraftsIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
+            style: .Plain,
+            target: self,
+            action: "cleanAll")
         
         self.navigationController?.navigationBar
         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -87,10 +129,33 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationItem
         self.navigationItem.title = "HomeBoard"
         self.navigationItem.setRightBarButtonItem(switchListButton, animated: true)
+        self.navigationItem.setLeftBarButtonItems([orderButton, cleanButton], animated: true)
     }
     
-    func onClickSwitchList() {
-        self.openListsChooser()
+    func cleanAll() {
+        for user in users {
+            user.updateReadedCount()
+        }
+        self.tableView.reloadData()
+    }
+    
+    func changeOrder() {
+        switch orderType {
+        case HomeViewOrderType.TimeOrder:
+            self.users = TwitterManager.sortUsersNewCount(users)
+        case HomeViewOrderType.ReadCountOrder:
+            self.users = TwitterManager.sortUsersLastupdate(users)
+        default:
+            break
+        }
+        
+        self.orderType = (self.orderType + 1) % 2
+        self.tableView.reloadData()
+    }
+    
+    func filterReaded() {
+        self.filtered = !self.filtered
+        self.tableView.reloadData()
     }
     
     func openListsChooser() {
@@ -115,6 +180,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         self.activityIndicator.startAnimating()
+        orderType = HomeViewOrderType.TimeOrder
         _ = TwitterManager.requestListMembers(list.id).subscribeNext({ (users) -> Void in self.setupListUsers(users) })
         self.list = list
     }

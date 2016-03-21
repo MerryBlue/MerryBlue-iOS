@@ -7,6 +7,7 @@ class TwitterUser: TWTRUser {
     var readedStatusId: String!
     var preCount: Int!
     var tweetCount: Int!
+    var isFollowing: Bool = false
     var profileBackgroundImageURL: String!
     
     required override init!(JSONDictionary dictionary: [NSObject : AnyObject]!) {
@@ -25,14 +26,21 @@ class TwitterUser: TWTRUser {
             self.lastStatus = nil
         }
         self.tweetCount = json["statuses_count"].intValue
+        self.isFollowing = json["following"].boolValue
         self.profileBackgroundImageURL = json["profile_background_image_url_https"].stringValue
         
-        if let count = ConfigManager.getUserInfo(self.userID) {
+        if let count = ConfigManager.getUserInfo(self.userID) where !isSecret() {
+            // ログあり かつ 相手のツイートが見れる場合
             self.preCount = count
+            self.tweetCount = Int(max(self.tweetCount, self.preCount))
         } else {
             self.updateReadedCount()
         }
         
+    }
+    
+    func isSecret() -> Bool {
+        return self.isProtected && !self.isFollowing
     }
     
     func hasNew() -> Bool {
@@ -40,11 +48,29 @@ class TwitterUser: TWTRUser {
     }
     
     func newCount() -> Int {
-        return self.tweetCount - self.preCount
+        return max(0, self.tweetCount - self.preCount)
     }
     
     func updateReadedCount() {
         self.preCount = tweetCount
         ConfigManager.setUserInfo(self.userID, tweetCount: self.tweetCount)
+    }
+    
+    func compareNewCountTo(user: TwitterUser) -> Bool {
+        let c = self.newCount() - user.newCount()
+        if c != 0 {
+            return c > 0
+        }
+        return self.compareLastTweetTo(user)
+    }
+    
+    func compareLastTweetTo(user: TwitterUser) -> Bool {
+        guard let s1 = self.lastStatus else {
+            return false
+        }
+        guard let s2 = user.lastStatus else {
+            return true
+        }
+        return s1.createdAt.compare(s2.createdAt) == NSComparisonResult.OrderedDescending
     }
 }
