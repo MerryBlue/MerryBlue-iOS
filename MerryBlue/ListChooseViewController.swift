@@ -31,7 +31,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         let lists = ListService.sharedInstance.selectLists()
         if lists.isEmpty {
             self.activityIndicator.startAnimating()
-            TwitterManager.getLists(self)
+            _ = TwitterManager.requestLists().subscribeNext({ (lists) -> Void in self.setupTableView(lists) })
         } else {
             setupTableView(lists)
         }
@@ -119,7 +119,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func pullToRefresh(){
-        TwitterManager.getLists(self)
+        _ = TwitterManager.requestLists().subscribeNext({ (lists) -> Void in self.setupTableView(lists) })
         refreshControl.endRefreshing()
     }
     

@@ -7,6 +7,7 @@ class TwitterUser: TWTRUser {
     var readedStatusId: String!
     var preCount: Int!
     var tweetCount: Int!
+    var profileBackgroundImageURL: String!
     
     required override init!(JSONDictionary dictionary: [NSObject : AnyObject]!) {
         super.init(JSONDictionary: dictionary)
@@ -24,6 +25,7 @@ class TwitterUser: TWTRUser {
             self.lastStatus = nil
         }
         self.tweetCount = json["statuses_count"].intValue
+        self.profileBackgroundImageURL = json["profile_background_image_url_https"].stringValue
         
         if let count = ConfigManager.getUserInfo(self.userID) {
             self.preCount = count

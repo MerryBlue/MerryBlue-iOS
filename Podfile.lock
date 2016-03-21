@@ -2,10 +2,18 @@ PODS:
   - FontAwesomeKit/Core (HEAD based on 2.2.0)
   - FontAwesomeKit/IonIcons (HEAD based on 2.2.0):
     - FontAwesomeKit/Core
+  - RxBlocking (2.3.0):
+    - RxSwift (~> 2.3)
+  - RxCocoa (2.3.0):
+    - RxSwift (~> 2.3)
+  - RxSwift (2.3.0)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - FontAwesomeKit/IonIcons (HEAD)
+  - RxBlocking (~> 2.0)
+  - RxCocoa (~> 2.0)
+  - RxSwift (~> 2.0)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
 EXTERNAL SOURCES:
@@ -14,11 +22,14 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SwiftyJSON:
-    :commit: 42bdb102d2624b143c07850ebdc1537d5b6579b6
+    :commit: 2a5b70f06001316d4fb54501edc70b4084705da0
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
   FontAwesomeKit: 025fd4dd1017fe4e3f8d47b03e024deedbb33cd4
+  RxBlocking: 4616f93183a76aeee681262377e5c4aca0515b06
+  RxCocoa: cde4e993f496d2577bc3ba8b7dc7bf55a4ed809a
+  RxSwift: 0df59cc5edf28a31dbf83b049220b4b8e76b07c8
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0
