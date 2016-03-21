@@ -8,7 +8,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var refreshControl: UIRefreshControl!
+    var filterButton: UIBarButtonItem!
+    var cleanButton: UIBarButtonItem!
+    
     var list: TwitterList!
     var users = [TwitterUser]()
     var filtered: Bool!
@@ -93,10 +97,19 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     private func setNavigationBar() {
-        let iconImage = FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
-        let switchListButton = UIBarButtonItem(image: iconImage, style: .Plain, target: self, action: "onClickSwitchList")
-        let iconImageFilter = FAKIonIcons.funnelIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
-        let filterButton = UIBarButtonItem(image: iconImageFilter, style: .Plain, target: self, action: "filterReaded")
+        let switchListButton = UIBarButtonItem(
+            image:FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
+            style: .Plain, target: self, action: "openListsChooser")
+        filterButton = UIBarButtonItem(
+            image: FAKIonIcons.funnelIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
+            style: .Plain,
+            target: self,
+            action: "filterReaded")
+        cleanButton = UIBarButtonItem(
+            image: FAKIonIcons.androidDraftsIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
+            style: .Plain,
+            target: self,
+            action: "cleanAll")
         
         self.navigationController?.navigationBar
         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -106,16 +119,19 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationItem
         self.navigationItem.title = "HomeBoard"
         self.navigationItem.setRightBarButtonItem(switchListButton, animated: true)
-        self.navigationItem.setLeftBarButtonItem(filterButton, animated: true)
+        self.navigationItem.setLeftBarButtonItems([filterButton, cleanButton], animated: true)
+    }
+    
+    func cleanAll() {
+        for user in users {
+            user.updateReadedCount()
+        }
+        self.tableView.reloadData()
     }
     
     func filterReaded() {
         self.filtered = !self.filtered
         self.tableView.reloadData()
-    }
-    
-    func filterAction() {
-        self.openListsChooser()
     }
     
     func openListsChooser() {
