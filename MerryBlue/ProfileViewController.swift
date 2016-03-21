@@ -41,6 +41,14 @@ class ProfileViewController: UIViewController {
     private func setProfiles(user: TwitterUser) {
         nameLabel.text = user.name
         screenNameLabel.text = "@\(user.screenName)"
+        do {
+            let imageData: NSData = try NSData(contentsOfURL: NSURL(string: user.profileImageURL)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+            let bgImageData: NSData = try NSData(contentsOfURL: NSURL(string: user.profileBackgroundImageURL)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+            self.profileImageView.image = UIImage(data: imageData)
+            self.profileBackgroundImageView.image = UIImage(data: bgImageData)
+        } catch {
+            print("Error: Image request invalid")
+        }
     }
     
     private func setLogoutButton() {
@@ -57,4 +65,3 @@ class ProfileViewController: UIViewController {
         self.navigationItem.title = "Account"
     }
 }
-
