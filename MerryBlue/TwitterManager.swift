@@ -38,16 +38,12 @@ class TwitterManager {
         return lists.filter { $0.member_count <= LIST_FILTER_MEMBER_MAX_NUM }
     }
     
-    static func sortUsers(users: [TwitterUser]) -> [TwitterUser] {
-        return users.sort({
-            guard let u1Status = $0.lastStatus else {
-                return false
-            }
-            guard let u2Status = $1.lastStatus else {
-                return true
-            }
-            return u1Status.createdAt.compare(u2Status.createdAt) == NSComparisonResult.OrderedDescending
-        })
+    static func sortUsersLastupdate(users: [TwitterUser]) -> [TwitterUser] {
+        return users.sort({ return $0.compareLastTweetTo($1) })
+    }
+    
+    static func sortUsersNewCount(users: [TwitterUser]) -> [TwitterUser] {
+        return users.sort({ return $0.compareNewCountTo($1) })
     }
     
     // ---------- rx ------------ //
@@ -73,8 +69,7 @@ class TwitterManager {
                 .subscribeNext { usersData in
                     let json = JSON(data: usersData)
                     let users = json["users"].array!.map({ return TwitterUser(json: $0)! })
-                    let sortedUsers = sortUsers(users)
-                    observer.onNext(sortedUsers)
+                    observer.onNext(users)
                 }
             return AnonymousDisposable {}
         }

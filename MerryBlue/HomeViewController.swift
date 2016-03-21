@@ -2,6 +2,11 @@ import UIKit
 import TwitterKit
 import FontAwesomeKit
 
+struct HomeViewOrderType {
+    static let TimeOrder = 0
+    static let ReadCountOrder = 1
+}
+
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var delegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -10,12 +15,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var refreshControl: UIRefreshControl!
-    var filterButton: UIBarButtonItem!
+    var orderButton: UIBarButtonItem!
     var cleanButton: UIBarButtonItem!
     
     var list: TwitterList!
     var users = [TwitterUser]()
     var filtered: Bool!
+    // 初めは時間順，オーダーメソッドが呼ばれるので逆に設定
+    var orderType = HomeViewOrderType.ReadCountOrder
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +41,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func pullToRefresh(){
-        _ = TwitterManager.requestListMembers(list.id).subscribeNext({ (users) -> Void in self.setupListUsers(users) })
+        _ = TwitterManager.requestListMembers(list.id).subscribeNext({ (users) -> Void in
+            self.orderType = (self.orderType + 1) % 2
+            self.setupListUsers(users)
+        })
         refreshControl.endRefreshing() // データが取れたら更新を終える（くるくる回るViewを消去）
     }
     
@@ -53,9 +63,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     internal func setupListUsers(users: [TwitterUser]) {
-        self.users = users
+        self.users = TwitterManager.sortUsersLastupdate(users)
         self.title = list.name
-        self.tableView.reloadData()
+        self.changeOrder()
         if self.activityIndicator.isAnimating() {
             self.activityIndicator.stopAnimating()
         }
@@ -100,11 +110,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let switchListButton = UIBarButtonItem(
             image:FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
             style: .Plain, target: self, action: "openListsChooser")
-        filterButton = UIBarButtonItem(
+        orderButton = UIBarButtonItem(
             image: FAKIonIcons.funnelIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
             style: .Plain,
             target: self,
-            action: "filterReaded")
+            action: "changeOrder")
         cleanButton = UIBarButtonItem(
             image: FAKIonIcons.androidDraftsIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
             style: .Plain,
@@ -119,13 +129,27 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationItem
         self.navigationItem.title = "HomeBoard"
         self.navigationItem.setRightBarButtonItem(switchListButton, animated: true)
-        self.navigationItem.setLeftBarButtonItems([filterButton, cleanButton], animated: true)
+        self.navigationItem.setLeftBarButtonItems([orderButton, cleanButton], animated: true)
     }
     
     func cleanAll() {
         for user in users {
             user.updateReadedCount()
         }
+        self.tableView.reloadData()
+    }
+    
+    func changeOrder() {
+        switch orderType {
+        case HomeViewOrderType.TimeOrder:
+            self.users = TwitterManager.sortUsersNewCount(users)
+        case HomeViewOrderType.ReadCountOrder:
+            self.users = TwitterManager.sortUsersLastupdate(users)
+        default:
+            break
+        }
+        
+        self.orderType = (self.orderType + 1) % 2
         self.tableView.reloadData()
     }
     
@@ -156,6 +180,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         self.activityIndicator.startAnimating()
+        orderType = HomeViewOrderType.TimeOrder
         _ = TwitterManager.requestListMembers(list.id).subscribeNext({ (users) -> Void in self.setupListUsers(users) })
         self.list = list
     }
