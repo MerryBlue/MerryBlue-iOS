@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import SDWebImage
 
 class UserStatusCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
@@ -20,12 +21,14 @@ class UserStatusCell: UITableViewCell {
     func setCell(user: TwitterUser) {
         self.nameLabel.text = user.name
         self.screenNameLabel.text = "@\(user.screenName)"
-        do {
-            let imageData: NSData = try NSData(contentsOfURL: NSURL(string: user.profileImageURL)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-            self.iconImageView.image = UIImage(data:imageData)
-        } catch {
-            print("Error: Image request invalid")
-        }
+        
+        self.iconImageView.sd_setImageWithURL(NSURL(string: user.profileImageURL)!)
+        let url = NSURL(string: user.profileImageURL)
+        SDWebImageDownloader.sharedDownloader().downloadImageWithURL(url, options: [], progress: nil,
+                completed: { [weak self] (image, data, error, finished) in
+                    self!.iconImageView.image = image
+            })
+        
         guard let status = user.lastStatus else {
             self.tweetTextLabel.text = "ツイートが読み込めませんでした"
             self.timeElapsedLabel.text = "----/--/-- --:--:--"

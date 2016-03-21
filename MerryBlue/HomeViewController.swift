@@ -25,6 +25,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var orderType = HomeViewOrderType.ReadCountOrder
     
     var homeID: Int!
+    var cacheCellHeight: CGFloat!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
         refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents:.ValueChanged)
         self.filtered = false
+        cacheCellHeight = self.tableView.rowHeight
         
         self.tableView.addSubview(refreshControl)
     }
@@ -103,10 +105,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if (filtered! && !users[indexPath.row].hasNew()) {
-            return 0
-        }
-        return self.tableView.rowHeight
+        return self.cacheCellHeight!
     }
     
     private func setNavigationBar() {
