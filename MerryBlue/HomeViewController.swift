@@ -11,6 +11,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var refreshControl: UIRefreshControl!
     var list: TwitterList!
     var users = [TwitterUser]()
+    var filtered: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
         refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents:.ValueChanged)
+        self.filtered = false
         
         self.tableView.addSubview(refreshControl)
     }
@@ -75,9 +77,26 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.openUserTimeline(user)
     }
     
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (filtered! && !users[indexPath.row].hasNew()) {
+            cell.hidden = true
+        } else {
+            cell.hidden = false
+        }
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if (filtered! && !users[indexPath.row].hasNew()) {
+            return 0
+        }
+        return self.tableView.rowHeight
+    }
+    
     private func setNavigationBar() {
         let iconImage = FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
         let switchListButton = UIBarButtonItem(image: iconImage, style: .Plain, target: self, action: "onClickSwitchList")
+        let iconImageFilter = FAKIonIcons.funnelIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
+        let filterButton = UIBarButtonItem(image: iconImageFilter, style: .Plain, target: self, action: "filterReaded")
         
         self.navigationController?.navigationBar
         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -87,9 +106,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationItem
         self.navigationItem.title = "HomeBoard"
         self.navigationItem.setRightBarButtonItem(switchListButton, animated: true)
+        self.navigationItem.setLeftBarButtonItem(filterButton, animated: true)
     }
     
-    func onClickSwitchList() {
+    func filterReaded() {
+        self.filtered = !self.filtered
+        self.tableView.reloadData()
+    }
+    
+    func filterAction() {
         self.openListsChooser()
     }
     
