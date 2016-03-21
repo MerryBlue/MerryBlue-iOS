@@ -51,20 +51,17 @@ class TwitterManager {
     }
     
     // ---------- rx ------------ //
-    static func requestProfileInformation() -> Observable<TWTRUser> {
+    static func requestUserProfile(var userID: String! = nil) -> Observable<TwitterUser> {
+        if userID == nil {
+            userID = self.getUserID()
+        }
         return Observable.create { observer -> Disposable in
-            Twitter.sharedInstance()
-                .rx_loadUserWithID(getUserID(), client: getClient())
-                .subscribe(onNext: { user in
-                    // self.session.user = user
-                    observer.onNext(user)
-                    observer.onCompleted()
-                    }, onError: { error in
-                        print("Failed: \(error)")
-                        observer.onError(error)
-                    }, onCompleted: nil, onDisposed: nil)
-                .addDisposableTo(DisposeBag())
-            // .addDisposableTo(self.rx_disposeBag)
+            _ = Twitter.sharedInstance()
+                .rx_loadUserShow(userID, client: getClient())
+                .subscribeNext { usersData in
+                    let json = JSON(data: usersData)
+                    observer.onNext(TwitterUser(json: json)!)
+                }
             return AnonymousDisposable {}
         }
     }

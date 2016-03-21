@@ -10,6 +10,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var logoutButton: UIButton!
+    var user: TwitterUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +20,9 @@ class ProfileViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        self.setProfiles()
+        if user == nil {
+            _ = TwitterManager.requestUserProfile().subscribeNext({ (user) -> Void in self.setProfiles(user)})
+        }
         self.setLogoutButton()
     }
 
@@ -35,17 +38,9 @@ class ProfileViewController: UIViewController {
         self.presentViewController(initialViewController!, animated: true, completion: nil)
     }
     
-    private func setProfiles() {
-        TwitterManager.requestProfileInformation().subscribe(onNext: { user in
-            print("self on ?")
-            }, onError: { error in
-            }, onCompleted: nil, onDisposed: nil)
-        .addDisposableTo(DisposeBag())
-        
-        // let s: TWTRAuthSession = TwitterManager.getUser()
-        nameLabel.text = "アカウントネーム"
-        screenNameLabel.text = "@screen_name"
-        // TODO:
+    private func setProfiles(user: TwitterUser) {
+        nameLabel.text = user.name
+        screenNameLabel.text = "@\(user.screenName)"
     }
     
     private func setLogoutButton() {

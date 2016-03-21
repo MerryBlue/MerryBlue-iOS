@@ -9,16 +9,23 @@ public extension Twitter {
     /// - parameter client:  API client used to load the request.
     ///
     /// - returns: An Observable of the user.
-    public func rx_loadUserWithID(userID: String, client: TWTRAPIClient) -> Observable<TWTRUser> {
-        return Observable.create { (observer: AnyObserver<TWTRUser>) -> Disposable in
-            client.loadUserWithID(userID) { user, error in
-                guard let user = user else {
-                    observer.onError(error!)
-                    return
-                }
-                observer.onNext(user)
-                observer.onCompleted()
-            }
+    public func rx_loadUserShow(userID: String, client: TWTRAPIClient) -> Observable<NSData> {
+        return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
+            let httpMethod = "GET"
+            let url = "https://api.twitter.com/1.1/users/show.json"
+            let parameters = ["user_id": userID]
+            
+            _ = self.rx_URLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
+                .subscribe(
+                    onNext: { data in
+                        guard let data = data as? NSData else {
+                            return
+                        }
+                        observer.onNext(data)
+                        observer.onCompleted()
+                    }, onError: { error in
+                        observer.onError(error)
+                    }, onCompleted: nil, onDisposed: nil)
             return AnonymousDisposable { }
         }
     }
