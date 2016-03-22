@@ -6,7 +6,7 @@ class ListTimelineViewController: TWTRTimelineViewController {
     
     var list: TwitterList!
     convenience init() {
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList(0) else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
             self.init()
             self.openListsChooser()
             return
@@ -22,7 +22,7 @@ class ListTimelineViewController: TWTRTimelineViewController {
     
     private func setNavigationBar() {
         let iconImage = FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
-        let switchListButton = UIBarButtonItem(image: iconImage, style: .Plain, target: self, action: "onClickSwitchList")
+        let switchListButton = UIBarButtonItem(image: iconImage, style: .Plain, target: self, action: #selector(ListTimelineViewController.onClickSwitchList))
         
         self.navigationController?.navigationBar
         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -45,7 +45,7 @@ class ListTimelineViewController: TWTRTimelineViewController {
     
     override func didMoveToParentViewController(parent: UIViewController?) {
         super.willMoveToParentViewController(parent)
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList(0) else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return
         }

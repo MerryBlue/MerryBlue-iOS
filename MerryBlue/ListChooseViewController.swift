@@ -90,7 +90,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         let list = self.tweetLists[indexPath.row]
         selectCell(indexPath)
         if list.enable() {
-            ListService.sharedInstance.updateHomeList(list, id: self.homeID)
+            ListService.sharedInstance.updateHomeList(list)
             goBack()
         } else {
             // 選択不可アラート
@@ -135,7 +135,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     internal func setSelectedCell() {
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList(self.homeID) else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
             return
         }
         

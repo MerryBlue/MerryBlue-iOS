@@ -20,13 +20,11 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
 
     var tweetLists: Array<TwitterList> = []
     var selectedIndex: NSIndexPath!
-    var homeID: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
         self.setupTableView()
-        self.homeID = delegate.openHomeID!
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -129,7 +127,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         let list = self.tweetLists[indexPath.row]
         selectCell(indexPath)
         if list.enable() {
-            ListService.sharedInstance.updateHomeList(list, id: self.homeID)
+            ListService.sharedInstance.updateHomeList(list)
             goBack()
         } else {
             // 選択不可アラート
@@ -174,7 +172,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     internal func setSelectedCell() {
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList(self.homeID) else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
             return
         }
         

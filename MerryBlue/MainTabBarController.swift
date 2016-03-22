@@ -8,7 +8,6 @@ class MainTabBarController: UITabBarController {
     
     var homeNavView: UINavigationController!
     var profileNavView: UINavigationController!
-    static var homeID = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,11 +37,6 @@ class MainTabBarController: UITabBarController {
         let tabs: Array<UINavigationController> = [homeNavView, profileNavView]
         
         self.setViewControllers(tabs, animated: false)
-    }
-    
-    static func getHomeID() -> Int {
-        homeID += 1
-        return homeID
     }
     
     override func didReceiveMemoryWarning() {
