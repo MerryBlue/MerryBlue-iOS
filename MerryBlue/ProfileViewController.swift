@@ -21,7 +21,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         if user == nil {
-            _ = TwitterManager.requestUserProfile().subscribeNext({ (user) -> Void in self.setProfiles(user)})
+            _ = TwitterManager.requestUserProfile(TwitterManager.getUserID()).subscribeNext({ (user) -> Void in self.setProfiles(user)})
         }
         self.setLogoutButton()
     }
@@ -52,7 +52,7 @@ class ProfileViewController: UIViewController {
     }
     
     private func setLogoutButton() {
-        logoutButton.addTarget(self, action: "onClickLogoutButton:", forControlEvents: .TouchUpInside)
+        logoutButton.addTarget(self, action: #selector(ProfileViewController.onClickLogoutButton(_:)), forControlEvents: .TouchUpInside)
     }
     
     private func setNavigationBar() {

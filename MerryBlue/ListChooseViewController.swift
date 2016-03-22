@@ -22,7 +22,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
-        refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents:.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(ListChooseViewController.pullToRefresh), forControlEvents:.ValueChanged)
         self.tableView.addSubview(refreshControl)
         let delegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         self.homeID = delegate.openHomeID!
@@ -34,7 +34,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         let lists = ListService.sharedInstance.selectLists()
         if lists.isEmpty {
             self.activityIndicator.startAnimating()
-            _ = TwitterManager.requestLists().subscribeNext({ (lists) -> Void in self.setupTableView(lists) })
+            _ = TwitterManager.requestLists(TwitterManager.getUserID()).subscribeNext({ (lists) -> Void in self.setupTableView(lists) })
         } else {
             setupTableView(lists)
         }
@@ -81,7 +81,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     private func setNavigationBar() {
-        backButtonItem.action = "goBack"
+        backButtonItem.action = #selector(ListChooseViewController.goBack)
         // backButtonItem.addTarget(self, action: "tapBarButtonItem:", forControlEvents:UIControlEvents.TouchUpInside)
     }
     
@@ -122,7 +122,7 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func pullToRefresh(){
-        _ = TwitterManager.requestLists().subscribeNext({ (lists) -> Void in self.setupTableView(lists) })
+        _ = TwitterManager.requestLists(TwitterManager.getUserID()).subscribeNext({ (lists) -> Void in self.setupTableView(lists) })
         refreshControl.endRefreshing()
     }
     

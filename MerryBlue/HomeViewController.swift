@@ -38,7 +38,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
-        refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents:.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(HomeViewController.pullToRefresh), forControlEvents:.ValueChanged)
         self.filtered = false
         cacheCellHeight = self.tableView.rowHeight
         
@@ -111,17 +111,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     private func setNavigationBar() {
         let switchListButton = UIBarButtonItem(
             image:FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
-            style: .Plain, target: self, action: "openListsChooser")
+            style: .Plain, target: self, action: #selector(HomeViewController.openListsChooser))
         orderButton = UIBarButtonItem(
             image: FAKIonIcons.funnelIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
             style: .Plain,
             target: self,
-            action: "changeOrder")
+            action: #selector(HomeViewController.changeOrder))
         cleanButton = UIBarButtonItem(
             image: FAKIonIcons.androidDraftsIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
             style: .Plain,
             target: self,
-            action: "cleanAll")
+            action: #selector(HomeViewController.cleanAll))
         
         self.navigationController?.navigationBar
         self.navigationController?.setNavigationBarHidden(false, animated: false)

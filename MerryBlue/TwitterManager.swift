@@ -47,10 +47,7 @@ class TwitterManager {
     }
     
     // ---------- rx ------------ //
-    static func requestUserProfile(var userID: String! = nil) -> Observable<TwitterUser> {
-        if userID == nil {
-            userID = self.getUserID()
-        }
+    static func requestUserProfile(userID: String) -> Observable<TwitterUser> {
         return Observable.create { observer -> Disposable in
             _ = Twitter.sharedInstance()
                 .rx_loadUserShow(userID, client: getClient())
@@ -75,10 +72,7 @@ class TwitterManager {
         }
     }
     
-    static func requestLists(var ownerID: String! = nil) -> Observable<[TwitterList]> {
-        if ownerID == nil {
-            ownerID = self.getUserID()
-        }
+    static func requestLists(ownerID: String) -> Observable<[TwitterList]> {
         return Observable.create { observer -> Disposable in
             _ = Twitter.sharedInstance()
                 .rx_loadLists(ownerID, client: getClient())
