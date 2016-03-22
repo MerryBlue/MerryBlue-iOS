@@ -19,7 +19,12 @@ class SignInViewController: UIViewController {
             }
         }
         
-        logInButton.center = self.logInButtonView!.center
+        guard let loginBtnView = self.logInButtonView else {
+            print("Error: loginButtonView not loaded")
+            return
+        }
+        logInButton.center = CGPoint(x: self.view.center.x, y: loginBtnView.center.y)
+        // logInButtonView?.addSubview(logInButton)
         // self.logInButtonView!.addSubview(logInButton)
         self.view.addSubview(logInButton)
     }

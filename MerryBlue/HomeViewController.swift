@@ -28,19 +28,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.setNavigationBar()
+        self.filtered = false
+        self.setupTableView()
+    }
+    
+    func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        
-        self.setNavigationBar()
         
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
         refreshControl.addTarget(self, action: #selector(HomeViewController.pullToRefresh), forControlEvents:.ValueChanged)
-        self.filtered = false
-        cacheCellHeight = self.tableView.rowHeight
-        
         self.tableView.addSubview(refreshControl)
+        cacheCellHeight = self.tableView.rowHeight
     }
     
     func pullToRefresh(){
@@ -52,6 +53,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return
