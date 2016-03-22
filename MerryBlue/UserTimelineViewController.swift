@@ -23,6 +23,7 @@ class UserTimelineViewController: TWTRTimelineViewController {
             includeRetweets: true
         )
         self.init(dataSource: dataSource)
+        self.showTweetActions = true
         self.title = "@\(user.screenName)"
         self.setNavigationBar()
 
