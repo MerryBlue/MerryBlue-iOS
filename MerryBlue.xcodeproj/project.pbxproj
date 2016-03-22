@@ -39,6 +39,7 @@
 		45EBEDF11C93F62F002C6040 /* DigitsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EBEDEF1C93F62F002C6040 /* DigitsKit.framework */; };
 		45EBEDF21C93F62F002C6040 /* DigitsKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45EBEDF01C93F62F002C6040 /* DigitsKitResources.bundle */; };
 		45EBEDF41C93F6CE002C6040 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EBEDF31C93F6CE002C6040 /* SignInViewController.swift */; };
+		45EC9A8A1CA1A99100ABE06A /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EC9A891CA1A99100ABE06A /* LeftMenuViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +77,7 @@
 		45EBEDEF1C93F62F002C6040 /* DigitsKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DigitsKit.framework; sourceTree = "<group>"; };
 		45EBEDF01C93F62F002C6040 /* DigitsKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = DigitsKitResources.bundle; path = DigitsKit.framework/Versions/A/Resources/DigitsKitResources.bundle; sourceTree = "<group>"; };
 		45EBEDF31C93F6CE002C6040 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		45EC9A891CA1A99100ABE06A /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
 		9C18D3FA173A83ADD5394426 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		AB997101D3CFE421879951E7 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -198,6 +200,7 @@
 				457E0BEB1C933D25000A665A /* ProfileViewController.swift */,
 				45BD1C1C1C969A82002A2159 /* ListChooseViewController.swift */,
 				453B45011C98E49100CE5FFE /* UserTimelineViewController.swift */,
+				45EC9A891CA1A99100ABE06A /* LeftMenuViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				453B45021C98E49100CE5FFE /* UserTimelineViewController.swift in Sources */,
 				451C4D8F1C9C9CEB00903A0C /* NSDateExtension.swift in Sources */,
 				453B44FD1C98DADB00CE5FFE /* StringExtension.swift in Sources */,
+				45EC9A8A1CA1A99100ABE06A /* LeftMenuViewController.swift in Sources */,
 				457C3B391C9DAD150020509D /* Rx-TwitterKit.swift in Sources */,
 				45BD1C211C96EB35002A2159 /* TwitterManager.swift in Sources */,
 				451C4D8D1C9C812900903A0C /* UserDefaultsKey.swift in Sources */,

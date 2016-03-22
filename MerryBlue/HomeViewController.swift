@@ -179,7 +179,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.openListsChooser()
             return
         }
-        if (self.list.id == list.id) {
+        if self.list == nil || self.list.id == list.id {
             return
         }
         self.activityIndicator.startAnimating()
