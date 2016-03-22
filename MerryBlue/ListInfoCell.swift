@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import SDWebImage
 
 class ListInfoCell: UITableViewCell {
     @IBOutlet weak var listNameLabel: UILabel!
@@ -17,12 +18,12 @@ class ListInfoCell: UITableViewCell {
     func setCell(listInfo: TwitterList) {
         self.listNameLabel.text = listInfo.name
         self.memberNumLabel.text = String(listInfo.member_count)
-        do {
-            let imageData: NSData = try NSData(contentsOfURL: NSURL(string: listInfo.imageUrl)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-            self.iconImageView.image = UIImage(data:imageData)
-        } catch {
-            print("Error: Image request invalid")
-        }
+        let url = NSURL(string: listInfo.imageUrl)
+        SDWebImageDownloader.sharedDownloader().downloadImageWithURL(url, options: [], progress: nil,
+                completed: { [weak self] (image, data, error, finished) in
+                    self!.iconImageView.image = image
+            })
+        
         if listInfo.enable() {
             memberNumLabel.textColor = UIColor.blackColor()
         } else {

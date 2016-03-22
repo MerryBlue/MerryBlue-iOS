@@ -24,8 +24,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     // 初めは時間順，オーダーメソッドが呼ばれるので逆に設定
     var orderType = HomeViewOrderType.ReadCountOrder
     
+    var homeID: Int!
+    var cacheCellHeight: CGFloat!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.homeID = MainTabBarController.getHomeID()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -36,6 +40,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
         refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents:.ValueChanged)
         self.filtered = false
+        cacheCellHeight = self.tableView.rowHeight
         
         self.tableView.addSubview(refreshControl)
     }
@@ -49,7 +54,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewDidAppear(animated: Bool) {
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList(homeID) else {
             self.openListsChooser()
             return
         }
@@ -100,10 +105,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if (filtered! && !users[indexPath.row].hasNew()) {
-            return 0
-        }
-        return self.tableView.rowHeight
+        return self.cacheCellHeight!
     }
     
     private func setNavigationBar() {
@@ -159,6 +161,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func openListsChooser() {
+        delegate.openHomeID = self.homeID
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("lists")
         self.presentViewController(vc, animated: true, completion: nil)
@@ -172,7 +175,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func didMoveToParentViewController(parent: UIViewController?) {
         super.willMoveToParentViewController(parent)
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList(self.homeID) else {
             self.openListsChooser()
             return
         }

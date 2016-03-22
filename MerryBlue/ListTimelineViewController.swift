@@ -6,7 +6,7 @@ class ListTimelineViewController: TWTRTimelineViewController {
     
     var list: TwitterList!
     convenience init() {
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList(0) else {
             self.init()
             self.openListsChooser()
             return
@@ -45,7 +45,7 @@ class ListTimelineViewController: TWTRTimelineViewController {
     
     override func didMoveToParentViewController(parent: UIViewController?) {
         super.willMoveToParentViewController(parent)
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList(0) else {
             self.openListsChooser()
             return
         }
