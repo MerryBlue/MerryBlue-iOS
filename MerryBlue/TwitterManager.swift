@@ -7,33 +7,6 @@ class TwitterManager {
     static let HOST = "https://api.twitter.com/1.1"
     static let LIST_FILTER_MEMBER_MAX_NUM = 50
     
-    static func getLists(view: ListChooseViewController, userId: String = Twitter.sharedInstance().sessionStore.session()!.userID) -> Void {
-        let client = getClient()
-        let statusesShowEndpont = HOST + "/lists/list.json"
-        let params = [ "user_id": userId ]
-        var clientError: NSError?
-        
-        let request = Twitter.sharedInstance().APIClient.URLRequestWithMethod("GET", URL: statusesShowEndpont, parameters: params, error: &clientError)
-        client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
-            if (connectionError != nil) {
-                print("Error: \(connectionError)")
-                return
-            }
-            let json = JSON(data: data!)
-            var lists: [TwitterList] = []
-            
-            for (_, datum) in json {
-                lists.append(TwitterList(jsonData: datum))
-            }
-            // let filteredList = filterList(lists)
-            // view.setTableView(filteredList)
-            
-            view.setupTableView(lists)
-            view.setSelectedCell()
-            ListService.sharedInstance.updateLists(lists)
-        }
-    }
-    
     static func filterList(lists: [TwitterList]) -> [TwitterList] {
         return lists.filter { $0.member_count <= LIST_FILTER_MEMBER_MAX_NUM }
     }

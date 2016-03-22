@@ -159,9 +159,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func openListsChooser() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("lists")
-        self.presentViewController(vc, animated: true, completion: nil)
+        guard let slideMenu = self.slideMenuController() else {
+            print("Error: HomeView hove not Slidebar")
+            return
+        }
+        slideMenu.openLeft()
     }
     
     func openUserTimeline(user: TwitterUser) {

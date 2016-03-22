@@ -4,10 +4,10 @@ import FontAwesomeKit
 
 class MainTabBarController: UITabBarController {
     var homeView: HomeViewController!
-    var profileView: ProfileViewController!
+    var listTlView: ListTimelineViewController!
     
     var homeNavView: UINavigationController!
-    var profileNavView: UINavigationController!
+    var listTlNavView: UINavigationController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,26 +15,26 @@ class MainTabBarController: UITabBarController {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         
         homeView = storyboard.instantiateViewControllerWithIdentifier("homeViewController") as! HomeViewController
-        profileView = storyboard.instantiateViewControllerWithIdentifier("profileViewController") as! ProfileViewController
+        listTlView = ListTimelineViewController()
         
         let homeTabBarItem = UITabBarItem()
         homeTabBarItem.title = "Home"
         homeTabBarItem.image = FAKIonIcons.iosHomeIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
         homeTabBarItem.tag = 1
         
-        let profileTabBarItem = UITabBarItem()
-        profileTabBarItem.title = "Account"
-        profileTabBarItem.image = FAKIonIcons.androidPersonIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
-        profileTabBarItem.tag = 3
+        let listTlTabBarItem = UITabBarItem()
+        listTlTabBarItem.title = "Account"
+        listTlTabBarItem.image = FAKIonIcons.androidPersonIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
+        listTlTabBarItem.tag = 3
         
         
         homeView.tabBarItem = homeTabBarItem
-        profileView.tabBarItem = profileTabBarItem
+        listTlView.tabBarItem = listTlTabBarItem
         
         homeNavView = UINavigationController(rootViewController: homeView)
-        profileNavView = UINavigationController(rootViewController: profileView)
+        listTlNavView = UINavigationController(rootViewController: listTlView)
         
-        let tabs: Array<UINavigationController> = [homeNavView, profileNavView]
+        let tabs: Array<UINavigationController> = [homeNavView, listTlNavView]
         
         self.setViewControllers(tabs, animated: false)
     }

@@ -39,8 +39,11 @@ class ListTimelineViewController: TWTRTimelineViewController {
     }
     
     func openListsChooser() {
-        let vc = UINavigationController(rootViewController: ListChooseViewController())
-        self.presentViewController(vc, animated: true, completion: nil)
+        guard let slideMenu = self.slideMenuController() else {
+            print("Error: HomeView hove not Slidebar")
+            return
+        }
+        slideMenu.openLeft()
     }
     
     override func didMoveToParentViewController(parent: UIViewController?) {

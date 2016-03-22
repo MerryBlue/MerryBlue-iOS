@@ -48,7 +48,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
-        refreshControl.addTarget(self, action: #selector(ListChooseViewController.pullToRefresh), forControlEvents:.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(LeftMenuViewController.pullToRefresh), forControlEvents:.ValueChanged)
         self.tableView.addSubview(refreshControl)
     }
 
@@ -78,7 +78,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     private func setLogoutButton() {
-        logoutButton.addTarget(self, action: #selector(ProfileViewController.onClickLogoutButton(_:)), forControlEvents: .TouchUpInside)
+        logoutButton.addTarget(self, action: #selector(LeftMenuViewController.onClickLogoutButton(_:)), forControlEvents: .TouchUpInside)
     }
     
     
