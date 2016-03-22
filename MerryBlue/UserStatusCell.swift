@@ -26,8 +26,11 @@ class UserStatusCell: UITableViewCell {
         let url = NSURL(string: user.profileImageURL)
         SDWebImageDownloader.sharedDownloader().downloadImageWithURL(url, options: [], progress: nil,
                 completed: { [weak self] (image, data, error, finished) in
+                    guard let wSelf = self else {
+                        return
+                    }
                     dispatch_async(dispatch_get_main_queue(), {
-                        self!.iconImageView.image = image
+                        wSelf.iconImageView.image = image
                     })
             })
         
