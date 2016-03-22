@@ -137,40 +137,42 @@
                                 <rect key="frame" x="0.0" y="514" width="600" height="86"/>
                                 <color key="backgroundColor" red="0.97254901960784312" green="0.9882352941176471" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="86" id="N5e-y6-yph"/>
                                     <constraint firstAttribute="height" constant="86" id="Zcu-OX-xc6"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="友達のツイートを見逃さない Twitter クライアント" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rrY-yP-pd4">
-                                <rect key="frame" x="113" y="341" width="375" height="66"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="MerryBlue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NNr-af-y3y">
-                                <rect key="frame" x="204" y="415" width="193" height="57"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="39"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-front" translatesAutoresizingMaskIntoConstraints="NO" id="rRG-re-Sm7">
-                                <rect key="frame" x="238" y="147" width="124" height="124"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="124" id="1w0-Qa-9HU"/>
-                                    <constraint firstAttribute="width" constant="124" id="cTQ-jw-tck"/>
-                                </constraints>
-                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="L8E-vS-Omg">
+                                <rect key="frame" x="170" y="144" width="260" height="319"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-front" translatesAutoresizingMaskIntoConstraints="NO" id="rRG-re-Sm7">
+                                        <rect key="frame" x="68" y="0.0" width="124" height="124"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="124" id="1w0-Qa-9HU"/>
+                                            <constraint firstAttribute="width" constant="124" id="cTQ-jw-tck"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="友達のツイートを見逃さない Twitter クライアント" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rrY-yP-pd4">
+                                        <rect key="frame" x="0.0" y="174" width="260" height="48"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MerryBlue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NNr-af-y3y">
+                                        <rect key="frame" x="43" y="272" width="175" height="47"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="39"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.24313725490196078" green="0.41960784313725491" blue="0.63529411764705879" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="rRG-re-Sm7" firstAttribute="centerX" secondItem="N6g-Gl-81E" secondAttribute="centerX" priority="250" id="9Ow-Vq-e6n"/>
-                            <constraint firstItem="NNr-af-y3y" firstAttribute="centerX" secondItem="N6g-Gl-81E" secondAttribute="centerX" priority="250" id="DWr-M9-l9x"/>
-                            <constraint firstAttribute="trailing" secondItem="zfg-fC-x3N" secondAttribute="trailing" priority="250" id="FA2-RT-p6k"/>
-                            <constraint firstItem="y87-to-9gs" firstAttribute="top" secondItem="zfg-fC-x3N" secondAttribute="bottom" priority="250" id="HPQ-5L-KUS"/>
-                            <constraint firstItem="rrY-yP-pd4" firstAttribute="centerX" secondItem="N6g-Gl-81E" secondAttribute="centerX" priority="250" id="X56-cR-Xbt"/>
-                            <constraint firstItem="rrY-yP-pd4" firstAttribute="top" secondItem="rRG-re-Sm7" secondAttribute="bottom" priority="250" constant="70" id="cVy-fH-HfD"/>
-                            <constraint firstItem="zfg-fC-x3N" firstAttribute="leading" secondItem="N6g-Gl-81E" secondAttribute="leading" priority="250" id="j37-3g-fcb"/>
-                            <constraint firstItem="rRG-re-Sm7" firstAttribute="top" secondItem="r3K-qo-Ip9" secondAttribute="bottom" priority="250" constant="127" id="mBR-bx-EKl"/>
-                            <constraint firstItem="NNr-af-y3y" firstAttribute="top" secondItem="rrY-yP-pd4" secondAttribute="bottom" priority="250" constant="8" id="spS-fB-51n"/>
+                            <constraint firstItem="zfg-fC-x3N" firstAttribute="leading" secondItem="N6g-Gl-81E" secondAttribute="leading" id="3I8-C5-llL"/>
+                            <constraint firstAttribute="trailing" secondItem="zfg-fC-x3N" secondAttribute="trailing" id="Mhg-9w-3FY"/>
+                            <constraint firstItem="y87-to-9gs" firstAttribute="top" secondItem="zfg-fC-x3N" secondAttribute="bottom" id="gni-51-pcD"/>
+                            <constraint firstItem="L8E-vS-Omg" firstAttribute="centerX" secondItem="N6g-Gl-81E" secondAttribute="centerX" id="h6f-II-Yex"/>
+                            <constraint firstItem="L8E-vS-Omg" firstAttribute="centerY" secondItem="N6g-Gl-81E" secondAttribute="centerY" constant="-30" id="scv-El-t6t"/>
                         </constraints>
                     </view>
                     <connections>
