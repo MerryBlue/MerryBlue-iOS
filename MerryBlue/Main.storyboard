@@ -21,6 +21,10 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MUL-AV-KMh">
                                 <rect key="frame" x="0.0" y="122" width="600" height="414"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="E9o-I0-TmL">
+                                    <rect key="frame" x="0.0" y="72" width="600" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </activityIndicatorView>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="cFc-R8-Du0">
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
@@ -80,11 +84,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="E9o-I0-TmL" id="TJ8-OB-moI"/>
                         <outlet property="logoutButton" destination="I7o-jL-bLZ" id="lPi-ro-nNZ"/>
                         <outlet property="nameLabel" destination="7Hq-u5-n3l" id="oMp-Br-Fm4"/>
                         <outlet property="profileBackgroundImageView" destination="xge-qI-kfU" id="MDY-wE-rmW"/>
                         <outlet property="profileImageView" destination="fl6-CA-vtA" id="WKu-3Q-GBZ"/>
                         <outlet property="screenNameLabel" destination="fFJ-hQ-ttU" id="ARs-ha-j0u"/>
+                        <outlet property="tableView" destination="MUL-AV-KMh" id="ywr-uB-B4g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3iF-Hb-4SG" userLabel="First Responder" sceneMemberID="firstResponder"/>
