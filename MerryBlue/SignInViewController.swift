@@ -44,6 +44,7 @@ class SignInViewController: UIViewController {
         let mainView = storyboard.instantiateViewControllerWithIdentifier("main")
         let leftMenuView = storyboard.instantiateViewControllerWithIdentifier("leftmenu")
         let slideMenuController = SlideMenuController(mainViewController: mainView, leftMenuViewController: leftMenuView)
-        self.presentViewController(slideMenuController, animated: true, completion: nil)
+        // self.presentViewController(slideMenuController, animated: true, completion: nil)
+        UIApplication.sharedApplication().keyWindow?.rootViewController = slideMenuController
     }
 }

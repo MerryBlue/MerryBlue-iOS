@@ -44,7 +44,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         cacheCellHeight = self.tableView.rowHeight
     }
     
-    func pullToRefresh(){
+    func pullToRefresh() {
         _ = TwitterManager.requestListMembers(list.id).subscribeNext({ (users) -> Void in
             self.orderType = (self.orderType + 1) % 2
             self.setupListUsers(users)
@@ -53,7 +53,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
         guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return

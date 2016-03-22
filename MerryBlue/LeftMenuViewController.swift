@@ -128,7 +128,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         selectCell(indexPath)
         if list.enable() {
             ListService.sharedInstance.updateHomeList(list)
-            goBack()
+            self.slideMenuController()?.closeLeft()
         } else {
             // 選択不可アラート
             let ac: UIAlertController = UIAlertController(
@@ -161,14 +161,6 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     func pullToRefresh(){
         _ = TwitterManager.requestLists(TwitterManager.getUserID()).subscribeNext({ (lists) -> Void in self.setupTableView(lists) })
         refreshControl.endRefreshing()
-    }
-    
-    func onClickBackButton() {
-        self.goBack()
-    }
-    
-    func goBack() {
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     internal func setSelectedCell() {
