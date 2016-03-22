@@ -21,7 +21,9 @@ class ListInfoCell: UITableViewCell {
         let url = NSURL(string: listInfo.imageUrl)
         SDWebImageDownloader.sharedDownloader().downloadImageWithURL(url, options: [], progress: nil,
                 completed: { [weak self] (image, data, error, finished) in
-                    self!.iconImageView.image = image
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self!.iconImageView.image = image
+                    })
             })
         
         if listInfo.enable() {
