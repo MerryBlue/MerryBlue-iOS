@@ -129,7 +129,10 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         selectCell(indexPath)
         if list.enable() {
             ListService.sharedInstance.updateHomeList(list)
-            self.slideMenuController()?.closeLeft()
+
+            self.slideMenuController()?.changeMainViewController(
+                (self.slideMenuController()?.mainViewController)!,
+                close: true)
         } else {
             // 選択不可アラート
             let ac: UIAlertController = UIAlertController(

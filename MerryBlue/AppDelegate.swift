@@ -26,25 +26,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillResignActive(application: UIApplication) {
-        print("アプリ閉じそうな時に呼ばれる")
+        // print("アプリ閉じそうな時に呼ばれる")
     }
     
     func applicationDidEnterBackground(application: UIApplication) {
-        print("アプリを閉じた時に呼ばれる")
+        // print("アプリを閉じた時に呼ばれる")
     }
     
     func applicationWillEnterForeground(application: UIApplication) {
-        print("アプリを開きそうな時に呼ばれる")
+        // print("アプリを開きそうな時に呼ばれる")
     }
     
     func applicationDidBecomeActive(application: UIApplication) {
-        print("アプリを開いた時に呼ばれる")
+        // print("アプリを開いた時に呼ばれる")
     }
     
     func applicationWillTerminate(application: UIApplication) {
-        print("フリックしてアプリを終了させた時に呼ばれる")
+        // print("フリックしてアプリを終了させた時に呼ばれる")
     }
-
-
 }
-
