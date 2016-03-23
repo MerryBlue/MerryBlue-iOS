@@ -27,7 +27,6 @@ class MainTabBarController: UITabBarController {
         listTlTabBarItem.image = FAKIonIcons.androidPersonIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
         listTlTabBarItem.tag = 3
         
-        
         homeView.tabBarItem = homeTabBarItem
         listTlView.tabBarItem = listTlTabBarItem
         

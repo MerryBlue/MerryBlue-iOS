@@ -115,6 +115,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
             presentViewController(ac, animated: true, completion: nil)
         }
+        ListService.sharedInstance.updateLists(lists)
         // self.fetchListUpdate(lists)
     }
     
