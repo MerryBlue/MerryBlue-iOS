@@ -19,14 +19,13 @@ class MainTabBarController: UITabBarController {
         
         let homeTabBarItem = UITabBarItem()
         homeTabBarItem.title = "Home"
-        homeTabBarItem.image = FAKIonIcons.iosHomeIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
+        homeTabBarItem.image = FAKIonIcons.androidContactsIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
         homeTabBarItem.tag = 1
         
         let listTlTabBarItem = UITabBarItem()
         listTlTabBarItem.title = "Account"
-        listTlTabBarItem.image = FAKIonIcons.androidPersonIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
+        listTlTabBarItem.image = FAKIonIcons.androidHomeIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
         listTlTabBarItem.tag = 3
-        
         
         homeView.tabBarItem = homeTabBarItem
         listTlView.tabBarItem = listTlTabBarItem

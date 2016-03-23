@@ -40,10 +40,10 @@ class ListService {
     
     func selectLists() -> [TwitterList] {
         guard let unarchivedObject = self.userDefaults.objectForKey(UserDefaultsKey.Lists) as? NSData,
-            let user = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedObject) as? [TwitterList] else {
+            let lists = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedObject) as? [TwitterList] else {
                 return []
         }
         
-        return user
+        return lists
     }
 }

@@ -115,6 +115,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
             presentViewController(ac, animated: true, completion: nil)
         }
+        ListService.sharedInstance.updateLists(lists)
         // self.fetchListUpdate(lists)
     }
     
@@ -128,7 +129,10 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         selectCell(indexPath)
         if list.enable() {
             ListService.sharedInstance.updateHomeList(list)
-            self.slideMenuController()?.closeLeft()
+
+            self.slideMenuController()?.changeMainViewController(
+                (self.slideMenuController()?.mainViewController)!,
+                close: true)
         } else {
             // 選択不可アラート
             let ac: UIAlertController = UIAlertController(

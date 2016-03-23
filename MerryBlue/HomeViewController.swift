@@ -33,6 +33,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.setupTableView()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
+            self.openListsChooser()
+            return
+        }
+        if self.list != nil && self.list.id == list.id {
+            self.tableView.reloadData()
+            return
+        }
+        self.list = list
+        self.activityIndicator.startAnimating()
+        _ = TwitterManager.requestListMembers(list.id).subscribeNext({ (users) -> Void in self.setupListUsers(users) })
+    }
+    
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -50,20 +64,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.setupListUsers(users)
         })
         refreshControl.endRefreshing() // データが取れたら更新を終える（くるくる回るViewを消去）
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
-            self.openListsChooser()
-            return
-        }
-        if self.list != nil && self.list.id == list.id {
-            self.tableView.reloadData()
-            return
-        }
-        self.list = list
-        self.activityIndicator.startAnimating()
-        _ = TwitterManager.requestListMembers(list.id).subscribeNext({ (users) -> Void in self.setupListUsers(users) })
     }
     
     internal func setupListUsers(users: [TwitterUser]) {
@@ -128,9 +128,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         // self.navigationController?.navigationBar.alpha = 0.1
         self.navigationController?.navigationBar.translucent = false
         self.navigationItem
-        self.navigationItem.title = "HomeBoard"
-        self.navigationItem.setRightBarButtonItem(switchListButton, animated: true)
-        self.navigationItem.setLeftBarButtonItems([orderButton, cleanButton], animated: true)
+        self.navigationItem.setRightBarButtonItems([orderButton, cleanButton], animated: true)
+        self.navigationItem.setLeftBarButtonItem(switchListButton, animated: true)
     }
     
     func cleanAll() {
@@ -175,6 +174,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func didMoveToParentViewController(parent: UIViewController?) {
         super.willMoveToParentViewController(parent)
+        self.updateList()
+    }
+    
+    internal func updateList() {
         guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return
