@@ -7,7 +7,16 @@ class ListTimelineViewController: TWTRTimelineViewController {
     var list: TwitterList!
     convenience init() {
         guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
-            self.init()
+            // TWTRUserTimelineDataSource(screenName: nil, userID: TwitterManager.getUserID(), APIClient: TwitterManager.getClient()
+            // self.init(dataSource: )
+            self.init(dataSource: TWTRUserTimelineDataSource(
+                screenName: nil,
+                userID: TwitterManager.getUserID(),
+                APIClient: TwitterManager.getClient(),
+                maxTweetsPerRequest: 50,
+                includeReplies: false,
+                includeRetweets: false
+                ))
             self.openListsChooser()
             return
         }
