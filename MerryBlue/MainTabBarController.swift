@@ -4,13 +4,10 @@ import FontAwesomeKit
 
 class MainTabBarController: UITabBarController {
     var homeView: HomeViewController!
-    var homeViewB: HomeViewController!
-    var profileView: ProfileViewController!
+    var listTlView: ListTimelineViewController!
     
     var homeNavView: UINavigationController!
-    var homeNavViewB: UINavigationController!
-    var profileNavView: UINavigationController!
-    static var homeID = 0
+    var listTlNavView: UINavigationController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,41 +15,28 @@ class MainTabBarController: UITabBarController {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         
         homeView = storyboard.instantiateViewControllerWithIdentifier("homeViewController") as! HomeViewController
-        homeViewB = storyboard.instantiateViewControllerWithIdentifier("homeViewController") as! HomeViewController
-        profileView = storyboard.instantiateViewControllerWithIdentifier("profileViewController") as! ProfileViewController
+        listTlView = ListTimelineViewController()
         
         let homeTabBarItem = UITabBarItem()
         homeTabBarItem.title = "Home"
         homeTabBarItem.image = FAKIonIcons.iosHomeIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
         homeTabBarItem.tag = 1
         
-        let homeTabBarItemB = UITabBarItem()
-        homeTabBarItemB.title = "Home"
-        homeTabBarItemB.image = FAKIonIcons.iosHomeIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
-        homeTabBarItemB.tag = 2
-        
-        let profileTabBarItem = UITabBarItem()
-        profileTabBarItem.title = "Account"
-        profileTabBarItem.image = FAKIonIcons.androidPersonIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
-        profileTabBarItem.tag = 3
+        let listTlTabBarItem = UITabBarItem()
+        listTlTabBarItem.title = "Account"
+        listTlTabBarItem.image = FAKIonIcons.androidPersonIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
+        listTlTabBarItem.tag = 3
         
         
         homeView.tabBarItem = homeTabBarItem
-        homeViewB.tabBarItem = homeTabBarItemB
-        profileView.tabBarItem = profileTabBarItem
+        listTlView.tabBarItem = listTlTabBarItem
         
         homeNavView = UINavigationController(rootViewController: homeView)
-        homeNavViewB = UINavigationController(rootViewController: homeViewB)
-        profileNavView = UINavigationController(rootViewController: profileView)
+        listTlNavView = UINavigationController(rootViewController: listTlView)
         
-        let tabs: Array<UINavigationController> = [homeNavView, homeNavViewB, profileNavView]
+        let tabs: Array<UINavigationController> = [homeNavView, listTlNavView]
         
         self.setViewControllers(tabs, animated: false)
-    }
-    
-    static func getHomeID() -> Int {
-        homeID += 1
-        return homeID
     }
     
     override func didReceiveMemoryWarning() {

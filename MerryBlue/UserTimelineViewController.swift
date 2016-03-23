@@ -39,7 +39,7 @@ class UserTimelineViewController: TWTRTimelineViewController {
         self.navigationController?.navigationBar.translucent = false
         self.navigationItem
         self.navigationItem.title = self.title
-        let backButtonItem = UIBarButtonItem(title: "戻る", style: .Plain, target: self, action: "onClickBackButton")
+        let backButtonItem = UIBarButtonItem(title: "戻る", style: .Plain, target: self, action: #selector(UserTimelineViewController.onClickBackButton))
         self.navigationItem.setHidesBackButton(false, animated: false)
         // HACK
         // self.navigationItem.backBarButtonItem = backButtonItem

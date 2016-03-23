@@ -24,28 +24,27 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     // 初めは時間順，オーダーメソッドが呼ばれるので逆に設定
     var orderType = HomeViewOrderType.ReadCountOrder
     
-    var homeID: Int!
     var cacheCellHeight: CGFloat!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.homeID = MainTabBarController.getHomeID()
-        
+        self.setNavigationBar()
+        self.filtered = false
+        self.setupTableView()
+    }
+    
+    func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         
-        self.setNavigationBar()
-        
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
-        refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents:.ValueChanged)
-        self.filtered = false
-        cacheCellHeight = self.tableView.rowHeight
-        
+        refreshControl.addTarget(self, action: #selector(HomeViewController.pullToRefresh), forControlEvents:.ValueChanged)
         self.tableView.addSubview(refreshControl)
+        cacheCellHeight = self.tableView.rowHeight
     }
     
-    func pullToRefresh(){
+    func pullToRefresh() {
         _ = TwitterManager.requestListMembers(list.id).subscribeNext({ (users) -> Void in
             self.orderType = (self.orderType + 1) % 2
             self.setupListUsers(users)
@@ -54,7 +53,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewDidAppear(animated: Bool) {
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList(homeID) else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return
         }
@@ -111,17 +110,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     private func setNavigationBar() {
         let switchListButton = UIBarButtonItem(
             image:FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
-            style: .Plain, target: self, action: "openListsChooser")
+            style: .Plain, target: self, action: #selector(HomeViewController.openListsChooser))
         orderButton = UIBarButtonItem(
             image: FAKIonIcons.funnelIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
             style: .Plain,
             target: self,
-            action: "changeOrder")
+            action: #selector(HomeViewController.changeOrder))
         cleanButton = UIBarButtonItem(
             image: FAKIonIcons.androidDraftsIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
             style: .Plain,
             target: self,
-            action: "cleanAll")
+            action: #selector(HomeViewController.cleanAll))
         
         self.navigationController?.navigationBar
         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -161,10 +160,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func openListsChooser() {
-        delegate.openHomeID = self.homeID
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("lists")
-        self.presentViewController(vc, animated: true, completion: nil)
+        guard let slideMenu = self.slideMenuController() else {
+            print("Error: HomeView hove not Slidebar")
+            return
+        }
+        slideMenu.openLeft()
     }
     
     func openUserTimeline(user: TwitterUser) {
@@ -175,11 +175,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func didMoveToParentViewController(parent: UIViewController?) {
         super.willMoveToParentViewController(parent)
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList(self.homeID) else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return
         }
-        if (self.list.id == list.id) {
+        if self.list == nil || self.list.id == list.id {
             return
         }
         self.activityIndicator.startAnimating()

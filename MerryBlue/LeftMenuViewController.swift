@@ -1,49 +1,91 @@
-import Foundation
+import UIKit
 import TwitterKit
+import RxSwift
 
-
-class ListChooseViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    var delegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
+    @IBOutlet weak var profileBackgroundImageView: UIImageView!
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var screenNameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var logoutButton: UIButton!
+    var user: TwitterUser!
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var navigationBar: UINavigationBar!
-    @IBOutlet weak var backButtonItem: UIBarButtonItem!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var refreshControl: UIRefreshControl!
 
     var tweetLists: Array<TwitterList> = []
     var selectedIndex: NSIndexPath!
-    var homeID: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = UIColor.whiteColor()
+        self.setupTableView()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        if user == nil {
+            _ = TwitterManager.requestUserProfile(TwitterManager.getUserID()).subscribeNext({ (user) -> Void in self.setProfiles(user)})
+        }
+        let lists = ListService.sharedInstance.selectLists()
+        if lists.isEmpty {
+            self.activityIndicator.startAnimating()
+            _ = TwitterManager.requestLists(TwitterManager.getUserID()).subscribeNext({ (lists) -> Void in self.setupTableView(lists) })
+        } else {
+            setupTableView(lists)
+        }
+        self.setLogoutButton()
+    }
+    
+    
+    func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
-        refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents:.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(LeftMenuViewController.pullToRefresh), forControlEvents:.ValueChanged)
         self.tableView.addSubview(refreshControl)
-        let delegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        self.homeID = delegate.openHomeID!
-        
-        setNavigationBar()
     }
-    
-    override func viewDidAppear(animated: Bool) {
-        let lists = ListService.sharedInstance.selectLists()
-        if lists.isEmpty {
-            self.activityIndicator.startAnimating()
-            _ = TwitterManager.requestLists().subscribeNext({ (lists) -> Void in self.setupTableView(lists) })
-        } else {
-            setupTableView(lists)
-        }
-    }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+    internal func onClickLogoutButton(sender: UIButton) {
+        TwitterManager.logoutUser()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let initialViewController = storyboard.instantiateInitialViewController()
+        self.presentViewController(initialViewController!, animated: true, completion: nil)
+    }
+    
+    private func setProfiles(user: TwitterUser) {
+        nameLabel.text = user.name
+        screenNameLabel.text = "@\(user.screenName)"
+        do {
+            let imageData: NSData = try NSData(contentsOfURL: NSURL(string: user.profileImageURL)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+            let bgImageData: NSData = try NSData(contentsOfURL: NSURL(string: user.profileBackgroundImageURL)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+            self.profileImageView.image = UIImage(data: imageData)
+            self.profileBackgroundImageView.image = UIImage(data: bgImageData)
+        } catch {
+            print("Error: Image request invalid")
+        }
+    }
+    
+    private func setLogoutButton() {
+        logoutButton.addTarget(self, action: #selector(LeftMenuViewController.onClickLogoutButton(_:)), forControlEvents: .TouchUpInside)
+    }
+    
+    
+    
+    
+    
+    
     
     // セルの行数
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -80,18 +122,13 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
         
     }
     
-    private func setNavigationBar() {
-        backButtonItem.action = "goBack"
-        // backButtonItem.addTarget(self, action: "tapBarButtonItem:", forControlEvents:UIControlEvents.TouchUpInside)
-    }
-    
     // Cell が選択された場合
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
         let list = self.tweetLists[indexPath.row]
         selectCell(indexPath)
         if list.enable() {
-            ListService.sharedInstance.updateHomeList(list, id: self.homeID)
-            goBack()
+            ListService.sharedInstance.updateHomeList(list)
+            self.slideMenuController()?.closeLeft()
         } else {
             // 選択不可アラート
             let ac: UIAlertController = UIAlertController(
@@ -122,20 +159,12 @@ class ListChooseViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func pullToRefresh(){
-        _ = TwitterManager.requestLists().subscribeNext({ (lists) -> Void in self.setupTableView(lists) })
+        _ = TwitterManager.requestLists(TwitterManager.getUserID()).subscribeNext({ (lists) -> Void in self.setupTableView(lists) })
         refreshControl.endRefreshing()
     }
     
-    func onClickBackButton() {
-        self.goBack()
-    }
-    
-    func goBack() {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     internal func setSelectedCell() {
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList(self.homeID) else {
+        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
             return
         }
         

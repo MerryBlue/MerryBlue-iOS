@@ -1,10 +1,12 @@
 import Foundation
 import UIKit
 import TwitterKit
+import SlideMenuControllerSwift
 
 class SignInViewController: UIViewController {
     
     @IBOutlet weak var logInButtonView: UIView?
+    var delegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,7 +19,12 @@ class SignInViewController: UIViewController {
             }
         }
         
-        logInButton.center = self.logInButtonView!.center
+        guard let loginBtnView = self.logInButtonView else {
+            print("Error: loginButtonView not loaded")
+            return
+        }
+        logInButton.center = CGPoint(x: self.view.center.x, y: loginBtnView.center.y)
+        // logInButtonView?.addSubview(logInButton)
         // self.logInButtonView!.addSubview(logInButton)
         self.view.addSubview(logInButton)
     }
@@ -34,7 +41,10 @@ class SignInViewController: UIViewController {
     
     private func presentMainTabBarController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("main")
-        self.presentViewController(vc, animated: true, completion: nil)
+        let mainView = storyboard.instantiateViewControllerWithIdentifier("main")
+        let leftMenuView = storyboard.instantiateViewControllerWithIdentifier("leftmenu")
+        let slideMenuController = SlideMenuController(mainViewController: mainView, leftMenuViewController: leftMenuView)
+        // self.presentViewController(slideMenuController, animated: true, completion: nil)
+        UIApplication.sharedApplication().keyWindow?.rootViewController = slideMenuController
     }
 }
