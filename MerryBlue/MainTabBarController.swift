@@ -17,25 +17,33 @@ class MainTabBarController: UITabBarController {
         homeView = storyboard.instantiateViewControllerWithIdentifier("homeViewController") as! HomeViewController
         listTlView = ListTimelineViewController()
         
-        let homeTabBarItem = UITabBarItem()
-        homeTabBarItem.title = "Home"
-        homeTabBarItem.image = FAKIonIcons.androidContactsIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
-        homeTabBarItem.tag = 1
-        
-        let listTlTabBarItem = UITabBarItem()
-        listTlTabBarItem.title = "Account"
-        listTlTabBarItem.image = FAKIonIcons.androidHomeIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
-        listTlTabBarItem.tag = 3
+        let homeTabBarItem = UITabBarItem(
+            title: "Home",
+            image: FAKIonIcons.androidContactsIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
+            tag: 1
+        )
+    
+        let listTlTabBarItem = UITabBarItem(
+            title: "Timeline",
+            image: FAKIonIcons.androidHomeIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
+            tag: 2)
         
         homeView.tabBarItem = homeTabBarItem
         listTlView.tabBarItem = listTlTabBarItem
         
-        homeNavView = UINavigationController(rootViewController: homeView)
-        listTlNavView = UINavigationController(rootViewController: listTlView)
+        homeNavView = MBNavigationController(rootViewController: homeView)
+        listTlNavView = MBNavigationController(rootViewController: listTlView)
         
         let tabs: Array<UINavigationController> = [homeNavView, listTlNavView]
         
+        self.styles()
         self.setViewControllers(tabs, animated: false)
+    }
+    
+    func styles() {
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: MBColor.Sub], forState: UIControlState.Selected)
+        UITabBar.appearance().tintColor = MBColor.Sub
+        UITabBar.appearance().barTintColor = MBColor.Dark
     }
     
     override func didReceiveMemoryWarning() {

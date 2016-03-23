@@ -15,6 +15,8 @@
 		453B45001C98DF9B00CE5FFE /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453B44FF1C98DF9B00CE5FFE /* ArrayExtension.swift */; };
 		453B45021C98E49100CE5FFE /* UserTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453B45011C98E49100CE5FFE /* UserTimelineViewController.swift */; };
 		4551ADF51C9B33A100A00CE8 /* ListInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4551ADF41C9B33A100A00CE8 /* ListInfoCell.swift */; };
+		455F3D961CA2EF76001495A9 /* MBColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455F3D951CA2EF76001495A9 /* MBColor.swift */; };
+		455F3D981CA2F57D001495A9 /* MBNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455F3D971CA2F57D001495A9 /* MBNavigationController.swift */; };
 		457C3B391C9DAD150020509D /* Rx-TwitterKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457C3B381C9DAD150020509D /* Rx-TwitterKit.swift */; };
 		457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE71C933D25000A665A /* AppDelegate.swift */; };
 		457E0BEA1C933D25000A665A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE91C933D25000A665A /* HomeViewController.swift */; };
@@ -49,6 +51,8 @@
 		453B44FF1C98DF9B00CE5FFE /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		453B45011C98E49100CE5FFE /* UserTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTimelineViewController.swift; sourceTree = "<group>"; };
 		4551ADF41C9B33A100A00CE8 /* ListInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListInfoCell.swift; sourceTree = "<group>"; };
+		455F3D951CA2EF76001495A9 /* MBColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBColor.swift; sourceTree = "<group>"; };
+		455F3D971CA2F57D001495A9 /* MBNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBNavigationController.swift; sourceTree = "<group>"; };
 		457C3B381C9DAD150020509D /* Rx-TwitterKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rx-TwitterKit.swift"; sourceTree = "<group>"; };
 		457E0BE41C933D25000A665A /* MerryBlue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MerryBlue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		457E0BE71C933D25000A665A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -155,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				45BD1C0A1C9590A2002A2159 /* MainTabBarController.swift */,
+				455F3D971CA2F57D001495A9 /* MBNavigationController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -163,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				45BD1C201C96EB35002A2159 /* TwitterManager.swift */,
+				455F3D951CA2EF76001495A9 /* MBColor.swift */,
 				45BD1C1E1C96C5CD002A2159 /* ConfigManager.swift */,
 				451C4D8A1C9C7FAB00903A0C /* ListService.swift */,
 				45BD1C231C97207B002A2159 /* TwitterList.swift */,
@@ -353,11 +359,13 @@
 				45BD1C0B1C9590A2002A2159 /* MainTabBarController.swift in Sources */,
 				4551ADF51C9B33A100A00CE8 /* ListInfoCell.swift in Sources */,
 				457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */,
+				455F3D961CA2EF76001495A9 /* MBColor.swift in Sources */,
 				45ABA1F11C981A23006DE856 /* UserStatusCell.swift in Sources */,
 				45E9A81A1C9BFE7D00C258D5 /* CALayerExtension.swift in Sources */,
 				451C4D8B1C9C7FAB00903A0C /* ListService.swift in Sources */,
 				45BD1C1F1C96C5CD002A2159 /* ConfigManager.swift in Sources */,
 				45ABA1EF1C9811C1006DE856 /* ListTimelineViewController.swift in Sources */,
+				455F3D981CA2F57D001495A9 /* MBNavigationController.swift in Sources */,
 				457E0BEA1C933D25000A665A /* HomeViewController.swift in Sources */,
 				453B45001C98DF9B00CE5FFE /* ArrayExtension.swift in Sources */,
 				453B45021C98E49100CE5FFE /* UserTimelineViewController.swift in Sources */,

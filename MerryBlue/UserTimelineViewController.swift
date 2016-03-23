@@ -36,18 +36,11 @@ class UserTimelineViewController: TWTRTimelineViewController {
     }
     
     private func setupNavigationBar() {
-        guard let navCon = self.navigationController else {
+        guard let _ = self.navigationController else {
             print("Error: no wrapperd navigation controller")
             return
         }
-        navCon.navigationBar
-        navCon.setNavigationBarHidden(false, animated: false)
-        navCon.navigationBar.barTintColor = UIColor.blueColor()
-        navCon.navigationBar.tintColor = UIColor.blueColor()
-        navCon.navigationBar.alpha = 0.1
-        navCon.navigationBar.translucent = false
         
-        self.navigationItem
         self.navigationItem.title = self.title
         let backButtonItem = UIBarButtonItem(title: "戻る", style: .Plain, target: self, action: #selector(UserTimelineViewController.onClickBackButton))
         self.navigationItem.setHidesBackButton(false, animated: false)
