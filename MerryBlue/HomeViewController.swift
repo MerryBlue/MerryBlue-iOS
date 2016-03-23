@@ -128,9 +128,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         // self.navigationController?.navigationBar.alpha = 0.1
         self.navigationController?.navigationBar.translucent = false
         self.navigationItem
-        self.navigationItem.title = "HomeBoard"
-        self.navigationItem.setRightBarButtonItem(switchListButton, animated: true)
-        self.navigationItem.setLeftBarButtonItems([orderButton, cleanButton], animated: true)
+        self.navigationItem.setRightBarButtonItems([orderButton, cleanButton], animated: true)
+        self.navigationItem.setLeftBarButtonItem(switchListButton, animated: true)
     }
     
     func cleanAll() {

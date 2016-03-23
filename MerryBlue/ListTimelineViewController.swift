@@ -40,7 +40,7 @@ class ListTimelineViewController: TWTRTimelineViewController {
         self.navigationController?.navigationBar.translucent = false
         self.navigationItem
         self.navigationItem.title = "ListTimeline"
-        self.navigationItem.setRightBarButtonItem(switchListButton, animated: true)
+        self.navigationItem.setLeftBarButtonItem(switchListButton, animated: true)
     }
     
     func onClickSwitchList() {
