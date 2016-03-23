@@ -10,7 +10,7 @@ class TwitterList: NSObject, NSCoding {
     var member_count: Int
     var imageUrl:     String
     
-    static let MEMBER_NUM_ACTIVE_MAX_LIMIT = 50
+    static let MEMBER_NUM_ACTIVE_MAX_LIMIT = 100
     
     init(jsonData: SwiftyJSON.JSON) {
         let user = TWTRUser(JSONDictionary: jsonData["user"].dictionaryObject)

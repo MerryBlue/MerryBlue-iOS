@@ -33,7 +33,8 @@ class ListInfoCell: UITableViewCell {
             memberNumLabel.textColor = UIColor.blackColor()
         } else {
             // 選択不可
-            memberNumLabel.textColor = UIColor.redColor()
+            self.listNameLabel.textColor = MBColor.Sub
+            self.memberNumLabel.textColor = MBColor.Sub
         }
     }
 }

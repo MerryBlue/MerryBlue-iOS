@@ -24,20 +24,29 @@ class ListTimelineViewController: TWTRTimelineViewController {
         let dataSource = TWTRListTimelineDataSource(listID: list.id, APIClient: client)
         self.init(dataSource: dataSource)
         self.title = "ListTimeline"
-        self.setNavigationBar()
         self.list = list
         // TwitterManager.getListUsers(listId)
     }
     
-    private func setNavigationBar() {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupNavigationBar()
+    }
+    
+    private func setupNavigationBar() {
+        guard let navCon = self.navigationController else {
+            print("Error: no wrapperd navigation controller")
+            return
+        }
+        
         let iconImage = FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
         let switchListButton = UIBarButtonItem(image: iconImage, style: .Plain, target: self, action: #selector(ListTimelineViewController.onClickSwitchList))
         
-        self.navigationController?.navigationBar
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        // self.navigationController?.navigationBar.barTintColor = UIColor.blueColor()
-        // self.navigationController?.navigationBar.alpha = 0.1
-        self.navigationController?.navigationBar.translucent = false
+        navCon.navigationBar
+        navCon.setNavigationBarHidden(false, animated: false)
+        navCon.navigationBar.barTintColor = UIColor.blueColor()
+        navCon.navigationBar.alpha = 0.1
+        navCon.navigationBar.translucent = false
         self.navigationItem
         self.navigationItem.title = "ListTimeline"
         self.navigationItem.setLeftBarButtonItem(switchListButton, animated: true)

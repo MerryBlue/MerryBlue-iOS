@@ -25,24 +25,25 @@ class UserTimelineViewController: TWTRTimelineViewController {
         self.init(dataSource: dataSource)
         self.showTweetActions = true
         self.title = "@\(user.screenName)"
-        self.setNavigationBar()
 
         user.updateReadedCount()
         // TwitterManager.getListUsers(listId)
     }
     
-    private func setNavigationBar() {
-        self.navigationController?.navigationBar
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        // self.navigationController?.navigationBar.barTintColor = UIColor.blueColor()
-        // self.navigationController?.navigationBar.alpha = 0.1
-        self.navigationController?.navigationBar.translucent = false
-        self.navigationItem
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupNavigationBar()
+    }
+    
+    private func setupNavigationBar() {
+        guard let _ = self.navigationController else {
+            print("Error: no wrapperd navigation controller")
+            return
+        }
+        
         self.navigationItem.title = self.title
         let backButtonItem = UIBarButtonItem(title: "戻る", style: .Plain, target: self, action: #selector(UserTimelineViewController.onClickBackButton))
         self.navigationItem.setHidesBackButton(false, animated: false)
-        // HACK
-        // self.navigationItem.backBarButtonItem = backButtonItem
         self.navigationItem.leftBarButtonItem = backButtonItem
     }
     

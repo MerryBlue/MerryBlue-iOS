@@ -108,6 +108,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     private func setNavigationBar() {
+        guard let _ = self.navigationController else {
+            print("Error: no wrapperd navigation controller")
+            return
+        }
+        
         let switchListButton = UIBarButtonItem(
             image:FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
             style: .Plain, target: self, action: #selector(HomeViewController.openListsChooser))
@@ -122,12 +127,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             target: self,
             action: #selector(HomeViewController.cleanAll))
         
-        self.navigationController?.navigationBar
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        // self.navigationController?.navigationBar.barTintColor = UIColor.blueColor()
-        // self.navigationController?.navigationBar.alpha = 0.1
-        self.navigationController?.navigationBar.translucent = false
-        self.navigationItem
         self.navigationItem.setRightBarButtonItems([orderButton, cleanButton], animated: true)
         self.navigationItem.setLeftBarButtonItem(switchListButton, animated: true)
     }
@@ -168,8 +167,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func openUserTimeline(user: TwitterUser) {
         self.delegate.userViewUser = user
-        let vc = UINavigationController(rootViewController: UserTimelineViewController())
-        self.presentViewController(vc, animated: true, completion: nil)
+        // let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let userNavView = MBNavigationController(rootViewController: UserTimelineViewController())
+        self.presentViewController(userNavView, animated: true, completion: nil)
     }
     
     override func didMoveToParentViewController(parent: UIViewController?) {
