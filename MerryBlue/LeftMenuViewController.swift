@@ -11,6 +11,8 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var screenNameLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     
+    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var updateButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     var user: TwitterUser!
     
@@ -38,7 +40,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         } else {
             setupTableView(lists)
         }
-        self.setLogoutButton()
+        self.setupButtons()
     }
     
     
@@ -77,7 +79,9 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    private func setLogoutButton() {
+    private func setupButtons() {
+        editButton.addTarget(self, action: #selector(LeftMenuViewController.onClickLogoutButton(_:)), forControlEvents: .TouchUpInside)
+        updateButton.addTarget(self, action: #selector(LeftMenuViewController.pullToRefresh), forControlEvents: .TouchUpInside)
         logoutButton.addTarget(self, action: #selector(LeftMenuViewController.onClickLogoutButton(_:)), forControlEvents: .TouchUpInside)
     }
     

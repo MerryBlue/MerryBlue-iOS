@@ -87,7 +87,7 @@
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="49" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MUL-AV-KMh">
-                                        <rect key="frame" x="0.0" y="130" width="600" height="406"/>
+                                        <rect key="frame" x="0.0" y="130" width="600" height="430"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <activityIndicatorView key="tableFooterView" hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="w69-Cf-aKU">
                                             <rect key="frame" x="0.0" y="77" width="600" height="20"/>
@@ -149,14 +149,35 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7o-jL-bLZ">
-                                        <rect key="frame" x="0.0" y="541" width="600" height="54"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="47Z-5Z-o2x">
+                                        <rect key="frame" x="0.0" y="565" width="600" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFN-lS-7pd">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="A1e-eQ-KZs"/>
+                                                </constraints>
+                                                <state key="normal" title="編集"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVU-Bi-IxK">
+                                                <rect key="frame" x="200" y="0.0" width="200" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="ceR-gh-H74"/>
+                                                </constraints>
+                                                <state key="normal" title="更新"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7o-jL-bLZ">
+                                                <rect key="frame" x="400" y="0.0" width="200" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="crJ-48-Ve1"/>
+                                                </constraints>
+                                                <state key="normal" title="ログアウト"/>
+                                            </button>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="54" id="Whh-43-hfd"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="54" id="fZT-ON-oHD"/>
+                                            <constraint firstAttribute="height" constant="30" id="NLl-ms-ngi"/>
                                         </constraints>
-                                        <state key="normal" title="ログアウト"/>
-                                    </button>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -170,12 +191,14 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="w69-Cf-aKU" id="rtP-K0-jej"/>
+                        <outlet property="editButton" destination="IFN-lS-7pd" id="9ZY-lp-E0J"/>
                         <outlet property="logoutButton" destination="I7o-jL-bLZ" id="lPi-ro-nNZ"/>
                         <outlet property="nameLabel" destination="7Hq-u5-n3l" id="oMp-Br-Fm4"/>
                         <outlet property="profileBackgroundImageView" destination="xge-qI-kfU" id="MDY-wE-rmW"/>
                         <outlet property="profileImageView" destination="fl6-CA-vtA" id="WKu-3Q-GBZ"/>
                         <outlet property="screenNameLabel" destination="fFJ-hQ-ttU" id="ARs-ha-j0u"/>
                         <outlet property="tableView" destination="MUL-AV-KMh" id="ywr-uB-B4g"/>
+                        <outlet property="updateButton" destination="MVU-Bi-IxK" id="0Rf-Bd-48b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3iF-Hb-4SG" userLabel="First Responder" sceneMemberID="firstResponder"/>
