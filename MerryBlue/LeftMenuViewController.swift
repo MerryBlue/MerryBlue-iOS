@@ -89,6 +89,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         } else {
             // editButton.setImage(nil, forState: .Normal)
             editButton.setTitle("", forState: .Normal)
+            ListService.sharedInstance.updateLists(self.tweetLists)
             self.slideMenuController()?.addLeftGestures()
         }
     }
@@ -104,10 +105,6 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         logoutButton.setTitle("", forState: .Normal)
         logoutButton.addTarget(self, action: #selector(LeftMenuViewController.onClickLogoutButton(_:)), forControlEvents: .TouchUpInside)
     }
-    
-    
-    
-    
     
     
     
@@ -137,7 +134,17 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         return false
     }
     func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-        
+        let si = sourceIndexPath.row
+        let di = destinationIndexPath.row
+        if si < di {
+            for i in si..<di {
+                swap(&tweetLists[i], &tweetLists[i + 1])
+            }
+        } else {
+            for i in (di..<si).reverse() {
+                swap(&tweetLists[i], &tweetLists[i + 1])
+            }
+        }
     }
     // func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
     // }
