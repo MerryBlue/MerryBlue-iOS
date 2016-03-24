@@ -9,6 +9,9 @@ class ListInfoCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.contentView.frame = self.bounds
+        self.contentView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
