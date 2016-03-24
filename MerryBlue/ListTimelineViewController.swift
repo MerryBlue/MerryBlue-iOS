@@ -17,7 +17,7 @@ class ListTimelineViewController: TWTRTimelineViewController {
                 includeReplies: false,
                 includeRetweets: false
                 ))
-            self.openListsChooser()
+            // self.openListsChooser()
             return
         }
         let client = TWTRAPIClient()
@@ -70,7 +70,7 @@ class ListTimelineViewController: TWTRTimelineViewController {
             self.openListsChooser()
             return
         }
-        if (self.list.id == list.id) {
+        if let nowList = self.list where nowList.id == list.id {
             return
         }
         let client = TWTRAPIClient()

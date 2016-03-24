@@ -59,6 +59,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func pullToRefresh() {
+        guard let _ = ListService.sharedInstance.selectHomeList() else {
+            self.openListsChooser()
+            return
+        }
         _ = TwitterManager.requestListMembers(list.id).subscribeNext({ (users) -> Void in
             self.orderType = (self.orderType + 1) % 2
             self.setupListUsers(users)
@@ -174,15 +178,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func didMoveToParentViewController(parent: UIViewController?) {
         super.willMoveToParentViewController(parent)
+        guard let _ = TwitterManager.getUserID() else {
+            return
+        }
         self.updateList()
     }
     
     internal func updateList() {
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
+        guard let list = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return
         }
-        if self.list == nil || self.list.id == list.id {
+        if let nowList = self.list where nowList.id == list.id {
             return
         }
         self.activityIndicator.startAnimating()

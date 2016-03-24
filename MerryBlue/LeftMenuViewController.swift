@@ -1,6 +1,7 @@
 import UIKit
 import TwitterKit
 import RxSwift
+import FontAwesomeKit
 
 class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -11,6 +12,8 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var screenNameLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     
+    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var updateButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     var user: TwitterUser!
     
@@ -38,7 +41,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         } else {
             setupTableView(lists)
         }
-        self.setLogoutButton()
+        self.setupButtons()
     }
     
     
@@ -77,13 +80,33 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    private func setLogoutButton() {
-        logoutButton.addTarget(self, action: #selector(LeftMenuViewController.onClickLogoutButton(_:)), forControlEvents: .TouchUpInside)
+    internal func switchEditList() {
+        self.tableView.setEditing(!self.tableView.editing, animated: true)
+        if self.tableView.editing {
+            // editButton.setImage(FAKIonIcons.iosGearIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)), forState: .Normal)
+            editButton.setTitle("完了", forState: .Normal)
+            refreshControl.removeFromSuperview()
+            self.slideMenuController()?.removeLeftGestures()
+        } else {
+            // editButton.setImage(nil, forState: .Normal)
+            editButton.setTitle("", forState: .Normal)
+            ListService.sharedInstance.updateLists(self.tweetLists)
+            tableView.addSubview(refreshControl)
+            self.slideMenuController()?.addLeftGestures()
+        }
     }
     
-    
-    
-    
+    private func setupButtons() {
+        editButton.setImage(FAKIonIcons.iosGearIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)), forState: .Normal)
+        editButton.setTitle("", forState: .Normal)
+        editButton.addTarget(self, action: #selector(LeftMenuViewController.switchEditList), forControlEvents: .TouchUpInside)
+        updateButton.setImage(FAKIonIcons.iosRefreshIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)), forState: .Normal)
+        updateButton.setTitle("", forState: .Normal)
+        updateButton.addTarget(self, action: #selector(LeftMenuViewController.pullToRefresh), forControlEvents: .TouchUpInside)
+        logoutButton.setImage(FAKIonIcons.logOutIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)), forState: .Normal)
+        logoutButton.setTitle("", forState: .Normal)
+        logoutButton.addTarget(self, action: #selector(LeftMenuViewController.onClickLogoutButton(_:)), forControlEvents: .TouchUpInside)
+    }
     
     
     
@@ -98,6 +121,35 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.setCell(tweetLists[indexPath.row])
         return cell
     }
+    
+    // 編集モードでセルの移動許可 & 削除拒否
+    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return .None
+    }
+    func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
+    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        let si = sourceIndexPath.row
+        let di = destinationIndexPath.row
+        var swapRange: [Int]
+        if si < di {
+            swapRange = [Int](si..<di)
+        } else {
+            swapRange = (di..<si).reverse()
+        }
+        for i in swapRange {
+            swap(&tweetLists[i], &tweetLists[i + 1])
+        }
+    }
+    // func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
+    // }
     
     internal func setupTableView(lists: [TwitterList]) {
         tweetLists = lists
@@ -137,7 +189,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             // 選択不可アラート
             let ac: UIAlertController = UIAlertController(
                 title: "メンバー数制限",
-                message: "メンバー数が多すぎます(50人まで)",
+                message: "メンバー数が多すぎます(\(TwitterList.MEMBER_NUM_ACTIVE_MAX_LIMIT)人まで)",
                 preferredStyle: UIAlertControllerStyle.Alert)
             ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
             presentViewController(ac, animated: true, completion: nil)
@@ -163,7 +215,10 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func pullToRefresh(){
-        _ = TwitterManager.requestLists(TwitterManager.getUserID()).subscribeNext({ (lists) -> Void in self.setupTableView(lists) })
+        _ = TwitterManager.requestLists(TwitterManager.getUserID())
+            .subscribeNext({ (lists) -> Void in
+                self.setupTableView(ListService.sharedInstance.fetchList(lists))
+            })
         refreshControl.endRefreshing()
     }
     

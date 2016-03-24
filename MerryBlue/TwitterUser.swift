@@ -29,7 +29,7 @@ class TwitterUser: TWTRUser {
         self.isFollowing = json["following"].boolValue
         self.profileBackgroundImageURL = json["profile_background_image_url_https"].stringValue
         
-        if let count = ConfigManager.getUserInfo(self.userID) where !isSecret() {
+        if let count = UserService.sharedInstance.selectUser(self.userID) where !isSecret() {
             // ログあり かつ 相手のツイートが見れる場合
             self.preCount = count
             self.tweetCount = Int(max(self.tweetCount, self.preCount))
@@ -53,7 +53,7 @@ class TwitterUser: TWTRUser {
     
     func updateReadedCount() {
         self.preCount = tweetCount
-        ConfigManager.setUserInfo(self.userID, tweetCount: self.tweetCount)
+        UserService.sharedInstance.updateUser(self.userID, tweetCount: self.tweetCount)
     }
     
     func compareNewCountTo(user: TwitterUser) -> Bool {
