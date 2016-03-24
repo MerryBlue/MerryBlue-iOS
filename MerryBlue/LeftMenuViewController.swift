@@ -1,6 +1,7 @@
 import UIKit
 import TwitterKit
 import RxSwift
+import FontAwesomeKit
 
 class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -79,9 +80,28 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    internal func switchEditList() {
+        self.tableView.setEditing(!self.tableView.editing, animated: true)
+        if self.tableView.editing {
+            // editButton.setImage(FAKIonIcons.iosGearIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)), forState: .Normal)
+            editButton.setTitle("完了", forState: .Normal)
+            self.slideMenuController()?.removeLeftGestures()
+        } else {
+            // editButton.setImage(nil, forState: .Normal)
+            editButton.setTitle("", forState: .Normal)
+            self.slideMenuController()?.addLeftGestures()
+        }
+    }
+    
     private func setupButtons() {
-        editButton.addTarget(self, action: #selector(LeftMenuViewController.onClickLogoutButton(_:)), forControlEvents: .TouchUpInside)
+        editButton.setImage(FAKIonIcons.iosGearIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)), forState: .Normal)
+        editButton.setTitle("", forState: .Normal)
+        editButton.addTarget(self, action: #selector(LeftMenuViewController.switchEditList), forControlEvents: .TouchUpInside)
+        updateButton.setImage(FAKIonIcons.iosRefreshIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)), forState: .Normal)
+        updateButton.setTitle("", forState: .Normal)
         updateButton.addTarget(self, action: #selector(LeftMenuViewController.pullToRefresh), forControlEvents: .TouchUpInside)
+        logoutButton.setImage(FAKIonIcons.logOutIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)), forState: .Normal)
+        logoutButton.setTitle("", forState: .Normal)
         logoutButton.addTarget(self, action: #selector(LeftMenuViewController.onClickLogoutButton(_:)), forControlEvents: .TouchUpInside)
     }
     
@@ -102,6 +122,25 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.setCell(tweetLists[indexPath.row])
         return cell
     }
+    
+    // 編集モードでセルの移動許可 & 削除拒否
+    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return .None
+    }
+    func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
+    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        
+    }
+    // func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
+    // }
     
     internal func setupTableView(lists: [TwitterList]) {
         tweetLists = lists

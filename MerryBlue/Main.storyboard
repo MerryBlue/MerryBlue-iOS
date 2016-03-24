@@ -18,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="20W-u2-qQS">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="595"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="20W-u2-qQS">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V7F-ms-Nby">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="125"/>
@@ -87,7 +87,7 @@
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="49" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MUL-AV-KMh">
-                                        <rect key="frame" x="0.0" y="130" width="600" height="430"/>
+                                        <rect key="frame" x="0.0" y="125" width="600" height="445"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <activityIndicatorView key="tableFooterView" hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="w69-Cf-aKU">
                                             <rect key="frame" x="0.0" y="77" width="600" height="20"/>
@@ -150,28 +150,40 @@
                                         </prototypes>
                                     </tableView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="47Z-5Z-o2x">
-                                        <rect key="frame" x="0.0" y="565" width="600" height="30"/>
+                                        <rect key="frame" x="0.0" y="570" width="600" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFN-lS-7pd">
                                                 <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
+                                                <color key="backgroundColor" red="0.24313725489999999" green="0.41960784309999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="A1e-eQ-KZs"/>
                                                 </constraints>
-                                                <state key="normal" title="編集"/>
+                                                <color key="tintColor" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="編集">
+                                                    <color key="titleColor" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVU-Bi-IxK">
                                                 <rect key="frame" x="200" y="0.0" width="200" height="30"/>
+                                                <color key="backgroundColor" red="0.24313725489999999" green="0.41960784309999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="ceR-gh-H74"/>
                                                 </constraints>
-                                                <state key="normal" title="更新"/>
+                                                <color key="tintColor" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="更新">
+                                                    <color key="titleColor" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7o-jL-bLZ">
                                                 <rect key="frame" x="400" y="0.0" width="200" height="30"/>
+                                                <color key="backgroundColor" red="0.24313725489999999" green="0.41960784309999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="crJ-48-Ve1"/>
                                                 </constraints>
-                                                <state key="normal" title="ログアウト"/>
+                                                <color key="tintColor" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="ログアウト">
+                                                    <color key="titleColor" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -184,7 +196,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="20W-u2-qQS" firstAttribute="leading" secondItem="a7O-0g-k5e" secondAttribute="leading" id="VRr-HC-XtA"/>
-                            <constraint firstAttribute="bottom" secondItem="20W-u2-qQS" secondAttribute="bottom" constant="5" id="sFN-E8-3wc"/>
+                            <constraint firstAttribute="bottom" secondItem="20W-u2-qQS" secondAttribute="bottom" id="sFN-E8-3wc"/>
                             <constraint firstAttribute="trailing" secondItem="20W-u2-qQS" secondAttribute="trailing" id="uHz-c5-e1O"/>
                             <constraint firstItem="20W-u2-qQS" firstAttribute="top" secondItem="a7O-0g-k5e" secondAttribute="top" id="w85-1k-vZF"/>
                         </constraints>
@@ -198,7 +210,7 @@
                         <outlet property="profileImageView" destination="fl6-CA-vtA" id="WKu-3Q-GBZ"/>
                         <outlet property="screenNameLabel" destination="fFJ-hQ-ttU" id="ARs-ha-j0u"/>
                         <outlet property="tableView" destination="MUL-AV-KMh" id="ywr-uB-B4g"/>
-                        <outlet property="updateButton" destination="MVU-Bi-IxK" id="0Rf-Bd-48b"/>
+                        <outlet property="updateButton" destination="MVU-Bi-IxK" id="n9s-0m-cqe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3iF-Hb-4SG" userLabel="First Responder" sceneMemberID="firstResponder"/>
