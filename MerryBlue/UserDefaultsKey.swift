@@ -3,4 +3,6 @@ struct UserDefaultsKey {
     static let Lists = "lists"
     
     static let HomeListId = "listid"
+    
+    static let KeySeparator = "___"
 }
