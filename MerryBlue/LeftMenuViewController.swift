@@ -189,7 +189,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             // 選択不可アラート
             let ac: UIAlertController = UIAlertController(
                 title: "メンバー数制限",
-                message: "メンバー数が多すぎます(50人まで)",
+                message: "メンバー数が多すぎます(\(TwitterList.MEMBER_NUM_ACTIVE_MAX_LIMIT)人まで)",
                 preferredStyle: UIAlertControllerStyle.Alert)
             ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
             presentViewController(ac, animated: true, completion: nil)
