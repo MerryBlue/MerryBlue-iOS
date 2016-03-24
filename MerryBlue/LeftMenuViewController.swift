@@ -85,11 +85,13 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         if self.tableView.editing {
             // editButton.setImage(FAKIonIcons.iosGearIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)), forState: .Normal)
             editButton.setTitle("完了", forState: .Normal)
+            refreshControl.removeFromSuperview()
             self.slideMenuController()?.removeLeftGestures()
         } else {
             // editButton.setImage(nil, forState: .Normal)
             editButton.setTitle("", forState: .Normal)
             ListService.sharedInstance.updateLists(self.tweetLists)
+            tableView.addSubview(refreshControl)
             self.slideMenuController()?.addLeftGestures()
         }
     }
@@ -136,14 +138,14 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
         let si = sourceIndexPath.row
         let di = destinationIndexPath.row
+        var swapRange: [Int]
         if si < di {
-            for i in si..<di {
-                swap(&tweetLists[i], &tweetLists[i + 1])
-            }
+            swapRange = [Int](si..<di)
         } else {
-            for i in (di..<si).reverse() {
-                swap(&tweetLists[i], &tweetLists[i + 1])
-            }
+            swapRange = (di..<si).reverse()
+        }
+        for i in swapRange {
+            swap(&tweetLists[i], &tweetLists[i + 1])
         }
     }
     // func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
@@ -213,7 +215,10 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func pullToRefresh(){
-        _ = TwitterManager.requestLists(TwitterManager.getUserID()).subscribeNext({ (lists) -> Void in self.setupTableView(lists) })
+        _ = TwitterManager.requestLists(TwitterManager.getUserID())
+            .subscribeNext({ (lists) -> Void in
+                self.setupTableView(ListService.sharedInstance.fetchList(lists))
+            })
         refreshControl.endRefreshing()
     }
     

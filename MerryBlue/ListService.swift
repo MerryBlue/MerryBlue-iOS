@@ -48,6 +48,28 @@ class ListService {
         return lists
     }
     
+    /*
+     * 順番を保持しながら更新したリストを返す
+     */
+    func fetchList(newLists: [TwitterList]) -> [TwitterList] {
+        let oldLists = self.selectLists()
+        var compLists = [TwitterList]()
+        for oLi in oldLists {
+            for nLi in newLists {
+                if oLi.id == nLi.id {
+                    compLists.append(nLi)
+                    break
+                }
+            }
+        }
+        for nLi in newLists {
+            if !compLists.contains(nLi) {
+                compLists.append(nLi)
+            }
+        }
+        return compLists
+    }
+    
     func forKeyUser(keys: String...) -> String {
         return ([TwitterManager.getUserID()] + keys).joinWithSeparator(UserDefaultsKey.KeySeparator)
     }
