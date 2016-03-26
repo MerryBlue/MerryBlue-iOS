@@ -3,7 +3,7 @@ import TwitterKit
 import SwiftyJSON
 
 class TwitterList: NSObject, NSCoding {
-    var id: String
+    var listID: String
     var name: String
     var slug: String
     var desc: String
@@ -14,7 +14,7 @@ class TwitterList: NSObject, NSCoding {
 
     init(jsonData: SwiftyJSON.JSON) {
         let user = TWTRUser(JSONDictionary: jsonData["user"].dictionaryObject)
-        self.id          = jsonData["id"].stringValue
+        self.listID      = jsonData["id"].stringValue
         self.name        = jsonData["name"].stringValue
         self.slug        = jsonData["slug"].stringValue
         self.desc        = jsonData["desc"].stringValue
@@ -23,7 +23,8 @@ class TwitterList: NSObject, NSCoding {
     }
 
     required init?(coder aDecoder: NSCoder) {
-        self.id          = aDecoder.decodeObjectForKey(SerializedKey.Id) as? String ?? "id error"
+        // NOTE: catch error
+        self.listID      = aDecoder.decodeObjectForKey(SerializedKey.ListID) as? String ?? "id error"
         self.name        = aDecoder.decodeObjectForKey(SerializedKey.Name) as? String ?? "name error"
         self.slug        = aDecoder.decodeObjectForKey(SerializedKey.Slug) as? String ?? "slug error"
         self.desc        = aDecoder.decodeObjectForKey(SerializedKey.Desc) as? String ?? "desc error"
@@ -32,7 +33,7 @@ class TwitterList: NSObject, NSCoding {
     }
 
     func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self.id, forKey: SerializedKey.Id)
+        aCoder.encodeObject(self.listID, forKey: SerializedKey.ListID)
         aCoder.encodeObject(self.name, forKey: SerializedKey.Name)
         aCoder.encodeObject(self.slug, forKey: SerializedKey.Slug)
         aCoder.encodeObject(self.desc, forKey: SerializedKey.Desc)
@@ -51,7 +52,7 @@ class TwitterList: NSObject, NSCoding {
 }
 
 struct SerializedKey {
-    static let Id          = "id"
+    static let ListID      = "id"
     static let Name        = "name"
     static let Slug        = "slug"
     static let Desc        = "desc"

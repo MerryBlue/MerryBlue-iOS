@@ -6,7 +6,7 @@ class ListService {
     private let userDefaults = NSUserDefaults.standardUserDefaults()
 
     func updateHomeList(list: TwitterList) {
-        updateHomeListID(list.id)
+        updateHomeListID(list.listID)
     }
 
     func selectHomeList() -> TwitterList? {
@@ -14,7 +14,7 @@ class ListService {
             return nil
         }
         for list in selectLists() {
-            if list.id == listID {
+            if list.listID == listID {
                 return list
             }
         }
@@ -53,7 +53,7 @@ class ListService {
         var compLists = [TwitterList]()
         for oLi in oldLists {
             for nLi in newLists {
-                if oLi.id == nLi.id {
+                if oLi.listID == nLi.listID {
                     compLists.append(nLi)
                     break
                 }

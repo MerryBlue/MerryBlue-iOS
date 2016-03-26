@@ -4,32 +4,32 @@ import RxSwift
 import FontAwesomeKit
 
 class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+
     var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
-    
+
     @IBOutlet weak var profileBackgroundImageView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var screenNameLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
-    
+
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var updateButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     var user: TwitterUser!
-    
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var refreshControl: UIRefreshControl!
 
     var twitterLists = [TwitterList]()
     var selectedIndex: NSIndexPath!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
         self.setupTableView()
     }
-    
+
     override func viewDidAppear(animated: Bool) {
         if user == nil {
             _ = TwitterManager.requestUserProfile(TwitterManager.getUserID())
@@ -45,12 +45,11 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         self.setupButtons()
     }
-    
-    
+
     func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        
+
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
         refreshControl.addTarget(self, action: #selector(LeftMenuViewController.pullToRefresh), forControlEvents:.ValueChanged)
@@ -68,7 +67,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         let initialViewController = storyboard.instantiateInitialViewController()
         self.presentViewController(initialViewController!, animated: true, completion: nil)
     }
-    
+
     private func setProfiles(user: TwitterUser) {
         nameLabel.text = user.name
         screenNameLabel.text = "@\(user.screenName)"
@@ -81,7 +80,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             print("Error: Image request invalid")
         }
     }
-    
+
     internal func switchEditList() {
         self.tableView.setEditing(!self.tableView.editing, animated: true)
         if self.tableView.editing {
@@ -97,7 +96,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             self.slideMenuController()?.addLeftGestures()
         }
     }
-    
+
     private func setupButtons() {
         editButton.setImage(FAKIonIcons.iosGearIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)), forState: .Normal)
         editButton.setTitle("", forState: .Normal)
@@ -109,21 +108,19 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         logoutButton.setTitle("", forState: .Normal)
         logoutButton.addTarget(self, action: #selector(LeftMenuViewController.onClickLogoutButton(_:)), forControlEvents: .TouchUpInside)
     }
-    
-    
-    
+
     // セルの行数
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return twitterLists.count
     }
-    
+
     //セルの内容を変更
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = (tableView.dequeueReusableCellWithIdentifier("listInfoCell", forIndexPath: indexPath) as? ListInfoCell)!
         cell.setCell(twitterLists[indexPath.row])
         return cell
     }
-    
+
     // 編集モードでセルの移動許可 & 削除拒否
     func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
@@ -152,15 +149,15 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     // func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
     // }
-    
+
     internal func setupTableView(lists: [TwitterList]) {
         twitterLists = lists
         tableView.reloadData()
-        
+
         if self.activityIndicator.isAnimating() {
             self.activityIndicator.stopAnimating()
         }
-        
+
         if lists.isEmpty {
             let ac = UIAlertController(
                 title: "リストが見つかりませんでした",
@@ -172,13 +169,13 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         ListService.sharedInstance.updateLists(lists)
         // self.fetchListUpdate(lists)
     }
-    
+
     private func fetchListUpdate(lists: [TwitterList]) {
-        
+
     }
-    
+
     // Cell が選択された場合
-    func tableView(table: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
+    func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let list = self.twitterLists[indexPath.row]
         selectCell(indexPath)
         if list.enable() {
@@ -197,7 +194,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             presentViewController(ac, animated: true, completion: nil)
         }
     }
-    
+
     func selectCell(indexPath: NSIndexPath) {
         if let i = selectedIndex {
             if indexPath.row == selectedIndex.row {
@@ -215,22 +212,22 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         // cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
         selectedIndex = indexPath
     }
-    
-    func pullToRefresh(){
+
+    func pullToRefresh() {
         _ = TwitterManager.requestLists(TwitterManager.getUserID())
             .subscribeNext({ (lists: [TwitterList]) in
                 self.setupTableView(ListService.sharedInstance.fetchList(lists))
             })
         refreshControl.endRefreshing()
     }
-    
+
     internal func setSelectedCell() {
         guard let list = ListService.sharedInstance.selectHomeList() else {
             return
         }
-        
+
         for i in 0..<tableView.numberOfRowsInSection(0) {
-            if twitterLists[i].id == list.id {
+            if twitterLists[i].listID == list.listID {
                 selectCell(NSIndexPath(forRow: i, inSection: 0))
                 break
             }

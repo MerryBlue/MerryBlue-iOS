@@ -33,7 +33,7 @@ public extension Twitter {
 
     /// Load the lists
     ///
-    /// - parameter userID:  owner twitter userID.
+    /// - parameter ownerID:  owner twitter userID.
     /// - parameter client:  API client used to load the request.
     ///
     /// - returns: The users data
@@ -62,6 +62,7 @@ public extension Twitter {
     ///
     /// - parameter listID:  listID.
     /// - parameter client:  API client used to load the request.
+    /// - parameter count:   Member count limit.
     ///
     /// - returns: The users data
     public func rxLoadListMembers(listID: String, client: TWTRAPIClient, count: Int = 50) -> Observable<NSData> {
@@ -91,8 +92,9 @@ public extension Twitter {
 
     /// Load the user timeline.
     ///
-    /// - parameter count:   The number of tweets to retrieve contained in the timeline.
-    /// - parameter client:  API client used to load the request.
+    /// - parameter count:      The number of tweets to retrieve contained in the timeline.
+    /// - parameter beforeID:
+    /// - parameter client:     API client used to load the request.
     ///
     /// - returns: The timeline data.
     public func rxLoadTimeline(count: Int, beforeID: String?, client: TWTRAPIClient) -> Observable<NSData> {
@@ -127,7 +129,7 @@ public extension Twitter {
     /// Returns a signed URL request.
     ///
     /// - parameter method:     HTTP method of the request.
-    /// - parameter URL:        Full Twitter endpoint API URL.
+    /// - parameter url:        Full Twitter endpoint API URL.
     /// - parameter parameters: Request parameters.
     /// - parameter client:  API client used to load the request.
     ///

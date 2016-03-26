@@ -8,16 +8,16 @@ extension CALayer {
 
         switch edge {
         case UIRectEdge.Top:
-            border.frame = CGRectMake(0, 0, CGRectGetHeight(self.frame), thickness)
+            border.frame = CGRect.init(x: 0, y: 0, width: CGRectGetHeight(self.frame), height: thickness)
             break
         case UIRectEdge.Bottom:
-            border.frame = CGRectMake(0, CGRectGetHeight(self.frame) - thickness, UIScreen.mainScreen().bounds.width, thickness)
+            border.frame = CGRect.init(x: 0, y: CGRectGetHeight(self.frame) - thickness, width: UIScreen.mainScreen().bounds.width, height: thickness)
             break
         case UIRectEdge.Left:
-            border.frame = CGRectMake(0, 0, thickness, CGRectGetHeight(self.frame))
+            border.frame = CGRect.init(x: 0, y: 0, width: thickness, height: CGRectGetHeight(self.frame))
             break
         case UIRectEdge.Right:
-            border.frame = CGRectMake(CGRectGetWidth(self.frame) - thickness, 0, thickness, CGRectGetHeight(self.frame))
+            border.frame = CGRect.init(x: CGRectGetWidth(self.frame) - thickness, y: 0, width: thickness, height: CGRectGetHeight(self.frame))
             break
         default:
             break

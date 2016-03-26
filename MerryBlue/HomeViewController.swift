@@ -38,13 +38,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.openListsChooser()
             return
         }
-        if self.list != nil && self.list.id == list.id {
+        if self.list != nil && self.list.listID == list.listID {
             self.tableView.reloadData()
             return
         }
         self.list = list
         self.activityIndicator.startAnimating()
-        _ = TwitterManager.requestListMembers(list.id)
+        _ = TwitterManager.requestListMembers(list.listID)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
     }
 
@@ -64,7 +64,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.openListsChooser()
             return
         }
-        _ = TwitterManager.requestListMembers(list.id)
+        _ = TwitterManager.requestListMembers(list.listID)
             .subscribeNext({ (users: [TwitterUser]) in
                 self.orderType = (self.orderType + 1) % 2
                 self.setupListUsers(users)
@@ -102,7 +102,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (filtered! && !users[indexPath.row].hasNew()) {
+        if filtered! && !users[indexPath.row].hasNew() {
             cell.hidden = true
         } else {
             cell.hidden = false
@@ -191,13 +191,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.openListsChooser()
             return
         }
-        if let nowList = self.list where nowList.id == list.id {
+        if let nowList = self.list where nowList.listID == list.listID {
             return
         }
         self.activityIndicator.startAnimating()
         orderType = HomeViewOrderType.TimeOrder
-        _ = TwitterManager.requestListMembers(list.id)
+        _ = TwitterManager.requestListMembers(list.listID)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
         self.list = list
     }
+
 }
