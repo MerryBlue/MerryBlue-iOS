@@ -35,7 +35,8 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             _ = TwitterManager.requestUserProfile(TwitterManager.getUserID())
                 .subscribeNext({ (user: TwitterUser) in self.setProfiles(user)})
         }
-        let lists = ListService.sharedInstance.selectLists()
+        let lists = ListService.sharedInstance.adjustOptionalLists(ListService.sharedInstance.selectLists())
+
         if lists.isEmpty {
             self.activityIndicator.startAnimating()
             _ = TwitterManager.requestLists(TwitterManager.getUserID())

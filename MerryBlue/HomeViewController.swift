@@ -44,7 +44,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.list = list
         self.activityIndicator.startAnimating()
-        _ = TwitterManager.requestListMembers(list.listID)
+        _ = TwitterManager.requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
     }
 
@@ -64,7 +64,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.openListsChooser()
             return
         }
-        _ = TwitterManager.requestListMembers(list.listID)
+        _ = TwitterManager.requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in
                 self.orderType = (self.orderType + 1) % 2
                 self.setupListUsers(users)
@@ -196,7 +196,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.activityIndicator.startAnimating()
         orderType = HomeViewOrderType.TimeOrder
-        _ = TwitterManager.requestListMembers(list.listID)
+        _ = TwitterManager.requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
         self.list = list
     }
