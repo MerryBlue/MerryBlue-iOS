@@ -2,7 +2,7 @@ import UIKit
 import TwitterKit
 import FontAwesomeKit
 
-class ListTimelineViewController: TWTRTimelineViewController {
+class ListTimelineViewController: MBTimelineViewController {
     
     var list: TwitterList!
     convenience init() {
@@ -23,6 +23,7 @@ class ListTimelineViewController: TWTRTimelineViewController {
         let client = TWTRAPIClient()
         let dataSource = TWTRListTimelineDataSource(listID: list.id, APIClient: client)
         self.init(dataSource: dataSource)
+        self.showTweetActions = true
         self.title = "ListTimeline"
         self.list = list
         // TwitterManager.getListUsers(listId)
