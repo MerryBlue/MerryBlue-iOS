@@ -19,29 +19,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let initialViewController = storyboard.instantiateInitialViewController()
         self.window!.rootViewController = initialViewController
-        
+
         self.window?.makeKeyAndVisible()
-        
+
         return true
     }
 
     func applicationWillResignActive(application: UIApplication) {
         // print("アプリ閉じそうな時に呼ばれる")
     }
-    
+
     func applicationDidEnterBackground(application: UIApplication) {
         // print("アプリを閉じた時に呼ばれる")
     }
-    
+
     func applicationWillEnterForeground(application: UIApplication) {
         // print("アプリを開きそうな時に呼ばれる")
     }
-    
+
     func applicationDidBecomeActive(application: UIApplication) {
         // print("アプリを開いた時に呼ばれる")
     }
-    
+
     func applicationWillTerminate(application: UIApplication) {
         // print("フリックしてアプリを終了させた時に呼ばれる")
     }
+
 }

@@ -16,7 +16,6 @@
 		453B45021C98E49100CE5FFE /* UserTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453B45011C98E49100CE5FFE /* UserTimelineViewController.swift */; };
 		4551ADF51C9B33A100A00CE8 /* ListInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4551ADF41C9B33A100A00CE8 /* ListInfoCell.swift */; };
 		4555C0801CA4F16200A161F9 /* MBTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4555C07F1CA4F16200A161F9 /* MBTimelineViewController.swift */; };
-		4555C0821CA4F50E00A161F9 /* MBTweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4555C0811CA4F50E00A161F9 /* MBTweetTableViewCell.swift */; };
 		455F3D961CA2EF76001495A9 /* MBColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455F3D951CA2EF76001495A9 /* MBColor.swift */; };
 		455F3D981CA2F57D001495A9 /* MBNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455F3D971CA2F57D001495A9 /* MBNavigationController.swift */; };
 		455F3D9A1CA3C29D001495A9 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455F3D991CA3C29D001495A9 /* UserService.swift */; };
@@ -54,7 +53,6 @@
 		453B45011C98E49100CE5FFE /* UserTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTimelineViewController.swift; sourceTree = "<group>"; };
 		4551ADF41C9B33A100A00CE8 /* ListInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListInfoCell.swift; sourceTree = "<group>"; };
 		4555C07F1CA4F16200A161F9 /* MBTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTimelineViewController.swift; sourceTree = "<group>"; };
-		4555C0811CA4F50E00A161F9 /* MBTweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTweetTableViewCell.swift; sourceTree = "<group>"; };
 		455F3D951CA2EF76001495A9 /* MBColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBColor.swift; sourceTree = "<group>"; };
 		455F3D971CA2F57D001495A9 /* MBNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBNavigationController.swift; sourceTree = "<group>"; };
 		455F3D991CA3C29D001495A9 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -154,7 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				45ABA1F01C981A23006DE856 /* UserStatusCell.swift */,
-				4555C0811CA4F50E00A161F9 /* MBTweetTableViewCell.swift */,
 				4551ADF41C9B33A100A00CE8 /* ListInfoCell.swift */,
 			);
 			name = View;
@@ -234,6 +231,7 @@
 				45EBEDDF1C93EE9A002C6040 /* ShellScript */,
 				48D3C2CB6B5F320B43581265 /* Embed Pods Frameworks */,
 				1570BC5EC4D97A87D2E2799F /* Copy Pods Resources */,
+				94313D792E5D72A380D8C762 /* Swift Lint */,
 			);
 			buildRules = (
 			);
@@ -352,6 +350,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		94313D792E5D72A380D8C762 /* Swift Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Lint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -367,7 +380,6 @@
 				457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */,
 				455F3D961CA2EF76001495A9 /* MBColor.swift in Sources */,
 				455F3D9A1CA3C29D001495A9 /* UserService.swift in Sources */,
-				4555C0821CA4F50E00A161F9 /* MBTweetTableViewCell.swift in Sources */,
 				45ABA1F11C981A23006DE856 /* UserStatusCell.swift in Sources */,
 				45E9A81A1C9BFE7D00C258D5 /* CALayerExtension.swift in Sources */,
 				451C4D8B1C9C7FAB00903A0C /* ListService.swift in Sources */,

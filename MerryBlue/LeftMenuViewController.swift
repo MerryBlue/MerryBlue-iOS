@@ -5,7 +5,7 @@ import FontAwesomeKit
 
 class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
     
     @IBOutlet weak var profileBackgroundImageView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -32,12 +32,14 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidAppear(animated: Bool) {
         if user == nil {
-            _ = TwitterManager.requestUserProfile(TwitterManager.getUserID()).subscribeNext({ (user) -> Void in self.setProfiles(user)})
+            _ = TwitterManager.requestUserProfile(TwitterManager.getUserID())
+                .subscribeNext({ (user: TwitterUser) in self.setProfiles(user)})
         }
         let lists = ListService.sharedInstance.selectLists()
         if lists.isEmpty {
             self.activityIndicator.startAnimating()
-            _ = TwitterManager.requestLists(TwitterManager.getUserID()).subscribeNext({ (lists) -> Void in self.setupTableView(lists) })
+            _ = TwitterManager.requestLists(TwitterManager.getUserID())
+                .subscribeNext({ (lists: [TwitterList]) in self.setupTableView(lists) })
         } else {
             setupTableView(lists)
         }
@@ -117,7 +119,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     
     //セルの内容を変更
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("listInfoCell", forIndexPath: indexPath) as! ListInfoCell
+        let cell = (tableView.dequeueReusableCellWithIdentifier("listInfoCell", forIndexPath: indexPath) as? ListInfoCell)!
         cell.setCell(twitterLists[indexPath.row])
         return cell
     }
@@ -189,7 +191,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             // 選択不可アラート
             let ac = UIAlertController(
                 title: "メンバー数制限",
-                message: "メンバー数が多すぎます(\(TwitterList.MEMBER_NUM_ACTIVE_MAX_LIMIT)人まで)",
+                message: "メンバー数が多すぎます(\(TwitterList.memberNumActiveMaxLimit)人まで)",
                 preferredStyle: UIAlertControllerStyle.Alert)
             ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
             presentViewController(ac, animated: true, completion: nil)
@@ -216,7 +218,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func pullToRefresh(){
         _ = TwitterManager.requestLists(TwitterManager.getUserID())
-            .subscribeNext({ (lists) -> Void in
+            .subscribeNext({ (lists: [TwitterList]) in
                 self.setupTableView(ListService.sharedInstance.fetchList(lists))
             })
         refreshControl.endRefreshing()
