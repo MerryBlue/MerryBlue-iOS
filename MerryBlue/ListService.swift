@@ -1,53 +1,50 @@
 import Foundation
 
 class ListService {
-    
+
     static let sharedInstance = ListService()
     private let userDefaults = NSUserDefaults.standardUserDefaults()
-    
+
     func updateHomeList(list: TwitterList) {
-        updateHomeListID(list.id)
+        updateHomeListID(list.listID)
     }
-    
+
     func selectHomeList() -> TwitterList? {
         guard let listID = selectHomeListID() else {
             return nil
         }
         for list in selectLists() {
-            if list.id == listID {
+            if list.listID == listID {
                 return list
             }
         }
         return nil
     }
-    
-    
-    
+
     func updateHomeListID(listID: String) {
         self.userDefaults.setObject(listID, forKey: forKeyUser(UserDefaultsKey.HomeListId))
         self.userDefaults.synchronize()
     }
-    
+
     func selectHomeListID() -> String? {
         return self.userDefaults.objectForKey(forKeyUser(UserDefaultsKey.HomeListId)) as? String
     }
-    
-    
+
     func updateLists(lists: [TwitterList]) {
         let archive = NSKeyedArchiver.archivedDataWithRootObject(lists)
         self.userDefaults.setObject(archive, forKey: forKeyUser(UserDefaultsKey.Lists))
         self.userDefaults.synchronize()
     }
-    
+
     func selectLists() -> [TwitterList] {
         guard let unarchivedObject = self.userDefaults.objectForKey(forKeyUser(UserDefaultsKey.Lists)) as? NSData,
-            let lists = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedObject) as? [TwitterList] else {
+            li = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedObject) as? [TwitterList] else {
                 return []
         }
-        
-        return lists
+
+        return li
     }
-    
+
     /*
      * 順番を保持しながら更新したリストを返す
      */
@@ -56,7 +53,7 @@ class ListService {
         var compLists = [TwitterList]()
         for oLi in oldLists {
             for nLi in newLists {
-                if oLi.id == nLi.id {
+                if oLi.listID == nLi.listID {
                     compLists.append(nLi)
                     break
                 }
@@ -69,8 +66,9 @@ class ListService {
         }
         return compLists
     }
-    
+
     func forKeyUser(keys: String...) -> String {
         return ([TwitterManager.getUserID()] + keys).joinWithSeparator(UserDefaultsKey.KeySeparator)
     }
+
 }
