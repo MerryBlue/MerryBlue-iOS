@@ -37,8 +37,8 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
 
         switch type {
         case .RecentFollow:
-            self.name = "最近フォローしたユーザ"
-            self.desc = "直近のフォロー\(TwitterList.recentFollowUser)人のメンバーです"
+            self.name = "直近フォロー"
+            self.desc = "最近フォローした\(TwitterList.recentFollowUser)人のメンバーです"
             self.memberCount = TwitterList.recentFollowUser
             self.imageUrl    = ""
             self.typeID = 1
