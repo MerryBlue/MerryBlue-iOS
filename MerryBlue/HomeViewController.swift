@@ -9,7 +9,7 @@ struct HomeViewOrderType {
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var delegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    var delegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -34,7 +34,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewDidAppear(animated: Bool) {
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
+        guard let list = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return
         }
@@ -88,7 +88,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UserStatusCell = tableView.dequeueReusableCellWithIdentifier("userStatusCell", forIndexPath: indexPath) as! UserStatusCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("userStatusCell", forIndexPath: indexPath) as! UserStatusCell
         cell.setCell(users[indexPath.row])
         return cell
     }

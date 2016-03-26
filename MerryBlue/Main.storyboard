@@ -9,7 +9,7 @@
         <!--Left Menu View Controller-->
         <scene sceneID="kUd-Mv-ngX">
             <objects>
-                <viewController storyboardIdentifier="leftmenu" id="Iyy-2e-18g" customClass="LeftMenuViewController" customModule="MerryBlue" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="menu" id="Iyy-2e-18g" customClass="LeftMenuViewController" customModule="MerryBlue" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UhP-y5-deR"/>
                         <viewControllerLayoutGuide type="bottom" id="4ao-yh-fGO"/>
@@ -300,7 +300,7 @@
         <!--Home View Controller-->
         <scene sceneID="MhS-UU-UPd">
             <objects>
-                <viewController storyboardIdentifier="homeViewController" id="gKC-Kv-Yba" customClass="HomeViewController" customModule="MerryBlue" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="home" id="gKC-Kv-Yba" customClass="HomeViewController" customModule="MerryBlue" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="A9H-la-Tel"/>
                         <viewControllerLayoutGuide type="bottom" id="uoE-sa-xzd"/>

@@ -4,7 +4,7 @@ import FontAwesomeKit
 
 class UserTimelineViewController: MBTimelineViewController {
     
-    var delegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    var delegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     convenience init() {
         guard let user = (UIApplication.sharedApplication().delegate as! AppDelegate).userViewUser else {

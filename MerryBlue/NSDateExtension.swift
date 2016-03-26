@@ -5,7 +5,6 @@ extension NSDate {
         let now = NSDate()
         
         let cal = NSCalendar.currentCalendar()
-        // let calUnit: NSCalendarUnit = [.Second | .Minute | .Hour | .Day | .Year]
         let components = cal.components([.Year, .Day, .Hour, .Minute, .Second], fromDate: self, toDate: now, options: [])
         
         let diffSec = components.second + components.minute*60 + components.hour*3600 + components.day*86400 + components.year*31536000

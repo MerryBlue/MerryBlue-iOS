@@ -1,9 +1,9 @@
 
 class MBColor {
-    internal static let Main: UIColor = MBColor.fromHex(0x3e6ba2)
-    internal static let Sub:  UIColor = MBColor.fromHex(0xa0d9e2)
-    internal static let Back: UIColor = MBColor.fromHex(0xf8fcff)
-    internal static let Dark: UIColor = MBColor.fromHex(0x4d6196)
+    internal static let Main = MBColor.fromHex(0x3e6ba2)
+    internal static let Sub  = MBColor.fromHex(0xa0d9e2)
+    internal static let Back = MBColor.fromHex(0xf8fcff)
+    internal static let Dark = MBColor.fromHex(0x4d6196)
     
     static func fromHex(rgbValue: UInt) -> UIColor {
         return UIColor(

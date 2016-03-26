@@ -6,7 +6,7 @@ import SlideMenuControllerSwift
 class SignInViewController: UIViewController {
     
     @IBOutlet weak var logInButtonView: UIView?
-    var delegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    var delegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +42,7 @@ class SignInViewController: UIViewController {
     private func presentMainTabBarController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let mainView = storyboard.instantiateViewControllerWithIdentifier("main")
-        let leftMenuView = storyboard.instantiateViewControllerWithIdentifier("leftmenu")
+        let leftMenuView = storyboard.instantiateViewControllerWithIdentifier("menu")
         let slideMenuController = SlideMenuController(mainViewController: mainView, leftMenuViewController: leftMenuView)
         // self.presentViewController(slideMenuController, animated: true, completion: nil)
         UIApplication.sharedApplication().keyWindow?.rootViewController = slideMenuController

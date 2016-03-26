@@ -72,7 +72,7 @@ class TwitterManager {
     
     static func getUserID() -> String! {
         guard let session = Twitter.sharedInstance().sessionStore.session() else {
-            print("Error: not authorized")
+            // print("Error: not authorized")
             return nil
         }
         return session.userID

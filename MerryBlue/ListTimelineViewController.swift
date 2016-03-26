@@ -6,7 +6,7 @@ class ListTimelineViewController: MBTimelineViewController {
     
     var list: TwitterList!
     convenience init() {
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
+        guard let list = ListService.sharedInstance.selectHomeList() else {
             // TWTRUserTimelineDataSource(screenName: nil, userID: TwitterManager.getUserID(), APIClient: TwitterManager.getClient()
             // self.init(dataSource: )
             self.init(dataSource: TWTRUserTimelineDataSource(
@@ -67,7 +67,10 @@ class ListTimelineViewController: MBTimelineViewController {
     
     override func didMoveToParentViewController(parent: UIViewController?) {
         super.willMoveToParentViewController(parent)
-        guard let list: TwitterList = ListService.sharedInstance.selectHomeList() else {
+        guard let _ = TwitterManager.getUserID() else {
+            return
+        }
+        guard let list = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return
         }

@@ -7,7 +7,7 @@ class TwitterUser: TWTRUser {
     var readedStatusId: String!
     var preCount: Int!
     var tweetCount: Int!
-    var isFollowing: Bool = false
+    var isFollowing = false
     var profileBackgroundImageURL: String!
     
     required override init!(JSONDictionary dictionary: [NSObject : AnyObject]!) {

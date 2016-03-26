@@ -12,9 +12,9 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         
-        homeView = storyboard.instantiateViewControllerWithIdentifier("homeViewController") as! HomeViewController
+        homeView = storyboard.instantiateViewControllerWithIdentifier("home") as! HomeViewController
         listTlView = ListTimelineViewController()
         
         let homeTabBarItem = UITabBarItem(
@@ -34,7 +34,7 @@ class MainTabBarController: UITabBarController {
         homeNavView = MBNavigationController(rootViewController: homeView)
         listTlNavView = MBNavigationController(rootViewController: listTlView)
         
-        let tabs: Array<UINavigationController> = [homeNavView, listTlNavView]
+        let tabs = [homeNavView, listTlNavView] as Array<UINavigationController>
         
         self.styles()
         self.setViewControllers(tabs, animated: false)
