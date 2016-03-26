@@ -32,10 +32,30 @@ class TwitterManager {
         }
     }
 
-    static func requestListMembers(listID: String, count: Int = 50) -> Observable<[TwitterUser]> {
+    static func requestMembers(list: TwitterList) -> Observable<[TwitterUser]> {
+        switch list.type {
+        case .RecentFollow: return requestFriendUsers(getUserID())
+        case .Normal: return requestListMembers(list)
+        }
+    }
+
+    static func requestListMembers(list: TwitterList, count: Int = 50) -> Observable<[TwitterUser]> {
         return Observable.create { observer -> Disposable in
             _ = Twitter.sharedInstance()
-                .rxLoadListMembers(listID, client: getClient(), count: count)
+                .rxLoadListMembers(list.listID, client: getClient(), count: count)
+                .subscribeNext { (usersData: NSData) in
+                    let json = JSON(data: usersData)
+                    let users = json["users"].array!.map { return TwitterUser(json: $0)! }
+                    observer.onNext(users)
+                }
+            return AnonymousDisposable {}
+        }
+    }
+
+    static func requestFriendUsers(userID: String, count: Int = 20) -> Observable<[TwitterUser]> {
+        return Observable.create { observer -> Disposable in
+            _ = Twitter.sharedInstance()
+                .rxLoadFriendUsers(userID, client: getClient(), count: count)
                 .subscribeNext { (usersData: NSData) in
                     let json = JSON(data: usersData)
                     let users = json["users"].array!.map { return TwitterUser(json: $0)! }
