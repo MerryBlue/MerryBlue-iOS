@@ -2,7 +2,7 @@ import UIKit
 import TwitterKit
 import FontAwesomeKit
 
-class UserTimelineViewController: TWTRTimelineViewController {
+class UserTimelineViewController: MBTimelineViewController {
     
     var delegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
