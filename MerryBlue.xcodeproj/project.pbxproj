@@ -433,7 +433,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: guild0105@gmail.com (QVWE7T9TUV)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hiroto Takahashi Hiroto Takahashi (P44FH6EFF8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hiroto Takahashi Hiroto Takahashi (P44FH6EFF8)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -457,6 +458,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PODS_ROOT = "${SRCROOT}/Pods";
 				PRODUCT_BUNDLE_IDENTIFIER = com.elzup.ios.merryblue;
+				PROVISIONING_PROFILE = "54f6cda5-c3b1-4b1b-8e6d-5c10b82c1f59";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -479,7 +481,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: guild0105@gmail.com (QVWE7T9TUV)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hiroto Takahashi Hiroto Takahashi (P44FH6EFF8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hiroto Takahashi Hiroto Takahashi (P44FH6EFF8)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -496,6 +499,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PODS_ROOT = "${SRCROOT}/Pods";
 				PRODUCT_BUNDLE_IDENTIFIER = com.elzup.ios.merryblue;
+				PROVISIONING_PROFILE = "54f6cda5-c3b1-4b1b-8e6d-5c10b82c1f59";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -522,6 +526,7 @@
 				);
 				INFOPLIST_FILE = MerryBlue/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.elzup.merry-blue";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MerryBlue-Bridging-Header.h";
@@ -549,6 +554,7 @@
 				);
 				INFOPLIST_FILE = MerryBlue/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.elzup.merry-blue";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MerryBlue-Bridging-Header.h";
