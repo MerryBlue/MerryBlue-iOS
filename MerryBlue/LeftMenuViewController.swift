@@ -65,8 +65,8 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     internal func onClickLogoutButton(sender: UIButton) {
         TwitterManager.logoutUser()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let initialViewController = storyboard.instantiateInitialViewController()
-        self.presentViewController(initialViewController!, animated: true, completion: nil)
+        let loginView = storyboard.instantiateViewControllerWithIdentifier("login")
+        self.presentViewController(loginView, animated: true, completion: nil)
     }
 
     private func setProfiles(user: TwitterUser) {

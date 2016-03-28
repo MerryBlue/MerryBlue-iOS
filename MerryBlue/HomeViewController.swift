@@ -33,7 +33,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.setupTableView()
     }
 
+    func checkLogin() {
+        if !TwitterManager.isLogin() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginView = storyboard.instantiateViewControllerWithIdentifier("login")
+            self.presentViewController(loginView, animated: true, completion: nil)
+        }
+    }
+
     override func viewDidAppear(animated: Bool) {
+        checkLogin()
         guard let list = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return

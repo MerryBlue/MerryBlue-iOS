@@ -78,6 +78,10 @@ class TwitterManager {
         }
     }
 
+    static func isLogin() -> Bool {
+        return Twitter.sharedInstance().sessionStore.session() != nil
+    }
+
     static func logoutUser() {
         guard let userID = getUserID() else {
             return
