@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // print("アプリを開いた時に呼ばれる")
+        // UIApplication.sharedApplication().setStatusBarStyle(<#T##statusBarStyle: UIStatusBarStyle##UIStatusBarStyle#>, animated: <#T##Bool#>)
     }
 
     func applicationWillTerminate(application: UIApplication) {
