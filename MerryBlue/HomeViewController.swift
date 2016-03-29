@@ -99,8 +99,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = (tableView.dequeueReusableCellWithIdentifier("userStatusCell", forIndexPath: indexPath) as? UserStatusCell)!
-        cell.setCell(users[indexPath.row])
+        let user = users[indexPath.row]
+        let cell = (tableView.dequeueReusableCellWithIdentifier("userStatusCell") as? UserStatusCell)!
+        // let cell = (tableView.dequeueReusableCellWithIdentifier(IdentifilerService.sharedInstance.homeCellID(user.userID)) as? UserStatusCell)!
+        cell.setCell(user)
         return cell
     }
 

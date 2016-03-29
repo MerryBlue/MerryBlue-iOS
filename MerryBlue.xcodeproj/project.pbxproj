@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1D00246C9AB6774F0A763EB8 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB997101D3CFE421879951E7 /* Pods.framework */; };
 		451B85221CAA519E003DD63F /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451B85211CAA519D003DD63F /* UIImageExtension.swift */; };
+		451B85241CAA6173003DD63F /* IdentifilerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451B85231CAA6173003DD63F /* IdentifilerService.swift */; };
 		451C4D8B1C9C7FAB00903A0C /* ListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451C4D8A1C9C7FAB00903A0C /* ListService.swift */; };
 		451C4D8D1C9C812900903A0C /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451C4D8C1C9C812900903A0C /* UserDefaultsKey.swift */; };
 		451C4D8F1C9C9CEB00903A0C /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451C4D8E1C9C9CEB00903A0C /* NSDateExtension.swift */; };
@@ -49,6 +50,7 @@
 /* Begin PBXFileReference section */
 		111146BA25A5A70FE8C4BFDC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		451B85211CAA519D003DD63F /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		451B85231CAA6173003DD63F /* IdentifilerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifilerService.swift; sourceTree = "<group>"; };
 		451C4D8A1C9C7FAB00903A0C /* ListService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListService.swift; sourceTree = "<group>"; };
 		451C4D8C1C9C812900903A0C /* UserDefaultsKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		451C4D8E1C9C9CEB00903A0C /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				455F3D951CA2EF76001495A9 /* MBColor.swift */,
 				451C4D8A1C9C7FAB00903A0C /* ListService.swift */,
 				45AC07C51CAA3F5200DACD0F /* AssetService.swift */,
+				451B85231CAA6173003DD63F /* IdentifilerService.swift */,
 				456404B71CA69D6400ED2505 /* MenuItemProtocol.swift */,
 				45BD1C231C97207B002A2159 /* TwitterList.swift */,
 				45ABA1EC1C9800B9006DE856 /* TwitterUser.swift */,
@@ -404,6 +407,7 @@
 				451C4D8F1C9C9CEB00903A0C /* NSDateExtension.swift in Sources */,
 				453B44FD1C98DADB00CE5FFE /* StringExtension.swift in Sources */,
 				45EC9A8A1CA1A99100ABE06A /* LeftMenuViewController.swift in Sources */,
+				451B85241CAA6173003DD63F /* IdentifilerService.swift in Sources */,
 				457C3B391C9DAD150020509D /* Rx-TwitterKit.swift in Sources */,
 				45BD1C211C96EB35002A2159 /* TwitterManager.swift in Sources */,
 				451C4D8D1C9C812900903A0C /* UserDefaultsKey.swift in Sources */,
