@@ -74,9 +74,9 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         screenNameLabel.text = "@\(user.screenName)"
         do {
             let imageData = try NSData(contentsOfURL: NSURL(string: user.profileImageURL)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-            let bgImageData = try NSData(contentsOfURL: NSURL(string: user.profileBackgroundImageURL)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+            let bannerImageData = try NSData(contentsOfURL: NSURL(string: user.profileBannerImageURL)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
             self.profileImageView.image = UIImage(data: imageData)
-            self.profileBackgroundImageView.image = UIImage(data: bgImageData)
+            self.profileBackgroundImageView.image = UIImage(data: bannerImageData)
         } catch {
             print("Error: Image request invalid")
         }
