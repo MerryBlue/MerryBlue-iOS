@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D00246C9AB6774F0A763EB8 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB997101D3CFE421879951E7 /* Pods.framework */; };
+		451B85221CAA519E003DD63F /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451B85211CAA519D003DD63F /* UIImageExtension.swift */; };
 		451C4D8B1C9C7FAB00903A0C /* ListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451C4D8A1C9C7FAB00903A0C /* ListService.swift */; };
 		451C4D8D1C9C812900903A0C /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451C4D8C1C9C812900903A0C /* UserDefaultsKey.swift */; };
 		451C4D8F1C9C9CEB00903A0C /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451C4D8E1C9C9CEB00903A0C /* NSDateExtension.swift */; };
@@ -29,6 +30,7 @@
 		45ABA1EF1C9811C1006DE856 /* ListTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ABA1EE1C9811C1006DE856 /* ListTimelineViewController.swift */; };
 		45ABA1F11C981A23006DE856 /* UserStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ABA1F01C981A23006DE856 /* UserStatusCell.swift */; };
 		45ABA1F31C986869006DE856 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45ABA1F21C986869006DE856 /* Main.storyboard */; };
+		45AC07C61CAA3F5200DACD0F /* AssetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AC07C51CAA3F5200DACD0F /* AssetService.swift */; };
 		45BD1C0B1C9590A2002A2159 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C0A1C9590A2002A2159 /* MainTabBarController.swift */; };
 		45BD1C211C96EB35002A2159 /* TwitterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C201C96EB35002A2159 /* TwitterManager.swift */; };
 		45BD1C251C974518002A2159 /* TwitterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C231C97207B002A2159 /* TwitterList.swift */; };
@@ -46,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		111146BA25A5A70FE8C4BFDC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		451B85211CAA519D003DD63F /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		451C4D8A1C9C7FAB00903A0C /* ListService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListService.swift; sourceTree = "<group>"; };
 		451C4D8C1C9C812900903A0C /* UserDefaultsKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		451C4D8E1C9C9CEB00903A0C /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
@@ -69,6 +72,7 @@
 		45ABA1EE1C9811C1006DE856 /* ListTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTimelineViewController.swift; sourceTree = "<group>"; };
 		45ABA1F01C981A23006DE856 /* UserStatusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStatusCell.swift; sourceTree = "<group>"; };
 		45ABA1F21C986869006DE856 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		45AC07C51CAA3F5200DACD0F /* AssetService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetService.swift; sourceTree = "<group>"; };
 		45BD1C0A1C9590A2002A2159 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		45BD1C201C96EB35002A2159 /* TwitterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterManager.swift; sourceTree = "<group>"; };
 		45BD1C231C97207B002A2159 /* TwitterList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterList.swift; sourceTree = "<group>"; };
@@ -107,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				453B44FC1C98DADB00CE5FFE /* StringExtension.swift */,
+				451B85211CAA519D003DD63F /* UIImageExtension.swift */,
 				45E9A8191C9BFE7D00C258D5 /* CALayerExtension.swift */,
 				453B44FF1C98DF9B00CE5FFE /* ArrayExtension.swift */,
 				451C4D8E1C9C9CEB00903A0C /* NSDateExtension.swift */,
@@ -174,6 +179,7 @@
 				45BD1C201C96EB35002A2159 /* TwitterManager.swift */,
 				455F3D951CA2EF76001495A9 /* MBColor.swift */,
 				451C4D8A1C9C7FAB00903A0C /* ListService.swift */,
+				45AC07C51CAA3F5200DACD0F /* AssetService.swift */,
 				456404B71CA69D6400ED2505 /* MenuItemProtocol.swift */,
 				45BD1C231C97207B002A2159 /* TwitterList.swift */,
 				45ABA1EC1C9800B9006DE856 /* TwitterUser.swift */,
@@ -375,6 +381,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45AC07C61CAA3F5200DACD0F /* AssetService.swift in Sources */,
 				45BD1C251C974518002A2159 /* TwitterList.swift in Sources */,
 				45EBEDF41C93F6CE002C6040 /* SignInViewController.swift in Sources */,
 				45ABA1ED1C9800B9006DE856 /* TwitterUser.swift in Sources */,
@@ -383,6 +390,7 @@
 				457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */,
 				455F3D961CA2EF76001495A9 /* MBColor.swift in Sources */,
 				456404B81CA69D6400ED2505 /* MenuItemProtocol.swift in Sources */,
+				451B85221CAA519E003DD63F /* UIImageExtension.swift in Sources */,
 				455F3D9A1CA3C29D001495A9 /* UserService.swift in Sources */,
 				45ABA1F11C981A23006DE856 /* UserStatusCell.swift in Sources */,
 				45E9A81A1C9BFE7D00C258D5 /* CALayerExtension.swift in Sources */,

@@ -132,7 +132,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             image:FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
             style: .Plain, target: self, action: #selector(HomeViewController.openListsChooser))
         orderButton = UIBarButtonItem(
-            image: FAKIonIcons.funnelIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
+            image: AssetSertvice.sharedInstance.iconSortByTime,
             style: .Plain,
             target: self,
             action: #selector(HomeViewController.changeOrder))
@@ -157,8 +157,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         switch orderType {
         case HomeViewOrderType.TimeOrder:
             self.users = TwitterManager.sortUsersNewCount(users)
+            self.orderButton.image = AssetSertvice.sharedInstance.iconSortByCount
         case HomeViewOrderType.ReadCountOrder:
             self.users = TwitterManager.sortUsersLastupdate(users)
+            self.orderButton.image = AssetSertvice.sharedInstance.iconSortByTime
         default:
             break
         }
