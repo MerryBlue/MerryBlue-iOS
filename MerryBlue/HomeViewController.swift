@@ -33,7 +33,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.setupTableView()
     }
 
+    func checkLogin() {
+        if !TwitterManager.isLogin() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginView = storyboard.instantiateViewControllerWithIdentifier("login")
+            self.presentViewController(loginView, animated: true, completion: nil)
+        }
+    }
+
     override func viewDidAppear(animated: Bool) {
+        checkLogin()
         guard let list = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return
@@ -90,8 +99,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = (tableView.dequeueReusableCellWithIdentifier("userStatusCell", forIndexPath: indexPath) as? UserStatusCell)!
-        cell.setCell(users[indexPath.row])
+        let user = users[indexPath.row]
+        let cell = (tableView.dequeueReusableCellWithIdentifier("userStatusCell") as? UserStatusCell)!
+        // let cell = (tableView.dequeueReusableCellWithIdentifier(IdentifilerService.sharedInstance.homeCellID(user.userID)) as? UserStatusCell)!
+        cell.setCell(user)
         return cell
     }
 
@@ -123,7 +134,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             image:FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
             style: .Plain, target: self, action: #selector(HomeViewController.openListsChooser))
         orderButton = UIBarButtonItem(
-            image: FAKIonIcons.funnelIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
+            image: AssetSertvice.sharedInstance.iconSortByTime,
             style: .Plain,
             target: self,
             action: #selector(HomeViewController.changeOrder))
@@ -148,8 +159,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         switch orderType {
         case HomeViewOrderType.TimeOrder:
             self.users = TwitterManager.sortUsersNewCount(users)
+            self.orderButton.image = AssetSertvice.sharedInstance.iconSortByCount
         case HomeViewOrderType.ReadCountOrder:
             self.users = TwitterManager.sortUsersLastupdate(users)
+            self.orderButton.image = AssetSertvice.sharedInstance.iconSortByTime
         default:
             break
         }

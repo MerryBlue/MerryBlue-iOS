@@ -31,12 +31,6 @@ class ListTimelineViewController: MBTimelineViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let ac = UIAlertController(
-            title: "特別なリスト",
-            message: "\"最近フォローしたユーザ\"では Timeline タブは使えません",
-            preferredStyle: UIAlertControllerStyle.Alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-        presentViewController(ac, animated: true, completion: nil)
         self.setupNavigationBar()
     }
 
@@ -88,5 +82,13 @@ class ListTimelineViewController: MBTimelineViewController {
         self.dataSource = dataSource
         self.refresh()
         self.list = list
+        if self.list.type == ListType.RecentFollow {
+            let ac = UIAlertController(
+                title: "特別なリスト",
+                message: "\"最近フォローしたユーザ\"では Timeline タブは使えません",
+                preferredStyle: UIAlertControllerStyle.Alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(ac, animated: true, completion: nil)
+        }
     }
 }

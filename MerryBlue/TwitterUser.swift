@@ -9,6 +9,7 @@ class TwitterUser: TWTRUser {
     var tweetCount: Int!
     var isFollowing = false
     var profileBackgroundImageURL: String!
+    var profileBannerImageURL: String!
 
     required override init!(JSONDictionary dictionary: [NSObject: AnyObject]!) {
         super.init(JSONDictionary: dictionary)
@@ -28,6 +29,7 @@ class TwitterUser: TWTRUser {
         self.tweetCount = json["statuses_count"].intValue
         self.isFollowing = json["following"].boolValue
         self.profileBackgroundImageURL = json["profile_background_image_url_https"].stringValue
+        self.profileBannerImageURL = json["profile_banner_url"].stringValue
 
         if let count = UserService.sharedInstance.selectUser(self.userID) where !isSecret() {
             // ログあり かつ 相手のツイートが見れる場合

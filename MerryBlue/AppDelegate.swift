@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Twitter.self, Crashlytics.self, Digits.self])
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let initialViewController = storyboard.instantiateInitialViewController()
+        let initialViewController = storyboard.instantiateViewControllerWithIdentifier("login")
         self.window!.rootViewController = initialViewController
 
         self.window?.makeKeyAndVisible()
@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // print("アプリを開いた時に呼ばれる")
+        // UIApplication.sharedApplication().setStatusBarStyle(<#T##statusBarStyle: UIStatusBarStyle##UIStatusBarStyle#>, animated: <#T##Bool#>)
     }
 
     func applicationWillTerminate(application: UIApplication) {

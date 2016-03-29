@@ -65,8 +65,8 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     internal func onClickLogoutButton(sender: UIButton) {
         TwitterManager.logoutUser()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let initialViewController = storyboard.instantiateInitialViewController()
-        self.presentViewController(initialViewController!, animated: true, completion: nil)
+        let loginView = storyboard.instantiateViewControllerWithIdentifier("login")
+        self.presentViewController(loginView, animated: true, completion: nil)
     }
 
     private func setProfiles(user: TwitterUser) {
@@ -74,9 +74,9 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         screenNameLabel.text = "@\(user.screenName)"
         do {
             let imageData = try NSData(contentsOfURL: NSURL(string: user.profileImageURL)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-            let bgImageData = try NSData(contentsOfURL: NSURL(string: user.profileBackgroundImageURL)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+            let bannerImageData = try NSData(contentsOfURL: NSURL(string: user.profileBannerImageURL)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
             self.profileImageView.image = UIImage(data: imageData)
-            self.profileBackgroundImageView.image = UIImage(data: bgImageData)
+            self.profileBackgroundImageView.image = UIImage(data: bannerImageData)
         } catch {
             print("Error: Image request invalid")
         }
@@ -117,8 +117,10 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
 
     //セルの内容を変更
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let list = twitterLists[indexPath.row]
         let cell = (tableView.dequeueReusableCellWithIdentifier("listInfoCell", forIndexPath: indexPath) as? ListInfoCell)!
-        cell.setCell(twitterLists[indexPath.row])
+        // let cell = (tableView.dequeueReusableCellWithIdentifier(IdentifilerService.sharedInstance.listCellID(list.listID), forIndexPath: indexPath) as? ListInfoCell)!
+        cell.setCell(list)
         return cell
     }
 
