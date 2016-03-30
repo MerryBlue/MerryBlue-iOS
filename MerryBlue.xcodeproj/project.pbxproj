@@ -26,7 +26,6 @@
 		457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE71C933D25000A665A /* AppDelegate.swift */; };
 		457E0BEA1C933D25000A665A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE91C933D25000A665A /* HomeViewController.swift */; };
 		457E0BF11C933D25000A665A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 457E0BF01C933D25000A665A /* Assets.xcassets */; };
-		457E0BF41C933D25000A665A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 457E0BF21C933D25000A665A /* LaunchScreen.storyboard */; };
 		45ABA1ED1C9800B9006DE856 /* TwitterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ABA1EC1C9800B9006DE856 /* TwitterUser.swift */; };
 		45ABA1EF1C9811C1006DE856 /* ListTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ABA1EE1C9811C1006DE856 /* ListTimelineViewController.swift */; };
 		45ABA1F11C981A23006DE856 /* UserStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ABA1F01C981A23006DE856 /* UserStatusCell.swift */; };
@@ -35,6 +34,7 @@
 		45BD1C0B1C9590A2002A2159 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C0A1C9590A2002A2159 /* MainTabBarController.swift */; };
 		45BD1C211C96EB35002A2159 /* TwitterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C201C96EB35002A2159 /* TwitterManager.swift */; };
 		45BD1C251C974518002A2159 /* TwitterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C231C97207B002A2159 /* TwitterList.swift */; };
+		45DDD57B1CAA82770015C16D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45DDD57A1CAA82770015C16D /* Launch Screen.storyboard */; };
 		45E9A81A1C9BFE7D00C258D5 /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E9A8191C9BFE7D00C258D5 /* CALayerExtension.swift */; };
 		45EBEDE21C93F2B6002C6040 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EBEDE01C93F2B6002C6040 /* Fabric.framework */; };
 		45EBEDE31C93F2B6002C6040 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EBEDE11C93F2B6002C6040 /* Crashlytics.framework */; };
@@ -68,7 +68,6 @@
 		457E0BE71C933D25000A665A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		457E0BE91C933D25000A665A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		457E0BF01C933D25000A665A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		457E0BF31C933D25000A665A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		457E0BF51C933D25000A665A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45ABA1EC1C9800B9006DE856 /* TwitterUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterUser.swift; sourceTree = "<group>"; };
 		45ABA1EE1C9811C1006DE856 /* ListTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTimelineViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +77,7 @@
 		45BD1C0A1C9590A2002A2159 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		45BD1C201C96EB35002A2159 /* TwitterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterManager.swift; sourceTree = "<group>"; };
 		45BD1C231C97207B002A2159 /* TwitterList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterList.swift; sourceTree = "<group>"; };
+		45DDD57A1CAA82770015C16D /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		45E9A8191C9BFE7D00C258D5 /* CALayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
 		45EBEDE01C93F2B6002C6040 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		45EBEDE11C93F2B6002C6040 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -150,8 +150,8 @@
 				453B44FE1C98DAE800CE5FFE /* Extension */,
 				457E0BE71C933D25000A665A /* AppDelegate.swift */,
 				45ABA1F21C986869006DE856 /* Main.storyboard */,
+				45DDD57A1CAA82770015C16D /* Launch Screen.storyboard */,
 				457E0BF01C933D25000A665A /* Assets.xcassets */,
-				457E0BF21C933D25000A665A /* LaunchScreen.storyboard */,
 				457E0BF51C933D25000A665A /* Info.plist */,
 			);
 			path = MerryBlue;
@@ -293,9 +293,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45DDD57B1CAA82770015C16D /* Launch Screen.storyboard in Resources */,
 				45EBEDF21C93F62F002C6040 /* DigitsKitResources.bundle in Resources */,
 				45ABA1F31C986869006DE856 /* Main.storyboard in Resources */,
-				457E0BF41C933D25000A665A /* LaunchScreen.storyboard in Resources */,
 				457E0BF11C933D25000A665A /* Assets.xcassets in Resources */,
 				45EBEDEE1C93F5D2002C6040 /* TwitterKitResources.bundle in Resources */,
 			);
@@ -415,17 +415,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		457E0BF21C933D25000A665A /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				457E0BF31C933D25000A665A /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		457E0BF61C933D25000A665A /* Debug */ = {
