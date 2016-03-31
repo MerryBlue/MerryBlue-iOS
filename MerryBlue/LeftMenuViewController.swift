@@ -54,6 +54,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
         refreshControl.addTarget(self, action: #selector(LeftMenuViewController.pullToRefresh), forControlEvents:.ValueChanged)
+        self.tableView.allowsMultipleSelectionDuringEditing = true
         self.tableView.addSubview(refreshControl)
     }
 
@@ -135,7 +136,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         return .None
     }
     func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
+        return true
     }
     func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
         let si = sourceIndexPath.row
@@ -180,6 +181,9 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     // Cell が選択された場合
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let list = self.twitterLists[indexPath.row]
+        if self.tableView.editing {
+            return
+        }
         selectCell(indexPath)
         if list.enable() {
             ListService.sharedInstance.updateHomeList(list)
