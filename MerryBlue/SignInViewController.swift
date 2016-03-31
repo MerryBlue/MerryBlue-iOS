@@ -23,7 +23,7 @@ class SignInViewController: UIViewController {
             print("Error: loginButtonView not loaded")
             return
         }
-        logInButton.center = CGPoint(x: self.view.center.x, y: loginBtnView.center.y)
+        logInButton.center = CGPoint(x: self.view.center.x, y: self.view.frame.height - (loginBtnView.frame.height / 2))
         // logInButtonView?.addSubview(logInButton)
         // self.logInButtonView!.addSubview(logInButton)
         self.view.addSubview(logInButton)
