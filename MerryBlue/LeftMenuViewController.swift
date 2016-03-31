@@ -93,9 +93,20 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         } else {
             // editButton.setImage(nil, forState: .Normal)
             editButton.setTitle("", forState: .Normal)
+            syncSelectedCells()
             ListService.sharedInstance.updateLists(self.twitterLists)
             tableView.addSubview(refreshControl)
             self.slideMenuController()?.addLeftGestures()
+        }
+    }
+
+    func syncSelectedCells() {
+        for i in 0..<tableView.numberOfRowsInSection(0) {
+            let list = twitterLists[i]
+            guard let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) else {
+                return
+            }
+            list.visible = cell.selected
         }
     }
 
@@ -122,6 +133,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = (tableView.dequeueReusableCellWithIdentifier("listInfoCell", forIndexPath: indexPath) as? ListInfoCell)!
         // let cell = (tableView.dequeueReusableCellWithIdentifier(IdentifilerService.sharedInstance.listCellID(list.listID), forIndexPath: indexPath) as? ListInfoCell)!
         cell.setCell(list)
+        cell.setSelected(list.visible, animated: true)
         return cell
     }
 

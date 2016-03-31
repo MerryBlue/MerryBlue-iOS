@@ -40,6 +40,7 @@ class ListInfoCell: UITableViewCell {
             self.listNameLabel.textColor = MBColor.Sub
             self.memberNumLabel.textColor = MBColor.Sub
         }
+        self.setSelected(listInfo.visible, animated: true)
     }
 
 }
