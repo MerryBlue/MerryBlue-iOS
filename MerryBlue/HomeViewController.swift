@@ -53,6 +53,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.list = list
         self.activityIndicator.startAnimating()
+        orderType = HomeViewOrderType.ReadCountOrder
         _ = TwitterManager.requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
     }
