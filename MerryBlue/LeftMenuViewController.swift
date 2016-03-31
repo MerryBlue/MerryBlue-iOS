@@ -54,7 +54,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
         refreshControl.addTarget(self, action: #selector(LeftMenuViewController.pullToRefresh), forControlEvents:.ValueChanged)
-        self.tableView.allowsMultipleSelectionDuringEditing = true
+        // self.tableView.allowsMultipleSelectionDuringEditing = true
         self.tableView.addSubview(refreshControl)
     }
 
@@ -148,7 +148,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         return .None
     }
     func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
+        return false
     }
     func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
         let si = sourceIndexPath.row
