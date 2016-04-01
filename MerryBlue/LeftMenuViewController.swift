@@ -235,6 +235,16 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     func pullToRefresh() {
+        if self.tableView.editing {
+            // 編集中はリスト更新制限アラート
+            let ac = UIAlertController(
+                title: "リスト編集中",
+                message: "編集状態を完了してからリストの更新を行ってください",
+                preferredStyle: UIAlertControllerStyle.Alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(ac, animated: true, completion: nil)
+            return
+        }
         _ = TwitterManager.requestLists(TwitterManager.getUserID())
             .subscribeNext({ (lists: [TwitterList]) in
                 self.setupTableView(ListService.sharedInstance.fetchList(lists))
