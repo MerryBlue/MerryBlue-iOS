@@ -55,6 +55,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
         refreshControl.addTarget(self, action: #selector(LeftMenuViewController.pullToRefresh), forControlEvents:.ValueChanged)
         // self.tableView.allowsMultipleSelectionDuringEditing = true
+        self.tableView.allowsSelectionDuringEditing = true
         self.tableView.addSubview(refreshControl)
     }
 
@@ -84,29 +85,42 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     internal func switchEditList() {
-        self.tableView.setEditing(!self.tableView.editing, animated: true)
         if self.tableView.editing {
-            // editButton.setImage(FAKIonIcons.iosGearIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)), forState: .Normal)
-            editButton.setTitle("完了", forState: .Normal)
-            refreshControl.removeFromSuperview()
-            self.slideMenuController()?.removeLeftGestures()
-        } else {
             // editButton.setImage(nil, forState: .Normal)
             editButton.setTitle("", forState: .Normal)
-            syncSelectedCells()
             ListService.sharedInstance.updateLists(self.twitterLists)
+
             tableView.addSubview(refreshControl)
             self.slideMenuController()?.addLeftGestures()
+            self.tableView.setEditing(false, animated: true)
+            self.setupTableView(self.twitterLists)
+        } else {
+            self.tableView.setEditing(true, animated: true)
+            // syncVisibleCells()
+            refreshControl.removeFromSuperview()
+            self.slideMenuController()?.removeLeftGestures()
         }
     }
 
-    func syncSelectedCells() {
-        for i in 0..<tableView.numberOfRowsInSection(0) {
-            let list = twitterLists[i]
-            guard let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) else {
-                return
-            }
-            list.visible = cell.selected
+    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        let list = self.twitterLists[indexPath.row]
+        // cell.setSelected(list.visible, animated: false)
+        if tableView.editing && list.visible {
+            cell.accessoryType = .Checkmark
+            cell.setSelected(true, animated: false)
+        } else {
+            cell.accessoryType = .None
+            cell.setSelected(false, animated: false)
+        }
+    }
+
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    }
+
+    func syncVisibleCells() {
+        for (i, list) in twitterLists.enumerate() {
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: 0))
+            cell?.setSelected(list.visible, animated: false)
         }
     }
 
@@ -133,7 +147,6 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = (tableView.dequeueReusableCellWithIdentifier("listInfoCell", forIndexPath: indexPath) as? ListInfoCell)!
         // let cell = (tableView.dequeueReusableCellWithIdentifier(IdentifilerService.sharedInstance.listCellID(list.listID), forIndexPath: indexPath) as? ListInfoCell)!
         cell.setCell(list)
-        cell.setSelected(list.visible, animated: true)
         return cell
     }
 
@@ -190,13 +203,19 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
 
     }
 
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        let list = twitterLists[indexPath.row]
+        list.visible = false
+    }
+
     // Cell が選択された場合
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let list = self.twitterLists[indexPath.row]
         if self.tableView.editing {
+            list.visible = true
             return
         }
-        selectCell(indexPath)
+        // selectCell(indexPath)
         if list.enable() {
             ListService.sharedInstance.updateHomeList(list)
 
@@ -214,24 +233,6 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
 
-    func selectCell(indexPath: NSIndexPath) {
-        if let i = selectedIndex {
-            if indexPath.row == selectedIndex.row {
-                return
-            }
-            // 元のセルをノーマルに
-            let cell = tableView.cellForRowAtIndexPath(i)
-            cell?.setHighlighted(false, animated: false)
-            cell?.setSelected(false, animated: false)
-            // cell?.accessoryType = UITableViewCellAccessoryType.None
-        }
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
-        cell?.setSelected(true, animated: false)
-        cell?.setHighlighted(true, animated: false)
-        // cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
-        selectedIndex = indexPath
-    }
-
     func pullToRefresh() {
         _ = TwitterManager.requestLists(TwitterManager.getUserID())
             .subscribeNext({ (lists: [TwitterList]) in
@@ -240,16 +241,4 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         refreshControl.endRefreshing()
     }
 
-    internal func setSelectedCell() {
-        guard let list = ListService.sharedInstance.selectHomeList() else {
-            return
-        }
-
-        for i in 0..<tableView.numberOfRowsInSection(0) {
-            if twitterLists[i].listID == list.listID {
-                selectCell(NSIndexPath(forRow: i, inSection: 0))
-                break
-            }
-        }
-    }
 }
