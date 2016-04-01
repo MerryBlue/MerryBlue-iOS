@@ -99,6 +99,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             // syncVisibleCells()
             refreshControl.removeFromSuperview()
             self.slideMenuController()?.removeLeftGestures()
+            editButton.setTitle("完了", forState: .Normal)
         }
     }
 
