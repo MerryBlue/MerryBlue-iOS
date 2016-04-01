@@ -97,6 +97,14 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
         return !self.enable()
     }
 
+    func isSpecialType() -> Bool {
+        return self.type != .Normal
+    }
+
+    func isRecentFollowType() -> Bool {
+        return self.type == .RecentFollow
+    }
+
 }
 
 struct SerializedKey {
