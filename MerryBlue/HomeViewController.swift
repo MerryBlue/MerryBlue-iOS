@@ -53,6 +53,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.list = list
         self.activityIndicator.startAnimating()
+        orderType = HomeViewOrderType.ReadCountOrder
         _ = TwitterManager.requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
     }
@@ -78,7 +79,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.orderType = (self.orderType + 1) % 2
                 self.setupListUsers(users)
         })
-        refreshControl.endRefreshing() // データが取れたら更新を終える（くるくる回るViewを消去）
     }
 
     internal func setupListUsers(users: [TwitterUser]) {
@@ -88,6 +88,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if self.activityIndicator.isAnimating() {
             self.activityIndicator.stopAnimating()
         }
+
+        refreshControl.endRefreshing() // データが取れたら更新を終える（くるくる回るViewを消去）
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

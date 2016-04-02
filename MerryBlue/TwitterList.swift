@@ -16,6 +16,7 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
     var imageUrl: String
     var type = ListType.Normal
     var typeID: Int = 0
+    var visible: Bool
 
     static let memberNumActiveMaxLimit = 100
     static let recentFollowUser = 20
@@ -28,12 +29,14 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
         self.desc        = jsonData["desc"].stringValue
         self.memberCount = jsonData["member_count"].intValue
         self.imageUrl    = user.profileImageURL
+        self.visible     = true
     }
 
     init?(type: ListType) {
         self.listID      = ""
         self.slug        = ""
         self.type = type
+        self.visible = true
 
         switch type {
         case .RecentFollow:
@@ -61,6 +64,7 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
         self.imageUrl    = aDecoder.decodeObjectForKey(SerializedKey.ImageUrl) as? String ?? "image error"
         self.typeID      = aDecoder.decodeObjectForKey(SerializedKey.TypeID) as? Int ?? 0
         self.type        = TwitterList.toType(self.typeID)
+        self.visible     = aDecoder.decodeObjectForKey(SerializedKey.Visible) as? Bool ?? true
     }
 
     func encodeWithCoder(aCoder: NSCoder) {
@@ -71,6 +75,7 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
         aCoder.encodeObject(self.memberCount, forKey: SerializedKey.MemberCount)
         aCoder.encodeObject(self.imageUrl, forKey: SerializedKey.ImageUrl)
         aCoder.encodeObject(self.typeID, forKey: SerializedKey.TypeID)
+        aCoder.encodeObject(self.visible, forKey: SerializedKey.Visible)
     }
 
     static func toTypeID(type: ListType) -> Int {
@@ -92,6 +97,14 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
         return !self.enable()
     }
 
+    func isSpecialType() -> Bool {
+        return self.type != .Normal
+    }
+
+    func isRecentFollowType() -> Bool {
+        return self.type == .RecentFollow
+    }
+
 }
 
 struct SerializedKey {
@@ -102,4 +115,5 @@ struct SerializedKey {
     static let MemberCount = "memberCount"
     static let ImageUrl    = "imageUrl"
     static let TypeID      = "typeID"
+    static let Visible     = "visilbe"
 }

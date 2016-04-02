@@ -82,7 +82,7 @@ class ListTimelineViewController: MBTimelineViewController {
         self.dataSource = dataSource
         self.refresh()
         self.list = list
-        if self.list.type == ListType.RecentFollow {
+        if self.list.isRecentFollowType() {
             let ac = UIAlertController(
                 title: "特別なリスト",
                 message: "\"最近フォローしたユーザ\"では Timeline タブは使えません",

@@ -31,6 +31,8 @@
 		45ABA1F11C981A23006DE856 /* UserStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ABA1F01C981A23006DE856 /* UserStatusCell.swift */; };
 		45ABA1F31C986869006DE856 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45ABA1F21C986869006DE856 /* Main.storyboard */; };
 		45AC07C61CAA3F5200DACD0F /* AssetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AC07C51CAA3F5200DACD0F /* AssetService.swift */; };
+		45B943911CAE69C900C05488 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45EBEDEC1C93F5D2002C6040 /* TwitterKitResources.bundle */; };
+		45B943981CAE8D7500C05488 /* DigitsKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45EBEDF01C93F62F002C6040 /* DigitsKitResources.bundle */; };
 		45BD1C0B1C9590A2002A2159 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C0A1C9590A2002A2159 /* MainTabBarController.swift */; };
 		45BD1C211C96EB35002A2159 /* TwitterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C201C96EB35002A2159 /* TwitterManager.swift */; };
 		45BD1C251C974518002A2159 /* TwitterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C231C97207B002A2159 /* TwitterList.swift */; };
@@ -40,9 +42,7 @@
 		45EBEDE31C93F2B6002C6040 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EBEDE11C93F2B6002C6040 /* Crashlytics.framework */; };
 		45EBEDEA1C93F488002C6040 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EBEDE71C93F488002C6040 /* TwitterCore.framework */; };
 		45EBEDED1C93F5D2002C6040 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EBEDEB1C93F5D2002C6040 /* TwitterKit.framework */; };
-		45EBEDEE1C93F5D2002C6040 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45EBEDEC1C93F5D2002C6040 /* TwitterKitResources.bundle */; };
 		45EBEDF11C93F62F002C6040 /* DigitsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EBEDEF1C93F62F002C6040 /* DigitsKit.framework */; };
-		45EBEDF21C93F62F002C6040 /* DigitsKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45EBEDF01C93F62F002C6040 /* DigitsKitResources.bundle */; };
 		45EBEDF41C93F6CE002C6040 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EBEDF31C93F6CE002C6040 /* SignInViewController.swift */; };
 		45EC9A8A1CA1A99100ABE06A /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EC9A891CA1A99100ABE06A /* LeftMenuViewController.swift */; };
 /* End PBXBuildFile section */
@@ -293,11 +293,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45B943981CAE8D7500C05488 /* DigitsKitResources.bundle in Resources */,
+				45B943911CAE69C900C05488 /* TwitterKitResources.bundle in Resources */,
 				45DDD57B1CAA82770015C16D /* Launch Screen.storyboard in Resources */,
-				45EBEDF21C93F62F002C6040 /* DigitsKitResources.bundle in Resources */,
 				45ABA1F31C986869006DE856 /* Main.storyboard in Resources */,
 				457E0BF11C933D25000A665A /* Assets.xcassets in Resources */,
-				45EBEDEE1C93F5D2002C6040 /* TwitterKitResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,10 +434,11 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Hiroto Takahashi Hiroto Takahashi (P44FH6EFF8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hiroto Takahashi Hiroto Takahashi (P44FH6EFF8)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hiroto  Takahashi (P44FH6EFF8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hiroto  Takahashi (P44FH6EFF8)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -458,8 +459,8 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PODS_ROOT = "${SRCROOT}/Pods";
-				PRODUCT_BUNDLE_IDENTIFIER = com.elzup.ios.merryblue;
-				PROVISIONING_PROFILE = "54f6cda5-c3b1-4b1b-8e6d-5c10b82c1f59";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.elzup.merry-blue";
+				PROVISIONING_PROFILE = "c6ed5e7e-053e-4578-b5e7-78e99785d971";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -482,10 +483,11 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Hiroto Takahashi Hiroto Takahashi (P44FH6EFF8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hiroto Takahashi Hiroto Takahashi (P44FH6EFF8)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hiroto  Takahashi (P44FH6EFF8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hiroto  Takahashi (P44FH6EFF8)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -499,8 +501,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PODS_ROOT = "${SRCROOT}/Pods";
-				PRODUCT_BUNDLE_IDENTIFIER = com.elzup.ios.merryblue;
-				PROVISIONING_PROFILE = "54f6cda5-c3b1-4b1b-8e6d-5c10b82c1f59";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.elzup.merry-blue";
+				PROVISIONING_PROFILE = "c6ed5e7e-053e-4578-b5e7-78e99785d971";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -529,7 +531,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.elzup.merry-blue";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "c6ed5e7e-053e-4578-b5e7-78e99785d971";
 				SWIFT_OBJC_BRIDGING_HEADER = "MerryBlue-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -541,8 +543,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hiroto Takahashi Hiroto Takahashi (P44FH6EFF8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hiroto Takahashi Hiroto Takahashi (P44FH6EFF8)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -557,7 +559,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.elzup.merry-blue";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "c6ed5e7e-053e-4578-b5e7-78e99785d971";
 				SWIFT_OBJC_BRIDGING_HEADER = "MerryBlue-Bridging-Header.h";
 			};
 			name = Release;
