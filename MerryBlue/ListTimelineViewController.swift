@@ -20,8 +20,7 @@ class ListTimelineViewController: MBTimelineViewController {
             // self.openListsChooser()
             return
         }
-        let client = TWTRAPIClient()
-        let dataSource = TWTRListTimelineDataSource(listID: list.listID, APIClient: client)
+        let dataSource = TWTRListTimelineDataSource(listID: list.listID, APIClient: TwitterManager.getClient())
         self.init(dataSource: dataSource)
         self.showTweetActions = true
         self.title = "ListTimeline"
