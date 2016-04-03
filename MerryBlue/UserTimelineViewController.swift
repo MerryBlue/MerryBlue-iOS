@@ -48,6 +48,9 @@ class UserTimelineViewController: MBTimelineViewController {
         let backButtonItem = UIBarButtonItem(title: "戻る", style: .Plain, target: self, action: #selector(UserTimelineViewController.goBack))
         self.navigationItem.setHidesBackButton(false, animated: false)
         self.navigationItem.leftBarButtonItem = backButtonItem
+        self.navigationController!.navigationBar.barTintColor = MBColor.Main
+        self.navigationController!.navigationBar.tintColor = MBColor.Back
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSForegroundColorAttributeName: MBColor.Back ]
 
         let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(UserTimelineViewController.goBack))
         swipeLeftGesture.direction = .Right
