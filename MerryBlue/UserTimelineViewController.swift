@@ -8,8 +8,7 @@ class UserTimelineViewController: MBTimelineViewController {
 
     convenience init() {
         guard let user = (UIApplication.sharedApplication().delegate as? AppDelegate)!.userViewUser else {
-            self.init()
-            self.goBack()
+            self.init(dataSource: nil)
             return
         }
         let client = TwitterManager.getClient()
@@ -31,6 +30,10 @@ class UserTimelineViewController: MBTimelineViewController {
     }
 
     override func viewDidLoad() {
+        guard let _ = delegate.userViewUser else {
+            self.goBack()
+            return
+        }
         super.viewDidLoad()
         self.setupNavigationBar()
     }

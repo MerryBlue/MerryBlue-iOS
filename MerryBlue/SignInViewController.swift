@@ -1,7 +1,6 @@
 import Foundation
 import UIKit
 import TwitterKit
-import SlideMenuControllerSwift
 
 class SignInViewController: UIViewController {
 
@@ -12,7 +11,6 @@ class SignInViewController: UIViewController {
         super.viewDidLoad()
         let logInButton = TWTRLogInButton { (session, error) in
             if session != nil {
-                UIApplication.sharedApplication().keyWindow?.rootViewController = MainTabBarController()
                 self.presentMainTabBarController()
             } else {
                 NSLog("Login error: %@", error!.localizedDescription)
@@ -40,12 +38,7 @@ class SignInViewController: UIViewController {
     }
 
     private func presentMainTabBarController() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let mainView = storyboard.instantiateViewControllerWithIdentifier("main")
-        let leftMenuView = storyboard.instantiateViewControllerWithIdentifier("menu")
-        let slideMenuController = SlideMenuController(mainViewController: mainView, leftMenuViewController: leftMenuView)
-        // self.presentViewController(slideMenuController, animated: true, completion: nil)
-        UIApplication.sharedApplication().keyWindow?.rootViewController = slideMenuController
+        UIApplication.sharedApplication().keyWindow?.rootViewController = StoryBoardService.sharedInstance.mainViewController()
     }
 
 }
