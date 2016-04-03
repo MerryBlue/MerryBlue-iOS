@@ -434,8 +434,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Hiroto  Takahashi (P44FH6EFF8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hiroto  Takahashi (P44FH6EFF8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hiroto  Takahashi (4VD2M83K88)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hiroto  Takahashi (4VD2M83K88)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
@@ -460,7 +460,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PODS_ROOT = "${SRCROOT}/Pods";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.elzup.merry-blue";
-				PROVISIONING_PROFILE = "c6ed5e7e-053e-4578-b5e7-78e99785d971";
+				PROVISIONING_PROFILE = "2d6b6cd7-12d9-4cb4-8ae5-0d85cf70051e";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -502,7 +502,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PODS_ROOT = "${SRCROOT}/Pods";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.elzup.merry-blue";
-				PROVISIONING_PROFILE = "c6ed5e7e-053e-4578-b5e7-78e99785d971";
+				PROVISIONING_PROFILE = "54203ac2-2a42-48c8-8259-f848d40715e6";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -514,8 +514,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hiroto  Takahashi (4VD2M83K88)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hiroto  Takahashi (4VD2M83K88)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -531,7 +531,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.elzup.merry-blue";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c6ed5e7e-053e-4578-b5e7-78e99785d971";
+				PROVISIONING_PROFILE = "2d6b6cd7-12d9-4cb4-8ae5-0d85cf70051e";
 				SWIFT_OBJC_BRIDGING_HEADER = "MerryBlue-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -543,8 +543,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Hiroto Takahashi Hiroto Takahashi (P44FH6EFF8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hiroto Takahashi Hiroto Takahashi (P44FH6EFF8)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hiroto  Takahashi (P44FH6EFF8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hiroto  Takahashi (P44FH6EFF8)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -559,10 +559,79 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.elzup.merry-blue";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c6ed5e7e-053e-4578-b5e7-78e99785d971";
+				PROVISIONING_PROFILE = "54203ac2-2a42-48c8-8259-f848d40715e6";
 				SWIFT_OBJC_BRIDGING_HEADER = "MerryBlue-Bridging-Header.h";
 			};
 			name = Release;
+		};
+		45A68DD61CB12AF6007719E1 /* Release-Deploygate */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hiroto  Takahashi (P44FH6EFF8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hiroto  Takahashi (P44FH6EFF8)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PODS_ROOT = "${SRCROOT}/Pods";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.elzup.merry-blue";
+				PROVISIONING_PROFILE = "c7649ede-e9a3-489f-ab21-77cbc53dfc58";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release-Deploygate";
+		};
+		45A68DD71CB12AF6007719E1 /* Release-Deploygate */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 111146BA25A5A70FE8C4BFDC /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hiroto  Takahashi (P44FH6EFF8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hiroto  Takahashi (P44FH6EFF8)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/DigitsKit.framework/Versions/A/Resources/DigitsKitResources.bundle",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/FontAwesomeKit\"",
+				);
+				INFOPLIST_FILE = MerryBlue/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.elzup.merry-blue";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c7649ede-e9a3-489f-ab21-77cbc53dfc58";
+				SWIFT_OBJC_BRIDGING_HEADER = "MerryBlue-Bridging-Header.h";
+			};
+			name = "Release-Deploygate";
 		};
 /* End XCBuildConfiguration section */
 
@@ -572,6 +641,7 @@
 			buildConfigurations = (
 				457E0BF61C933D25000A665A /* Debug */,
 				457E0BF71C933D25000A665A /* Release */,
+				45A68DD61CB12AF6007719E1 /* Release-Deploygate */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -581,6 +651,7 @@
 			buildConfigurations = (
 				457E0BF91C933D25000A665A /* Debug */,
 				457E0BFA1C933D25000A665A /* Release */,
+				45A68DD71CB12AF6007719E1 /* Release-Deploygate */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
