@@ -45,13 +45,13 @@ class UserTimelineViewController: MBTimelineViewController {
         }
 
         self.navigationItem.title = self.title
-        let backButtonItem = UIBarButtonItem(title: "戻る", style: .Plain, target: self, action: #selector(UserTimelineViewController.onClickBackButton))
+        let backButtonItem = UIBarButtonItem(title: "戻る", style: .Plain, target: self, action: #selector(UserTimelineViewController.goBack))
         self.navigationItem.setHidesBackButton(false, animated: false)
         self.navigationItem.leftBarButtonItem = backButtonItem
-    }
 
-    func onClickBackButton() {
-        self.goBack()
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(UserTimelineViewController.goBack))
+        swipeLeftGesture.direction = .Right
+        self.view.addGestureRecognizer(swipeLeftGesture)
     }
 
     func goBack() {
