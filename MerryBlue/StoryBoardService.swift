@@ -17,7 +17,9 @@ class StoryBoardService {
     }
 
     func userNavView() -> UIViewController {
-        return MBNavigationController(rootViewController: UserTimelineViewController())
+        let view = MBNavigationController(rootViewController: UserTimelineViewController())
+        view.modalTransitionStyle = .CrossDissolve
+        return view
     }
 
 }
