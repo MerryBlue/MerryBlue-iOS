@@ -187,12 +187,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         }
 
         if lists.isEmpty {
-            let ac = UIAlertController(
-                title: "リストが見つかりませんでした",
-                message: "このアカウントはリストを作成, フォローしていません",
-                preferredStyle: UIAlertControllerStyle.Alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            presentViewController(ac, animated: true, completion: nil)
+            presentViewController(AlertManager.sharedInstantce.listNotFound(), animated: true, completion: nil)
         }
         ListService.sharedInstance.updateLists(lists)
         // self.fetchListUpdate(lists)
@@ -223,24 +218,14 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
                 close: true)
         } else {
             // 選択不可アラート
-            let ac = UIAlertController(
-                title: "メンバー数制限",
-                message: "メンバー数が多すぎます(\(TwitterList.memberNumActiveMaxLimit)人まで)",
-                preferredStyle: UIAlertControllerStyle.Alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            presentViewController(ac, animated: true, completion: nil)
+            presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
         }
     }
 
     func pullToRefresh() {
         if self.tableView.editing {
             // 編集中はリスト更新制限アラート
-            let ac = UIAlertController(
-                title: "リスト編集中",
-                message: "編集状態を完了してからリストの更新を行ってください",
-                preferredStyle: UIAlertControllerStyle.Alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            presentViewController(ac, animated: true, completion: nil)
+            presentViewController(AlertManager.sharedInstantce.listSyncDisable(), animated: true, completion: nil)
             return
         }
         _ = TwitterManager.requestLists(TwitterManager.getUserID())
