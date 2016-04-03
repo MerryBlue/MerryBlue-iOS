@@ -20,8 +20,7 @@ class ListTimelineViewController: MBTimelineViewController {
             // self.openListsChooser()
             return
         }
-        let client = TWTRAPIClient()
-        let dataSource = TWTRListTimelineDataSource(listID: list.listID, APIClient: client)
+        let dataSource = TWTRListTimelineDataSource(listID: list.listID, APIClient: TwitterManager.getClient())
         self.init(dataSource: dataSource)
         self.showTweetActions = true
         self.title = "ListTimeline"
@@ -83,12 +82,7 @@ class ListTimelineViewController: MBTimelineViewController {
         self.refresh()
         self.list = list
         if self.list.isRecentFollowType() {
-            let ac = UIAlertController(
-                title: "特別なリスト",
-                message: "\"最近フォローしたユーザ\"では Timeline タブは使えません",
-                preferredStyle: UIAlertControllerStyle.Alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            presentViewController(ac, animated: true, completion: nil)
+            presentViewController(AlertManager.sharedInstantce.disableTabSpecialTab(), animated: true, completion: nil)
         }
     }
 }

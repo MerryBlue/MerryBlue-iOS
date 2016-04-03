@@ -35,9 +35,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func checkLogin() {
         if !TwitterManager.isLogin() {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let loginView = storyboard.instantiateViewControllerWithIdentifier("login")
-            self.presentViewController(loginView, animated: true, completion: nil)
+            self.presentViewController(StoryBoardService.sharedInstance.signInViewController(), animated: true, completion: nil)
         }
     }
 
@@ -188,9 +186,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func openUserTimeline(user: TwitterUser) {
         self.delegate.userViewUser = user
-        // let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let userNavView = MBNavigationController(rootViewController: UserTimelineViewController())
-        self.presentViewController(userNavView, animated: true, completion: nil)
+        self.presentViewController(StoryBoardService.sharedInstance.userNavView(), animated: true, completion: nil)
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
