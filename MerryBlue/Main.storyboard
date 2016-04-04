@@ -219,7 +219,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3iF-Hb-4SG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1269" y="1423"/>
+            <point key="canvasLocation" x="-996" y="1793"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="wH9-p9-tTh">
@@ -290,7 +290,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PFL-vO-qYd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-986" y="463"/>
+            <point key="canvasLocation" x="-996" y="949"/>
         </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="yKE-Eb-fSh">
@@ -303,14 +303,15 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="gKC-Kv-Yba" kind="relationship" relationship="viewControllers" id="qyB-M4-pCm"/>
+                        <segue destination="5uS-IH-e3e" kind="relationship" relationship="viewControllers" id="qyB-M4-pCm"/>
+                        <segue destination="gji-Eb-TX9" kind="relationship" relationship="viewControllers" id="7Qm-x4-GDi"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ftR-zW-8uz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-271.5" y="463.49999999999994"/>
+            <point key="canvasLocation" x="-365.5" y="948.5"/>
         </scene>
-        <!--Home View Controller-->
+        <!--Title-->
         <scene sceneID="MhS-UU-UPd">
             <objects>
                 <viewController storyboardIdentifier="home" id="gKC-Kv-Yba" customClass="HomeViewController" customModule="MerryBlue" customModuleProvider="target" sceneMemberID="viewController">
@@ -327,7 +328,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="userStatusCell" selectionStyle="default" indentationLevel="1" indentationWidth="10" reuseIdentifier="userStatusCell" rowHeight="82" id="NbU-Fv-SnO" customClass="UserStatusCell" customModule="MerryBlue" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="82"/>
+                                        <rect key="frame" x="0.0" y="92" width="375" height="82"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NbU-Fv-SnO" id="YRu-j7-H91">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
@@ -464,7 +465,9 @@
                             <constraint firstItem="uoE-sa-xzd" firstAttribute="top" secondItem="Y45-p5-7RE" secondAttribute="bottom" id="xnm-6d-Hnv"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" id="MYn-Ep-GKW"/>
+                    <navigationItem key="navigationItem" title="Title" id="pXG-7z-5GG">
+                        <barButtonItem key="rightBarButtonItem" image="icon-sort-count" id="GGA-z8-Xv7"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="gBf-XK-WOf" id="Dwc-mY-uan"/>
                         <outlet property="tableView" destination="Y45-p5-7RE" id="6ub-eC-5hv"/>
@@ -472,10 +475,80 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gK4-D2-lcA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="245.5" y="468.5"/>
+            <point key="canvasLocation" x="976.5" y="468.5"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="LhJ-3p-INV">
+            <objects>
+                <navigationController storyboardIdentifier="nav-home" automaticallyAdjustsScrollViewInsets="NO" id="5uS-IH-e3e" customClass="MBNavigationController" customModule="MerryBlue" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Home" image="digits-logo-icon.png" id="YcG-iW-w7x"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Btz-pK-74J">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="gKC-Kv-Yba" kind="relationship" relationship="rootViewController" id="E3Y-Yl-NOn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="95e-Ws-YS7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="398.5" y="468.5"/>
+        </scene>
+        <!--Timeline-->
+        <scene sceneID="0El-ly-rii">
+            <objects>
+                <navigationController storyboardIdentifier="nav-tl" automaticallyAdjustsScrollViewInsets="NO" id="gji-Eb-TX9" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Timeline" image="twtr-icn-logo-white.png" id="nNl-nQ-SqI"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iam-m5-AO3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="xhV-Ea-eXj" kind="relationship" relationship="rootViewController" id="ZHk-xC-KTg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jhw-ee-Dqi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="398.5" y="1349.5"/>
+        </scene>
+        <!--List Timeline View Controller-->
+        <scene sceneID="Air-8c-c42">
+            <objects>
+                <tableViewController storyboardIdentifier="tl" id="xhV-Ea-eXj" customClass="ListTimelineViewController" customModule="MerryBlue" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="zY0-CH-IHq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="tl-table" selectionStyle="default" indentationWidth="10" reuseIdentifier="tl-tweet-cell" id="YyV-wd-PZe">
+                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="tweet-cell" tableViewCell="YyV-wd-PZe" id="7W0-lr-5iw">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="xhV-Ea-eXj" id="Ceu-MI-OVb"/>
+                            <outlet property="delegate" destination="xhV-Ea-eXj" id="Sxx-aa-4Or"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Vh7-ud-5Dm"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1AY-qe-hxK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="976.5" y="1349.5"/>
         </scene>
     </scenes>
     <resources>
         <image name="Logo-MerryBlue" width="3951" height="806"/>
+        <image name="digits-logo-icon.png" width="23" height="26"/>
+        <image name="icon-sort-count" width="120" height="120"/>
+        <image name="twtr-icn-logo-white.png" width="16" height="13"/>
     </resources>
 </document>
