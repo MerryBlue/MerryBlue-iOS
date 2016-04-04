@@ -15,8 +15,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     var refreshControl: UIRefreshControl!
-    var orderButton: UIBarButtonItem!
-    var cleanButton: UIBarButtonItem!
+
+    @IBOutlet weak var orderButton: UIBarButtonItem!
+    @IBOutlet weak var cleanButton: UIBarButtonItem!
+    @IBOutlet weak var switchListButton: UIBarButtonItem!
 
     var list: TwitterList!
     var users = [TwitterUser]()
@@ -130,22 +132,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
 
-        let switchListButton = UIBarButtonItem(
-            image:FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
-            style: .Plain, target: self, action: #selector(HomeViewController.openListsChooser))
-        orderButton = UIBarButtonItem(
-            image: AssetSertvice.sharedInstance.iconSortByTime,
-            style: .Plain,
-            target: self,
-            action: #selector(HomeViewController.changeOrder))
-        cleanButton = UIBarButtonItem(
-            image: FAKIonIcons.androidDraftsIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
-            style: .Plain,
-            target: self,
-            action: #selector(HomeViewController.cleanAll))
+        self.switchListButton.target = self
+        self.switchListButton.action = #selector(HomeViewController.openListsChooser)
+        self.orderButton.target = self
+        self.orderButton.action = #selector(HomeViewController.changeOrder)
+        self.cleanButton.target = self
+        self.cleanButton.action = #selector(HomeViewController.cleanAll)
 
-        self.navigationItem.setRightBarButtonItems([orderButton, cleanButton], animated: true)
-        self.navigationItem.setLeftBarButtonItem(switchListButton, animated: true)
     }
 
     func cleanAll() {

@@ -124,14 +124,8 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     private func setupButtons() {
-        editButton.setImage(FAKIonIcons.iosGearIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)), forState: .Normal)
-        editButton.setTitle("", forState: .Normal)
         editButton.addTarget(self, action: #selector(LeftMenuViewController.switchEditList), forControlEvents: .TouchUpInside)
-        updateButton.setImage(FAKIonIcons.iosRefreshIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)), forState: .Normal)
-        updateButton.setTitle("", forState: .Normal)
         updateButton.addTarget(self, action: #selector(LeftMenuViewController.pullToRefresh), forControlEvents: .TouchUpInside)
-        logoutButton.setImage(FAKIonIcons.logOutIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)), forState: .Normal)
-        logoutButton.setTitle("", forState: .Normal)
         logoutButton.addTarget(self, action: #selector(LeftMenuViewController.onClickLogoutButton(_:)), forControlEvents: .TouchUpInside)
     }
 

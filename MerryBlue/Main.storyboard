@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Left Menu View Controller-->
@@ -98,7 +99,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="600" height="49"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6ZQ-Rv-CWQ" id="qJc-Xd-rXv">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="48.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="49"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hjv-fb-TLl">
@@ -152,36 +153,36 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="47Z-5Z-o2x">
                                         <rect key="frame" x="0.0" y="550" width="600" height="50"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFN-lS-7pd">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFN-lS-7pd">
                                                 <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                                                 <color key="backgroundColor" red="0.24313725489999999" green="0.41960784309999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="A1e-eQ-KZs"/>
                                                 </constraints>
                                                 <color key="tintColor" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="編集">
+                                                <state key="normal" image="icon-gear">
                                                     <color key="titleColor" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVU-Bi-IxK">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVU-Bi-IxK">
                                                 <rect key="frame" x="200" y="0.0" width="200" height="50"/>
                                                 <color key="backgroundColor" red="0.24313725489999999" green="0.41960784309999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="ceR-gh-H74"/>
                                                 </constraints>
                                                 <color key="tintColor" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="更新">
+                                                <state key="normal" image="icon-update">
                                                     <color key="titleColor" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7o-jL-bLZ">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7o-jL-bLZ">
                                                 <rect key="frame" x="400" y="0.0" width="200" height="50"/>
                                                 <color key="backgroundColor" red="0.24313725489999999" green="0.41960784309999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="crJ-48-Ve1"/>
                                                 </constraints>
                                                 <color key="tintColor" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="ログアウト">
+                                                <state key="normal" image="icon-logout">
                                                     <color key="titleColor" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                             </button>
@@ -345,7 +346,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="82"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NbU-Fv-SnO" id="YRu-j7-H91">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="81.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="fuw-jg-6ie">
@@ -476,7 +477,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="pXG-7z-5GG">
-                        <barButtonItem key="rightBarButtonItem" image="icon-sort-count" id="GGA-z8-Xv7"/>
+                        <barButtonItem key="leftBarButtonItem" image="icon-list" id="vGf-2L-dIB"/>
+                        <rightBarButtonItems>
+                            <barButtonItem image="icon-sort-count" id="GGA-z8-Xv7"/>
+                            <barButtonItem image="icon-readed" id="kjp-Cu-3iz"/>
+                        </rightBarButtonItems>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
                                 <color key="value" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -485,6 +490,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="gBf-XK-WOf" id="Dwc-mY-uan"/>
+                        <outlet property="cleanButton" destination="kjp-Cu-3iz" id="g9P-3d-EaV"/>
+                        <outlet property="orderButton" destination="GGA-z8-Xv7" id="mQp-FH-Fso"/>
+                        <outlet property="switchListButton" destination="vGf-2L-dIB" id="2Wj-Ql-MA3"/>
                         <outlet property="tableView" destination="Y45-p5-7RE" id="6ub-eC-5hv"/>
                     </connections>
                 </viewController>
@@ -553,7 +561,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="tweet-cell" tableViewCell="YyV-wd-PZe" id="7W0-lr-5iw">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -578,9 +586,14 @@
     </scenes>
     <resources>
         <image name="Logo-MerryBlue" width="3951" height="806"/>
+        <image name="icon-gear" width="22" height="22"/>
         <image name="icon-home" width="22" height="22"/>
+        <image name="icon-list" width="22" height="22"/>
+        <image name="icon-logout" width="22" height="22"/>
+        <image name="icon-readed" width="22" height="22"/>
         <image name="icon-sort-count" width="22" height="22"/>
         <image name="icon-timeline" width="22" height="22"/>
+        <image name="icon-update" width="22" height="22"/>
     </resources>
     <color key="tintColor" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
