@@ -34,19 +34,13 @@ class ListTimelineViewController: MBTimelineViewController {
     }
 
     private func setupNavigationBar() {
-        guard let navCon = self.navigationController else {
+        guard let _ = self.navigationController else {
             print("Error: no wrapperd navigation controller")
             return
         }
 
         let iconImage = FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
         let switchListButton = UIBarButtonItem(image: iconImage, style: .Plain, target: self, action: #selector(ListTimelineViewController.onClickSwitchList))
-
-        navCon.navigationBar
-        navCon.setNavigationBarHidden(false, animated: false)
-        navCon.navigationBar.barTintColor = UIColor.blueColor()
-        navCon.navigationBar.alpha = 0.1
-        navCon.navigationBar.translucent = false
         self.navigationItem
         self.navigationItem.title = "ListTimeline"
         self.navigationItem.setLeftBarButtonItem(switchListButton, animated: true)
