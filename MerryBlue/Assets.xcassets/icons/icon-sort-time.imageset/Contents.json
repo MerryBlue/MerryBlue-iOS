@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "120 - iPhone@1x.png",
+      "filename" : "icon-sort-time@1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "120 - iPhone@2x.png",
+      "filename" : "icon-sort-time@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "120 - iPhone@3x.png",
+      "filename" : "icon-sort-time@3x.png",
       "scale" : "3x"
     }
   ],
