@@ -86,7 +86,7 @@
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="49" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MUL-AV-KMh">
-                                        <rect key="frame" x="0.0" y="200" width="600" height="370"/>
+                                        <rect key="frame" x="0.0" y="200" width="600" height="350"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <activityIndicatorView key="tableFooterView" hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" id="w69-Cf-aKU">
                                             <rect key="frame" x="0.0" y="77" width="600" height="37"/>
@@ -98,7 +98,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="600" height="49"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6ZQ-Rv-CWQ" id="qJc-Xd-rXv">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="48.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="49"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hjv-fb-TLl">
@@ -150,13 +150,13 @@
                                         </prototypes>
                                     </tableView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="47Z-5Z-o2x">
-                                        <rect key="frame" x="0.0" y="570" width="600" height="30"/>
+                                        <rect key="frame" x="0.0" y="550" width="600" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFN-lS-7pd">
-                                                <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                                                 <color key="backgroundColor" red="0.24313725489999999" green="0.41960784309999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="A1e-eQ-KZs"/>
+                                                    <constraint firstAttribute="height" constant="50" id="A1e-eQ-KZs"/>
                                                 </constraints>
                                                 <color key="tintColor" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal" title="編集">
@@ -164,10 +164,10 @@
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVU-Bi-IxK">
-                                                <rect key="frame" x="200" y="0.0" width="200" height="30"/>
+                                                <rect key="frame" x="200" y="0.0" width="200" height="50"/>
                                                 <color key="backgroundColor" red="0.24313725489999999" green="0.41960784309999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="ceR-gh-H74"/>
+                                                    <constraint firstAttribute="height" constant="50" id="ceR-gh-H74"/>
                                                 </constraints>
                                                 <color key="tintColor" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal" title="更新">
@@ -175,10 +175,10 @@
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7o-jL-bLZ">
-                                                <rect key="frame" x="400" y="0.0" width="200" height="30"/>
+                                                <rect key="frame" x="400" y="0.0" width="200" height="50"/>
                                                 <color key="backgroundColor" red="0.24313725489999999" green="0.41960784309999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="crJ-48-Ve1"/>
+                                                    <constraint firstAttribute="height" constant="50" id="crJ-48-Ve1"/>
                                                 </constraints>
                                                 <color key="tintColor" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal" title="ログアウト">
@@ -187,7 +187,7 @@
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="NLl-ms-ngi"/>
+                                            <constraint firstAttribute="height" constant="50" id="NLl-ms-ngi"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -330,7 +330,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="82"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NbU-Fv-SnO" id="YRu-j7-H91">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="81.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="fuw-jg-6ie">
