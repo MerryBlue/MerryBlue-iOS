@@ -9,6 +9,8 @@ class StoryBoardService {
     func mainViewController() -> UIViewController {
         let mainView = storyboard.instantiateViewControllerWithIdentifier("main")
         let leftMenuView = storyboard.instantiateViewControllerWithIdentifier("menu")
+        SlideMenuOptions.contentViewScale = 1
+        SlideMenuOptions.hideStatusBar = false
         return SlideMenuController(mainViewController: mainView, leftMenuViewController: leftMenuView)
     }
 
