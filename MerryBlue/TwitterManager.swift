@@ -69,7 +69,7 @@ class TwitterManager {
     static func requestFollowerUsers(userID: String, count: Int = 20) -> Observable<[TwitterUser]> {
         return Observable.create { observer -> Disposable in
             _ = Twitter.sharedInstance()
-                .rxLoadFriendUsers(userID, client: getClient(), count: count)
+                .rxLoadFollowerUsers(userID, client: getClient(), count: count)
                 .subscribeNext { (usersData: NSData) in
                     let json = JSON(data: usersData)
                     let users = json["users"].array!.map { return TwitterUser(json: $0)! }

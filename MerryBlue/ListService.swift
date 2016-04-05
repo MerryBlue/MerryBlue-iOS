@@ -6,28 +6,17 @@ class ListService {
     private let userDefaults = NSUserDefaults.standardUserDefaults()
 
     func updateHomeList(list: TwitterList) {
-        updateHomeListID(list.listID)
-    }
-
-    func selectHomeList() -> TwitterList? {
-        guard let listID = selectHomeListID() else {
-            return nil
-        }
-        for list in selectLists() {
-            if list.listID == listID {
-                return list
-            }
-        }
-        return nil
-    }
-
-    func updateHomeListID(listID: String) {
-        self.userDefaults.setObject(listID, forKey: forKeyUser(UserDefaultsKey.HomeListId))
+        let archive = NSKeyedArchiver.archivedDataWithRootObject(list)
+        self.userDefaults.setObject(archive, forKey: forKeyUser(UserDefaultsKey.HomeList))
         self.userDefaults.synchronize()
     }
 
-    func selectHomeListID() -> String? {
-        return self.userDefaults.objectForKey(forKeyUser(UserDefaultsKey.HomeListId)) as? String
+    func selectHomeList() -> TwitterList? {
+        guard let unarchivedObject = self.userDefaults.objectForKey(forKeyUser(UserDefaultsKey.HomeList)) as? NSData,
+            li = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedObject) as? TwitterList else {
+                return nil
+        }
+        return li
     }
 
     func updateLists(lists: [TwitterList]) {
