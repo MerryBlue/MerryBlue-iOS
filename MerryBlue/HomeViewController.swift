@@ -113,7 +113,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let user = users[indexPath.row]
-        user.updateReadedCount()
         self.openUserTimeline(user)
     }
 
@@ -186,6 +185,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func openUserTimeline(user: TwitterUser) {
         self.delegate.userViewUser = user
+        self.delegate.userViewNewCount = user.newCount()
+        user.updateReadedCount()
         self.navigationController?.pushViewController(StoryBoardService.sharedInstance.userView(), animated: true)
     }
 

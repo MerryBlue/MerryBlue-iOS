@@ -15,6 +15,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
     var refreshControl: UIRefreshControl!
 
     var user: TwitterUser!
+    var newCount: Int!
     var tweets: [TWTRTweet]!
 
     var cacheHeights = [CGFloat]()
@@ -56,6 +57,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         self.user = user
+        self.newCount = delegate.userViewNewCount! ?? 0
         self.setUser()
         self.activityIndicator.startAnimating()
         _ = TwitterManager.requestUserTimeline(user)
@@ -88,6 +90,13 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
         cell.setCell(tweets[indexPath.row])
         return cell
+    }
+
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0.0, y: 0.0, width: 5.0, height: cell.frame.height)
+        bottomLine.backgroundColor = indexPath.row < newCount ? MBColor.Sub.CGColor : UIColor.whiteColor().CGColor
+        cell.layer.addSublayer(bottomLine)
     }
 
     // func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
