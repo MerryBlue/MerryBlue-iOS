@@ -41,6 +41,7 @@
 		45C67ABE1CB2C3A700C98329 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C67ABD1CB2C3A700C98329 /* ConfigService.swift */; };
 		45C67AC21CB3BA7F00C98329 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C67AC11CB3BA7F00C98329 /* UserViewController.swift */; };
 		45C67AC41CB3C2C700C98329 /* UserTweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C67AC31CB3C2C700C98329 /* UserTweetCell.swift */; };
+		45C67AC61CB41BB300C98329 /* SDWebImageDownloaderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C67AC51CB41BB300C98329 /* SDWebImageDownloaderExtension.swift */; };
 		45DDD57B1CAA82770015C16D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45DDD57A1CAA82770015C16D /* Launch Screen.storyboard */; };
 		45E9A81A1C9BFE7D00C258D5 /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E9A8191C9BFE7D00C258D5 /* CALayerExtension.swift */; };
 		45EBEDE21C93F2B6002C6040 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EBEDE01C93F2B6002C6040 /* Fabric.framework */; };
@@ -87,6 +88,7 @@
 		45C67ABD1CB2C3A700C98329 /* ConfigService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigService.swift; sourceTree = "<group>"; };
 		45C67AC11CB3BA7F00C98329 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		45C67AC31CB3C2C700C98329 /* UserTweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTweetCell.swift; sourceTree = "<group>"; };
+		45C67AC51CB41BB300C98329 /* SDWebImageDownloaderExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDWebImageDownloaderExtension.swift; sourceTree = "<group>"; };
 		45DDD57A1CAA82770015C16D /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		45E9A8191C9BFE7D00C258D5 /* CALayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
 		45EBEDE01C93F2B6002C6040 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				453B44FF1C98DF9B00CE5FFE /* ArrayExtension.swift */,
 				451C4D8E1C9C9CEB00903A0C /* NSDateExtension.swift */,
 				457C3B381C9DAD150020509D /* Rx-TwitterKit.swift */,
+				45C67AC51CB41BB300C98329 /* SDWebImageDownloaderExtension.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				45C67AC21CB3BA7F00C98329 /* UserViewController.swift in Sources */,
 				451C4D8B1C9C7FAB00903A0C /* ListService.swift in Sources */,
 				45ABA1EF1C9811C1006DE856 /* ListTimelineViewController.swift in Sources */,
+				45C67AC61CB41BB300C98329 /* SDWebImageDownloaderExtension.swift in Sources */,
 				455F3D981CA2F57D001495A9 /* MBNavigationController.swift in Sources */,
 				45A68DD91CB16F3A007719E1 /* StoryBoardService.swift in Sources */,
 				457E0BEA1C933D25000A665A /* HomeViewController.swift in Sources */,

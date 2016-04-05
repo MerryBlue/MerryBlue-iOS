@@ -69,26 +69,8 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
     func setUser() {
         self.nameLable.text = user.name
         self.screenNameLabel.text = user.screenName
-        SDWebImageDownloader
-            .sharedDownloader()
-            .downloadImageWithURL(
-                NSURL(string: user.profileImageURL),
-                options: [], progress: nil,
-                completed: {
-                    [weak self] (image, data, error, finished) in
-                    guard let _ = self else { return }
-                    dispatch_async(dispatch_get_main_queue()) { self?.userImageView.image = image }
-                })
-        SDWebImageDownloader
-            .sharedDownloader()
-            .downloadImageWithURL(
-                NSURL(string: self.user.profileBannerImageURL),
-                options: [], progress: nil,
-                completed: {
-                    [weak self] (image, data, error, finished) in
-                    guard let _ = self else { return }
-                    dispatch_async(dispatch_get_main_queue()) { self?.userHeaderImageView.image = image }
-                })
+        SDWebImageDownloader.setImageSync(self.userImageView, url: NSURL(string: user.profileImageLargeURL)!)
+        SDWebImageDownloader.setImageSync(self.userHeaderImageView, url: NSURL(string: user.profileBannerImageURL)!)
     }
 
     // ====== tableview methods ======
