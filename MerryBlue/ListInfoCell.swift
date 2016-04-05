@@ -21,16 +21,21 @@ class ListInfoCell: UITableViewCell {
     func setCell(listInfo: TwitterList) {
         self.listNameLabel.text = listInfo.name
         self.memberNumLabel.text = String(listInfo.memberCount)
-        let url = NSURL(string: listInfo.imageUrl)
-        SDWebImageDownloader.sharedDownloader().downloadImageWithURL(url, options: [], progress: nil,
-                completed: { [weak self] (image, data, error, finished) in
+        switch listInfo.type {
+        case .Normal:
+            let url = NSURL(string: listInfo.imageUrl)
+            SDWebImageDownloader.sharedDownloader().downloadImageWithURL(url, options: [], progress: nil, completed: {
+                    [weak self] (image, data, error, finished) in
                     guard let wSelf = self else {
                         return
                     }
                     dispatch_async(dispatch_get_main_queue()) {
-                        wSelf.iconImageView.image = image
-                    }
+                    wSelf.iconImageView.image = image
+                }
             })
+        case .RecentFollow:
+            self.iconImageView.image = UIImage(named: "icon-recent-follow")
+        }
 
         if listInfo.enable() {
             self.listNameLabel.textColor = UIColor.blackColor()
