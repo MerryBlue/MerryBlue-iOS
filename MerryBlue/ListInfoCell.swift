@@ -21,7 +21,7 @@ class ListInfoCell: UITableViewCell {
     func setCell(listInfo: TwitterList) {
         self.listNameLabel.text = listInfo.name
         self.memberNumLabel.text = String(listInfo.memberCount)
-        switch listInfo.type {
+        switch listInfo.listType {
         case .Normal:
             let url = NSURL(string: listInfo.imageUrl)
             SDWebImageDownloader.sharedDownloader().downloadImageWithURL(url, options: [], progress: nil, completed: {

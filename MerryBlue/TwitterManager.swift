@@ -33,7 +33,7 @@ class TwitterManager {
     }
 
     static func requestMembers(list: TwitterList) -> Observable<[TwitterUser]> {
-        switch list.type {
+        switch list.listType {
         case .RecentFollow: return requestFriendUsers(getUserID())
         case .Normal: return requestListMembers(list)
         }
