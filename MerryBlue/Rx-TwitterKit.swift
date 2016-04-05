@@ -90,6 +90,38 @@ public extension Twitter {
         }
     }
 
+    /// Load the follower.
+    ///
+    /// - parameter userID:  userID.
+    /// - parameter client:  API client used to load the request.
+    /// - parameter count:   Member count limit.
+    ///
+    /// - returns: The users data
+    public func rxLoadFollowerUsers(userID: String, client: TWTRAPIClient, count: Int = 40) -> Observable<NSData> {
+        return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
+            let httpMethod = "GET"
+            let url = "https://api.twitter.com/1.1/followers/list.json"
+            let parameters = [
+                "list_id": userID,
+                "count": String(count)
+            ]
+
+            _ = self.rxURLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
+                .subscribe(
+                    onNext: { data in
+                        guard let usersData = data as? NSData else {
+                            // observer.onError(TwitterError.Unknown)
+                            return
+                        }
+                        observer.onNext(usersData)
+                        observer.onCompleted()
+                    }, onError: { error in
+                        observer.onError(error)
+                    }, onCompleted: nil, onDisposed: nil)
+            return AnonymousDisposable { }
+        }
+    }
+
     /// Load the users in list.
     ///
     /// - parameter listID:  listID.

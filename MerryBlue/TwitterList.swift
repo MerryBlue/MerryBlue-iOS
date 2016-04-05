@@ -3,8 +3,9 @@ import TwitterKit
 import SwiftyJSON
 
 enum ListType: String {
-    case Normal       = "normal"
-    case RecentFollow = "recent"
+    case Normal         = "normal"
+    case RecentFollow   = "recentFollow"
+    case RecentFollower = "recentFollower"
 }
 
 class TwitterList: NSObject, NSCoding, MenuItemProtocol {
@@ -19,6 +20,7 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
 
     static let memberNumActiveMaxLimit = 100
     static let recentFollowUser = 20
+    static let recentFollowerUser = 20
 
     init(jsonData: SwiftyJSON.JSON) {
         let user = TWTRUser(JSONDictionary: jsonData["user"].dictionaryObject)
@@ -43,6 +45,11 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
             self.name = "直近フォロー"
             self.desc = "最近フォローした\(TwitterList.recentFollowUser)人のメンバーです"
             self.memberCount = TwitterList.recentFollowUser
+            self.imageUrl    = ""
+        case .RecentFollower:
+            self.name = "直近フォロワー"
+            self.desc = "最近あなたをフォローした\(TwitterList.recentFollowerUser)人のメンバーです"
+            self.memberCount = TwitterList.recentFollowerUser
             self.imageUrl    = ""
         default:
             self.name = "---"
@@ -80,13 +87,6 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
         aCoder.encodeObject(self.visible, forKey: SerializedKey.Visible)
     }
 
-    static func toTypeID(type: ListType) -> Int {
-        switch type {
-        case .Normal: return 0
-        case .RecentFollow: return 1
-        }
-    }
-
     static func toType(typeID: Int) -> ListType {
         return [ 0: ListType.Normal, 1: ListType.RecentFollow ][typeID]!
     }
@@ -99,12 +99,16 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
         return !self.enable()
     }
 
+    func isType(type: ListType) -> Bool {
+        return self.listType == type
+    }
+
     func isSpecialType() -> Bool {
         return self.listType != .Normal
     }
 
-    func isRecentFollowType() -> Bool {
-        return self.listType == .RecentFollow
+    func equalItem(list: TwitterList) -> Bool {
+        return self.listType == list.listType && self.listID == list.listID
     }
 
 }

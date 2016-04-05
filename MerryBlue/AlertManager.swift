@@ -31,7 +31,7 @@ class AlertManager {
     func disableTabSpecialTab() -> UIAlertController {
         let ac = UIAlertController(
             title: "特別なリスト",
-            message: "\"最近フォローしたユーザ\"では Timeline タブは使えません",
+            message: "このリストでは Timeline タブは使えません",
             preferredStyle: UIAlertControllerStyle.Alert)
         ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         return ac

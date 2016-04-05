@@ -75,7 +75,7 @@ class ListTimelineViewController: MBTimelineViewController {
         self.dataSource = dataSource
         self.refresh()
         self.list = list
-        if self.list.isRecentFollowType() {
+        if self.list.isSpecialType() {
             presentViewController(AlertManager.sharedInstantce.disableTabSpecialTab(), animated: true, completion: nil)
         }
     }

@@ -35,6 +35,8 @@ class ListInfoCell: UITableViewCell {
             })
         case .RecentFollow:
             self.iconImageView.image = UIImage(named: "icon-recent-follow")
+        case .RecentFollower:
+            self.iconImageView.image = UIImage(named: "icon-recent-follower")
         }
 
         if listInfo.enable() {

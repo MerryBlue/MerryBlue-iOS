@@ -70,16 +70,18 @@ class ListService {
         return compLists
     }
 
-    // RecentFollow type の Twitter リストが必ず一つ含まれるリストにして返す
+    // special type の Twitter リストが必ず一つずつ含まれるリストにして返す
     func adjustOptionalLists(lists: [TwitterList]) -> [TwitterList] {
-        let recentListCount = lists.reduce(0) { (sum, list) -> Int in
-            sum + (list.isRecentFollowType() ? 1 : 0)
+        var resLists = lists
+        let recentFollowTypeCont = lists.reduce(0) { (sum, list) -> Int in sum + (list.isType(ListType.RecentFollow) ? 1 : 0) }
+        if recentFollowTypeCont != 1 {
+            resLists = (resLists.filter { (list) -> Bool in !list.isType(ListType.RecentFollow) }) + [TwitterList](arrayLiteral: TwitterList(type: ListType.RecentFollow)!)
         }
-
-        if recentListCount == 1 {
-            return lists
+        let recentFollowerTypeCont = lists.reduce(0) { (sum, list) -> Int in sum + (list.isType(ListType.RecentFollower) ? 1 : 0) }
+        if recentFollowerTypeCont != 1 {
+            resLists = (resLists.filter { (list) -> Bool in !list.isType(ListType.RecentFollower) }) + [TwitterList](arrayLiteral: TwitterList(type: ListType.RecentFollower)!)
         }
-        return (lists.filter { (list) -> Bool in !list.isRecentFollowType() }) + [TwitterList](arrayLiteral: TwitterList(type: ListType.RecentFollow)!)
+        return resLists
     }
 
     func forKeyUser(keys: String...) -> String {
