@@ -1,9 +1,16 @@
 import TwitterKit
+import SDWebImage
 
 class UserViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
+    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var userHeaderImageView: UIImageView!
+    @IBOutlet weak var screenNameLabel: UILabel!
+    @IBOutlet weak var nameLable: UILabel!
+
 
     var refreshControl: UIRefreshControl!
 
@@ -28,6 +35,8 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
         refreshControl.addTarget(self, action: #selector(HomeViewController.pullToRefresh), forControlEvents:.ValueChanged)
         self.tableView.addSubview(refreshControl)
+        self.tableView.estimatedRowHeight = 20
+        self.tableView.rowHeight = UITableViewAutomaticDimension
     }
 
     private func setNavigationBar() {
@@ -47,16 +56,46 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         self.user = user
+        self.setUser()
         self.activityIndicator.startAnimating()
-        // _ = TwitterManager.requestMembers(list)
-        //     .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
+        _ = TwitterManager.requestUserTimeline(user)
+             .subscribeNext({ (tweets: [TWTRTweet]) in
+                self.tweets = tweets
+                self.tableView.reloadData()
+                self.activityIndicator.stopAnimating()
+             })
+    }
+
+    func setUser() {
+        self.nameLable.text = user.name
+        self.screenNameLabel.text = user.screenName
+        SDWebImageDownloader
+            .sharedDownloader()
+            .downloadImageWithURL(
+                NSURL(string: user.profileImageURL),
+                options: [], progress: nil,
+                completed: {
+                    [weak self] (image, data, error, finished) in
+                    guard let _ = self else { return }
+                    dispatch_async(dispatch_get_main_queue()) { self?.userImageView.image = image }
+                })
+        SDWebImageDownloader
+            .sharedDownloader()
+            .downloadImageWithURL(
+                NSURL(string: self.user.profileBannerImageURL),
+                options: [], progress: nil,
+                completed: {
+                    [weak self] (image, data, error, finished) in
+                    guard let _ = self else { return }
+                    dispatch_async(dispatch_get_main_queue()) { self?.userHeaderImageView.image = image }
+                })
     }
 
     // ====== tableview methods ======
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-        // return tweets.count
+        guard let tws = tweets else { return 0 }
+        return tws.count
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

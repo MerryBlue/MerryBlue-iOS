@@ -587,6 +587,7 @@
                                                 </tableViewCellContentView>
                                                 <connections>
                                                     <outlet property="textLabel" destination="pgy-We-cv9" id="8Nn-Gy-Y9O"/>
+                                                    <outlet property="tweetTextLabel" destination="pgy-We-cv9" id="glM-dY-GRN"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -613,7 +614,11 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="FxE-k8-WWl" id="yCx-mp-ed7"/>
+                        <outlet property="nameLable" destination="Gst-kr-sg3" id="2WH-uU-4LP"/>
+                        <outlet property="screenNameLabel" destination="e9N-76-lK7" id="Nd2-La-GBW"/>
                         <outlet property="tableView" destination="5pl-jv-UsD" id="rdS-OT-eh8"/>
+                        <outlet property="userHeaderImageView" destination="D4z-9Q-0pm" id="7R2-Yw-K4Z"/>
+                        <outlet property="userImageView" destination="a0l-k5-xVp" id="Yh4-3W-QbH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SEY-3W-9Hq" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -190,6 +190,43 @@ public extension Twitter {
         }
     }
 
+    /// Load the user timeline.
+    /// - parameter userID:       User id
+    /// - parameter count:      The number of tweets to retrieve contained in the timeline.
+    /// - parameter beforeID:
+    /// - parameter client:     API client used to load the request.
+    ///
+    /// - returns: The timeline data.
+    public func rxLoadUserTimeline(userID: String, count: Int, beforeID: String?, client: TWTRAPIClient) -> Observable<NSData> {
+        return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
+            let httpMethod = "GET"
+            let url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
+            var parameters = [
+                "user_id": userID,
+                "count": String(count),
+                "include_entities": "false",
+                "exclude_replies": "false"
+            ]
+            if let beforeID = beforeID {
+                parameters["beforeID"] = beforeID
+            }
+
+            _ = self.rxURLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
+                .subscribe(
+                    onNext: { data in
+                        guard let timeline = data as? NSData else {
+                            // observer.onError(TwitterError.Unknown)
+                            return
+                        }
+                        observer.onNext(timeline)
+                        observer.onCompleted()
+                    }, onError: { error in
+                        observer.onError(error)
+                    }, onCompleted: nil, onDisposed: nil)
+            return AnonymousDisposable { }
+        }
+    }
+
     /// Returns a signed URL request.
     ///
     /// - parameter method:     HTTP method of the request.
