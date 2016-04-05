@@ -24,6 +24,10 @@ class StoryBoardService {
         return view
     }
 
+    func userView() -> UIViewController {
+        return storyboard.instantiateViewControllerWithIdentifier("user-view")
+    }
+
     func navHomeViewController() -> UINavigationController {
         return (storyboard.instantiateViewControllerWithIdentifier("home-nav") as? UINavigationController)!
     }

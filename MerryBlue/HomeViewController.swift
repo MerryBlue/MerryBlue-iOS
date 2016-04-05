@@ -186,7 +186,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func openUserTimeline(user: TwitterUser) {
         self.delegate.userViewUser = user
-        self.presentViewController(StoryBoardService.sharedInstance.userNavView(), animated: true, completion: nil)
+        self.navigationController?.pushViewController(StoryBoardService.sharedInstance.userView(), animated: true)
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
