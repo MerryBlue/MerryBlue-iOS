@@ -3,8 +3,10 @@ struct UserDefaultsKey {
     static let Lists = "lists"
     static let UserTweetCount = "user-tweet-count"
 
-    static let HomeListId = "listid"
+    static let HomeList = "home-list"
 
     static let KeySeparator = "___"
+
+    static let OrderType = "order"
 
 }

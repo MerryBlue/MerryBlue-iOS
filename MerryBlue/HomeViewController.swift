@@ -15,14 +15,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     var refreshControl: UIRefreshControl!
-    var orderButton: UIBarButtonItem!
-    var cleanButton: UIBarButtonItem!
+
+    @IBOutlet weak var orderButton: UIBarButtonItem!
+    @IBOutlet weak var cleanButton: UIBarButtonItem!
+    @IBOutlet weak var switchListButton: UIBarButtonItem!
 
     var list: TwitterList!
     var users = [TwitterUser]()
     var filtered: Bool!
     // 初めは時間順，オーダーメソッドが呼ばれるので逆に設定
-    var orderType = HomeViewOrderType.ReadCountOrder
+    var orderType: Int = 0
 
     var cacheCellHeight: CGFloat!
 
@@ -51,7 +53,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.list = list
         self.activityIndicator.startAnimating()
-        orderType = HomeViewOrderType.ReadCountOrder
+        if let type = ConfigService.sharedInstance.selectOrderType(TwitterManager.getUserID()) {
+            orderType = type
+        } else {
+            orderType = HomeViewOrderType.ReadCountOrder
+        }
         _ = TwitterManager.requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
     }
@@ -74,7 +80,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         _ = TwitterManager.requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in
-                self.orderType = (self.orderType + 1) % 2
                 self.setupListUsers(users)
         })
     }
@@ -82,7 +87,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     internal func setupListUsers(users: [TwitterUser]) {
         self.users = TwitterManager.sortUsersLastupdate(users)
         self.title = list.name
-        self.changeOrder()
+        self.setOrder()
         if self.activityIndicator.isAnimating() {
             self.activityIndicator.stopAnimating()
         }
@@ -108,7 +113,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let user = users[indexPath.row]
-        user.updateReadedCount()
         self.openUserTimeline(user)
     }
 
@@ -130,22 +134,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
 
-        let switchListButton = UIBarButtonItem(
-            image:FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
-            style: .Plain, target: self, action: #selector(HomeViewController.openListsChooser))
-        orderButton = UIBarButtonItem(
-            image: AssetSertvice.sharedInstance.iconSortByTime,
-            style: .Plain,
-            target: self,
-            action: #selector(HomeViewController.changeOrder))
-        cleanButton = UIBarButtonItem(
-            image: FAKIonIcons.androidDraftsIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26)),
-            style: .Plain,
-            target: self,
-            action: #selector(HomeViewController.cleanAll))
+        self.switchListButton.target = self
+        self.switchListButton.action = #selector(HomeViewController.openListsChooser)
+        self.orderButton.target = self
+        self.orderButton.action = #selector(HomeViewController.changeOrder)
+        self.cleanButton.target = self
+        self.cleanButton.action = #selector(HomeViewController.cleanAll)
 
-        self.navigationItem.setRightBarButtonItems([orderButton, cleanButton], animated: true)
-        self.navigationItem.setLeftBarButtonItem(switchListButton, animated: true)
     }
 
     func cleanAll() {
@@ -156,18 +151,22 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func changeOrder() {
+        self.orderType = (self.orderType + 1) % 2
+        ConfigService.sharedInstance.updateOrderType(TwitterManager.getUserID(), type: self.orderType)
+        setOrder()
+    }
+
+    func setOrder() {
         switch orderType {
         case HomeViewOrderType.TimeOrder:
-            self.users = TwitterManager.sortUsersNewCount(users)
-            self.orderButton.image = AssetSertvice.sharedInstance.iconSortByCount
-        case HomeViewOrderType.ReadCountOrder:
             self.users = TwitterManager.sortUsersLastupdate(users)
             self.orderButton.image = AssetSertvice.sharedInstance.iconSortByTime
+        case HomeViewOrderType.ReadCountOrder:
+            self.users = TwitterManager.sortUsersNewCount(users)
+            self.orderButton.image = AssetSertvice.sharedInstance.iconSortByCount
         default:
             break
         }
-
-        self.orderType = (self.orderType + 1) % 2
         self.tableView.reloadData()
     }
 
@@ -186,7 +185,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func openUserTimeline(user: TwitterUser) {
         self.delegate.userViewUser = user
-        self.presentViewController(StoryBoardService.sharedInstance.userNavView(), animated: true, completion: nil)
+        self.delegate.userViewNewCount = user.newCount()
+        user.updateReadedCount()
+        self.navigationController?.pushViewController(StoryBoardService.sharedInstance.userView(), animated: true)
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
@@ -202,11 +203,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.openListsChooser()
             return
         }
-        if let nowList = self.list where nowList.listID == list.listID {
+        if let _ = self.list where self.list.equalItem(list) {
             return
         }
         self.activityIndicator.startAnimating()
-        orderType = HomeViewOrderType.TimeOrder
         _ = TwitterManager.requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
         self.list = list

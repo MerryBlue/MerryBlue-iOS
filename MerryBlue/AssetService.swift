@@ -12,7 +12,7 @@ class AssetSertvice {
     static let IconSize = 26
     static let sharedInstance = AssetSertvice()
 
-    let iconSortByTime = UIImage(named: "icon-sort-time")?.resize(CGSize(width: IconSize, height: IconSize))
-    let iconSortByCount = UIImage(named: "icon-sort-count")?.resize(CGSize(width: IconSize, height: IconSize))
+    let iconSortByTime = UIImage(named: "icon-sort-time")
+    let iconSortByCount = UIImage(named: "icon-sort-count")
 
 }

@@ -10,6 +10,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var userViewScreenName: String?
     var userViewUser: TwitterUser?
+    var userViewNewCount: Int?
     var openHomeID: Int?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -40,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // print("アプリを開いた時に呼ばれる")
-        // UIApplication.sharedApplication().setStatusBarStyle(<#T##statusBarStyle: UIStatusBarStyle##UIStatusBarStyle#>, animated: <#T##Bool#>)
     }
 
     func applicationWillTerminate(application: UIApplication) {

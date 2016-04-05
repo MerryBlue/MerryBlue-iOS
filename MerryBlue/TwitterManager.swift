@@ -33,9 +33,23 @@ class TwitterManager {
     }
 
     static func requestMembers(list: TwitterList) -> Observable<[TwitterUser]> {
-        switch list.type {
+        switch list.listType {
         case .RecentFollow: return requestFriendUsers(getUserID())
+        case .RecentFollower: return requestFollowerUsers(getUserID())
         case .Normal: return requestListMembers(list)
+        }
+    }
+
+    static func requestUserTimeline(user: TwitterUser, count: Int = 30) -> Observable<[TWTRTweet]> {
+        return Observable.create { observer -> Disposable in
+            _ = Twitter.sharedInstance()
+                .rxLoadUserTimeline(user.userID, count: count, beforeID: nil, client: getClient())
+                .subscribeNext { (tlData: NSData) in
+                    let json = JSON(data: tlData)
+                    let tweets: [TWTRTweet] = json.map { TWTRTweet(JSONDictionary: $0.1.dictionaryObject) }
+                    observer.onNext(tweets)
+                }
+            return AnonymousDisposable {}
         }
     }
 
@@ -56,6 +70,19 @@ class TwitterManager {
         return Observable.create { observer -> Disposable in
             _ = Twitter.sharedInstance()
                 .rxLoadFriendUsers(userID, client: getClient(), count: count)
+                .subscribeNext { (usersData: NSData) in
+                    let json = JSON(data: usersData)
+                    let users = json["users"].array!.map { return TwitterUser(json: $0)! }
+                    observer.onNext(users)
+                }
+            return AnonymousDisposable {}
+        }
+    }
+
+    static func requestFollowerUsers(userID: String, count: Int = 20) -> Observable<[TwitterUser]> {
+        return Observable.create { observer -> Disposable in
+            _ = Twitter.sharedInstance()
+                .rxLoadFollowerUsers(userID, client: getClient(), count: count)
                 .subscribeNext { (usersData: NSData) in
                     let json = JSON(data: usersData)
                     let users = json["users"].array!.map { return TwitterUser(json: $0)! }

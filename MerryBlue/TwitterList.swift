@@ -2,9 +2,10 @@ import Foundation
 import TwitterKit
 import SwiftyJSON
 
-enum ListType {
-    case Normal
-    case RecentFollow
+enum ListType: String {
+    case Normal         = "normal"
+    case RecentFollow   = "recentFollow"
+    case RecentFollower = "recentFollower"
 }
 
 class TwitterList: NSObject, NSCoding, MenuItemProtocol {
@@ -14,12 +15,12 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
     var desc: String
     var memberCount: Int
     var imageUrl: String
-    var type = ListType.Normal
-    var typeID: Int = 0
+    var listType: ListType
     var visible: Bool
 
     static let memberNumActiveMaxLimit = 100
     static let recentFollowUser = 20
+    static let recentFollowerUser = 20
 
     init(jsonData: SwiftyJSON.JSON) {
         let user = TWTRUser(JSONDictionary: jsonData["user"].dictionaryObject)
@@ -30,12 +31,13 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
         self.memberCount = jsonData["member_count"].intValue
         self.imageUrl    = user.profileImageURL
         self.visible     = true
+        self.listType    = .Normal
     }
 
     init?(type: ListType) {
         self.listID      = ""
         self.slug        = ""
-        self.type = type
+        self.listType = type
         self.visible = true
 
         switch type {
@@ -44,13 +46,16 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
             self.desc = "最近フォローした\(TwitterList.recentFollowUser)人のメンバーです"
             self.memberCount = TwitterList.recentFollowUser
             self.imageUrl    = ""
-            self.typeID = 1
+        case .RecentFollower:
+            self.name = "直近フォロワー"
+            self.desc = "最近あなたをフォローした\(TwitterList.recentFollowerUser)人のメンバーです"
+            self.memberCount = TwitterList.recentFollowerUser
+            self.imageUrl    = ""
         default:
             self.name = "---"
             self.desc = "---"
             self.memberCount = 0
             self.imageUrl    = ""
-            self.typeID = 2
         }
     }
 
@@ -62,9 +67,13 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
         self.desc        = aDecoder.decodeObjectForKey(SerializedKey.Desc) as? String ?? "desc error"
         self.memberCount = aDecoder.decodeObjectForKey(SerializedKey.MemberCount) as? Int ?? 0
         self.imageUrl    = aDecoder.decodeObjectForKey(SerializedKey.ImageUrl) as? String ?? "image error"
-        self.typeID      = aDecoder.decodeObjectForKey(SerializedKey.TypeID) as? Int ?? 0
-        self.type        = TwitterList.toType(self.typeID)
         self.visible     = aDecoder.decodeObjectForKey(SerializedKey.Visible) as? Bool ?? true
+        // old version patch
+        if let typeID = aDecoder.decodeObjectForKey(SerializedKey.TypeID) as? Int where self.memberCount == 0 {
+            self.listType = TwitterList.toType(typeID)
+        } else {
+            self.listType = ListType(rawValue: (aDecoder.decodeObjectForKey(SerializedKey.ListType) as? String)!) ?? ListType.Normal
+        }
     }
 
     func encodeWithCoder(aCoder: NSCoder) {
@@ -74,15 +83,8 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
         aCoder.encodeObject(self.desc, forKey: SerializedKey.Desc)
         aCoder.encodeObject(self.memberCount, forKey: SerializedKey.MemberCount)
         aCoder.encodeObject(self.imageUrl, forKey: SerializedKey.ImageUrl)
-        aCoder.encodeObject(self.typeID, forKey: SerializedKey.TypeID)
+        aCoder.encodeObject(self.listType.rawValue, forKey: SerializedKey.ListType)
         aCoder.encodeObject(self.visible, forKey: SerializedKey.Visible)
-    }
-
-    static func toTypeID(type: ListType) -> Int {
-        switch type {
-        case .Normal: return 0
-        case .RecentFollow: return 1
-        }
     }
 
     static func toType(typeID: Int) -> ListType {
@@ -97,12 +99,16 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
         return !self.enable()
     }
 
-    func isSpecialType() -> Bool {
-        return self.type != .Normal
+    func isType(type: ListType) -> Bool {
+        return self.listType == type
     }
 
-    func isRecentFollowType() -> Bool {
-        return self.type == .RecentFollow
+    func isSpecialType() -> Bool {
+        return self.listType != .Normal
+    }
+
+    func equalItem(list: TwitterList) -> Bool {
+        return self.listType == list.listType && self.listID == list.listID
     }
 
 }
@@ -115,5 +121,6 @@ struct SerializedKey {
     static let MemberCount = "memberCount"
     static let ImageUrl    = "imageUrl"
     static let TypeID      = "typeID"
+    static let ListType    = "listType"
     static let Visible     = "visilbe"
 }
