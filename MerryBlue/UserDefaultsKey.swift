@@ -7,4 +7,6 @@ struct UserDefaultsKey {
 
     static let KeySeparator = "___"
 
+    static let OrderType = "order"
+
 }

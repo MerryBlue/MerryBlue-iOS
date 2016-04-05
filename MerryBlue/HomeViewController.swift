@@ -24,7 +24,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var users = [TwitterUser]()
     var filtered: Bool!
     // 初めは時間順，オーダーメソッドが呼ばれるので逆に設定
-    var orderType = HomeViewOrderType.ReadCountOrder
+    var orderType: Int = 0
 
     var cacheCellHeight: CGFloat!
 
@@ -53,7 +53,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.list = list
         self.activityIndicator.startAnimating()
-        orderType = HomeViewOrderType.ReadCountOrder
+        if let type = ConfigService.sharedInstance.selectOrderType(TwitterManager.getUserID()) {
+            orderType = type
+        } else {
+            orderType = HomeViewOrderType.ReadCountOrder
+        }
         _ = TwitterManager.requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
     }
@@ -76,7 +80,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         _ = TwitterManager.requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in
-                self.orderType = (self.orderType + 1) % 2
                 self.setupListUsers(users)
         })
     }
@@ -84,7 +87,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     internal func setupListUsers(users: [TwitterUser]) {
         self.users = TwitterManager.sortUsersLastupdate(users)
         self.title = list.name
-        self.changeOrder()
+        self.setOrder()
         if self.activityIndicator.isAnimating() {
             self.activityIndicator.stopAnimating()
         }
@@ -149,18 +152,22 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func changeOrder() {
+        self.orderType = (self.orderType + 1) % 2
+        ConfigService.sharedInstance.updateOrderType(TwitterManager.getUserID(), type: self.orderType)
+        setOrder()
+    }
+
+    func setOrder() {
         switch orderType {
         case HomeViewOrderType.TimeOrder:
-            self.users = TwitterManager.sortUsersNewCount(users)
-            self.orderButton.image = AssetSertvice.sharedInstance.iconSortByCount
-        case HomeViewOrderType.ReadCountOrder:
             self.users = TwitterManager.sortUsersLastupdate(users)
             self.orderButton.image = AssetSertvice.sharedInstance.iconSortByTime
+        case HomeViewOrderType.ReadCountOrder:
+            self.users = TwitterManager.sortUsersNewCount(users)
+            self.orderButton.image = AssetSertvice.sharedInstance.iconSortByCount
         default:
             break
         }
-
-        self.orderType = (self.orderType + 1) % 2
         self.tableView.reloadData()
     }
 
@@ -199,7 +206,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         self.activityIndicator.startAnimating()
-        orderType = HomeViewOrderType.TimeOrder
         _ = TwitterManager.requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
         self.list = list
