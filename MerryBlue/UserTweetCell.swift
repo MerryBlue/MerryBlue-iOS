@@ -29,6 +29,7 @@ class UserTweetCell: UITableViewCell {
         self.tweetTextLabel.textColor = UIColor.blackColor()
         self.backgroundImageView.image = nil
         self.backgroundImageView.contentMode = .ScaleAspectFill
+        self.backgroundImageView.clipsToBounds = false
         self.backgroundWrapView.backgroundColor = UIColor.whiteColor()
         if tweet.imageURLs.count > 0 {
             self.namesLabel.textColor = UIColor.whiteColor()
@@ -38,28 +39,11 @@ class UserTweetCell: UITableViewCell {
                 NSURL(string: tweet.imageURLs[0]),
                 placeholderImage: AssetSertvice.sharedInstance.loadingImage,
                 completed: { (image, error, sDImageCacheType, url) -> Void in
-                    // let cutRect = CGRect(
-                    //     x: (image.size.width - self.frame.width) / 2,
-                    //     y: (image.size.height  - self.frame.height)/2,
-                    //     width: self.frame.width,
-                    //     height: self.frame.height)
-                    // let cropCGImageRef = CGImageCreateWithImageInRect(image.CGImage, cutRect)
-                    // self.backgroundImageView.image = UIImage(CGImage: cropCGImageRef!)
+                    self.backgroundImageView.frame = self.frame
                     self.backgroundImageView.image = image
                 })
         }
 
-        // rectangle views
-        // if tweet.imageURLs.count > 0 {
-        //     let w = Int(imagesView.frame.width)
-        //     imagesView.frame = CGRect(x: 0, y: 0, width: w, height: tweet.imageURLs.count * 40)
-        //     for (i, url) in tweet.imageURLs.enumerate() {
-        //         // add dinamic image count
-        //         let imageView = UIImageView(frame: CGRect(x: 0, y: i * 40, width: w, height: 40))
-        //         imagesView.addSubview(imageView)
-        //         SDWebImageDownloader.setImageSync(imageView, url: NSURL(string: url)!)
-        //     }
-        // }
     }
 
 }
