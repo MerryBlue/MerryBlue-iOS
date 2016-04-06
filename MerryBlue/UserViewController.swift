@@ -62,6 +62,7 @@ class UserViewController: UIViewController {
             return
         }
         self.user = user
+        self.title = self.user.screenNameWithAt()
         self.newCount = delegate.userViewNewCount! ?? 0
         self.setUser()
         self.bgViewHeight = self.backgroundView.frame.height
