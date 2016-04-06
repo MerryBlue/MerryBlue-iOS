@@ -9,6 +9,8 @@ class UserTweetCell: UITableViewCell {
     @IBOutlet weak var backgroundWrapView: UIView!
     @IBOutlet weak var backgroundImageView: UIImageView!
 
+    var scaled = false
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -23,13 +25,37 @@ class UserTweetCell: UITableViewCell {
     func setCell(tweet: MBTweet) {
         self.tweetTextLabel.text = tweet.text
         self.namesLabel.text = "\(tweet.author.name)・@\(tweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
+        self.scaled = false
         SDWebImageDownloader.setImageSync(self.userImageView, url: NSURL(string: tweet.author.profileImageURL)!)
+
+        self.namesLabel.textColor = UIColor.blackColor()
+        self.tweetTextLabel.textColor = UIColor.blackColor()
+        self.backgroundImageView.image = nil
+        self.backgroundWrapView.backgroundColor = UIColor.whiteColor()
         if tweet.imageURLs.count > 0 {
-            SDWebImageDownloader.setImageSync(self.backgroundImageView, url: NSURL(string: tweet.imageURLs[0])!)
-            self.tweetTextLabel.textColor = UIColor.whiteColor()
-            self.namesLabel.textColor = UIColor.whiteColor()
-            self.backgroundWrapView.backgroundColor = UIColor.blackColor()
+            self.backgroundImageView.sd_setImageWithURL(
+                NSURL(string: tweet.imageURLs[0]),
+                completed: { (image, error, sDImageCacheType, url) -> Void in
+                    self.backgroundImageView.image = image
+                    let cutRect = CGRect(
+                        x: (image.size.width - self.frame.width) / 2,
+                        y: (image.size.height  - self.frame.height)/2,
+                        width: self.frame.width,
+                        height: self.frame.height)
+                    let cropCGImageRef = CGImageCreateWithImageInRect(image.CGImage, cutRect)
+                    self.backgroundImageView.image = UIImage(CGImage: cropCGImageRef!)
+
+                    self.tweetTextLabel.textColor = UIColor.whiteColor()
+                    self.namesLabel.textColor = UIColor.whiteColor()
+                    self.backgroundWrapView.backgroundColor = UIColor.blackColor()
+                    SDWebImageManager.sharedManager().imageCache.storeImage(image, forKey: url.absoluteString)
+                })
         }
+        if !self.scaled {
+            self.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height + 50)
+            self.scaled = true
+        }
+
         // rectangle views
         // if tweet.imageURLs.count > 0 {
         //     let w = Int(imagesView.frame.width)
