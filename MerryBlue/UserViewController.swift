@@ -74,8 +74,9 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
     func setUser() {
         self.nameLable.text = user.name
         self.screenNameLabel.text = user.screenName
-        SDWebImageDownloader.setImageSync(self.userImageView, url: NSURL(string: user.profileImageURL)!)
-        SDWebImageDownloader.setImageSync(self.userHeaderImageView, url: NSURL(string: user.profileBannerImageURL)!)
+        self.userImageView.sd_setImageWithURL(NSURL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        self.userHeaderImageView.sd_setImageWithURL(NSURL(string: user.profileBannerImageURL), placeholderImage: UIImage(named: "Logo-MerryBlue"))
+        self.userHeaderImageView.contentMode = .ScaleAspectFit
     }
 
     // ====== tableview methods ======

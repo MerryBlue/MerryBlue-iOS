@@ -15,4 +15,6 @@ class AssetSertvice {
     let iconSortByTime = UIImage(named: "icon-sort-time")
     let iconSortByCount = UIImage(named: "icon-sort-count")
 
+    let loadingImage = UIImage(named: "icon-indicator")
+
 }

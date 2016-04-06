@@ -23,29 +23,29 @@ class UserTweetCell: UITableViewCell {
     func setCell(tweet: MBTweet) {
         self.tweetTextLabel.text = tweet.text
         self.namesLabel.text = "\(tweet.author.name)・@\(tweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
-        SDWebImageDownloader.setImageSync(self.userImageView, url: NSURL(string: tweet.author.profileImageURL)!)
+        self.userImageView.sd_setImageWithURL(NSURL(string: tweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
-        self.namesLabel.textColor = UIColor.blackColor()
+        self.namesLabel.textColor = UIColor.grayColor()
         self.tweetTextLabel.textColor = UIColor.blackColor()
         self.backgroundImageView.image = nil
+        self.backgroundImageView.contentMode = .ScaleAspectFill
         self.backgroundWrapView.backgroundColor = UIColor.whiteColor()
         if tweet.imageURLs.count > 0 {
+            self.namesLabel.textColor = UIColor.whiteColor()
+            self.tweetTextLabel.textColor = UIColor.whiteColor()
+            self.backgroundWrapView.backgroundColor = UIColor.blackColor()
             self.backgroundImageView.sd_setImageWithURL(
                 NSURL(string: tweet.imageURLs[0]),
+                placeholderImage: AssetSertvice.sharedInstance.loadingImage,
                 completed: { (image, error, sDImageCacheType, url) -> Void in
+                    // let cutRect = CGRect(
+                    //     x: (image.size.width - self.frame.width) / 2,
+                    //     y: (image.size.height  - self.frame.height)/2,
+                    //     width: self.frame.width,
+                    //     height: self.frame.height)
+                    // let cropCGImageRef = CGImageCreateWithImageInRect(image.CGImage, cutRect)
+                    // self.backgroundImageView.image = UIImage(CGImage: cropCGImageRef!)
                     self.backgroundImageView.image = image
-                    let cutRect = CGRect(
-                        x: (image.size.width - self.frame.width) / 2,
-                        y: (image.size.height  - self.frame.height)/2,
-                        width: self.frame.width,
-                        height: self.frame.height)
-                    let cropCGImageRef = CGImageCreateWithImageInRect(image.CGImage, cutRect)
-                    self.backgroundImageView.image = UIImage(CGImage: cropCGImageRef!)
-
-                    self.tweetTextLabel.textColor = UIColor.whiteColor()
-                    self.namesLabel.textColor = UIColor.whiteColor()
-                    self.backgroundWrapView.backgroundColor = UIColor.blackColor()
-                    SDWebImageManager.sharedManager().imageCache.storeImage(image, forKey: url.absoluteString)
                 })
         }
 
