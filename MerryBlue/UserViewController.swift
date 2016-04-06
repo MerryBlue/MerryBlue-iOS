@@ -11,6 +11,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var screenNameLabel: UILabel!
     @IBOutlet weak var nameLable: UILabel!
 
+    @IBOutlet weak var backgroundView: UIView!
 
     var refreshControl: UIRefreshControl!
 
@@ -75,8 +76,17 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.nameLable.text = user.name
         self.screenNameLabel.text = user.screenName
         self.userImageView.sd_setImageWithURL(NSURL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
-        self.userHeaderImageView.sd_setImageWithURL(NSURL(string: user.profileBannerImageURL), placeholderImage: UIImage(named: "Logo-MerryBlue"))
-        self.userHeaderImageView.contentMode = .ScaleAspectFit
+
+        if let url = user.profileBannerImageURL where !url.isEmpty {
+            self.userHeaderImageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: UIImage(named: "twttr-icn-tweet-place-holder-photo-error@3x.png"))
+        } else {
+            let gradientLayer: CAGradientLayer = CAGradientLayer()
+            gradientLayer.colors = [user.color.CGColor, UIColor.blackColor().CGColor]
+            gradientLayer.frame = self.backgroundView.bounds
+            self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
+            // self.backgroundView.backgroundColor = user.color
+        }
+        self.userHeaderImageView.contentMode = .ScaleAspectFill
     }
 
     // ====== tableview methods ======
