@@ -36,14 +36,19 @@ class UserViewController: UIViewController {
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        // refreshControl = UIRefreshControl()
+        // refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
+        // refreshControl.addTarget(self, action: #selector(UserViewController.pullToRefresh), forControlEvents:.ValueChanged)
+        // self.tableView.addSubview(refreshControl)
+        // self.refreshControl = nil
 
-        refreshControl = UIRefreshControl()
-        refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
-        refreshControl.addTarget(self, action: #selector(HomeViewController.pullToRefresh), forControlEvents:.ValueChanged)
-        self.tableView.addSubview(refreshControl)
-        self.tableView.estimatedRowHeight = 20
+        // self.tableView.estimatedRowHeight = 20
         self.tableView.rowHeight = UITableViewAutomaticDimension
     }
+
+    func pullToRefresh() {
+    }
+
 
     private func setNavigationBar() {
         guard let _ = self.navigationController else {
@@ -107,10 +112,10 @@ class UserViewController: UIViewController {
                     self.isUpdating = false
                 })
         }
-        if self.tableView.contentOffset.y <= 0 && self.tableView.dragging {
+        if self.tableView.contentOffset.y <= 0 {
             self.backgroundView.translatesAutoresizingMaskIntoConstraints = false
             // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
-        } else if self.tableView.contentOffset.y <= self.bgViewHeight && self.tableView.dragging {
+        } else if self.tableView.contentOffset.y <= self.bgViewHeight {
             self.backgroundView.translatesAutoresizingMaskIntoConstraints = true
             self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.bgViewHeight - self.tableView.contentOffset.y)
         } else {
