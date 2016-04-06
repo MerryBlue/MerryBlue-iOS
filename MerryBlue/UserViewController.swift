@@ -20,7 +20,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     var cacheHeights = [CGFloat]()
 
-    var isUpdating = false
+    var isUpdating = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +67,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.tweets = tweets
                 self.tableView.reloadData()
                 self.activityIndicator.stopAnimating()
+                self.isUpdating = false
              })
     }
 
