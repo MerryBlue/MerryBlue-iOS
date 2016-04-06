@@ -1,7 +1,8 @@
+import Foundation
 import TwitterKit
 import SDWebImage
 
-class UserViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class UserViewController: UIViewController {
     var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -89,30 +90,6 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.userHeaderImageView.contentMode = .ScaleAspectFill
     }
 
-    // ====== tableview methods ======
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let tws = tweets else { return 0 }
-        return tws.count
-    }
-
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
-        cell.setCell(tweets[indexPath.row])
-        return cell
-    }
-
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let bottomLine = CALayer()
-        bottomLine.frame = CGRect(x: 0.0, y: 0.0, width: 5.0, height: cell.frame.height)
-        bottomLine.backgroundColor = indexPath.row < newCount ? MBColor.Sub.CGColor : UIColor.whiteColor().CGColor
-        cell.layer.addSublayer(bottomLine)
-    }
-
     // ====== readmore support ======
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let isBouncing = (self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height)) && self.tableView.dragging
@@ -129,12 +106,37 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
 
-    // func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    //     if self.cacheHeights.count <= indexPath.row {
-    //         var cell = tableView.cellForRowAtIndexPath(indexPath)
-    //         var height = cell
-    //     }
-    //     return height
-    // }
+}
 
+extension UserViewController: UITableViewDelegate {
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
+        cell.setCell(tweets[indexPath.row])
+        return cell
+    }
+
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0.0, y: 0.0, width: 5.0, height: cell.frame.height)
+        bottomLine.backgroundColor = indexPath.row < newCount ? MBColor.Sub.CGColor : UIColor.whiteColor().CGColor
+        cell.layer.addSublayer(bottomLine)
+    }
+
+}
+
+extension UserViewController: UITableViewDataSource {
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let tws = tweets else { return 0 }
+        return tws.count
+    }
+
+    // エディット機能の提供に必要なメソッド
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    }
 }
