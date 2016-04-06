@@ -574,9 +574,21 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="114"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dsi-13-usC">
-                                                            <rect key="frame" x="8" y="8" width="584" height="98"/>
-                                                        </imageView>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbm-kr-xfE">
+                                                            <rect key="frame" x="0.0" y="0.0" width="600" height="114"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dsi-13-usC">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="114"/>
+                                                                </imageView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="bottom" secondItem="Dsi-13-usC" secondAttribute="bottom" id="8L3-Jj-VZQ"/>
+                                                                <constraint firstItem="Dsi-13-usC" firstAttribute="top" secondItem="cbm-kr-xfE" secondAttribute="top" id="BsA-jC-Eiq"/>
+                                                                <constraint firstAttribute="trailing" secondItem="Dsi-13-usC" secondAttribute="trailing" id="Nsz-6z-64N"/>
+                                                                <constraint firstItem="Dsi-13-usC" firstAttribute="leading" secondItem="cbm-kr-xfE" secondAttribute="leading" id="vjQ-dZ-QWy"/>
+                                                            </constraints>
+                                                        </view>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="qQ9-vB-WYl">
                                                             <rect key="frame" x="8" y="8" width="584" height="98"/>
                                                             <subviews>
@@ -587,7 +599,6 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                                         </imageView>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="40" id="63J-3p-5KX"/>
                                                                     </constraints>
@@ -629,18 +640,19 @@
                                                         </stackView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="Dsi-13-usC" firstAttribute="bottom" secondItem="EAx-Ct-Xkc" secondAttribute="bottomMargin" id="Lzl-ZG-Uko"/>
+                                                        <constraint firstItem="cbm-kr-xfE" firstAttribute="top" secondItem="EAx-Ct-Xkc" secondAttribute="top" id="Ija-PL-PJQ"/>
                                                         <constraint firstItem="qQ9-vB-WYl" firstAttribute="leading" secondItem="EAx-Ct-Xkc" secondAttribute="leadingMargin" id="MkI-9f-c5l"/>
+                                                        <constraint firstAttribute="trailing" secondItem="cbm-kr-xfE" secondAttribute="trailing" id="PRc-Bo-gPS"/>
                                                         <constraint firstItem="qQ9-vB-WYl" firstAttribute="bottom" secondItem="EAx-Ct-Xkc" secondAttribute="bottomMargin" id="Tn7-Op-szI"/>
-                                                        <constraint firstItem="Dsi-13-usC" firstAttribute="top" secondItem="EAx-Ct-Xkc" secondAttribute="topMargin" id="Vlo-hq-C3w"/>
+                                                        <constraint firstAttribute="bottom" secondItem="cbm-kr-xfE" secondAttribute="bottom" id="WMw-JR-htn"/>
                                                         <constraint firstItem="qQ9-vB-WYl" firstAttribute="trailing" secondItem="EAx-Ct-Xkc" secondAttribute="trailingMargin" id="Z7a-cu-4ld"/>
                                                         <constraint firstItem="qQ9-vB-WYl" firstAttribute="top" secondItem="EAx-Ct-Xkc" secondAttribute="topMargin" id="byJ-q7-QOX"/>
-                                                        <constraint firstItem="Dsi-13-usC" firstAttribute="trailing" secondItem="EAx-Ct-Xkc" secondAttribute="trailingMargin" id="o29-DD-mdg"/>
-                                                        <constraint firstItem="Dsi-13-usC" firstAttribute="leading" secondItem="EAx-Ct-Xkc" secondAttribute="leadingMargin" id="uk4-cX-tTK"/>
+                                                        <constraint firstItem="cbm-kr-xfE" firstAttribute="leading" secondItem="EAx-Ct-Xkc" secondAttribute="leading" id="hJ5-iX-nte"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
-                                                    <outlet property="backgroundImageView" destination="Dsi-13-usC" id="JUD-1j-ptS"/>
+                                                    <outlet property="backgroundImageView" destination="Dsi-13-usC" id="byJ-Bj-NFt"/>
+                                                    <outlet property="backgroundWrapView" destination="cbm-kr-xfE" id="3Hd-f5-NRh"/>
                                                     <outlet property="namesLabel" destination="SBH-MN-6vI" id="eOE-oN-rhW"/>
                                                     <outlet property="tweetTextLabel" destination="pgy-We-cv9" id="vac-lL-dbs"/>
                                                     <outlet property="userImageView" destination="SzG-92-bhS" id="T50-12-UPF"/>

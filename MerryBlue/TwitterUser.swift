@@ -3,7 +3,7 @@ import TwitterKit
 import SwiftyJSON
 
 class TwitterUser: TWTRUser {
-    var lastStatus: TWTRTweet!
+    var lastStatus: MBTweet!
     var readedStatusId: String!
     var preCount: Int!
     var tweetCount: Int!
@@ -22,7 +22,7 @@ class TwitterUser: TWTRUser {
     init?(json: SwiftyJSON.JSON) {
         super.init(JSONDictionary: json.dictionaryObject)
         if json["status"] != nil {
-            self.lastStatus = TWTRTweet(JSONDictionary: json["status"].dictionaryObject)
+            self.lastStatus = MBTweet(json: json["status"])
         } else {
             self.lastStatus = nil
         }

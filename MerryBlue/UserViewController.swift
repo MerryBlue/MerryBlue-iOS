@@ -16,7 +16,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     var user: TwitterUser!
     var newCount: Int!
-    var tweets: [TWTRTweet]!
+    var tweets: [MBTweet]!
 
     var cacheHeights = [CGFloat]()
 
@@ -63,7 +63,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.setUser()
         self.activityIndicator.startAnimating()
         _ = TwitterManager.requestUserTimeline(user)
-             .subscribeNext({ (tweets: [TWTRTweet]) in
+             .subscribeNext({ (tweets: [MBTweet]) in
                 self.tweets = tweets
                 self.tableView.reloadData()
                 self.activityIndicator.stopAnimating()
@@ -109,7 +109,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
             isUpdating = true
             activityIndicator.startAnimating()
             _ = TwitterManager.requestUserTimelineNext(user, tweet: tweets.last!)
-                .subscribeNext({ (tweets: [TWTRTweet]) in
+                .subscribeNext({ (tweets: [MBTweet]) in
                     self.tweets.appendContentsOf(tweets)
                     self.tableView.reloadData()
                     self.activityIndicator.stopAnimating()

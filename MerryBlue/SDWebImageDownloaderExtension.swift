@@ -6,7 +6,9 @@ extension SDWebImageDownloader {
             .sharedDownloader()
             .downloadImageWithURL(url, options: [], progress: nil, completed: {
                 (image, data, error, finished) in
-                dispatch_async(dispatch_get_main_queue()) { imageView.image = image }
+                dispatch_async(dispatch_get_main_queue()) {
+                    imageView.image = image
+                }
             })
     }
 
