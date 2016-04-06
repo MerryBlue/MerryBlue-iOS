@@ -39,7 +39,7 @@ class UserStatusCell: UITableViewCell {
         if user.hasNew() {
             // self.layer.addBorder(UIRectEdge.Left, color: UIColor.greenColor(), thickness: 4)
             newCountLabel.hidden = false
-            newCountLabel.text = user.newCount() <= 100 ? String(user.newCount()) : "︙"
+            newCountLabel.text = user.newCount() < 1000 ? String(user.newCount()) : "999"
         } else {
             newCountLabel.hidden = true
         }
