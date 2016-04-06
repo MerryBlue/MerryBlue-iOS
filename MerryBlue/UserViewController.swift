@@ -42,7 +42,7 @@ class UserViewController: UIViewController {
         // self.tableView.addSubview(refreshControl)
         // self.refreshControl = nil
 
-        // self.tableView.estimatedRowHeight = 20
+        self.tableView.estimatedRowHeight = 20
         self.tableView.rowHeight = UITableViewAutomaticDimension
     }
 
@@ -112,16 +112,16 @@ class UserViewController: UIViewController {
                     self.isUpdating = false
                 })
         }
-        if self.tableView.contentOffset.y <= 0 {
-            self.backgroundView.translatesAutoresizingMaskIntoConstraints = false
-            // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
-        } else if self.tableView.contentOffset.y <= self.bgViewHeight {
-            self.backgroundView.translatesAutoresizingMaskIntoConstraints = true
-            self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.bgViewHeight - self.tableView.contentOffset.y)
-        } else {
-            self.backgroundView.translatesAutoresizingMaskIntoConstraints = true
-            self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: 0)
-        }
+        // if self.tableView.contentOffset.y <= 0 {
+        //     // self.backgroundView.alpha = 0
+        //     // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
+        // } else if self.tableView.contentOffset.y <= self.bgViewHeight {
+        //     // self.backgroundView.alpha = (self.bgViewHeight - self.tableView.contentOffset.y / self.bgViewHeight)
+        //     // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.bgViewHeight - self.tableView.contentOffset.y)
+        // } else {
+        //     // self.backgroundView.alpha = 1
+        //     // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: 0)
+        // }
     }
 
 }
