@@ -23,6 +23,7 @@ class UserViewController: UIViewController {
     var cacheHeights = [CGFloat]()
 
     var isUpdating = true
+    var bgViewHeight: CGFloat!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +64,7 @@ class UserViewController: UIViewController {
         self.user = user
         self.newCount = delegate.userViewNewCount! ?? 0
         self.setUser()
+        self.bgViewHeight = self.backgroundView.frame.height
         self.activityIndicator.startAnimating()
         _ = TwitterManager.requestUserTimeline(user)
              .subscribeNext({ (tweets: [MBTweet]) in
@@ -103,6 +105,16 @@ class UserViewController: UIViewController {
                     self.activityIndicator.stopAnimating()
                     self.isUpdating = false
                 })
+        }
+        if self.tableView.contentOffset.y <= 0 && self.tableView.dragging {
+            self.backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
+        } else if self.tableView.contentOffset.y <= self.bgViewHeight && self.tableView.dragging {
+            self.backgroundView.translatesAutoresizingMaskIntoConstraints = true
+            self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.bgViewHeight - self.tableView.contentOffset.y)
+        } else {
+            self.backgroundView.translatesAutoresizingMaskIntoConstraints = true
+            self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: 0)
         }
     }
 
