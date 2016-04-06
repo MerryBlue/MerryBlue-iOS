@@ -3,13 +3,14 @@ import TwitterKit
 import SwiftyJSON
 
 class TwitterUser: TWTRUser {
-    var lastStatus: TWTRTweet!
+    var lastStatus: MBTweet!
     var readedStatusId: String!
     var preCount: Int!
     var tweetCount: Int!
     var isFollowing = false
     var profileBackgroundImageURL: String!
     var profileBannerImageURL: String!
+    var color: UIColor!
 
     required override init!(JSONDictionary dictionary: [NSObject: AnyObject]!) {
         super.init(JSONDictionary: dictionary)
@@ -22,7 +23,7 @@ class TwitterUser: TWTRUser {
     init?(json: SwiftyJSON.JSON) {
         super.init(JSONDictionary: json.dictionaryObject)
         if json["status"] != nil {
-            self.lastStatus = TWTRTweet(JSONDictionary: json["status"].dictionaryObject)
+            self.lastStatus = MBTweet(json: json["status"])
         } else {
             self.lastStatus = nil
         }
@@ -30,6 +31,12 @@ class TwitterUser: TWTRUser {
         self.isFollowing = json["following"].boolValue
         self.profileBackgroundImageURL = json["profile_background_image_url_https"].stringValue
         self.profileBannerImageURL = json["profile_banner_url"].stringValue
+        let colStr = json["profile_sidebar_fill_color"].stringValue
+        if colStr != "000000" {
+            self.color = UIColor.hexFrom(colStr)
+        } else {
+            self.color = MBColor.Main
+        }
 
         if let count = UserService.sharedInstance.selectUser(self.userID) where !isSecret() {
             // ログあり かつ 相手のツイートが見れる場合
@@ -38,7 +45,6 @@ class TwitterUser: TWTRUser {
         } else {
             self.updateReadedCount()
         }
-
     }
 
     func isSecret() -> Bool {

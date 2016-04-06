@@ -204,11 +204,11 @@ public extension Twitter {
             var parameters = [
                 "user_id": userID,
                 "count": String(count),
-                "include_entities": "false",
+                "include_entities": "true",
                 "exclude_replies": "false"
             ]
             if let beforeID = beforeID {
-                parameters["beforeID"] = beforeID
+                parameters["max_id"] = beforeID
             }
 
             _ = self.rxURLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)

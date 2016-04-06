@@ -25,15 +25,7 @@ class UserStatusCell: UITableViewCell {
         self.nameLabel.text = user.name
         self.screenNameLabel.text = "@\(user.screenName)"
 
-        self.iconImageView.sd_setImageWithURL(NSURL(string: user.profileImageURL)!)
-        let url = NSURL(string: user.profileImageURL)
-        SDWebImageDownloader.sharedDownloader().downloadImageWithURL(url, options: [], progress: nil,
-                completed: { [weak self] (image, data, error, finished) in
-                    guard let wSelf = self else {
-                        return
-                    }
-                    dispatch_async(dispatch_get_main_queue()) { wSelf.iconImageView.image = image }
-            })
+        self.iconImageView.sd_setImageWithURL(NSURL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
         guard let status = user.lastStatus else {
             self.tweetTextLabel.text = "ツイートが読み込めませんでした"

@@ -1,7 +1,8 @@
+import Foundation
 import TwitterKit
 import SDWebImage
 
-class UserViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class UserViewController: UIViewController {
     var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -11,14 +12,18 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var screenNameLabel: UILabel!
     @IBOutlet weak var nameLable: UILabel!
 
+    @IBOutlet weak var backgroundView: UIView!
 
     var refreshControl: UIRefreshControl!
 
     var user: TwitterUser!
     var newCount: Int!
-    var tweets: [TWTRTweet]!
+    var tweets: [MBTweet]!
 
     var cacheHeights = [CGFloat]()
+
+    var isUpdating = true
+    var bgViewHeight: CGFloat!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,14 +36,19 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        // refreshControl = UIRefreshControl()
+        // refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
+        // refreshControl.addTarget(self, action: #selector(UserViewController.pullToRefresh), forControlEvents:.ValueChanged)
+        // self.tableView.addSubview(refreshControl)
+        // self.refreshControl = nil
 
-        refreshControl = UIRefreshControl()
-        refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
-        refreshControl.addTarget(self, action: #selector(HomeViewController.pullToRefresh), forControlEvents:.ValueChanged)
-        self.tableView.addSubview(refreshControl)
-        self.tableView.estimatedRowHeight = 20
+        // self.tableView.estimatedRowHeight = 20
         self.tableView.rowHeight = UITableViewAutomaticDimension
     }
+
+    func pullToRefresh() {
+    }
+
 
     private func setNavigationBar() {
         guard let _ = self.navigationController else {
@@ -57,34 +67,66 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         self.user = user
+        self.title = self.user.screenNameWithAt()
         self.newCount = delegate.userViewNewCount! ?? 0
         self.setUser()
+        self.bgViewHeight = self.backgroundView.frame.height
         self.activityIndicator.startAnimating()
         _ = TwitterManager.requestUserTimeline(user)
-             .subscribeNext({ (tweets: [TWTRTweet]) in
+             .subscribeNext({ (tweets: [MBTweet]) in
                 self.tweets = tweets
                 self.tableView.reloadData()
                 self.activityIndicator.stopAnimating()
+                self.isUpdating = false
              })
     }
 
     func setUser() {
         self.nameLable.text = user.name
         self.screenNameLabel.text = user.screenName
-        SDWebImageDownloader.setImageSync(self.userImageView, url: NSURL(string: user.profileImageURL)!)
-        SDWebImageDownloader.setImageSync(self.userHeaderImageView, url: NSURL(string: user.profileBannerImageURL)!)
+        self.userImageView.sd_setImageWithURL(NSURL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+
+        if let url = user.profileBannerImageURL where !url.isEmpty {
+            self.userHeaderImageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: UIImage(named: "twttr-icn-tweet-place-holder-photo-error@3x.png"))
+        } else {
+            let gradientLayer: CAGradientLayer = CAGradientLayer()
+            gradientLayer.colors = [user.color.CGColor, UIColor.blackColor().CGColor]
+            gradientLayer.frame = self.backgroundView.bounds
+            self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
+            // self.backgroundView.backgroundColor = user.color
+        }
+        self.userHeaderImageView.contentMode = .ScaleAspectFill
     }
 
-    // ====== tableview methods ======
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let tws = tweets else { return 0 }
-        return tws.count
+    // ====== readmore support ======
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let isBouncing = (self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height)) && self.tableView.dragging
+        if isBouncing && !isUpdating {
+            isUpdating = true
+            activityIndicator.startAnimating()
+            _ = TwitterManager.requestUserTimelineNext(user, tweet: tweets.last!)
+                .subscribeNext({ (tweets: [MBTweet]) in
+                    self.tweets.appendContentsOf(tweets)
+                    self.tableView.reloadData()
+                    self.activityIndicator.stopAnimating()
+                    self.isUpdating = false
+                })
+        }
+        if self.tableView.contentOffset.y <= 0 {
+            self.backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
+        } else if self.tableView.contentOffset.y <= self.bgViewHeight {
+            self.backgroundView.translatesAutoresizingMaskIntoConstraints = true
+            self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.bgViewHeight - self.tableView.contentOffset.y)
+        } else {
+            self.backgroundView.translatesAutoresizingMaskIntoConstraints = true
+            self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: 0)
+        }
     }
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
+}
+
+extension UserViewController: UITableViewDelegate {
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
@@ -99,12 +141,20 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.layer.addSublayer(bottomLine)
     }
 
-    // func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    //     if self.cacheHeights.count <= indexPath.row {
-    //         var cell = tableView.cellForRowAtIndexPath(indexPath)
-    //         var height = cell
-    //     }
-    //     return height
-    // }
+}
 
+extension UserViewController: UITableViewDataSource {
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let tws = tweets else { return 0 }
+        return tws.count
+    }
+
+    // エディット機能の提供に必要なメソッド
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    }
 }
