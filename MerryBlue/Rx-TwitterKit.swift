@@ -208,7 +208,7 @@ public extension Twitter {
                 "exclude_replies": "false"
             ]
             if let beforeID = beforeID {
-                parameters["beforeID"] = beforeID
+                parameters["max_id"] = beforeID
             }
 
             _ = self.rxURLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)

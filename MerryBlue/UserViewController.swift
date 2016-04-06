@@ -20,6 +20,8 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     var cacheHeights = [CGFloat]()
 
+    var isUpdating = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setNavigationBar()
@@ -97,6 +99,22 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         bottomLine.frame = CGRect(x: 0.0, y: 0.0, width: 5.0, height: cell.frame.height)
         bottomLine.backgroundColor = indexPath.row < newCount ? MBColor.Sub.CGColor : UIColor.whiteColor().CGColor
         cell.layer.addSublayer(bottomLine)
+    }
+
+    // ====== readmore support ======
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let isBouncing = (self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height)) && self.tableView.dragging
+        if isBouncing && !isUpdating {
+            isUpdating = true
+            activityIndicator.startAnimating()
+            _ = TwitterManager.requestUserTimelineNext(user, tweet: tweets.last!)
+                .subscribeNext({ (tweets: [TWTRTweet]) in
+                    self.tweets.appendContentsOf(tweets)
+                    self.tableView.reloadData()
+                    self.activityIndicator.stopAnimating()
+                    self.isUpdating = false
+                })
+        }
     }
 
     // func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
