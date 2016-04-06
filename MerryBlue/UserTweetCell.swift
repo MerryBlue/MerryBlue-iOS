@@ -9,8 +9,6 @@ class UserTweetCell: UITableViewCell {
     @IBOutlet weak var backgroundWrapView: UIView!
     @IBOutlet weak var backgroundImageView: UIImageView!
 
-    var scaled = false
-
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -25,7 +23,6 @@ class UserTweetCell: UITableViewCell {
     func setCell(tweet: MBTweet) {
         self.tweetTextLabel.text = tweet.text
         self.namesLabel.text = "\(tweet.author.name)・@\(tweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
-        self.scaled = false
         SDWebImageDownloader.setImageSync(self.userImageView, url: NSURL(string: tweet.author.profileImageURL)!)
 
         self.namesLabel.textColor = UIColor.blackColor()
@@ -50,10 +47,6 @@ class UserTweetCell: UITableViewCell {
                     self.backgroundWrapView.backgroundColor = UIColor.blackColor()
                     SDWebImageManager.sharedManager().imageCache.storeImage(image, forKey: url.absoluteString)
                 })
-        }
-        if !self.scaled {
-            self.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height + 50)
-            self.scaled = true
         }
 
         // rectangle views
