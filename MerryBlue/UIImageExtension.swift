@@ -11,4 +11,11 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return resizedImage
     }
+    
+    class func imageByCropping(imageToCrop: UIImage, rect: CGRect) -> UIImage {
+        let imageRef = CGImageCreateWithImageInRect(imageToCrop.CGImage, rect)
+        let cropped = UIImage(CGImage: imageRef!)
+        return cropped;
+    }
+
 }

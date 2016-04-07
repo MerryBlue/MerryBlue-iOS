@@ -95,7 +95,7 @@ class UserViewController: UIViewController {
             self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
             // self.backgroundView.backgroundColor = user.color
         }
-        self.userHeaderImageView.contentMode = .ScaleAspectFill
+        self.userHeaderImageView.contentMode = .Redraw
     }
 
     // ====== readmore support ======

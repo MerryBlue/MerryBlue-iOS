@@ -39,8 +39,8 @@ class UserTweetCell: UITableViewCell {
                 NSURL(string: tweet.imageURLs[0]),
                 placeholderImage: AssetSertvice.sharedInstance.loadingImage,
                 completed: { (image, error, sDImageCacheType, url) -> Void in
-                    self.backgroundImageView.frame = self.frame
-                    self.backgroundImageView.image = image
+                    self.backgroundImageView.frame = self.backgroundImageView.frame
+                    self.backgroundImageView.image = UIImage.imageByCropping(image, rect: self.backgroundImageView.frame)
                 })
         }
 
