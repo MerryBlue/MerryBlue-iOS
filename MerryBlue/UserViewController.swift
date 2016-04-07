@@ -87,6 +87,8 @@ class UserViewController: UIViewController {
         self.userImageView.sd_setImageWithURL(NSURL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
         if let url = user.profileBannerImageURL where !url.isEmpty {
+            self.userHeaderImageView.clipsToBounds = true
+            self.userHeaderImageView.contentMode = .ScaleAspectFill
             self.userHeaderImageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: UIImage(named: "twttr-icn-tweet-place-holder-photo-error@3x.png"))
         } else {
             let gradientLayer: CAGradientLayer = CAGradientLayer()
@@ -95,7 +97,6 @@ class UserViewController: UIViewController {
             self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
             // self.backgroundView.backgroundColor = user.color
         }
-        self.userHeaderImageView.contentMode = .Redraw
     }
 
     // ====== readmore support ======
