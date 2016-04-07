@@ -13,6 +13,7 @@ class UserViewController: UIViewController {
     @IBOutlet weak var nameLable: UILabel!
 
     @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet var backgroundViewHeight: NSLayoutConstraint!
 
     var refreshControl: UIRefreshControl!
 
@@ -70,7 +71,7 @@ class UserViewController: UIViewController {
         self.title = self.user.screenNameWithAt()
         self.newCount = delegate.userViewNewCount! ?? 0
         self.setUser()
-        self.bgViewHeight = self.backgroundView.frame.height
+        self.bgViewHeight = 150
         self.activityIndicator.startAnimating()
         _ = TwitterManager.requestUserTimeline(user)
              .subscribeNext({ (tweets: [MBTweet]) in
@@ -113,16 +114,17 @@ class UserViewController: UIViewController {
                     self.isUpdating = false
                 })
         }
-        // if self.tableView.contentOffset.y <= 0 {
-        //     // self.backgroundView.alpha = 0
-        //     // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
-        // } else if self.tableView.contentOffset.y <= self.bgViewHeight {
-        //     // self.backgroundView.alpha = (self.bgViewHeight - self.tableView.contentOffset.y / self.bgViewHeight)
-        //     // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.bgViewHeight - self.tableView.contentOffset.y)
-        // } else {
-        //     // self.backgroundView.alpha = 1
-        //     // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: 0)
-        // }
+        // backgroundView.clipsToBounds = true
+        if self.tableView.contentOffset.y <= 0 {
+            backgroundViewHeight.constant = self.bgViewHeight
+            // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
+        } else if self.tableView.contentOffset.y <= self.bgViewHeight {
+            backgroundViewHeight.constant = self.bgViewHeight - self.tableView.contentOffset.y
+            // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.bgViewHeight - self.tableView.contentOffset.y)
+        } else {
+            backgroundViewHeight.constant = 0
+            // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: 0)
+        }
     }
 
 }
