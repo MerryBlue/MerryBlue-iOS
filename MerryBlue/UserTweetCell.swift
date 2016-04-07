@@ -21,9 +21,13 @@ class UserTweetCell: UITableViewCell {
     }
 
     func setCell(tweet: MBTweet) {
-        self.tweetTextLabel.text = tweet.text
-        self.namesLabel.text = "\(tweet.author.name)・@\(tweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
-        self.userImageView.sd_setImageWithURL(NSURL(string: tweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        var sourceTweet: TWTRTweet = tweet
+        if tweet.isRetweet {
+            sourceTweet = tweet.retweetedTweet
+        }
+        self.tweetTextLabel.text = sourceTweet.text
+        self.namesLabel.text = "\(sourceTweet.author.name)・@\(sourceTweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
+        self.userImageView.sd_setImageWithURL(NSURL(string: sourceTweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
         self.mainImageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 0)
         self.mainImageView.image = nil
