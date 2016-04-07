@@ -6,8 +6,8 @@ class UserTweetCell: UITableViewCell {
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var namesLabel: UILabel!
     @IBOutlet weak var userImageView: UIImageView!
-    @IBOutlet weak var backgroundWrapView: UIView!
-    @IBOutlet weak var backgroundImageView: UIImageView!
+
+    @IBOutlet weak var mainImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,27 +21,24 @@ class UserTweetCell: UITableViewCell {
     }
 
     func setCell(tweet: MBTweet) {
-        self.tweetTextLabel.text = tweet.text
-        self.namesLabel.text = "\(tweet.author.name)・@\(tweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
-        self.userImageView.sd_setImageWithURL(NSURL(string: tweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        var sourceTweet: TWTRTweet = tweet
+        if tweet.isRetweet {
+            sourceTweet = tweet.retweetedTweet
+        }
+        self.tweetTextLabel.text = sourceTweet.text
+        self.namesLabel.text = "\(sourceTweet.author.name)・@\(sourceTweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
+        self.userImageView.sd_setImageWithURL(NSURL(string: sourceTweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
-        self.namesLabel.textColor = UIColor.grayColor()
-        self.tweetTextLabel.textColor = UIColor.blackColor()
-        self.backgroundImageView.image = nil
-        self.backgroundImageView.contentMode = .ScaleAspectFill
-        self.backgroundImageView.clipsToBounds = false
-        self.backgroundWrapView.backgroundColor = UIColor.whiteColor()
+        self.mainImageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 0)
+        self.mainImageView.image = nil
         if tweet.imageURLs.count > 0 {
-            self.namesLabel.textColor = UIColor.whiteColor()
-            self.tweetTextLabel.textColor = UIColor.whiteColor()
-            self.backgroundWrapView.backgroundColor = UIColor.blackColor()
-            self.backgroundImageView.sd_setImageWithURL(
-                NSURL(string: tweet.imageURLs[0]),
-                placeholderImage: AssetSertvice.sharedInstance.loadingImage,
-                completed: { (image, error, sDImageCacheType, url) -> Void in
-                    self.backgroundImageView.frame = self.frame
-                    self.backgroundImageView.image = image
-                })
+            self.mainImageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 100)
+            self.mainImageView.contentMode = .ScaleAspectFill
+            self.mainImageView.clipsToBounds = true
+            self.mainImageView.backgroundColor = UIColor.blackColor()
+            // self.imageBoxView.addSubview(mainImageView)
+
+            self.mainImageView.sd_setImageWithURL(NSURL(string: tweet.imageURLs[0]), placeholderImage: UIImage(named: "icon-indicator"))
         }
 
     }

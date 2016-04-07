@@ -37,4 +37,13 @@ class AlertManager {
         return ac
     }
 
+    func disableOpenApp() -> UIAlertController {
+        let ac = UIAlertController(
+            title: "アプリ起動エラー",
+            message: "なんらかの理由で Safari や Twitter が開けません",
+            preferredStyle: UIAlertControllerStyle.Alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        return ac
+    }
+
 }

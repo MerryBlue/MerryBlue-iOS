@@ -4,6 +4,8 @@ import FontAwesomeKit
 
 class ListTimelineViewController: MBTimelineViewController {
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
     var list: TwitterList!
     convenience init() {
         guard let list = ListService.sharedInstance.selectHomeList() else {
@@ -30,6 +32,7 @@ class ListTimelineViewController: MBTimelineViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.activityIndicator.startAnimating()
         self.setupNavigationBar()
     }
 

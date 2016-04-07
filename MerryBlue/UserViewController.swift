@@ -13,6 +13,7 @@ class UserViewController: UIViewController {
     @IBOutlet weak var nameLable: UILabel!
 
     @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet var backgroundViewHeight: NSLayoutConstraint!
 
     var refreshControl: UIRefreshControl!
 
@@ -42,7 +43,7 @@ class UserViewController: UIViewController {
         // self.tableView.addSubview(refreshControl)
         // self.refreshControl = nil
 
-        // self.tableView.estimatedRowHeight = 20
+        self.tableView.estimatedRowHeight = 20
         self.tableView.rowHeight = UITableViewAutomaticDimension
     }
 
@@ -70,7 +71,7 @@ class UserViewController: UIViewController {
         self.title = self.user.screenNameWithAt()
         self.newCount = delegate.userViewNewCount! ?? 0
         self.setUser()
-        self.bgViewHeight = self.backgroundView.frame.height
+        self.bgViewHeight = 150
         self.activityIndicator.startAnimating()
         _ = TwitterManager.requestUserTimeline(user)
              .subscribeNext({ (tweets: [MBTweet]) in
@@ -87,6 +88,8 @@ class UserViewController: UIViewController {
         self.userImageView.sd_setImageWithURL(NSURL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
         if let url = user.profileBannerImageURL where !url.isEmpty {
+            self.userHeaderImageView.clipsToBounds = true
+            self.userHeaderImageView.contentMode = .ScaleAspectFill
             self.userHeaderImageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: UIImage(named: "twttr-icn-tweet-place-holder-photo-error@3x.png"))
         } else {
             let gradientLayer: CAGradientLayer = CAGradientLayer()
@@ -95,7 +98,6 @@ class UserViewController: UIViewController {
             self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
             // self.backgroundView.backgroundColor = user.color
         }
-        self.userHeaderImageView.contentMode = .ScaleAspectFill
     }
 
     // ====== readmore support ======
@@ -112,15 +114,16 @@ class UserViewController: UIViewController {
                     self.isUpdating = false
                 })
         }
+        // backgroundView.clipsToBounds = true
         if self.tableView.contentOffset.y <= 0 {
-            self.backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            backgroundViewHeight.constant = self.bgViewHeight
             // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
         } else if self.tableView.contentOffset.y <= self.bgViewHeight {
-            self.backgroundView.translatesAutoresizingMaskIntoConstraints = true
-            self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.bgViewHeight - self.tableView.contentOffset.y)
+            backgroundViewHeight.constant = self.bgViewHeight - self.tableView.contentOffset.y
+            // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.bgViewHeight - self.tableView.contentOffset.y)
         } else {
-            self.backgroundView.translatesAutoresizingMaskIntoConstraints = true
-            self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: 0)
+            backgroundViewHeight.constant = 0
+            // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: 0)
         }
     }
 
@@ -139,6 +142,49 @@ extension UserViewController: UITableViewDelegate {
         bottomLine.frame = CGRect(x: 0.0, y: 0.0, width: 5.0, height: cell.frame.height)
         bottomLine.backgroundColor = indexPath.row < newCount ? MBColor.Sub.CGColor : UIColor.whiteColor().CGColor
         cell.layer.addSublayer(bottomLine)
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let tweet = tweets[indexPath.row]
+        let twitterUrl = NSURL(string: "twitter://status?id=\(tweet.tweetID)")!
+        let url = NSURL(string: "https://twitter.com/chomado/status/\(tweet.tweetID)")
+        if UIApplication.sharedApplication().canOpenURL(twitterUrl) {
+            UIApplication.sharedApplication().openURL(twitterUrl)
+        } else if UIApplication.sharedApplication().canOpenURL(url!) {
+            UIApplication.sharedApplication().openURL(url!)
+        } else {
+            AlertManager.sharedInstantce.disableOpenApp()
+        }
+
+    }
+
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+
+        let replay = MBTableViewRowAction.new(UIImage(named: "icon-replay")!) {
+            (action, indexPath) in
+            print("replay")
+            tableView.editing = false
+        }
+
+        let retweet = MBTableViewRowAction.new(UIImage(named: "icon-images")!) {
+            (action, indexPath) in
+            print("rt")
+            tableView.editing = false
+        }
+
+        let favorite = MBTableViewRowAction.new(UIImage(named: "icon-favorite")!) {
+            (action, indexPath) in
+            print("favo")
+            tableView.editing = false
+        }
+
+        let twitter = MBTableViewRowAction.new(UIImage(named: "icon-twitter-sq")!) {
+            (action, indexPath) in
+            print("favo")
+            tableView.editing = false
+        }
+
+        return [twitter, favorite, retweet, replay]
     }
 
 }
