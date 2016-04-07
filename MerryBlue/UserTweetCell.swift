@@ -7,7 +7,7 @@ class UserTweetCell: UITableViewCell {
     @IBOutlet weak var namesLabel: UILabel!
     @IBOutlet weak var userImageView: UIImageView!
 
-    var mainImageView: UIImageView!
+    @IBOutlet weak var mainImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,19 +25,16 @@ class UserTweetCell: UITableViewCell {
         self.namesLabel.text = "\(tweet.author.name)・@\(tweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
         self.userImageView.sd_setImageWithURL(NSURL(string: tweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
+        self.mainImageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 0)
+        self.mainImageView.image = nil
         if tweet.imageURLs.count > 0 {
-            self.mainImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 50))
-            self.mainImageView.image = nil
+            self.mainImageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 100)
             self.mainImageView.contentMode = .ScaleAspectFill
-            self.mainImageView.clipsToBounds = false
+            self.mainImageView.clipsToBounds = true
             self.mainImageView.backgroundColor = UIColor.blackColor()
             // self.imageBoxView.addSubview(mainImageView)
 
-            // mainImageView.sd_setImageWithURL(
-            //     NSURL(string: tweet.imageURLs[0]),
-            //     placeholderImage: AssetSertvice.sharedInstance.loadingImage,
-            //     completed: { (image, error, sDImageCacheType, url) -> Void in
-            //     })
+            self.mainImageView.sd_setImageWithURL(NSURL(string: tweet.imageURLs[0]), placeholderImage: UIImage(named: "icon-indicator"))
         }
 
     }
