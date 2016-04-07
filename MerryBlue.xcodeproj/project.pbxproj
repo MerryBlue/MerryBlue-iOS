@@ -19,6 +19,7 @@
 		4540E4001CB4A956000AE6A9 /* MBTweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540E3FF1CB4A956000AE6A9 /* MBTweet.swift */; };
 		4540E4021CB50418000AE6A9 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540E4011CB50418000AE6A9 /* UIColorExtension.swift */; };
 		4551ADF51C9B33A100A00CE8 /* ListInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4551ADF41C9B33A100A00CE8 /* ListInfoCell.swift */; };
+		4552AFE01CB5F09900B762AB /* MBTableViewRowAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4552AFDF1CB5F09900B762AB /* MBTableViewRowAction.swift */; };
 		4555C0801CA4F16200A161F9 /* MBTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4555C07F1CA4F16200A161F9 /* MBTimelineViewController.swift */; };
 		455F3D961CA2EF76001495A9 /* MBColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455F3D951CA2EF76001495A9 /* MBColor.swift */; };
 		455F3D981CA2F57D001495A9 /* MBNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455F3D971CA2F57D001495A9 /* MBNavigationController.swift */; };
@@ -68,6 +69,7 @@
 		4540E3FF1CB4A956000AE6A9 /* MBTweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTweet.swift; sourceTree = "<group>"; };
 		4540E4011CB50418000AE6A9 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		4551ADF41C9B33A100A00CE8 /* ListInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListInfoCell.swift; sourceTree = "<group>"; };
+		4552AFDF1CB5F09900B762AB /* MBTableViewRowAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTableViewRowAction.swift; sourceTree = "<group>"; };
 		4555C07F1CA4F16200A161F9 /* MBTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTimelineViewController.swift; sourceTree = "<group>"; };
 		455F3D951CA2EF76001495A9 /* MBColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBColor.swift; sourceTree = "<group>"; };
 		455F3D971CA2F57D001495A9 /* MBNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBNavigationController.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				45ABA1F01C981A23006DE856 /* UserStatusCell.swift */,
 				45C67AC31CB3C2C700C98329 /* UserTweetCell.swift */,
 				4551ADF41C9B33A100A00CE8 /* ListInfoCell.swift */,
+				4552AFDF1CB5F09900B762AB /* MBTableViewRowAction.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				453B45001C98DF9B00CE5FFE /* ArrayExtension.swift in Sources */,
 				4540E4021CB50418000AE6A9 /* UIColorExtension.swift in Sources */,
 				45C67AC41CB3C2C700C98329 /* UserTweetCell.swift in Sources */,
+				4552AFE01CB5F09900B762AB /* MBTableViewRowAction.swift in Sources */,
 				453B45021C98E49100CE5FFE /* UserTimelineViewController.swift in Sources */,
 				4555C0801CA4F16200A161F9 /* MBTimelineViewController.swift in Sources */,
 				451C4D8F1C9C9CEB00903A0C /* NSDateExtension.swift in Sources */,
