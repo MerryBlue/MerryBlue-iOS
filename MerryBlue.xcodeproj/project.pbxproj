@@ -18,6 +18,7 @@
 		453B45021C98E49100CE5FFE /* UserTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453B45011C98E49100CE5FFE /* UserTimelineViewController.swift */; };
 		4540E4001CB4A956000AE6A9 /* MBTweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540E3FF1CB4A956000AE6A9 /* MBTweet.swift */; };
 		4540E4021CB50418000AE6A9 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540E4011CB50418000AE6A9 /* UIColorExtension.swift */; };
+		4548B64B1CB6C8E6001BFB2F /* DigitsKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45EBEDF01C93F62F002C6040 /* DigitsKitResources.bundle */; };
 		4551ADF51C9B33A100A00CE8 /* ListInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4551ADF41C9B33A100A00CE8 /* ListInfoCell.swift */; };
 		4552AFE01CB5F09900B762AB /* MBTableViewRowAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4552AFDF1CB5F09900B762AB /* MBTableViewRowAction.swift */; };
 		4555C0801CA4F16200A161F9 /* MBTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4555C07F1CA4F16200A161F9 /* MBTimelineViewController.swift */; };
@@ -36,7 +37,6 @@
 		45ABA1F31C986869006DE856 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45ABA1F21C986869006DE856 /* Main.storyboard */; };
 		45AC07C61CAA3F5200DACD0F /* AssetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AC07C51CAA3F5200DACD0F /* AssetService.swift */; };
 		45B943911CAE69C900C05488 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45EBEDEC1C93F5D2002C6040 /* TwitterKitResources.bundle */; };
-		45B943981CAE8D7500C05488 /* DigitsKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45EBEDF01C93F62F002C6040 /* DigitsKitResources.bundle */; };
 		45BD1C0B1C9590A2002A2159 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C0A1C9590A2002A2159 /* MainTabBarController.swift */; };
 		45BD1C211C96EB35002A2159 /* TwitterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C201C96EB35002A2159 /* TwitterManager.swift */; };
 		45BD1C251C974518002A2159 /* TwitterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD1C231C97207B002A2159 /* TwitterList.swift */; };
@@ -328,7 +328,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45B943981CAE8D7500C05488 /* DigitsKitResources.bundle in Resources */,
+				4548B64B1CB6C8E6001BFB2F /* DigitsKitResources.bundle in Resources */,
 				45B943911CAE69C900C05488 /* TwitterKitResources.bundle in Resources */,
 				45DDD57B1CAA82770015C16D /* Launch Screen.storyboard in Resources */,
 				45ABA1F31C986869006DE856 /* Main.storyboard in Resources */,
