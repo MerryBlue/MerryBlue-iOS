@@ -330,10 +330,6 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gBf-XK-WOf">
-                                <rect key="frame" x="170" y="237" width="37" height="37"/>
-                                <color key="color" red="0.24313725489999999" green="0.41960784309999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="82" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Y45-p5-7RE">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -463,9 +459,16 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" placeholderIntrinsicWidth="37" placeholderIntrinsicHeight="37" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gBf-XK-WOf">
+                                <rect key="frame" x="281" y="225" width="37" height="37"/>
+                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                <color key="color" red="0.24313725489999999" green="0.41960784309999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="gBf-XK-WOf" firstAttribute="centerY" secondItem="c0N-lK-zNU" secondAttribute="centerY" id="5vS-51-WYy"/>
+                            <constraint firstItem="gBf-XK-WOf" firstAttribute="centerX" secondItem="c0N-lK-zNU" secondAttribute="centerX" id="7qD-Mr-ZEi"/>
                             <constraint firstItem="Y45-p5-7RE" firstAttribute="leading" secondItem="c0N-lK-zNU" secondAttribute="leading" id="M8Z-gF-wfc"/>
                             <constraint firstAttribute="trailing" secondItem="Y45-p5-7RE" secondAttribute="trailing" id="uUO-sn-cjI"/>
                             <constraint firstItem="Y45-p5-7RE" firstAttribute="top" secondItem="c0N-lK-zNU" secondAttribute="topMargin" id="vg3-eD-DwT"/>
@@ -773,6 +776,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Timeline" id="Vh7-ud-5Dm"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="phu-qA-AuW" id="Tro-m6-AqB"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1AY-qe-hxK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
