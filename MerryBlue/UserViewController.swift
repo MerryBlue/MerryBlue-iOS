@@ -144,6 +144,20 @@ extension UserViewController: UITableViewDelegate {
         cell.layer.addSublayer(bottomLine)
     }
 
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let tweet = tweets[indexPath.row]
+        let twitterUrl = NSURL(string: "twitter://status?id=\(tweet.tweetID)")!
+        let url = NSURL(string: "https://twitter.com/chomado/status/\(tweet.tweetID)")
+        if UIApplication.sharedApplication().canOpenURL(twitterUrl) {
+            UIApplication.sharedApplication().openURL(twitterUrl)
+        } else if UIApplication.sharedApplication().canOpenURL(url!) {
+            UIApplication.sharedApplication().openURL(url!)
+        } else {
+            AlertManager.sharedInstantce.disableOpenApp()
+        }
+
+    }
+
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
 
         let replay = MBTableViewRowAction.new(UIImage(named: "icon-replay")!) {
