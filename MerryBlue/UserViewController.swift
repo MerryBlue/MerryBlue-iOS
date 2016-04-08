@@ -151,8 +151,9 @@ extension UserViewController: UITableViewDelegate {
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
-        let gesture = UITapGestureRecognizer(target:self, action: #selector(UserViewController.didClickimageView(_:)))
-        cell.setCell(tweets[indexPath.row], gesture: gesture)
+        let tweet = tweets[indexPath.row]
+        let gestures = (0..<tweet.imageURLs.count).map { _ in UITapGestureRecognizer(target:self, action: #selector(UserViewController.didClickimageView(_:))) }
+        cell.setCell(tweet, gestures: gestures)
         return cell
     }
 

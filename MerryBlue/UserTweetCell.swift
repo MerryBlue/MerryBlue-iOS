@@ -23,7 +23,7 @@ class UserTweetCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func setCell(tweet: MBTweet, gesture: UIGestureRecognizer) {
+    func setCell(tweet: MBTweet, gestures: [UIGestureRecognizer]) {
         var sourceTweet: TWTRTweet = tweet
         if tweet.isRetweet {
             sourceTweet = tweet.retweetedTweet
@@ -45,7 +45,7 @@ class UserTweetCell: UITableViewCell {
                 imageView.contentMode = .ScaleAspectFill
                 imageView.clipsToBounds = true
                 imageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: UIImage(named: "icon-indicator"))
-                imageView.addGestureRecognizer(gesture)
+                imageView.addGestureRecognizer(gestures[i])
                 self.imageStackView.insertArrangedSubview(imageView, atIndex: i)
             }
         }
