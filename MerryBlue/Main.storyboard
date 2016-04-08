@@ -791,6 +791,9 @@
                                     <constraint firstItem="MDC-cq-xGu" firstAttribute="centerY" secondItem="eeH-fE-n2V" secondAttribute="centerY" id="ylg-e9-FAy"/>
                                 </constraints>
                             </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="aAp-Cr-O9v">
+                                <rect key="frame" x="281" y="282" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -798,9 +801,12 @@
                             <constraint firstItem="Q1a-rz-iva" firstAttribute="top" secondItem="eeH-fE-n2V" secondAttribute="bottom" id="FLb-TX-2sW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="eeH-fE-n2V" secondAttribute="trailing" constant="-20" id="N2L-DV-cb9"/>
                             <constraint firstItem="eeH-fE-n2V" firstAttribute="top" secondItem="l8R-XQ-jpd" secondAttribute="topMargin" id="nCH-cD-4af"/>
+                            <constraint firstItem="aAp-Cr-O9v" firstAttribute="centerX" secondItem="l8R-XQ-jpd" secondAttribute="centerX" id="pCR-X4-HfC"/>
+                            <constraint firstItem="aAp-Cr-O9v" firstAttribute="centerY" secondItem="l8R-XQ-jpd" secondAttribute="centerY" id="qMO-9W-ahD"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="aAp-Cr-O9v" id="zSD-wp-Dat"/>
                         <outlet property="imageView" destination="Zrx-2d-LcS" id="XRa-mn-ct9"/>
                         <outlet property="imageViewWrap" destination="MDC-cq-xGu" id="2jt-hF-uwJ"/>
                         <outlet property="scrollView" destination="eeH-fE-n2V" id="up2-SY-rZB"/>

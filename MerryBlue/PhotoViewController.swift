@@ -6,7 +6,9 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var imageViewWrap: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
+    var viewerImgUrl: NSURL!
     var viewerImg: UIImage!
 
     override func viewDidLoad() {
@@ -23,6 +25,16 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
         doubleTapGesture.numberOfTapsRequired = 2
         self.imageViewWrap.userInteractionEnabled = true
         self.imageViewWrap.addGestureRecognizer(doubleTapGesture)
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        self.activityIndicator.startAnimating()
+        self.imageView.contentMode = .ScaleAspectFit
+        self.imageView.sd_setImageWithURL(self.viewerImgUrl)
+        self.imageView.sd_setImageWithURL(self.viewerImgUrl, completed: {
+            (image, error, sDImageCacheType, url) -> Void in
+            self.activityIndicator.stopAnimating()
+            })
     }
 
     func doubleTap(gesture: UITapGestureRecognizer) -> Void {
@@ -46,11 +58,6 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
         zoomRect.origin.y = center.y - zoomRect.size.height / 2.0
 
         return zoomRect
-    }
-
-    override func viewDidAppear(animated: Bool) {
-        self.imageView.contentMode = .ScaleAspectFit
-        self.imageView.image = viewerImg
     }
 
     override func didReceiveMemoryWarning() {

@@ -130,7 +130,7 @@ class UserViewController: UIViewController {
     func didClickimageView(recognizer: UIGestureRecognizer) {
         if let imageView = recognizer.view as? UIImageView {
             let nextViewController = StoryBoardService.sharedInstance.photoViewController()
-            nextViewController.viewerImg = imageView.image
+            nextViewController.viewerImgUrl = NSURL(string: imageView.sd_imageURL().absoluteString + ":orig")
             self.navigationController?.pushViewController(nextViewController, animated: true)
         }
     }
