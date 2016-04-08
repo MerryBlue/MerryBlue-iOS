@@ -9,6 +9,8 @@ class UserTweetCell: UITableViewCell {
 
     @IBOutlet weak var mainImageView: UIImageView!
 
+    var hasMedia: Bool!
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -31,7 +33,10 @@ class UserTweetCell: UITableViewCell {
 
         self.mainImageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 0)
         self.mainImageView.image = nil
-        if tweet.imageURLs.count > 0 {
+        self.hasMedia = tweet.imageURLs.count > 0
+        if hasMedia! {
+            self.mainImageView.userInteractionEnabled = true
+            self.mainImageView.tag = 1
             self.mainImageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 100)
             self.mainImageView.contentMode = .ScaleAspectFill
             self.mainImageView.clipsToBounds = true

@@ -127,6 +127,14 @@ class UserViewController: UIViewController {
         }
     }
 
+    func didClickimageView(recognizer: UIGestureRecognizer) {
+        if let imageView = recognizer.view as? UIImageView {
+            let nextViewController = StoryBoardService.sharedInstance.photoViewController()
+            nextViewController.viewerImg = imageView.image
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+        }
+    }
+
 }
 
 extension UserViewController: UITableViewDelegate {
@@ -134,6 +142,8 @@ extension UserViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
         cell.setCell(tweets[indexPath.row])
+        let gesture = UITapGestureRecognizer(target:self, action: #selector(UserViewController.didClickimageView(_:)))
+        cell.mainImageView.addGestureRecognizer(gesture)
         return cell
     }
 
