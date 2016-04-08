@@ -117,16 +117,14 @@ class UserViewController: UIViewController {
                     self.isUpdating = false
                 })
         }
-        // backgroundView.clipsToBounds = true
+
+        let navHideRate: CGFloat = 1.618
         if self.tableView.contentOffset.y <= 0 {
             backgroundViewHeight.constant = self.bgViewHeight
-            // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
-        } else if self.tableView.contentOffset.y <= self.bgViewHeight {
-            backgroundViewHeight.constant = self.bgViewHeight - self.tableView.contentOffset.y
-            // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.bgViewHeight - self.tableView.contentOffset.y)
+        } else if self.tableView.contentOffset.y * navHideRate <= self.bgViewHeight {
+            backgroundViewHeight.constant = self.bgViewHeight - self.tableView.contentOffset.y * navHideRate
         } else {
             backgroundViewHeight.constant = 0
-            // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: 0)
         }
     }
 
