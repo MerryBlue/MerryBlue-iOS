@@ -551,7 +551,6 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="ZGD-NC-nan"/>
-                                                    <constraint firstAttribute="width" constant="584" id="oa3-Yu-JJb"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>

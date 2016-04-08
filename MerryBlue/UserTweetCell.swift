@@ -36,6 +36,7 @@ class UserTweetCell: UITableViewCell {
         let imageHeight: CGFloat = 100
         self.imageStackViewHeight.constant = CGFloat(tweet.imageURLs.count) * imageHeight
 
+        _ = self.imageStackView.subviews.map { $0.removeFromSuperview() }
         if hasMedia! && self.imageStackView.subviews.count == 0 {
             for (i, url) in tweet.imageURLs.enumerate() {
                 let imageView = UIImageView()
