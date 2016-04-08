@@ -774,7 +774,6 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="Zrx-2d-LcS" secondAttribute="bottom" id="Lqg-2m-iIH"/>
                                             <constraint firstItem="Zrx-2d-LcS" firstAttribute="top" secondItem="MDC-cq-xGu" secondAttribute="top" id="MRw-zW-Hso"/>
@@ -793,7 +792,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="eeH-fE-n2V" firstAttribute="leading" secondItem="l8R-XQ-jpd" secondAttribute="leadingMargin" constant="-20" id="BxC-w7-F2L"/>
                             <constraint firstItem="Q1a-rz-iva" firstAttribute="top" secondItem="eeH-fE-n2V" secondAttribute="bottom" id="FLb-TX-2sW"/>
@@ -802,7 +801,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="viewerImgView" destination="Zrx-2d-LcS" id="V13-qo-Vfa"/>
+                        <outlet property="imageView" destination="Zrx-2d-LcS" id="XRa-mn-ct9"/>
+                        <outlet property="scrollView" destination="eeH-fE-n2V" id="up2-SY-rZB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OMW-zj-XQM" userLabel="First Responder" sceneMemberID="firstResponder"/>
