@@ -67,6 +67,9 @@ class UserViewController: UIViewController {
             goBlack()
             return
         }
+        if self.tweets != nil {
+            return
+        }
         self.user = user
         self.title = self.user.screenNameWithAt()
         self.newCount = delegate.userViewNewCount! ?? 0
@@ -132,6 +135,13 @@ class UserViewController: UIViewController {
             let nextViewController = StoryBoardService.sharedInstance.photoViewController()
             nextViewController.viewerImgUrl = NSURL(string: imageView.sd_imageURL().absoluteString + ":orig")
             self.navigationController?.pushViewController(nextViewController, animated: true)
+        }
+    }
+
+    override func didMoveToParentViewController(parent: UIViewController?) {
+        super.willMoveToParentViewController(parent)
+        guard let _ = TwitterManager.getUserID() else {
+            return
         }
     }
 
