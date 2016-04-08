@@ -644,12 +644,12 @@
                                                                         <constraint firstItem="1ZD-Gt-Vvi" firstAttribute="leading" secondItem="1aO-47-LAa" secondAttribute="leadingMargin" id="rCN-NV-dzw"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3XN-q6-fTC">
+                                                                <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Eei-W1-qGi">
                                                                     <rect key="frame" x="0.0" y="137" width="600" height="0.0"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="100" id="W9z-du-due"/>
+                                                                        <constraint firstAttribute="height" id="3Uu-nV-1WT"/>
                                                                     </constraints>
-                                                                </imageView>
+                                                                </stackView>
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
@@ -661,7 +661,8 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
-                                                    <outlet property="mainImageView" destination="3XN-q6-fTC" id="3Us-fL-UE0"/>
+                                                    <outlet property="imageStackView" destination="Eei-W1-qGi" id="uug-yN-Q42"/>
+                                                    <outlet property="imageStackViewHeight" destination="3Uu-nV-1WT" id="seS-JC-X9k"/>
                                                     <outlet property="namesLabel" destination="SBH-MN-6vI" id="eOE-oN-rhW"/>
                                                     <outlet property="tweetTextLabel" destination="pgy-We-cv9" id="vac-lL-dbs"/>
                                                     <outlet property="userImageView" destination="SzG-92-bhS" id="T50-12-UPF"/>
