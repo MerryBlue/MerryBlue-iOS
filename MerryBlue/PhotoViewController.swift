@@ -3,6 +3,7 @@ import UIKit
 // プロトコルを追加
 class PhotoViewController: UIViewController, UIScrollViewDelegate {
 
+    @IBOutlet weak var imageViewWrap: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
 
@@ -20,21 +21,19 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
 
         let doubleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PhotoViewController.doubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
-        self.imageView.userInteractionEnabled = true
-        self.imageView.addGestureRecognizer(doubleTapGesture)
+        self.imageViewWrap.userInteractionEnabled = true
+        self.imageViewWrap.addGestureRecognizer(doubleTapGesture)
     }
 
     func doubleTap(gesture: UITapGestureRecognizer) -> Void {
 
         // print(self.scrollView.zoomScale)
         if self.scrollView.zoomScale < self.scrollView.maximumZoomScale {
-
             let newScale: CGFloat = self.scrollView.zoomScale * 3
             let zoomRect: CGRect = self.zoomRectForScale(newScale, center: gesture.locationInView(gesture.view))
             self.scrollView.zoomToRect(zoomRect, animated: true)
-
         } else {
-            self.scrollView.setZoomScale(1.0, animated: true)
+            self.scrollView.setZoomScale(self.scrollView.minimumZoomScale, animated: true)
         }
     }
 
@@ -61,7 +60,7 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
 
     // ピンチイン・ピンチアウト時に呼ばれる
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        return imageView
+        return imageViewWrap
     }
 
 }
