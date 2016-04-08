@@ -19,6 +19,7 @@
 		4540E4001CB4A956000AE6A9 /* MBTweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540E3FF1CB4A956000AE6A9 /* MBTweet.swift */; };
 		4540E4021CB50418000AE6A9 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540E4011CB50418000AE6A9 /* UIColorExtension.swift */; };
 		4548B64B1CB6C8E6001BFB2F /* DigitsKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45EBEDF01C93F62F002C6040 /* DigitsKitResources.bundle */; };
+		4548B64D1CB73EC5001BFB2F /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4548B64C1CB73EC5001BFB2F /* PhotoViewController.swift */; };
 		4551ADF51C9B33A100A00CE8 /* ListInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4551ADF41C9B33A100A00CE8 /* ListInfoCell.swift */; };
 		4552AFE01CB5F09900B762AB /* MBTableViewRowAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4552AFDF1CB5F09900B762AB /* MBTableViewRowAction.swift */; };
 		4555C0801CA4F16200A161F9 /* MBTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4555C07F1CA4F16200A161F9 /* MBTimelineViewController.swift */; };
@@ -68,6 +69,7 @@
 		453B45011C98E49100CE5FFE /* UserTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTimelineViewController.swift; sourceTree = "<group>"; };
 		4540E3FF1CB4A956000AE6A9 /* MBTweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTweet.swift; sourceTree = "<group>"; };
 		4540E4011CB50418000AE6A9 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		4548B64C1CB73EC5001BFB2F /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		4551ADF41C9B33A100A00CE8 /* ListInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListInfoCell.swift; sourceTree = "<group>"; };
 		4552AFDF1CB5F09900B762AB /* MBTableViewRowAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTableViewRowAction.swift; sourceTree = "<group>"; };
 		4555C07F1CA4F16200A161F9 /* MBTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTimelineViewController.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				457E0BE91C933D25000A665A /* HomeViewController.swift */,
 				45ABA1EE1C9811C1006DE856 /* ListTimelineViewController.swift */,
 				453B45011C98E49100CE5FFE /* UserTimelineViewController.swift */,
+				4548B64C1CB73EC5001BFB2F /* PhotoViewController.swift */,
 				4555C07F1CA4F16200A161F9 /* MBTimelineViewController.swift */,
 				45EC9A891CA1A99100ABE06A /* LeftMenuViewController.swift */,
 				45C67AC11CB3BA7F00C98329 /* UserViewController.swift */,
@@ -429,6 +432,7 @@
 				457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */,
 				455F3D961CA2EF76001495A9 /* MBColor.swift in Sources */,
 				45A68DDB1CB1781F007719E1 /* AlertManager.swift in Sources */,
+				4548B64D1CB73EC5001BFB2F /* PhotoViewController.swift in Sources */,
 				45C67ABE1CB2C3A700C98329 /* ConfigService.swift in Sources */,
 				456404B81CA69D6400ED2505 /* MenuItemProtocol.swift in Sources */,
 				451B85221CAA519E003DD63F /* UIImageExtension.swift in Sources */,

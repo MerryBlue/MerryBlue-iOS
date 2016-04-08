@@ -7,7 +7,10 @@ class UserTweetCell: UITableViewCell {
     @IBOutlet weak var namesLabel: UILabel!
     @IBOutlet weak var userImageView: UIImageView!
 
-    @IBOutlet weak var mainImageView: UIImageView!
+    @IBOutlet weak var imageStackView: UIStackView!
+    @IBOutlet weak var imageStackViewHeight: NSLayoutConstraint!
+
+    var hasMedia: Bool!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,7 +23,7 @@ class UserTweetCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func setCell(tweet: MBTweet) {
+    func setCell(tweet: MBTweet, gestures: [UIGestureRecognizer]) {
         var sourceTweet: TWTRTweet = tweet
         if tweet.isRetweet {
             sourceTweet = tweet.retweetedTweet
@@ -29,16 +32,23 @@ class UserTweetCell: UITableViewCell {
         self.namesLabel.text = "\(sourceTweet.author.name)・@\(sourceTweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
         self.userImageView.sd_setImageWithURL(NSURL(string: sourceTweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
-        self.mainImageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 0)
-        self.mainImageView.image = nil
-        if tweet.imageURLs.count > 0 {
-            self.mainImageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 100)
-            self.mainImageView.contentMode = .ScaleAspectFill
-            self.mainImageView.clipsToBounds = true
-            self.mainImageView.backgroundColor = UIColor.blackColor()
-            // self.imageBoxView.addSubview(mainImageView)
+        self.hasMedia = tweet.imageURLs.count > 0
+        let imageHeight: CGFloat = 100
+        self.imageStackViewHeight.constant = CGFloat(tweet.imageURLs.count) * imageHeight
 
-            self.mainImageView.sd_setImageWithURL(NSURL(string: tweet.imageURLs[0]), placeholderImage: UIImage(named: "icon-indicator"))
+        _ = self.imageStackView.subviews.map { $0.removeFromSuperview() }
+        if hasMedia! && self.imageStackView.subviews.count == 0 {
+            for (i, url) in tweet.imageURLs.enumerate() {
+                let imageView = UIImageView()
+                imageView.tag = i
+                imageView.userInteractionEnabled = true
+                // imageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: imageHeight)
+                imageView.contentMode = .ScaleAspectFill
+                imageView.clipsToBounds = true
+                imageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: UIImage(named: "icon-indicator"))
+                imageView.addGestureRecognizer(gestures[i])
+                self.imageStackView.insertArrangedSubview(imageView, atIndex: i)
+            }
         }
 
     }

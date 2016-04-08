@@ -32,4 +32,7 @@ class StoryBoardService {
         return (storyboard.instantiateViewControllerWithIdentifier("home-nav") as? UINavigationController)!
     }
 
+    func photoViewController() -> PhotoViewController {
+        return (storyboard.instantiateViewControllerWithIdentifier("photo-view") as? PhotoViewController)!
+    }
 }

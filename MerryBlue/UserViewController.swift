@@ -67,6 +67,9 @@ class UserViewController: UIViewController {
             goBlack()
             return
         }
+        if self.tweets != nil {
+            return
+        }
         self.user = user
         self.title = self.user.screenNameWithAt()
         self.newCount = delegate.userViewNewCount! ?? 0
@@ -114,16 +117,29 @@ class UserViewController: UIViewController {
                     self.isUpdating = false
                 })
         }
-        // backgroundView.clipsToBounds = true
+
+        let navHideRate: CGFloat = 1.618
         if self.tableView.contentOffset.y <= 0 {
             backgroundViewHeight.constant = self.bgViewHeight
-            // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
-        } else if self.tableView.contentOffset.y <= self.bgViewHeight {
-            backgroundViewHeight.constant = self.bgViewHeight - self.tableView.contentOffset.y
-            // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: self.bgViewHeight - self.tableView.contentOffset.y)
+        } else if self.tableView.contentOffset.y * navHideRate <= self.bgViewHeight {
+            backgroundViewHeight.constant = self.bgViewHeight - self.tableView.contentOffset.y * navHideRate
         } else {
             backgroundViewHeight.constant = 0
-            // self.backgroundView.frame = CGRect(x: 0, y: 0, width: self.backgroundView.frame.width, height: 0)
+        }
+    }
+
+    func didClickimageView(recognizer: UIGestureRecognizer) {
+        if let imageView = recognizer.view as? UIImageView {
+            let nextViewController = StoryBoardService.sharedInstance.photoViewController()
+            nextViewController.viewerImgUrl = NSURL(string: imageView.sd_imageURL().absoluteString + ":orig")
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+        }
+    }
+
+    override func didMoveToParentViewController(parent: UIViewController?) {
+        super.willMoveToParentViewController(parent)
+        guard let _ = TwitterManager.getUserID() else {
+            return
         }
     }
 
@@ -133,7 +149,9 @@ extension UserViewController: UITableViewDelegate {
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
-        cell.setCell(tweets[indexPath.row])
+        let tweet = tweets[indexPath.row]
+        let gestures = (0..<tweet.imageURLs.count).map { _ in UITapGestureRecognizer(target:self, action: #selector(UserViewController.didClickimageView(_:))) }
+        cell.setCell(tweet, gestures: gestures)
         return cell
     }
 

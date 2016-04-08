@@ -15,7 +15,7 @@ class MBTweet: TWTRTweet {
 
     init?(json: SwiftyJSON.JSON) {
         super.init(JSONDictionary: json.dictionaryObject)
-        let medias = json["entities"]["media"].arrayValue
+        let medias = json["extended_entities"]["media"].arrayValue
         if medias.count > 0 {
             imageURLs = medias.map { $0["media_url_https"].stringValue }
         } else {
