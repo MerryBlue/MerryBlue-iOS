@@ -10,6 +10,10 @@ class UserTweetCell: UITableViewCell {
     @IBOutlet weak var imageStackView: UIStackView!
     @IBOutlet weak var imageStackViewHeight: NSLayoutConstraint!
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+
     var hasMedia: Bool!
 
     override func awakeFromNib() {
