@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="UserTweetCell" customModule="MerryBlue" customModuleProvider="target">
+        <view tag="1" contentMode="scaleToFill" id="iN0-l3-epB" customClass="UserTweetCell" customModule="MerryBlue" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -43,16 +43,16 @@
                                             <rect key="frame" x="45" y="0.0" width="539" height="584"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="名前・@Screen_name・15h" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fuo-FC-BzA">
-                                                    <rect key="frame" x="0.0" y="0.0" width="539" height="20"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="539" height="24"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="0i2-2V-QTM"/>
+                                                        <constraint firstAttribute="height" constant="24" id="0i2-2V-QTM"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.51037660259999995" green="0.51037660259999995" blue="0.51037660259999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gS-T1-qhy">
-                                                    <rect key="frame" x="0.0" y="25" width="539" height="559"/>
+                                                    <rect key="frame" x="0.0" y="29" width="539" height="555"/>
                                                     <string key="text">けれども私は「失敗に備えておく」というその言葉の意味を理解することができませんでした。もし私が失敗するとしても、自分の信念を持ち続けること以外、失敗への備えなどしたくないと思っていたのです。 倒れる時は後ろではなく、前のめりに倒れたいと思っていました。それなら少なくとも、何を目指して倒れたのかこの目で見ることができるからです。
 私が言いたいのはこういうことです。今日ここにいる卒業生の方々はみなさん才能があり、成功するための教育を受けています。でもみなさんに、失敗する度胸はありますか？</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -72,7 +72,7 @@
                                 <constraint firstAttribute="bottom" secondItem="J8i-kT-lYM" secondAttribute="bottom" id="qvO-Ea-pFs"/>
                             </constraints>
                         </view>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9zB-Od-aof">
+                        <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="9zB-Od-aof">
                             <rect key="frame" x="0.0" y="584" width="584" height="0.0"/>
                             <constraints>
                                 <constraint firstAttribute="height" id="aXy-Od-i5s"/>
@@ -82,6 +82,7 @@
                 </stackView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="4iM-ew-RRi" secondAttribute="trailing" constant="8" id="9nu-99-VZ3"/>
                 <constraint firstAttribute="bottom" secondItem="4iM-ew-RRi" secondAttribute="bottom" constant="8" id="RXA-BJ-px9"/>
