@@ -6,7 +6,7 @@ class ListTimelineViewController: MBTimelineViewController {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
-    var list: TwitterList!
+    var list: MBTwitterList!
     convenience init() {
         guard let list = ListService.sharedInstance.selectHomeList() else {
             // TWTRUserTimelineDataSource(screenName: nil, userID: TwitterManager.getUserID(), APIClient: TwitterManager.getClient()

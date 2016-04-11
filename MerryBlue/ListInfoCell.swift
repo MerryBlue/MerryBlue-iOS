@@ -18,7 +18,7 @@ class ListInfoCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func setCell(listInfo: TwitterList) {
+    func setCell(listInfo: MBTwitterList) {
         self.listNameLabel.text = listInfo.name
         self.memberNumLabel.text = String(listInfo.memberCount)
         switch listInfo.listType {

@@ -21,7 +21,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var refreshControl: UIRefreshControl!
 
-    var twitterLists = [TwitterList]()
+    var twitterLists = [MBTwitterList]()
     var selectedIndex: NSIndexPath!
 
     override func viewDidLoad() {
@@ -40,7 +40,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         if lists.isEmpty {
             self.activityIndicator.startAnimating()
             _ = TwitterManager.requestLists(TwitterManager.getUserID())
-                .subscribeNext({ (lists: [TwitterList]) in self.setupTableView(lists) })
+                .subscribeNext({ (lists: [MBTwitterList]) in self.setupTableView(lists) })
         } else {
             setupTableView(lists)
         }
@@ -172,7 +172,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     // func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
     // }
 
-    internal func setupTableView(lists: [TwitterList]) {
+    internal func setupTableView(lists: [MBTwitterList]) {
         twitterLists = lists
         tableView.reloadData()
 
@@ -187,7 +187,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         // self.fetchListUpdate(lists)
     }
 
-    private func fetchListUpdate(lists: [TwitterList]) {
+    private func fetchListUpdate(lists: [MBTwitterList]) {
 
     }
 
@@ -223,7 +223,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             return
         }
         _ = TwitterManager.requestLists(TwitterManager.getUserID())
-            .subscribeNext({ (lists: [TwitterList]) in
+            .subscribeNext({ (lists: [MBTwitterList]) in
                 self.setupTableView(ListService.sharedInstance.fetchList(lists))
             })
         refreshControl.endRefreshing()

@@ -15,9 +15,9 @@ class UserService {
         self.userDefaults.synchronize()
     }
 
-    // func selectLists() -> [TwitterList] {
+    // func selectLists() -> [MBTwitterList] {
     //     guard let unarchivedObject = self.userDefaults.objectForKey(forKeyUser(UserDefaultsKey.Lists)) as? NSData,
-    //         let lists = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedObject) as? [TwitterList] else {
+    //         let lists = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedObject) as? [MBTwitterList] else {
     //             return []
     //     }
     //

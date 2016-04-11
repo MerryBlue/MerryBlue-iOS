@@ -13,7 +13,7 @@ class AlertManager {
     func listMemberLimit() -> UIAlertController {
         let ac = UIAlertController(
             title: "メンバー数制限",
-            message: "メンバー数が多すぎます(\(TwitterList.memberNumActiveMaxLimit)人まで)",
+            message: "メンバー数が多すぎます(\(MBTwitterList.memberNumActiveMaxLimit)人まで)",
             preferredStyle: UIAlertControllerStyle.Alert)
         ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         return ac

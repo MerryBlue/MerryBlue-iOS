@@ -20,7 +20,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var cleanButton: UIBarButtonItem!
     @IBOutlet weak var switchListButton: UIBarButtonItem!
 
-    var list: TwitterList!
+    var list: MBTwitterList!
     var users = [TwitterUser]()
     var filtered: Bool!
     // 初めは時間順，オーダーメソッドが呼ばれるので逆に設定
