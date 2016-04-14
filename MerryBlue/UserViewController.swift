@@ -126,7 +126,7 @@ class UserViewController: UIViewController {
         }
 
         let navHideRate: CGFloat = 1.618
-        if self.tableView.contentOffset.y <= 0 {
+        if self.tweets == nil || self.tableView.contentOffset.y <= 0 {
             backgroundViewHeight.constant = self.bgViewHeight
         } else if self.tableView.contentOffset.y * navHideRate <= self.bgViewHeight {
             backgroundViewHeight.constant = self.bgViewHeight - self.tableView.contentOffset.y * navHideRate
