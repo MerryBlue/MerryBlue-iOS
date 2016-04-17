@@ -19,6 +19,10 @@ class TwitterManager {
         return users.sort { return $0.compareNewCountTo($1) }
     }
 
+    static func sortUsersNewCountRev(users: [TwitterUser]) -> [TwitterUser] {
+        return users.sort { return $0.compareNewCountRevTo($1) }
+    }
+
     // ---------- rx ------------ //
     static func requestUserProfile(userID: String) -> Observable<TwitterUser> {
         return Observable.create { observer -> Disposable in

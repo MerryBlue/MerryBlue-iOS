@@ -72,6 +72,21 @@ class TwitterUser: TWTRUser {
         return self.compareLastTweetTo(user)
     }
 
+    // NewCount が少ない順 ただし 0 は最後
+    func compareNewCountRevTo(user: TwitterUser) -> Bool {
+        // 小さい順
+        if self.newCount() == 0 && user.newCount() > 0 {
+            return false
+        } else if self.newCount() > 0 && user.newCount() == 0 {
+            return true
+        }
+        let c = self.newCount() - user.newCount()
+        if c != 0 {
+            return c < 0
+        }
+        return self.compareLastTweetTo(user)
+    }
+
     func compareLastTweetTo(user: TwitterUser) -> Bool {
         guard let s1 = self.lastStatus else {
             return false
