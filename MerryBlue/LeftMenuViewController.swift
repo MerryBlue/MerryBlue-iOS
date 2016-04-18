@@ -204,16 +204,11 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             return
         }
         // selectCell(indexPath)
-        if list.enable() {
-            ListService.sharedInstance.updateHomeList(list)
+        ListService.sharedInstance.updateHomeList(list)
 
-            self.slideMenuController()?.changeMainViewController(
-                (self.slideMenuController()?.mainViewController)!,
-                close: true)
-        } else {
-            // 選択不可アラート
-            presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
-        }
+        self.slideMenuController()?.changeMainViewController(
+            (self.slideMenuController()?.mainViewController)!,
+            close: true)
     }
 
     func pullToRefresh() {

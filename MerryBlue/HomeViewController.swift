@@ -52,6 +52,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         self.list = list
+        if list.disable() {
+            self.activityIndicator.stopAnimating()
+            presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
+            return
+        }
         self.activityIndicator.startAnimating()
         if let type = ConfigService.sharedInstance.selectOrderType(TwitterManager.getUserID()) {
             orderType = type

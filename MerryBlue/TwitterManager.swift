@@ -70,7 +70,7 @@ class TwitterManager {
         }
     }
 
-    static func requestListMembers(list: MBTwitterList, count: Int = 50) -> Observable<[TwitterUser]> {
+    static func requestListMembers(list: MBTwitterList, count: Int = MBTwitterList.memberNumActiveMaxLimit) -> Observable<[TwitterUser]> {
         return Observable.create { observer -> Disposable in
             _ = Twitter.sharedInstance()
                 .rxLoadListMembers(list.listID, client: getClient(), count: count)
