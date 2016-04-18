@@ -83,6 +83,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.openListsChooser()
             return
         }
+        if list.disable() {
+            self.activityIndicator.stopAnimating()
+            presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
+            refreshControl.endRefreshing()
+            return
+        }
         _ = TwitterManager.requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in
                 self.setupListUsers(users)
