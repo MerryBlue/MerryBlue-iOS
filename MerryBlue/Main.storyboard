@@ -619,10 +619,10 @@
             </objects>
             <point key="canvasLocation" x="1908" y="454"/>
         </scene>
-        <!--View Controller-->
+        <!--Tweet View Controller-->
         <scene sceneID="aNG-NT-rxj">
             <objects>
-                <viewController storyboardIdentifier="show-tweet" id="Ckk-hw-1e1" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="show-tweet" id="Ckk-hw-1e1" customClass="TweetViewController" customModule="MerryBlue" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jzo-Mj-CHJ"/>
                         <viewControllerLayoutGuide type="bottom" id="zNF-YO-DcN"/>
@@ -630,7 +630,75 @@
                     <view key="view" contentMode="scaleToFill" id="VAJ-3k-LxR">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zFb-Jd-te5">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="133"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NKh-Wy-oI4">
+                                        <rect key="frame" x="8" y="8" width="584" height="117"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="qQw-UG-71H">
+                                                <rect key="frame" x="0.0" y="0.0" width="584" height="50"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4Jp-5m-cWP">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="50" id="b5q-ge-Ewb"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="LaN-Tq-RM6">
+                                                        <rect key="frame" x="52" y="0.0" width="532" height="50"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="名前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kc3-Wt-4E8">
+                                                                <rect key="frame" x="0.0" y="0.0" width="532" height="25"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="25" id="Dw6-GY-AYe"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@screen_name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ZW-3e-N2a">
+                                                                <rect key="frame" x="0.0" y="25" width="532" height="25"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="25" id="Y48-2E-bdY"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="c6v-fw-krH"/>
+                                                </constraints>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ZH-RC-Q8r">
+                                                <rect key="frame" x="0.0" y="50" width="584" height="67"/>
+                                                <string key="text">もう一部で力説者はせっかくその意味うですまでがなるて込まうには意味すれでませが、ぴたりにも起しないませないた。爺さんを引けるな事はたとい生涯をとうとうだですない。もっとも岡田さんで相違口もう少し評価の仕上るな他この心あいつか満足をというごお尋ねたでなますながら</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="NKh-Wy-oI4" firstAttribute="top" secondItem="zFb-Jd-te5" secondAttribute="top" constant="8" id="3OR-dD-x57"/>
+                                    <constraint firstAttribute="bottom" secondItem="NKh-Wy-oI4" secondAttribute="bottom" constant="8" id="Gre-Mc-OuY"/>
+                                    <constraint firstItem="NKh-Wy-oI4" firstAttribute="leading" secondItem="zFb-Jd-te5" secondAttribute="leading" constant="8" id="hjM-pH-aLq"/>
+                                    <constraint firstAttribute="trailing" secondItem="NKh-Wy-oI4" secondAttribute="trailing" constant="8" id="qnw-dM-3fU"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zFb-Jd-te5" firstAttribute="leading" secondItem="VAJ-3k-LxR" secondAttribute="leading" id="ND7-8b-Iib"/>
+                            <constraint firstItem="zFb-Jd-te5" firstAttribute="top" secondItem="VAJ-3k-LxR" secondAttribute="top" id="ScX-94-OOz"/>
+                            <constraint firstAttribute="trailing" secondItem="zFb-Jd-te5" secondAttribute="trailing" id="VOh-uX-Ogo"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j1o-fq-JBt" userLabel="First Responder" sceneMemberID="firstResponder"/>
