@@ -53,7 +53,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         self.list = list
-        if list.disable() {
+        if !list.isTimelineTabEnable() {
             self.activityIndicator.stopAnimating()
             presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
             return
@@ -84,7 +84,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.openListsChooser()
             return
         }
-        if list.disable() {
+        if !list.isTimelineTabEnable() {
             self.activityIndicator.stopAnimating()
             presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
             refreshControl.endRefreshing()

@@ -30,7 +30,7 @@ class ListInfoCell: UITableViewCell {
             self.iconImageView.image = UIImage(named: "icon-recent-follower")
         }
 
-        if listInfo.enable() {
+        if listInfo.isTimelineTabEnable() {
             self.listNameLabel.textColor = UIColor.blackColor()
             self.memberNumLabel.textColor = UIColor.blackColor()
         } else {

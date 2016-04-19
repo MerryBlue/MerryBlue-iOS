@@ -91,14 +91,6 @@ class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
         return [ 0: ListType.Normal, 1: ListType.RecentFollow ][typeID]!
     }
 
-    internal func enable() -> Bool {
-        return self.memberCount < MBTwitterList.memberNumActiveMaxLimit
-    }
-
-    internal func disable() -> Bool {
-        return !self.enable()
-    }
-
     func isType(type: ListType) -> Bool {
         return self.listType == type
     }
