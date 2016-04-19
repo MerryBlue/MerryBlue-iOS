@@ -43,8 +43,15 @@ class UserViewController: UIViewController {
         // self.tableView.addSubview(refreshControl)
         // self.refreshControl = nil
 
+        let nib = UINib(nibName: "UserTweetCell", bundle: nil)
+        tableView.registerNib(nib, forCellReuseIdentifier: "tweet")
+
         self.tableView.estimatedRowHeight = 20
+
         self.tableView.rowHeight = UITableViewAutomaticDimension
+
+        // let recognizer = UITapGestureRecognizer()
+        // self.tableView.addGestureRecognizer(recognizer)
     }
 
     func pullToRefresh() {
@@ -119,20 +126,12 @@ class UserViewController: UIViewController {
         }
 
         let navHideRate: CGFloat = 1.618
-        if self.tableView.contentOffset.y <= 0 {
+        if self.tweets == nil || self.tableView.contentOffset.y <= 0 {
             backgroundViewHeight.constant = self.bgViewHeight
         } else if self.tableView.contentOffset.y * navHideRate <= self.bgViewHeight {
             backgroundViewHeight.constant = self.bgViewHeight - self.tableView.contentOffset.y * navHideRate
         } else {
             backgroundViewHeight.constant = 0
-        }
-    }
-
-    func didClickimageView(recognizer: UIGestureRecognizer) {
-        if let imageView = recognizer.view as? UIImageView {
-            let nextViewController = StoryBoardService.sharedInstance.photoViewController()
-            nextViewController.viewerImgUrl = NSURL(string: imageView.sd_imageURL().absoluteString + ":orig")
-            self.navigationController?.pushViewController(nextViewController, animated: true)
         }
     }
 
@@ -150,8 +149,7 @@ extension UserViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
         let tweet = tweets[indexPath.row]
-        let gestures = (0..<tweet.imageURLs.count).map { _ in UITapGestureRecognizer(target:self, action: #selector(UserViewController.didClickimageView(_:))) }
-        cell.setCell(tweet, gestures: gestures)
+        cell.setCell(tweet)
         return cell
     }
 
@@ -164,16 +162,8 @@ extension UserViewController: UITableViewDelegate {
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let tweet = tweets[indexPath.row]
-        let twitterUrl = NSURL(string: "twitter://status?id=\(tweet.tweetID)")!
-        let url = NSURL(string: "https://twitter.com/chomado/status/\(tweet.tweetID)")
-        if UIApplication.sharedApplication().canOpenURL(twitterUrl) {
-            UIApplication.sharedApplication().openURL(twitterUrl)
-        } else if UIApplication.sharedApplication().canOpenURL(url!) {
-            UIApplication.sharedApplication().openURL(url!)
-        } else {
-            AlertManager.sharedInstantce.disableOpenApp()
-        }
-
+        self.delegate.showTweet = tweet.sourceTweet()
+        self.navigationController?.pushViewController(StoryBoardService.sharedInstance.showTweetView(), animated: true)
     }
 
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {

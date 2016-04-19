@@ -6,7 +6,7 @@ class ListTimelineViewController: MBTimelineViewController {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
-    var list: TwitterList!
+    var list: MBTwitterList!
     convenience init() {
         guard let list = ListService.sharedInstance.selectHomeList() else {
             // TWTRUserTimelineDataSource(screenName: nil, userID: TwitterManager.getUserID(), APIClient: TwitterManager.getClient()
@@ -27,6 +27,7 @@ class ListTimelineViewController: MBTimelineViewController {
         self.showTweetActions = true
         self.title = "ListTimeline"
         self.list = list
+        self.setupTabbarItemState()
         // TwitterManager.getListUsers(listId)
     }
 
@@ -61,6 +62,14 @@ class ListTimelineViewController: MBTimelineViewController {
         slideMenu.openLeft()
     }
 
+    func setupTabbarItemState() {
+        guard let items: [UITabBarItem] = self.tabBarController!.tabBar.items,
+            list = ListService.sharedInstance.selectHomeList()
+            where items.count == 2 else { return }
+        items[0].enabled = list.isHomeTabEnable()
+        items[1].enabled = list.isTimelineTabEnable()
+    }
+
     override func didMoveToParentViewController(parent: UIViewController?) {
         super.willMoveToParentViewController(parent)
         guard let _ = TwitterManager.getUserID() else {
@@ -70,6 +79,7 @@ class ListTimelineViewController: MBTimelineViewController {
             self.openListsChooser()
             return
         }
+        self.setupTabbarItemState()
         if let nowList = self.list where nowList.listID == list.listID {
             return
         }

@@ -20,7 +20,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var cleanButton: UIBarButtonItem!
     @IBOutlet weak var switchListButton: UIBarButtonItem!
 
-    var list: TwitterList!
+    var list: MBTwitterList!
     var users = [TwitterUser]()
     var filtered: Bool!
     // 初めは時間順，オーダーメソッドが呼ばれるので逆に設定
@@ -33,6 +33,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.setNavigationBar()
         self.filtered = false
         self.setupTableView()
+        self.setupTabbarItemState()
     }
 
     func checkLogin() {
@@ -52,6 +53,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         self.list = list
+        if !list.isHomeTabEnable() {
+            self.activityIndicator.stopAnimating()
+            presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
+            return
+        }
         self.activityIndicator.startAnimating()
         if let type = ConfigService.sharedInstance.selectOrderType(TwitterManager.getUserID()) {
             orderType = type
@@ -76,6 +82,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func pullToRefresh() {
         guard let _ = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
+            return
+        }
+        if !list.isHomeTabEnable() {
+            self.activityIndicator.stopAnimating()
+            presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
+            refreshControl.endRefreshing()
             return
         }
         _ = TwitterManager.requestMembers(list)
@@ -162,7 +174,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.users = TwitterManager.sortUsersLastupdate(users)
             self.orderButton.image = AssetSertvice.sharedInstance.iconSortByTime
         case HomeViewOrderType.ReadCountOrder:
-            self.users = TwitterManager.sortUsersNewCount(users)
+            self.users = TwitterManager.sortUsersNewCountRev(users)
             self.orderButton.image = AssetSertvice.sharedInstance.iconSortByCount
         default:
             break
@@ -198,11 +210,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.updateList()
     }
 
+    func setupTabbarItemState() {
+        guard let items: [UITabBarItem] = self.tabBarController!.tabBar.items,
+            list = ListService.sharedInstance.selectHomeList()
+            where items.count == 2 else { return }
+
+        items[0].enabled = list.isHomeTabEnable()
+        items[1].enabled = list.isTimelineTabEnable()
+    }
+
     internal func updateList() {
         guard let list = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return
         }
+        self.setupTabbarItemState()
         if let _ = self.list where self.list.equalItem(list) {
             return
         }

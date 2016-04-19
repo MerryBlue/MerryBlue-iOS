@@ -7,7 +7,7 @@ class TwitterManager {
     static let HOST = "https://api.twitter.com/1.1"
     static let listFilterMemberMaxNum = 50
 
-    static func filterList(lists: [TwitterList]) -> [TwitterList] {
+    static func filterList(lists: [MBTwitterList]) -> [MBTwitterList] {
         return lists.filter { $0.memberCount <= listFilterMemberMaxNum }
     }
 
@@ -17,6 +17,10 @@ class TwitterManager {
 
     static func sortUsersNewCount(users: [TwitterUser]) -> [TwitterUser] {
         return users.sort { return $0.compareNewCountTo($1) }
+    }
+
+    static func sortUsersNewCountRev(users: [TwitterUser]) -> [TwitterUser] {
+        return users.sort { return $0.compareNewCountRevTo($1) }
     }
 
     // ---------- rx ------------ //
@@ -32,7 +36,7 @@ class TwitterManager {
         }
     }
 
-    static func requestMembers(list: TwitterList) -> Observable<[TwitterUser]> {
+    static func requestMembers(list: MBTwitterList) -> Observable<[TwitterUser]> {
         switch list.listType {
         case .RecentFollow: return requestFriendUsers(getUserID())
         case .RecentFollower: return requestFollowerUsers(getUserID())
@@ -66,7 +70,7 @@ class TwitterManager {
         }
     }
 
-    static func requestListMembers(list: TwitterList, count: Int = 50) -> Observable<[TwitterUser]> {
+    static func requestListMembers(list: MBTwitterList, count: Int = MBTwitterList.memberNumActiveMaxLimit) -> Observable<[TwitterUser]> {
         return Observable.create { observer -> Disposable in
             _ = Twitter.sharedInstance()
                 .rxLoadListMembers(list.listID, client: getClient(), count: count)
@@ -105,13 +109,13 @@ class TwitterManager {
         }
     }
 
-    static func requestLists(ownerID: String) -> Observable<[TwitterList]> {
+    static func requestLists(ownerID: String) -> Observable<[MBTwitterList]> {
         return Observable.create { observer -> Disposable in
             _ = Twitter.sharedInstance()
                 .rxLoadLists(ownerID, client: getClient())
                 .subscribeNext { (listsData: NSData) in
                     let json = JSON(data: listsData)
-                    let lists = json.map { return TwitterList(jsonData: $1) }
+                    let lists = json.map { return MBTwitterList(jsonData: $1) }
                     observer.onNext(lists)
             }
             return AnonymousDisposable {}

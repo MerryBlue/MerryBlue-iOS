@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view tag="1" contentMode="scaleToFill" id="iN0-l3-epB" customClass="UserTweetCell" customModule="MerryBlue" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="4iM-ew-RRi">
+                    <rect key="frame" x="8" y="8" width="584" height="584"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bdo-dN-PwF">
+                            <rect key="frame" x="0.0" y="0.0" width="584" height="584"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="J8i-kT-lYM">
+                                    <rect key="frame" x="0.0" y="0.0" width="584" height="584"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lCb-ku-rOp">
+                                            <rect key="frame" x="0.0" y="0.0" width="40" height="584"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hAq-9m-yYH">
+                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="3E2-Hh-jlS"/>
+                                                        <constraint firstAttribute="width" constant="40" id="zUf-Gt-4mf"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="hAq-9m-yYH" firstAttribute="leading" secondItem="lCb-ku-rOp" secondAttribute="leading" id="Fhm-Ml-2hY"/>
+                                                <constraint firstAttribute="trailing" secondItem="hAq-9m-yYH" secondAttribute="trailing" id="Kz5-iM-PKW"/>
+                                                <constraint firstItem="hAq-9m-yYH" firstAttribute="top" secondItem="lCb-ku-rOp" secondAttribute="top" id="Tfq-Zq-pAq"/>
+                                                <constraint firstAttribute="width" constant="40" id="p5x-LW-NCL"/>
+                                            </constraints>
+                                        </view>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="yau-Z6-0nY">
+                                            <rect key="frame" x="45" y="0.0" width="539" height="584"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="名前・@Screen_name・15h" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fuo-FC-BzA">
+                                                    <rect key="frame" x="0.0" y="0.0" width="539" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="24" id="0i2-2V-QTM"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.51037660259999995" green="0.51037660259999995" blue="0.51037660259999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gS-T1-qhy">
+                                                    <rect key="frame" x="0.0" y="29" width="539" height="555"/>
+                                                    <string key="text">けれども私は「失敗に備えておく」というその言葉の意味を理解することができませんでした。もし私が失敗するとしても、自分の信念を持ち続けること以外、失敗への備えなどしたくないと思っていたのです。 倒れる時は後ろではなく、前のめりに倒れたいと思っていました。それなら少なくとも、何を目指して倒れたのかこの目で見ることができるからです。
+私が言いたいのはこういうことです。今日ここにいる卒業生の方々はみなさん才能があり、成功するための教育を受けています。でもみなさんに、失敗する度胸はありますか？</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="J8i-kT-lYM" secondAttribute="trailing" id="OEk-6c-6eu"/>
+                                <constraint firstItem="J8i-kT-lYM" firstAttribute="leading" secondItem="Bdo-dN-PwF" secondAttribute="leading" id="XcW-ta-sg4"/>
+                                <constraint firstItem="J8i-kT-lYM" firstAttribute="top" secondItem="Bdo-dN-PwF" secondAttribute="top" id="dQV-un-eXc"/>
+                                <constraint firstAttribute="bottom" secondItem="J8i-kT-lYM" secondAttribute="bottom" id="qvO-Ea-pFs"/>
+                            </constraints>
+                        </view>
+                        <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="9zB-Od-aof">
+                            <rect key="frame" x="0.0" y="584" width="584" height="0.0"/>
+                            <constraints>
+                                <constraint firstAttribute="height" id="aXy-Od-i5s"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="4iM-ew-RRi" secondAttribute="trailing" constant="8" id="9nu-99-VZ3"/>
+                <constraint firstAttribute="bottom" secondItem="4iM-ew-RRi" secondAttribute="bottom" constant="8" id="RXA-BJ-px9"/>
+                <constraint firstItem="4iM-ew-RRi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="Z3c-Sa-g02"/>
+                <constraint firstItem="4iM-ew-RRi" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="tUh-2q-Ct9"/>
+            </constraints>
+            <connections>
+                <outlet property="imageStackView" destination="9zB-Od-aof" id="kzD-pQ-qtU"/>
+                <outlet property="imageStackViewHeight" destination="aXy-Od-i5s" id="fNz-SW-UJG"/>
+                <outlet property="namesLabel" destination="Fuo-FC-BzA" id="Ygc-VO-Bpk"/>
+                <outlet property="tweetTextLabel" destination="3gS-T1-qhy" id="XTq-1m-hdx"/>
+                <outlet property="userImageView" destination="hAq-9m-yYH" id="quB-ZD-rDi"/>
+            </connections>
+            <point key="canvasLocation" x="150" y="559"/>
+        </view>
+    </objects>
+</document>

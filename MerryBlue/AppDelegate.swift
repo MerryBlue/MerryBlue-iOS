@@ -13,6 +13,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var userViewNewCount: Int?
     var openHomeID: Int?
 
+    var showTweet: TWTRTweet?
+
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         Fabric.with([Twitter.self, Crashlytics.self, Digits.self])

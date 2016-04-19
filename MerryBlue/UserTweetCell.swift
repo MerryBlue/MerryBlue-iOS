@@ -14,20 +14,14 @@ class UserTweetCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        self.contentView.frame = self.bounds
-        self.contentView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
 
-    func setCell(tweet: MBTweet, gestures: [UIGestureRecognizer]) {
-        var sourceTweet: TWTRTweet = tweet
-        if tweet.isRetweet {
-            sourceTweet = tweet.retweetedTweet
-        }
+    func setCell(tweet: MBTweet) {
+        let sourceTweet = tweet.sourceTweet()
         self.tweetTextLabel.text = sourceTweet.text
         self.namesLabel.text = "\(sourceTweet.author.name)・@\(sourceTweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
         self.userImageView.sd_setImageWithURL(NSURL(string: sourceTweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
@@ -40,13 +34,11 @@ class UserTweetCell: UITableViewCell {
         if hasMedia! && self.imageStackView.subviews.count == 0 {
             for (i, url) in tweet.imageURLs.enumerate() {
                 let imageView = UIImageView()
-                imageView.tag = i
                 imageView.userInteractionEnabled = true
                 // imageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: imageHeight)
                 imageView.contentMode = .ScaleAspectFill
                 imageView.clipsToBounds = true
                 imageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: UIImage(named: "icon-indicator"))
-                imageView.addGestureRecognizer(gestures[i])
                 self.imageStackView.insertArrangedSubview(imageView, atIndex: i)
             }
         }

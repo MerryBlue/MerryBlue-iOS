@@ -18,7 +18,7 @@ class ListInfoCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func setCell(listInfo: TwitterList) {
+    func setCell(listInfo: MBTwitterList) {
         self.listNameLabel.text = listInfo.name
         self.memberNumLabel.text = String(listInfo.memberCount)
         switch listInfo.listType {
@@ -30,7 +30,7 @@ class ListInfoCell: UITableViewCell {
             self.iconImageView.image = UIImage(named: "icon-recent-follower")
         }
 
-        if listInfo.enable() {
+        if listInfo.isHomeTabEnable() {
             self.listNameLabel.textColor = UIColor.blackColor()
             self.memberNumLabel.textColor = UIColor.blackColor()
         } else {

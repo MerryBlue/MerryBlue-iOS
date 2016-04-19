@@ -8,7 +8,7 @@ enum ListType: String {
     case RecentFollower = "recentFollower"
 }
 
-class TwitterList: NSObject, NSCoding, MenuItemProtocol {
+class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
     var listID: String
     var name: String
     var slug: String
@@ -37,19 +37,19 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
     init?(type: ListType) {
         self.listID      = ""
         self.slug        = ""
-        self.listType = type
+    self.listType = type
         self.visible = true
 
         switch type {
         case .RecentFollow:
             self.name = "直近フォロー"
-            self.desc = "最近フォローした\(TwitterList.recentFollowUser)人のメンバーです"
-            self.memberCount = TwitterList.recentFollowUser
+            self.desc = "最近フォローした\(MBTwitterList.recentFollowUser)人のメンバーです"
+            self.memberCount = MBTwitterList.recentFollowUser
             self.imageUrl    = ""
         case .RecentFollower:
             self.name = "直近フォロワー"
-            self.desc = "最近あなたをフォローした\(TwitterList.recentFollowerUser)人のメンバーです"
-            self.memberCount = TwitterList.recentFollowerUser
+            self.desc = "最近あなたをフォローした\(MBTwitterList.recentFollowerUser)人のメンバーです"
+            self.memberCount = MBTwitterList.recentFollowerUser
             self.imageUrl    = ""
         default:
             self.name = "---"
@@ -70,7 +70,7 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
         self.visible     = aDecoder.decodeObjectForKey(SerializedKey.Visible) as? Bool ?? true
         // old version patch
         if let typeID = aDecoder.decodeObjectForKey(SerializedKey.TypeID) as? Int where self.memberCount == 0 {
-            self.listType = TwitterList.toType(typeID)
+            self.listType = MBTwitterList.toType(typeID)
         } else {
             self.listType = ListType(rawValue: (aDecoder.decodeObjectForKey(SerializedKey.ListType) as? String)!) ?? ListType.Normal
         }
@@ -91,14 +91,6 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
         return [ 0: ListType.Normal, 1: ListType.RecentFollow ][typeID]!
     }
 
-    internal func enable() -> Bool {
-        return self.memberCount < TwitterList.memberNumActiveMaxLimit
-    }
-
-    internal func disable() -> Bool {
-        return !self.enable()
-    }
-
     func isType(type: ListType) -> Bool {
         return self.listType == type
     }
@@ -107,8 +99,16 @@ class TwitterList: NSObject, NSCoding, MenuItemProtocol {
         return self.listType != .Normal
     }
 
-    func equalItem(list: TwitterList) -> Bool {
+    func equalItem(list: MBTwitterList) -> Bool {
         return self.listType == list.listType && self.listID == list.listID
+    }
+
+    func isHomeTabEnable() -> Bool {
+        return self.memberCount < MBTwitterList.memberNumActiveMaxLimit
+    }
+
+    func isTimelineTabEnable() -> Bool {
+        return [ListType.Normal].contains(self.listType)
     }
 
 }

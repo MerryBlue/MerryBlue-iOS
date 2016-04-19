@@ -23,4 +23,8 @@ class MBTweet: TWTRTweet {
         }
     }
 
+    func sourceTweet() -> TWTRTweet {
+        return self.isRetweet ? self.retweetedTweet : self
+    }
+
 }
