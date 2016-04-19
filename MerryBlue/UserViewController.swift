@@ -162,7 +162,7 @@ extension UserViewController: UITableViewDelegate {
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let tweet = tweets[indexPath.row]
-        self.delegate.showTweet = tweet
+        self.delegate.showTweet = tweet.sourceTweet()
         self.navigationController?.pushViewController(StoryBoardService.sharedInstance.showTweetView(), animated: true)
     }
 

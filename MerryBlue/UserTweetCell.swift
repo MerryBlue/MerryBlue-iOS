@@ -21,10 +21,7 @@ class UserTweetCell: UITableViewCell {
     }
 
     func setCell(tweet: MBTweet) {
-        var sourceTweet: TWTRTweet = tweet
-        if tweet.isRetweet {
-            sourceTweet = tweet.retweetedTweet
-        }
+        let sourceTweet = tweet.sourceTweet()
         self.tweetTextLabel.text = sourceTweet.text
         self.namesLabel.text = "\(sourceTweet.author.name)・@\(sourceTweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
         self.userImageView.sd_setImageWithURL(NSURL(string: sourceTweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)

@@ -13,7 +13,7 @@ class TweetViewController: UIViewController {
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var tweetTextLabel: UILabel!
 
-    var tweet: MBTweet!
+    var tweet: TWTRTweet!
 
     override func viewDidLoad() {
         super.viewDidLoad()
