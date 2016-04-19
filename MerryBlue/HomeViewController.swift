@@ -33,6 +33,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.setNavigationBar()
         self.filtered = false
         self.setupTableView()
+        self.setupTabbarItemState()
     }
 
     func checkLogin() {
@@ -209,11 +210,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.updateList()
     }
 
+    func setupTabbarItemState() {
+        guard let items: [UITabBarItem] = self.tabBarController!.tabBar.items,
+            list = ListService.sharedInstance.selectHomeList()
+            where items.count == 2 else { return }
+
+        items[0].enabled = list.isHomeTabEnable()
+        items[1].enabled = list.isTimelineTabEnable()
+    }
+
     internal func updateList() {
         guard let list = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return
         }
+        self.setupTabbarItemState()
         if let _ = self.list where self.list.equalItem(list) {
             return
         }

@@ -111,6 +111,14 @@ class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
         return self.listType == list.listType && self.listID == list.listID
     }
 
+    func isHomeTabEnable() -> Bool {
+        return self.memberCount < MBTwitterList.memberNumActiveMaxLimit
+    }
+
+    func isTimelineTabEnable() -> Bool {
+        return [ListType.Normal].contains(self.listType)
+    }
+
 }
 
 struct SerializedKey {

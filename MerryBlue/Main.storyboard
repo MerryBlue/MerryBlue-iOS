@@ -640,7 +640,7 @@
         <!--Home-->
         <scene sceneID="LhJ-3p-INV">
             <objects>
-                <navigationController storyboardIdentifier="nav-home" automaticallyAdjustsScrollViewInsets="NO" id="5uS-IH-e3e" customClass="MBNavigationController" customModule="MerryBlue" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="tab-home" storyboardIdentifier="nav-home" automaticallyAdjustsScrollViewInsets="NO" id="5uS-IH-e3e" customClass="MBNavigationController" customModule="MerryBlue" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="icon-home" id="YcG-iW-w7x"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="Btz-pK-74J">
@@ -661,7 +661,7 @@
         <!--Timeline-->
         <scene sceneID="0El-ly-rii">
             <objects>
-                <navigationController storyboardIdentifier="nav-tl" automaticallyAdjustsScrollViewInsets="NO" id="gji-Eb-TX9" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="tab-tl" storyboardIdentifier="nav-tl" automaticallyAdjustsScrollViewInsets="NO" id="gji-Eb-TX9" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Timeline" image="icon-timeline" id="nNl-nQ-SqI"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="iam-m5-AO3">
