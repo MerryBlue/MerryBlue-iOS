@@ -28,6 +28,10 @@ class StoryBoardService {
         return storyboard.instantiateViewControllerWithIdentifier("user-view")
     }
 
+    func showTweetView() -> UIViewController {
+        return storyboard.instantiateViewControllerWithIdentifier("show-tweet")
+    }
+
     func navHomeViewController() -> UINavigationController {
         return (storyboard.instantiateViewControllerWithIdentifier("home-nav") as? UINavigationController)!
     }

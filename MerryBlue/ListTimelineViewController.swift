@@ -66,10 +66,8 @@ class ListTimelineViewController: MBTimelineViewController {
         guard let items: [UITabBarItem] = self.tabBarController!.tabBar.items,
             list = ListService.sharedInstance.selectHomeList()
             where items.count == 2 else { return }
-
         items[0].enabled = list.isHomeTabEnable()
         items[1].enabled = list.isTimelineTabEnable()
-
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
