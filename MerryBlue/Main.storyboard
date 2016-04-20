@@ -20,6 +20,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Y6a-fg-51p">
+                                <rect key="frame" x="0.0" y="300" width="600" height="0.0"/>
+                            </activityIndicatorView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="20W-u2-qQS">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
@@ -89,11 +92,6 @@
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="49" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MUL-AV-KMh">
                                         <rect key="frame" x="0.0" y="200" width="600" height="350"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <activityIndicatorView key="tableFooterView" hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" id="w69-Cf-aKU">
-                                            <rect key="frame" x="0.0" y="77" width="600" height="37"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="color" red="0.24313725489999999" green="0.41960784309999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        </activityIndicatorView>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="listInfoCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="listInfoCell" rowHeight="49" id="6ZQ-Rv-CWQ" customClass="ListInfoCell" customModule="MerryBlue" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="600" height="49"/>
@@ -207,7 +205,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="w69-Cf-aKU" id="rtP-K0-jej"/>
+                        <outlet property="activityIndicator" destination="Y6a-fg-51p" id="cq5-oc-0VC"/>
                         <outlet property="editButton" destination="IFN-lS-7pd" id="9ZY-lp-E0J"/>
                         <outlet property="logoutButton" destination="I7o-jL-bLZ" id="lPi-ro-nNZ"/>
                         <outlet property="nameLabel" destination="7Hq-u5-n3l" id="oMp-Br-Fm4"/>
@@ -632,10 +630,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zFb-Jd-te5">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="85"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="87"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="NKh-Wy-oI4">
-                                        <rect key="frame" x="8" y="8" width="584" height="69"/>
+                                        <rect key="frame" x="8" y="8" width="584" height="71"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="qQw-UG-71H">
                                                 <rect key="frame" x="0.0" y="0.0" width="584" height="50"/>
@@ -680,6 +678,12 @@
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DYv-Ii-cP8">
+                                                <rect key="frame" x="0.0" y="71" width="584" height="0.0"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" id="yBM-wP-P87"/>
+                                                </constraints>
+                                            </stackView>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -700,6 +704,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="imageStackView" destination="DYv-Ii-cP8" id="YuE-Jd-rjU"/>
+                        <outlet property="imageStackViewHeight" destination="yBM-wP-P87" id="JY7-um-7s8"/>
                         <outlet property="nameLabel" destination="Kc3-Wt-4E8" id="nAg-PN-KKl"/>
                         <outlet property="screenNameLabel" destination="8ZW-3e-N2a" id="bg8-84-Sua"/>
                         <outlet property="tweetTextLabel" destination="7ZH-RC-Q8r" id="i1x-mb-BNk"/>

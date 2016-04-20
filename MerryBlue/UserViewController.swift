@@ -49,9 +49,6 @@ class UserViewController: UIViewController {
         self.tableView.estimatedRowHeight = 20
 
         self.tableView.rowHeight = UITableViewAutomaticDimension
-
-        // let recognizer = UITapGestureRecognizer()
-        // self.tableView.addGestureRecognizer(recognizer)
     }
 
     func pullToRefresh() {
@@ -162,7 +159,7 @@ extension UserViewController: UITableViewDelegate {
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let tweet = tweets[indexPath.row]
-        self.delegate.showTweet = tweet.sourceTweet()
+        self.delegate.showTweet = tweet
         self.navigationController?.pushViewController(StoryBoardService.sharedInstance.showTweetView(), animated: true)
     }
 
