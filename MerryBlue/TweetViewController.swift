@@ -48,7 +48,7 @@ class TweetViewController: UIViewController {
                 let imageView = UIImageView()
                 imageView.addGestureRecognizer(recognizer)
                 imageView.userInteractionEnabled = true
-                // imageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: imageHeight)
+                // imageView.frame = CGRect(x: 0, y: 0, width: imageView.frame.width, height: imageHeight)
                 imageView.contentMode = .ScaleAspectFill
                 imageView.clipsToBounds = true
                 imageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: UIImage(named: "icon-indicator"))

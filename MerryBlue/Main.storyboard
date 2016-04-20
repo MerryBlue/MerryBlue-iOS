@@ -678,7 +678,7 @@
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DYv-Ii-cP8">
+                                            <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="DYv-Ii-cP8">
                                                 <rect key="frame" x="0.0" y="71" width="584" height="0.0"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" id="yBM-wP-P87"/>
