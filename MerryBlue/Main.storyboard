@@ -630,10 +630,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zFb-Jd-te5">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="87"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="130"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="NKh-Wy-oI4">
-                                        <rect key="frame" x="8" y="8" width="584" height="71"/>
+                                        <rect key="frame" x="8" y="8" width="584" height="113"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="qQw-UG-71H">
                                                 <rect key="frame" x="0.0" y="0.0" width="584" height="50"/>
@@ -672,7 +672,7 @@
                                                     <constraint firstAttribute="height" constant="50" id="c6v-fw-krH"/>
                                                 </constraints>
                                             </stackView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ZH-RC-Q8r">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ZH-RC-Q8r">
                                                 <rect key="frame" x="0.0" y="52" width="584" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -684,15 +684,35 @@
                                                     <constraint firstAttribute="height" id="yBM-wP-P87"/>
                                                 </constraints>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="QV1-BG-VOb">
+                                                <rect key="frame" x="0.0" y="73" width="584" height="40"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y2b-fF-7ig">
+                                                        <rect key="frame" x="0.0" y="0.0" width="195" height="40"/>
+                                                        <state key="normal" image="icon-favorite"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMg-3W-aXm">
+                                                        <rect key="frame" x="195" y="0.0" width="195" height="40"/>
+                                                        <state key="normal" image="icon-retweet"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Add-dy-NcI">
+                                                        <rect key="frame" x="390" y="0.0" width="195" height="40"/>
+                                                        <state key="normal" image="icon-twitter-sq"/>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="b9T-Bk-ck6"/>
+                                                </constraints>
+                                            </stackView>
                                         </subviews>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="NKh-Wy-oI4" firstAttribute="top" secondItem="zFb-Jd-te5" secondAttribute="top" constant="8" id="3OR-dD-x57"/>
-                                    <constraint firstAttribute="bottom" secondItem="NKh-Wy-oI4" secondAttribute="bottom" constant="8" id="Gre-Mc-OuY"/>
-                                    <constraint firstItem="NKh-Wy-oI4" firstAttribute="leading" secondItem="zFb-Jd-te5" secondAttribute="leading" constant="8" id="hjM-pH-aLq"/>
-                                    <constraint firstAttribute="trailing" secondItem="NKh-Wy-oI4" secondAttribute="trailing" constant="8" id="qnw-dM-3fU"/>
+                                    <constraint firstItem="NKh-Wy-oI4" firstAttribute="top" secondItem="zFb-Jd-te5" secondAttribute="top" constant="8" id="6DI-ug-kNs"/>
+                                    <constraint firstItem="NKh-Wy-oI4" firstAttribute="leading" secondItem="zFb-Jd-te5" secondAttribute="leading" constant="8" id="Hjh-91-K9f"/>
+                                    <constraint firstAttribute="trailing" secondItem="NKh-Wy-oI4" secondAttribute="trailing" constant="8" id="nJw-dR-HPP"/>
+                                    <constraint firstAttribute="bottom" secondItem="NKh-Wy-oI4" secondAttribute="bottom" constant="9" id="uD0-66-yc3"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -864,13 +884,16 @@
     </scenes>
     <resources>
         <image name="Logo-MerryBlue" width="3951" height="806"/>
+        <image name="icon-favorite" width="22" height="16"/>
         <image name="icon-gear" width="22" height="22"/>
         <image name="icon-home" width="22" height="22"/>
         <image name="icon-list" width="22" height="22"/>
         <image name="icon-logout" width="22" height="22"/>
         <image name="icon-readed" width="22" height="22"/>
+        <image name="icon-retweet" width="22" height="16"/>
         <image name="icon-sort-count" width="22" height="22"/>
         <image name="icon-timeline" width="22" height="22"/>
+        <image name="icon-twitter-sq" width="22" height="22"/>
         <image name="icon-update" width="22" height="22"/>
     </resources>
     <color key="tintColor" red="0.97254901959999995" green="0.98823529409999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
