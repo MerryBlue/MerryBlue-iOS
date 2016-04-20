@@ -177,8 +177,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.users = TwitterManager.sortUsersLastupdate(users)
             self.orderButton.image = AssetSertvice.sharedInstance.iconSortByTime
         case HomeViewOrderType.ReadCountOrder:
-            self.users = TwitterManager.sortUsersNewCountRev(users)
+            self.users = TwitterManager.sortUsersNewCount(users)
             self.orderButton.image = AssetSertvice.sharedInstance.iconSortByCount
+        case HomeViewOrderType.ReadCountOrderRev:
+            self.users = TwitterManager.sortUsersNewCountRev(users)
+            self.orderButton.image = AssetSertvice.sharedInstance.iconSortByCountRev
         default:
             break
         }
