@@ -3,12 +3,15 @@ class ConfigService {
     static let sharedInstance = ConfigService()
     private let userDefaults = NSUserDefaults.standardUserDefaults()
 
-    func selectOrderType(userID: String) -> Int! {
-        return self.userDefaults.objectForKey(forKeyUser(UserDefaultsKey.OrderType, userID)) as? Int
+    func selectOrderType(userID: String) -> HomeViewOrderType {
+        guard let typeRaw = self.userDefaults.objectForKey(forKeyUser(UserDefaultsKey.OrderType, userID)) as? Int else {
+            return HomeViewOrderType.ReadCountOrder
+        }
+        return HomeViewOrderType(rawValue: typeRaw)!
     }
 
-    func updateOrderType(userID: String, type: Int) {
-        self.userDefaults.setObject(type, forKey: forKeyUser(UserDefaultsKey.OrderType, userID))
+    func updateOrderType(userID: String, type: HomeViewOrderType) {
+        self.userDefaults.setObject(type.rawValue, forKey: forKeyUser(UserDefaultsKey.OrderType, userID))
         self.userDefaults.synchronize()
     }
 

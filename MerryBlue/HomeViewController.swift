@@ -2,9 +2,16 @@ import UIKit
 import TwitterKit
 import FontAwesomeKit
 
-struct HomeViewOrderType {
-    static let TimeOrder = 0
-    static let ReadCountOrder = 1
+enum HomeViewOrderType: Int {
+    case TimeOrder
+    case ReadCountOrder
+    case ReadCountOrderRev
+
+    case Dummy
+
+    func next() -> HomeViewOrderType {
+        return HomeViewOrderType(rawValue: (self.rawValue + HomeViewOrderType.Dummy.rawValue + 1) % HomeViewOrderType.Dummy.rawValue)!
+    }
 }
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -24,7 +31,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var users = [TwitterUser]()
     var filtered: Bool!
     // 初めは時間順，オーダーメソッドが呼ばれるので逆に設定
-    var orderType: Int = 0
+    var orderType = HomeViewOrderType.TimeOrder
 
     var cacheCellHeight: CGFloat!
 
@@ -59,11 +66,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         self.activityIndicator.startAnimating()
-        if let type = ConfigService.sharedInstance.selectOrderType(TwitterManager.getUserID()) {
-            orderType = type
-        } else {
-            orderType = HomeViewOrderType.ReadCountOrder
-        }
+        orderType = ConfigService.sharedInstance.selectOrderType(TwitterManager.getUserID())
         _ = TwitterManager.requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
     }
@@ -163,7 +166,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func changeOrder() {
-        self.orderType = (self.orderType + 1) % 2
+        self.orderType = self.orderType.next()
         ConfigService.sharedInstance.updateOrderType(TwitterManager.getUserID(), type: self.orderType)
         setOrder()
     }
