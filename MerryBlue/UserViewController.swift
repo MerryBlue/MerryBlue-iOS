@@ -43,9 +43,6 @@ class UserViewController: UIViewController {
         // self.tableView.addSubview(refreshControl)
         // self.refreshControl = nil
 
-        let nib = UINib(nibName: "UserTweetCell", bundle: nil)
-        tableView.registerNib(nib, forCellReuseIdentifier: "tweet")
-
         self.tableView.estimatedRowHeight = 20
 
         self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -139,6 +136,14 @@ class UserViewController: UIViewController {
         }
     }
 
+    func didClickimageView(recognizer: UIGestureRecognizer) {
+        if let imageView = recognizer.view as? UIImageView {
+            let nextViewController = StoryBoardService.sharedInstance.photoViewController()
+            nextViewController.viewerImgUrl = NSURL(string: imageView.sd_imageURL().absoluteString + ":orig")
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+        }
+    }
+
 }
 
 extension UserViewController: UITableViewDelegate {
@@ -147,6 +152,12 @@ extension UserViewController: UITableViewDelegate {
         let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
         let tweet = tweets[indexPath.row]
         cell.setCell(tweet)
+
+        for view in cell.imageStackView.subviews {
+            let recognizer = UITapGestureRecognizer(target:self, action: #selector(UserViewController.didClickimageView(_:)))
+            view.addGestureRecognizer(recognizer)
+        }
+
         return cell
     }
 
