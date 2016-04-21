@@ -30,6 +30,7 @@ class TweetViewController: UIViewController {
         }
         let sourceTweet = tweet.sourceTweet()
         self.tweet = tweet
+        _ = TwitterManager.requestTweetConversions(tweet).subscribe()
         self.tweetTextLabel.text = sourceTweet.text
         self.nameLabel.text = sourceTweet.author.name
         self.screenNameLabel.text = "@\(sourceTweet.author.screenName)"

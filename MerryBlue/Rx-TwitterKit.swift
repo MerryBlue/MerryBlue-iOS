@@ -227,6 +227,33 @@ public extension Twitter {
         }
     }
 
+    /// Load conversations from tweet.
+    /// - parameter tweetID:    Tweet id
+    /// - parameter client:     API client used to load the request.
+    ///
+    /// - returns: The timeline data.
+    public func rxLoadTweetConversions(tweetID: String, client: TWTRAPIClient) -> Observable<NSData> {
+        return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
+            let httpMethod = "GET"
+            let url = "https://api.twitter.com/1.1/conversation/show.json"
+            let parameters = [ "id": tweetID ]
+
+            _ = self.rxURLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
+                .subscribe(
+                    onNext: { data in
+                        guard let tweets = data as? NSData else {
+                            // observer.onError(TwitterError.Unknown)
+                            return
+                        }
+                        observer.onNext(tweets)
+                        observer.onCompleted()
+                    }, onError: { error in
+                        observer.onError(error)
+                    }, onCompleted: nil, onDisposed: nil)
+            return AnonymousDisposable { }
+        }
+    }
+
     /// Returns a signed URL request.
     ///
     /// - parameter method:     HTTP method of the request.
