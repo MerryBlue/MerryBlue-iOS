@@ -152,12 +152,10 @@ extension UserViewController: UITableViewDelegate {
         let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
         let tweet = tweets[indexPath.row]
         cell.setCell(tweet)
-
         for view in cell.imageStackView.subviews {
             let recognizer = UITapGestureRecognizer(target:self, action: #selector(UserViewController.didClickimageView(_:)))
             view.addGestureRecognizer(recognizer)
         }
-
         return cell
     }
 
