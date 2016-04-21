@@ -16,6 +16,10 @@ class TweetViewController: UIViewController {
     @IBOutlet weak var imageStackView: UIStackView!
     @IBOutlet weak var imageStackViewHeight: NSLayoutConstraint!
 
+    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var openButton: UIButton!
+
     var hasMedia: Bool!
 
     var tweet: MBTweet!
@@ -44,7 +48,6 @@ class TweetViewController: UIViewController {
         _ = self.imageStackView.subviews.map { $0.removeFromSuperview() }
         if hasMedia! && self.imageStackView.subviews.count == 0 {
             for (i, url) in tweet.imageURLs.enumerate() {
-
                 let recognizer = UITapGestureRecognizer(target:self, action: #selector(TweetViewController.didClickImageView(_:)))
                 let imageView = UIImageView()
                 imageView.addGestureRecognizer(recognizer)
@@ -55,6 +58,20 @@ class TweetViewController: UIViewController {
                 imageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: UIImage(named: "icon-indicator"))
                 self.imageStackView.insertArrangedSubview(imageView, atIndex: i)
             }
+        }
+
+        if sourceTweet.retweetCount > 0 {
+            retweetButton.setTitle(String(sourceTweet.retweetCount), forState: .Normal)
+            let col = sourceTweet.isRetweeted ? MBColor.Dark : UIColor.grayColor()
+            retweetButton.setTitleColor(col, forState: .Normal)
+            retweetButton.tintColor = col
+        }
+        retweetButton.tintColor = sourceTweet.isRetweeted ? MBColor.Dark : UIColor.grayColor()
+        if sourceTweet.likeCount > 0 {
+            favoriteButton.setTitle(String(sourceTweet.likeCount), forState: .Normal)
+            let col = sourceTweet.isLiked ? MBColor.Dark : UIColor.grayColor()
+            favoriteButton.setTitleColor(col, forState: .Normal)
+            favoriteButton.tintColor = col
         }
     }
 

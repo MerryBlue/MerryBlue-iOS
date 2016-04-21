@@ -572,7 +572,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="600" height="137"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7VI-Sr-c0i" id="EAx-Ct-Xkc">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="136.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="137"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Rc0-iW-Wl1">
@@ -808,9 +808,12 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="favoriteButton" destination="y2b-fF-7ig" id="zJa-hr-viF"/>
                         <outlet property="imageStackView" destination="DYv-Ii-cP8" id="YuE-Jd-rjU"/>
                         <outlet property="imageStackViewHeight" destination="yBM-wP-P87" id="JY7-um-7s8"/>
                         <outlet property="nameLabel" destination="Kc3-Wt-4E8" id="nAg-PN-KKl"/>
+                        <outlet property="openButton" destination="Add-dy-NcI" id="Zvl-zG-coO"/>
+                        <outlet property="retweetButton" destination="LMg-3W-aXm" id="ig7-Sd-u8J"/>
                         <outlet property="screenNameLabel" destination="8ZW-3e-N2a" id="bg8-84-Sua"/>
                         <outlet property="tweetTextLabel" destination="7ZH-RC-Q8r" id="i1x-mb-BNk"/>
                         <outlet property="userImageView" destination="4Jp-5m-cWP" id="Ijb-r0-hNL"/>
