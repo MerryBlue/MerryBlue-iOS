@@ -17,7 +17,22 @@ class TweetViewController: UIViewController {
     @IBOutlet weak var imageStackViewHeight: NSLayoutConstraint!
 
     @IBOutlet weak var favoriteButton: UIButton!
+    @IBAction func favoriteButtonTapped(sender: AnyObject) {
+        _ = TwitterManager.requestToggleLikeTweet(tweet)
+            .subscribeNext({ (tweet: MBTweet) in
+                self.tweet = tweet
+                self.loadLikeButton()
+            })
+    }
+
     @IBOutlet weak var retweetButton: UIButton!
+    @IBAction func retweetButtonTapped(sender: AnyObject) {
+        _ = TwitterManager.requestToggleLikeTweet(tweet)
+            .subscribeNext({ (tweet: MBTweet) in
+                self.tweet = tweet
+                self.loadRetweetButton()
+            })
+    }
     @IBOutlet weak var openButton: UIButton!
     @IBAction func openButtonTapped(sender: AnyObject) {
         // let twitterUrl = NSURL(string: "twitter://status?id=\(tweet.tweetID)")!
@@ -43,7 +58,7 @@ class TweetViewController: UIViewController {
         }
         let sourceTweet = tweet.sourceTweet()
         self.tweet = tweet
-        _ = TwitterManager.requestTweetConversions(tweet).subscribe()
+        // _ = TwitterManager.requestTweetConversions(tweet).subscribe()
         self.tweetTextLabel.text = sourceTweet.text
         self.nameLabel.text = sourceTweet.author.name
         self.screenNameLabel.text = "@\(sourceTweet.author.screenName)"
@@ -68,7 +83,23 @@ class TweetViewController: UIViewController {
                 self.imageStackView.insertArrangedSubview(imageView, atIndex: i)
             }
         }
+        loadLikeButton()
+        loadRetweetButton()
+    }
 
+    func loadLikeButton() {
+        let sourceTweet = tweet.sourceTweet()
+        if sourceTweet.likeCount > 0 {
+            favoriteButton.setTitle(String(sourceTweet.likeCount), forState: .Normal)
+            let col = sourceTweet.isLiked ? MBColor.Dark : UIColor.grayColor()
+            favoriteButton.setTitleColor(col, forState: .Normal)
+            favoriteButton.tintColor = col
+        }
+
+    }
+
+    func loadRetweetButton() {
+        let sourceTweet = tweet.sourceTweet()
         if sourceTweet.retweetCount > 0 {
             retweetButton.setTitle(String(sourceTweet.retweetCount), forState: .Normal)
             let col = sourceTweet.isRetweeted ? MBColor.Dark : UIColor.grayColor()
@@ -76,12 +107,7 @@ class TweetViewController: UIViewController {
             retweetButton.tintColor = col
         }
         retweetButton.tintColor = sourceTweet.isRetweeted ? MBColor.Dark : UIColor.grayColor()
-        if sourceTweet.likeCount > 0 {
-            favoriteButton.setTitle(String(sourceTweet.likeCount), forState: .Normal)
-            let col = sourceTweet.isLiked ? MBColor.Dark : UIColor.grayColor()
-            favoriteButton.setTitleColor(col, forState: .Normal)
-            favoriteButton.tintColor = col
-        }
+
     }
 
     func didClickImageView(recognizer: UIGestureRecognizer) {

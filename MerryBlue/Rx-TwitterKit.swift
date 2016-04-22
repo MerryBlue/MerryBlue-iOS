@@ -254,6 +254,67 @@ public extension Twitter {
         }
     }
 
+    /// Like Tweet
+    /// - parameter tweetID:    Tweet id
+    /// - parameter client:     API client used to load the request.
+    ///
+    /// - returns: The timeline data.
+    public func rxLoadLikeTweet(tweetID: String, client: TWTRAPIClient) -> Observable<NSData> {
+        return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
+            let httpMethod = "POST"
+            let url = "https://api.twitter.com/1.1/favorites/create.json"
+            let parameters = [
+                "id": tweetID,
+                "include_entities": "false"
+            ]
+
+            _ = self.rxURLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
+                .subscribe(
+                    onNext: { data in
+                        guard let tweet = data as? NSData else {
+                            // observer.onError(TwitterError.Unknown)
+                            return
+                        }
+                        observer.onNext(tweet)
+                        observer.onCompleted()
+                    }, onError: { error in
+                        observer.onError(error)
+                    }, onCompleted: nil, onDisposed: nil)
+            return AnonymousDisposable { }
+        }
+    }
+
+
+    /// Like Tweet
+    /// - parameter tweetID:    Tweet id
+    /// - parameter client:     API client used to load the request.
+    ///
+    /// - returns: The timeline data.
+    public func rxLoadUnlikeTweet(tweetID: String, client: TWTRAPIClient) -> Observable<NSData> {
+        return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
+            let httpMethod = "POST"
+            let url = "https://api.twitter.com/1.1/favorites/destroy.json"
+            let parameters = [
+                "id": tweetID,
+                "include_entities": "false"
+            ]
+
+            _ = self.rxURLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
+                .subscribe(
+                    onNext: { data in
+                        guard let tweet = data as? NSData else {
+                            // observer.onError(TwitterError.Unknown)
+                            return
+                        }
+                        observer.onNext(tweet)
+                        observer.onCompleted()
+                    }, onError: { error in
+                        observer.onError(error)
+                    }, onCompleted: nil, onDisposed: nil)
+            return AnonymousDisposable { }
+        }
+    }
+
     /// Returns a signed URL request.
     ///
     /// - parameter method:     HTTP method of the request.

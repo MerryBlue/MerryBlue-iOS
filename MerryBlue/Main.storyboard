@@ -774,10 +774,16 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y2b-fF-7ig">
                                                         <rect key="frame" x="0.0" y="0.0" width="195" height="40"/>
                                                         <state key="normal" image="icon-favorite"/>
+                                                        <connections>
+                                                            <action selector="favoriteButtonTapped:" destination="Ckk-hw-1e1" eventType="touchUpInside" id="181-73-7xs"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMg-3W-aXm">
                                                         <rect key="frame" x="194" y="0.0" width="195" height="40"/>
                                                         <state key="normal" image="icon-retweet"/>
+                                                        <connections>
+                                                            <action selector="retweetButtonTapped:" destination="Ckk-hw-1e1" eventType="touchUpInside" id="uvk-R0-glu"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Add-dy-NcI">
                                                         <rect key="frame" x="389" y="0.0" width="195" height="40"/>

@@ -70,6 +70,40 @@ class TwitterManager {
         }
     }
 
+    static func requestToggleLikeTweet(tweet: TWTRTweet) -> Observable<MBTweet> {
+        if tweet.isLiked {
+            return requestUnlikeTweet(tweet)
+        } else {
+            return requestLikeTweet(tweet)
+        }
+    }
+
+    static func requestLikeTweet(tweet: TWTRTweet) -> Observable<MBTweet> {
+        return Observable.create { observer -> Disposable in
+            _ = Twitter.sharedInstance()
+                .rxLoadLikeTweet(tweet.tweetID, client: getClient())
+                .subscribeNext { (tlData: NSData) in
+                    let json = JSON(data: tlData)
+                    let tweet = MBTweet(json: json)!
+                    observer.onNext(tweet)
+                }
+            return AnonymousDisposable {}
+        }
+    }
+
+    static func requestUnlikeTweet(tweet: TWTRTweet) -> Observable<MBTweet> {
+        return Observable.create { observer -> Disposable in
+            _ = Twitter.sharedInstance()
+                .rxLoadUnlikeTweet(tweet.tweetID, client: getClient())
+                .subscribeNext { (tlData: NSData) in
+                    let json = JSON(data: tlData)
+                    let tweet = MBTweet(json: json)!
+                    observer.onNext(tweet)
+                }
+            return AnonymousDisposable {}
+        }
+    }
+
     static func requestUserTimelineNext(user: TwitterUser, tweet: MBTweet, count: Int = 30) -> Observable<[MBTweet]> {
         return Observable.create { observer -> Disposable in
             _ = Twitter.sharedInstance()
