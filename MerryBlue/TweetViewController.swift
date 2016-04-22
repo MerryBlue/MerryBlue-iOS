@@ -19,6 +19,15 @@ class TweetViewController: UIViewController {
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var openButton: UIButton!
+    @IBAction func openButtonTapped(sender: AnyObject) {
+        // let twitterUrl = NSURL(string: "twitter://status?id=\(tweet.tweetID)")!
+        let url = NSURL(string: "https://twitter.com/chomado/status/\(tweet.tweetID)")
+        if UIApplication.sharedApplication().canOpenURL(url!) {
+            UIApplication.sharedApplication().openURL(url!)
+        } else {
+            AlertManager.sharedInstantce.disableOpenApp()
+        }
+    }
 
     var hasMedia: Bool!
 

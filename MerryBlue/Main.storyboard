@@ -782,6 +782,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Add-dy-NcI">
                                                         <rect key="frame" x="389" y="0.0" width="195" height="40"/>
                                                         <state key="normal" image="icon-twitter-sq"/>
+                                                        <connections>
+                                                            <action selector="openButtonTapped:" destination="Ckk-hw-1e1" eventType="touchUpInside" id="okJ-nj-QLJ"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
