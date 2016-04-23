@@ -172,35 +172,6 @@ extension UserViewController: UITableViewDelegate {
         self.navigationController?.pushViewController(StoryBoardService.sharedInstance.showTweetView(), animated: true)
     }
 
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-
-        let replay = MBTableViewRowAction.new(UIImage(named: "icon-replay")!) {
-            (action, indexPath) in
-            print("replay")
-            tableView.editing = false
-        }
-
-        let retweet = MBTableViewRowAction.new(UIImage(named: "icon-images")!) {
-            (action, indexPath) in
-            print("rt")
-            tableView.editing = false
-        }
-
-        let favorite = MBTableViewRowAction.new(UIImage(named: "icon-favorite")!) {
-            (action, indexPath) in
-            print("favo")
-            tableView.editing = false
-        }
-
-        let twitter = MBTableViewRowAction.new(UIImage(named: "icon-twitter-sq")!) {
-            (action, indexPath) in
-            print("favo")
-            tableView.editing = false
-        }
-
-        return [twitter, favorite, retweet, replay]
-    }
-
 }
 
 extension UserViewController: UITableViewDataSource {
@@ -214,7 +185,4 @@ extension UserViewController: UITableViewDataSource {
         return tws.count
     }
 
-    // エディット機能の提供に必要なメソッド
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    }
 }
