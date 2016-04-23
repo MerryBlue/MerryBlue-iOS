@@ -30,11 +30,21 @@ class TweetViewController: UIViewController {
         if tweet.isOwnTweet() {
             return
         }
-        _ = TwitterManager.requestToggleRetweet(tweet)
-            .subscribeNext({ (tweet: MBTweet) in
-                self.tweet = tweet
-                self.loadRetweetButton()
-            })
+        if !tweet.isRetweeted {
+            _ = TwitterManager.requestRetweet(tweet)
+                .subscribeNext({ (tweet: MBTweet) in
+                    self.tweet = tweet
+                    self.loadRetweetButton()
+                })
+        } else {
+            _ = TwitterManager.requestUnretweet(tweet)
+                .subscribeNext({ (tweet: MBTweet) in
+                    self.tweet = tweet
+                    let col = UIColor.grayColor()
+                    self.retweetButton.setTitleColor(col, forState: .Normal)
+                    self.retweetButton.tintColor = col
+                })
+        }
     }
     @IBOutlet weak var openButton: UIButton!
     @IBAction func openButtonTapped(sender: AnyObject) {
