@@ -2,57 +2,48 @@ import UIKit
 import TwitterKit
 import FontAwesomeKit
 
-class ListTimelineViewController: MBTimelineViewController {
-
+class ListTimelineViewController: UIViewController {
+    var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
+    @IBOutlet weak var switchListButton: UIBarButtonItem!
+
+    var refreshControl: UIRefreshControl!
+
+    var tweets: [MBTweet]!
+
+    var cacheHeights = [CGFloat]()
     var list: MBTwitterList!
-    convenience init() {
-        guard let list = ListService.sharedInstance.selectHomeList() else {
-            // TWTRUserTimelineDataSource(screenName: nil, userID: TwitterManager.getUserID(), APIClient: TwitterManager.getClient()
-            // self.init(dataSource: )
-            self.init(dataSource: TWTRUserTimelineDataSource(
-                screenName: nil,
-                userID: TwitterManager.getUserID(),
-                APIClient: TwitterManager.getClient(),
-                maxTweetsPerRequest: 50,
-                includeReplies: false,
-                includeRetweets: false
-                ))
-            // self.openListsChooser()
-            return
-        }
-        let dataSource = TWTRListTimelineDataSource(listID: list.listID, APIClient: TwitterManager.getClient())
-        self.init(dataSource: dataSource)
-        self.showTweetActions = true
-        self.title = "ListTimeline"
-        self.list = list
-        self.setupTabbarItemState()
-        // TwitterManager.getListUsers(listId)
-    }
+
+    var isUpdating = true
+    var bgViewHeight: CGFloat!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.activityIndicator.startAnimating()
-        self.setupNavigationBar()
+        self.setNavigationBar()
+        self.setupTableView()
     }
 
-    private func setupNavigationBar() {
-        guard let _ = self.navigationController else {
-            print("Error: no wrapperd navigation controller")
-            return
-        }
+    // ====== setup methods ======
 
-        let iconImage = FAKIonIcons.iosListIconWithSize(26).imageWithSize(CGSize(width: 26, height: 26))
-        let switchListButton = UIBarButtonItem(image: iconImage, style: .Plain, target: self, action: #selector(ListTimelineViewController.onClickSwitchList))
-        self.navigationItem
-        self.navigationItem.title = "ListTimeline"
-        self.navigationItem.setLeftBarButtonItem(switchListButton, animated: true)
+    func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        // refreshControl = UIRefreshControl()
+        // refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
+        // refreshControl.addTarget(self, action: #selector(ListTimelineViewController.pullToRefresh), forControlEvents:.ValueChanged)
+        // self.tableView.addSubview(refreshControl)
+        // self.refreshControl = nil
+
+        self.tableView.estimatedRowHeight = 20
+
+        self.tableView.rowHeight = UITableViewAutomaticDimension
     }
 
-    func onClickSwitchList() {
-        self.openListsChooser()
+    func pullToRefresh() {
     }
+
 
     func openListsChooser() {
         guard let slideMenu = self.slideMenuController() else {
@@ -60,6 +51,40 @@ class ListTimelineViewController: MBTimelineViewController {
             return
         }
         slideMenu.openLeft()
+    }
+
+    private func setNavigationBar() {
+        guard let _ = ListService.sharedInstance.selectHomeList() else {
+            print("Error: no wrapperd navigation controller")
+            return
+        }
+        self.switchListButton.target = self
+        self.switchListButton.action = #selector(ListTimelineViewController.openListsChooser)
+    }
+
+    func goBlack() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        guard let list = ListService.sharedInstance.selectHomeList() else {
+            goBlack()
+            return
+        }
+        if self.tweets != nil {
+            return
+        }
+        self.list = list
+        self.title = "Timeline"
+        self.bgViewHeight = 150
+        self.activityIndicator.startAnimating()
+        _ = TwitterManager.requestListTimeline(list)
+             .subscribeNext({ (tweets: [MBTweet]) in
+                self.tweets = tweets
+                self.tableView.reloadData()
+                self.activityIndicator.stopAnimating()
+                self.isUpdating = false
+             })
     }
 
     func setupTabbarItemState() {
@@ -70,26 +95,77 @@ class ListTimelineViewController: MBTimelineViewController {
         items[1].enabled = list.isTimelineTabEnable()
     }
 
+    func didClickimageView(recognizer: UIGestureRecognizer) {
+        if let imageView = recognizer.view as? UIImageView {
+            let nextViewController = StoryBoardService.sharedInstance.photoViewController()
+            nextViewController.viewerImgUrl = NSURL(string: imageView.sd_imageURL().absoluteString + ":orig")
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+        }
+    }
+
     override func didMoveToParentViewController(parent: UIViewController?) {
         super.willMoveToParentViewController(parent)
         guard let _ = TwitterManager.getUserID() else {
             return
         }
+        self.updateList()
+    }
+
+    internal func updateList() {
         guard let list = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return
         }
         self.setupTabbarItemState()
-        if let nowList = self.list where nowList.listID == list.listID {
+        if let _ = self.list where self.list.equalItem(list) {
             return
         }
-        let client = TWTRAPIClient()
-        let dataSource = TWTRListTimelineDataSource(listID: list.listID, APIClient: client)
-        self.dataSource = dataSource
-        self.refresh()
+        self.activityIndicator.startAnimating()
+        _ = TwitterManager.requestListTimeline(list)
+             .subscribeNext({ (tweets: [MBTweet]) in
+                self.tweets = tweets
+                self.tableView.reloadData()
+                self.activityIndicator.stopAnimating()
+                self.isUpdating = false
+             })
         self.list = list
-        if self.list.isSpecialType() {
-            presentViewController(AlertManager.sharedInstantce.disableTabSpecialTab(), animated: true, completion: nil)
-        }
     }
+
+}
+
+extension ListTimelineViewController: UITableViewDelegate {
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
+        let tweet = tweets[indexPath.row]
+        cell.setCell(tweet)
+        for view in cell.imageStackView.subviews {
+            let recognizer = UITapGestureRecognizer(target:self, action: #selector(ListTimelineViewController.didClickimageView(_:)))
+            view.addGestureRecognizer(recognizer)
+        }
+        return cell
+    }
+
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let tweet = tweets[indexPath.row]
+        self.delegate.showTweet = tweet
+        self.navigationController?.pushViewController(StoryBoardService.sharedInstance.showTweetView(), animated: true)
+    }
+
+}
+
+extension ListTimelineViewController: UITableViewDataSource {
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let tws = tweets else { return 0 }
+        return tws.count
+    }
+
 }

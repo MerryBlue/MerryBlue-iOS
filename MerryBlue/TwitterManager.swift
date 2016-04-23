@@ -57,6 +57,19 @@ class TwitterManager {
         }
     }
 
+    static func requestListTimeline(list: MBTwitterList, count: Int = 30) -> Observable<[MBTweet]> {
+        return Observable.create { observer -> Disposable in
+            _ = Twitter.sharedInstance()
+                .rxLoadListTimeline(list.listID, count: count, beforeID: nil, client: getClient())
+                .subscribeNext { (tlData: NSData) in
+                    let json = JSON(data: tlData)
+                    let tweets: [MBTweet] = json.map { MBTweet(json: $0.1)! }
+                    observer.onNext(tweets)
+                }
+            return AnonymousDisposable {}
+        }
+    }
+
     static func requestTweetConversions(tweet: TWTRTweet) -> Observable<[MBTweet]> {
         return Observable.create { observer -> Disposable in
             _ = Twitter.sharedInstance()
