@@ -254,6 +254,59 @@ public extension Twitter {
         }
     }
 
+    /// Retweet Tweet
+    /// - parameter tweetID:    Tweet id
+    /// - parameter client:     API client used to load the request.
+    ///
+    /// - returns: The timeline data.
+    public func rxLoadRetweet(tweetID: String, client: TWTRAPIClient) -> Observable<NSData> {
+        return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
+            let httpMethod = "POST"
+            let url = "https://api.twitter.com/1.1/statuses/retweet.json"
+            let parameters = [ "id": tweetID ]
+            _ = self.rxURLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
+                .subscribe(
+                    onNext: { data in
+                        guard let tweet = data as? NSData else {
+                            // observer.onError(TwitterError.Unknown)
+                            return
+                        }
+                        observer.onNext(tweet)
+                        observer.onCompleted()
+                    }, onError: { error in
+                        observer.onError(error)
+                    }, onCompleted: nil, onDisposed: nil)
+            return AnonymousDisposable { }
+        }
+    }
+
+    /// Unretweet Tweet
+    /// - parameter tweetID:    Tweet id
+    /// - parameter client:     API client used to load the request.
+    ///
+    /// - returns: The timeline data.
+    public func rxLoadUnretweet(tweetID: String, client: TWTRAPIClient) -> Observable<NSData> {
+        return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
+            let httpMethod = "POST"
+            let url = "https://api.twitter.com/1.1/statuses/unretweet.json"
+            let parameters = [ "id": tweetID ]
+            _ = self.rxURLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
+                .subscribe(
+                    onNext: { data in
+                        guard let tweet = data as? NSData else {
+                            // observer.onError(TwitterError.Unknown)
+                            return
+                        }
+                        observer.onNext(tweet)
+                        observer.onCompleted()
+                    }, onError: { error in
+                        observer.onError(error)
+                    }, onCompleted: nil, onDisposed: nil)
+            return AnonymousDisposable { }
+        }
+    }
+
+
     /// Like Tweet
     /// - parameter tweetID:    Tweet id
     /// - parameter client:     API client used to load the request.
@@ -285,7 +338,7 @@ public extension Twitter {
     }
 
 
-    /// Like Tweet
+    /// unLike Tweet
     /// - parameter tweetID:    Tweet id
     /// - parameter client:     API client used to load the request.
     ///

@@ -27,7 +27,10 @@ class TweetViewController: UIViewController {
 
     @IBOutlet weak var retweetButton: UIButton!
     @IBAction func retweetButtonTapped(sender: AnyObject) {
-        _ = TwitterManager.requestToggleLikeTweet(tweet)
+        if tweet.isOwnTweet() {
+            return
+        }
+        _ = TwitterManager.requestToggleRetweet(tweet)
             .subscribeNext({ (tweet: MBTweet) in
                 self.tweet = tweet
                 self.loadRetweetButton()
@@ -91,10 +94,10 @@ class TweetViewController: UIViewController {
         let sourceTweet = tweet.sourceTweet()
         if sourceTweet.likeCount > 0 {
             favoriteButton.setTitle(String(sourceTweet.likeCount), forState: .Normal)
-            let col = sourceTweet.isLiked ? MBColor.Dark : UIColor.grayColor()
-            favoriteButton.setTitleColor(col, forState: .Normal)
-            favoriteButton.tintColor = col
         }
+        let col = sourceTweet.isLiked ? MBColor.Dark : UIColor.grayColor()
+        favoriteButton.setTitleColor(col, forState: .Normal)
+        favoriteButton.tintColor = col
 
     }
 
@@ -102,11 +105,15 @@ class TweetViewController: UIViewController {
         let sourceTweet = tweet.sourceTweet()
         if sourceTweet.retweetCount > 0 {
             retweetButton.setTitle(String(sourceTweet.retweetCount), forState: .Normal)
-            let col = sourceTweet.isRetweeted ? MBColor.Dark : UIColor.grayColor()
-            retweetButton.setTitleColor(col, forState: .Normal)
-            retweetButton.tintColor = col
         }
-        retweetButton.tintColor = sourceTweet.isRetweeted ? MBColor.Dark : UIColor.grayColor()
+        var col = UIColor.grayColor()
+        if sourceTweet.isRetweeted {
+            col = MBColor.Dark
+        } else if tweet.isOwnTweet() {
+            col = UIColor.lightGrayColor()
+        }
+        retweetButton.setTitleColor(col, forState: .Normal)
+        retweetButton.tintColor = col
 
     }
 

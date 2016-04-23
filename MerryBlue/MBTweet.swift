@@ -27,4 +27,8 @@ class MBTweet: TWTRTweet {
         return self.isRetweet ? self.retweetedTweet : self
     }
 
+    func isOwnTweet() -> Bool {
+        return self.sourceTweet().author.userID == TwitterManager.getUserID()
+    }
+
 }
