@@ -27,10 +27,10 @@ class TweetViewController: UIViewController {
 
     @IBOutlet weak var retweetButton: UIButton!
     @IBAction func retweetButtonTapped(sender: AnyObject) {
-        if tweet.isOwnTweet() {
+        if tweet.sourceTweet().isOwnTweet() {
             return
         }
-        if !tweet.isRetweeted {
+        if !tweet.sourceTweet().isRetweeted {
             _ = TwitterManager.requestRetweet(tweet)
                 .subscribeNext({ (tweet: MBTweet) in
                     self.tweet = tweet
@@ -119,7 +119,7 @@ class TweetViewController: UIViewController {
         var col = UIColor.grayColor()
         if sourceTweet.isRetweeted {
             col = MBColor.Dark
-        } else if tweet.isOwnTweet() {
+        } else if sourceTweet.isOwnTweet() {
             col = UIColor.lightGrayColor()
         }
         retweetButton.setTitleColor(col, forState: .Normal)
