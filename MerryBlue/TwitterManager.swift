@@ -57,6 +57,100 @@ class TwitterManager {
         }
     }
 
+    static func requestListTimeline(list: MBTwitterList, count: Int = 30) -> Observable<[MBTweet]> {
+        return Observable.create { observer -> Disposable in
+            _ = Twitter.sharedInstance()
+                .rxLoadListTimeline(list.listID, count: count, beforeID: nil, client: getClient())
+                .subscribeNext { (tlData: NSData) in
+                    let json = JSON(data: tlData)
+                    let tweets: [MBTweet] = json.map { MBTweet(json: $0.1)! }
+                    observer.onNext(tweets)
+                }
+            return AnonymousDisposable {}
+        }
+    }
+
+    static func requestTweetConversions(tweet: TWTRTweet) -> Observable<[MBTweet]> {
+        return Observable.create { observer -> Disposable in
+            _ = Twitter.sharedInstance()
+                .rxLoadTweetConversions(tweet.tweetID, client: getClient())
+                .subscribeNext { (tlData: NSData) in
+                    let json = JSON(data: tlData)
+                    let tweets: [MBTweet] = json.map { MBTweet(json: $0.1)! }
+                    observer.onNext(tweets)
+                }
+            return AnonymousDisposable {}
+        }
+    }
+
+    static func requestToggleRetweet(tweet: TWTRTweet) -> Observable<MBTweet> {
+        if tweet.isRetweeted {
+            return requestUnretweet(tweet)
+        } else {
+            return requestRetweet(tweet)
+        }
+    }
+
+    static func requestRetweet(tweet: TWTRTweet) -> Observable<MBTweet> {
+        return Observable.create { observer -> Disposable in
+            _ = Twitter.sharedInstance()
+                .rxLoadRetweet(tweet.tweetID, client: getClient())
+                .subscribeNext { (tlData: NSData) in
+                    let json = JSON(data: tlData)
+                    let tweet = MBTweet(json: json)!
+                    observer.onNext(tweet)
+                }
+            return AnonymousDisposable {}
+        }
+    }
+
+    static func requestUnretweet(tweet: TWTRTweet) -> Observable<MBTweet> {
+        return Observable.create { observer -> Disposable in
+            _ = Twitter.sharedInstance()
+                .rxLoadUnretweet(tweet.tweetID, client: getClient())
+                .subscribeNext { (tlData: NSData) in
+                    let json = JSON(data: tlData)
+                    let tweet = MBTweet(json: json)!
+                    observer.onNext(tweet)
+                }
+            return AnonymousDisposable {}
+        }
+    }
+
+    static func requestToggleLikeTweet(tweet: TWTRTweet) -> Observable<MBTweet> {
+        if tweet.isLiked {
+            return requestUnlikeTweet(tweet)
+        } else {
+            return requestLikeTweet(tweet)
+        }
+    }
+
+    static func requestLikeTweet(tweet: TWTRTweet) -> Observable<MBTweet> {
+        return Observable.create { observer -> Disposable in
+            _ = Twitter.sharedInstance()
+                .rxLoadLikeTweet(tweet.tweetID, client: getClient())
+                .subscribeNext { (tlData: NSData) in
+                    let json = JSON(data: tlData)
+                    let tweet = MBTweet(json: json)!
+                    observer.onNext(tweet)
+                }
+            return AnonymousDisposable {}
+        }
+    }
+
+    static func requestUnlikeTweet(tweet: TWTRTweet) -> Observable<MBTweet> {
+        return Observable.create { observer -> Disposable in
+            _ = Twitter.sharedInstance()
+                .rxLoadUnlikeTweet(tweet.tweetID, client: getClient())
+                .subscribeNext { (tlData: NSData) in
+                    let json = JSON(data: tlData)
+                    let tweet = MBTweet(json: json)!
+                    observer.onNext(tweet)
+                }
+            return AnonymousDisposable {}
+        }
+    }
+
     static func requestUserTimelineNext(user: TwitterUser, tweet: MBTweet, count: Int = 30) -> Observable<[MBTweet]> {
         return Observable.create { observer -> Disposable in
             _ = Twitter.sharedInstance()

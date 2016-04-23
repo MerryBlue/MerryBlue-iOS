@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var userViewNewCount: Int?
     var openHomeID: Int?
 
-    var showTweet: TWTRTweet?
+    var showTweet: MBTweet?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.

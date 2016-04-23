@@ -13,6 +13,7 @@
 		451C4D8B1C9C7FAB00903A0C /* ListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451C4D8A1C9C7FAB00903A0C /* ListService.swift */; };
 		451C4D8D1C9C812900903A0C /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451C4D8C1C9C812900903A0C /* UserDefaultsKey.swift */; };
 		451C4D8F1C9C9CEB00903A0C /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451C4D8E1C9C9CEB00903A0C /* NSDateExtension.swift */; };
+		453651671CCB3EC700014B80 /* TWTRTweetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453651661CCB3EC700014B80 /* TWTRTweetExtension.swift */; };
 		453B44FD1C98DADB00CE5FFE /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453B44FC1C98DADB00CE5FFE /* StringExtension.swift */; };
 		453B45001C98DF9B00CE5FFE /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453B44FF1C98DF9B00CE5FFE /* ArrayExtension.swift */; };
 		453B45021C98E49100CE5FFE /* UserTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453B45011C98E49100CE5FFE /* UserTimelineViewController.swift */; };
@@ -23,7 +24,6 @@
 		4551ADF51C9B33A100A00CE8 /* ListInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4551ADF41C9B33A100A00CE8 /* ListInfoCell.swift */; };
 		4552AFE01CB5F09900B762AB /* MBTableViewRowAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4552AFDF1CB5F09900B762AB /* MBTableViewRowAction.swift */; };
 		4555C0801CA4F16200A161F9 /* MBTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4555C07F1CA4F16200A161F9 /* MBTimelineViewController.swift */; };
-		455CCA4E1CB88C5300D805FA /* UserTweetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455CCA4D1CB88C5300D805FA /* UserTweetCell.xib */; };
 		455F3D961CA2EF76001495A9 /* MBColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455F3D951CA2EF76001495A9 /* MBColor.swift */; };
 		455F3D981CA2F57D001495A9 /* MBNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455F3D971CA2F57D001495A9 /* MBNavigationController.swift */; };
 		455F3D9A1CA3C29D001495A9 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455F3D991CA3C29D001495A9 /* UserService.swift */; };
@@ -66,6 +66,7 @@
 		451C4D8A1C9C7FAB00903A0C /* ListService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListService.swift; sourceTree = "<group>"; };
 		451C4D8C1C9C812900903A0C /* UserDefaultsKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		451C4D8E1C9C9CEB00903A0C /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
+		453651661CCB3EC700014B80 /* TWTRTweetExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TWTRTweetExtension.swift; sourceTree = "<group>"; };
 		453B44FC1C98DADB00CE5FFE /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		453B44FF1C98DF9B00CE5FFE /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		453B45011C98E49100CE5FFE /* UserTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTimelineViewController.swift; sourceTree = "<group>"; };
@@ -75,7 +76,6 @@
 		4551ADF41C9B33A100A00CE8 /* ListInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListInfoCell.swift; sourceTree = "<group>"; };
 		4552AFDF1CB5F09900B762AB /* MBTableViewRowAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTableViewRowAction.swift; sourceTree = "<group>"; };
 		4555C07F1CA4F16200A161F9 /* MBTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTimelineViewController.swift; sourceTree = "<group>"; };
-		455CCA4D1CB88C5300D805FA /* UserTweetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserTweetCell.xib; sourceTree = "<group>"; };
 		455F3D951CA2EF76001495A9 /* MBColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBColor.swift; sourceTree = "<group>"; };
 		455F3D971CA2F57D001495A9 /* MBNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBNavigationController.swift; sourceTree = "<group>"; };
 		455F3D991CA3C29D001495A9 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -140,6 +140,7 @@
 				4540E4011CB50418000AE6A9 /* UIColorExtension.swift */,
 				451B85211CAA519D003DD63F /* UIImageExtension.swift */,
 				45E9A8191C9BFE7D00C258D5 /* CALayerExtension.swift */,
+				453651661CCB3EC700014B80 /* TWTRTweetExtension.swift */,
 				45D792C31CB572CE0003B699 /* TWTRUserExtension.swift */,
 				453B44FF1C98DF9B00CE5FFE /* ArrayExtension.swift */,
 				451C4D8E1C9C9CEB00903A0C /* NSDateExtension.swift */,
@@ -151,7 +152,6 @@
 		455CCA4F1CB88C7900D805FA /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				455CCA4D1CB88C5300D805FA /* UserTweetCell.xib */,
 			);
 			name = CustomView;
 			sourceTree = "<group>";
@@ -349,7 +349,6 @@
 				45B943911CAE69C900C05488 /* TwitterKitResources.bundle in Resources */,
 				45DDD57B1CAA82770015C16D /* Launch Screen.storyboard in Resources */,
 				45ABA1F31C986869006DE856 /* Main.storyboard in Resources */,
-				455CCA4E1CB88C5300D805FA /* UserTweetCell.xib in Resources */,
 				45C67ABB1CB279FE00C98329 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -473,6 +472,7 @@
 				45EC9A8A1CA1A99100ABE06A /* LeftMenuViewController.swift in Sources */,
 				451B85241CAA6173003DD63F /* IdentifilerService.swift in Sources */,
 				457C3B391C9DAD150020509D /* Rx-TwitterKit.swift in Sources */,
+				453651671CCB3EC700014B80 /* TWTRTweetExtension.swift in Sources */,
 				45BD1C211C96EB35002A2159 /* TwitterManager.swift in Sources */,
 				451C4D8D1C9C812900903A0C /* UserDefaultsKey.swift in Sources */,
 			);

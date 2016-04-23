@@ -43,15 +43,9 @@ class UserViewController: UIViewController {
         // self.tableView.addSubview(refreshControl)
         // self.refreshControl = nil
 
-        let nib = UINib(nibName: "UserTweetCell", bundle: nil)
-        tableView.registerNib(nib, forCellReuseIdentifier: "tweet")
-
         self.tableView.estimatedRowHeight = 20
 
         self.tableView.rowHeight = UITableViewAutomaticDimension
-
-        // let recognizer = UITapGestureRecognizer()
-        // self.tableView.addGestureRecognizer(recognizer)
     }
 
     func pullToRefresh() {
@@ -142,6 +136,14 @@ class UserViewController: UIViewController {
         }
     }
 
+    func didClickimageView(recognizer: UIGestureRecognizer) {
+        if let imageView = recognizer.view as? UIImageView {
+            let nextViewController = StoryBoardService.sharedInstance.photoViewController()
+            nextViewController.viewerImgUrl = NSURL(string: imageView.sd_imageURL().absoluteString + ":orig")
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+        }
+    }
+
 }
 
 extension UserViewController: UITableViewDelegate {
@@ -150,6 +152,10 @@ extension UserViewController: UITableViewDelegate {
         let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
         let tweet = tweets[indexPath.row]
         cell.setCell(tweet)
+        for view in cell.imageStackView.subviews {
+            let recognizer = UITapGestureRecognizer(target:self, action: #selector(UserViewController.didClickimageView(_:)))
+            view.addGestureRecognizer(recognizer)
+        }
         return cell
     }
 
@@ -162,37 +168,8 @@ extension UserViewController: UITableViewDelegate {
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let tweet = tweets[indexPath.row]
-        self.delegate.showTweet = tweet.sourceTweet()
+        self.delegate.showTweet = tweet
         self.navigationController?.pushViewController(StoryBoardService.sharedInstance.showTweetView(), animated: true)
-    }
-
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-
-        let replay = MBTableViewRowAction.new(UIImage(named: "icon-replay")!) {
-            (action, indexPath) in
-            print("replay")
-            tableView.editing = false
-        }
-
-        let retweet = MBTableViewRowAction.new(UIImage(named: "icon-images")!) {
-            (action, indexPath) in
-            print("rt")
-            tableView.editing = false
-        }
-
-        let favorite = MBTableViewRowAction.new(UIImage(named: "icon-favorite")!) {
-            (action, indexPath) in
-            print("favo")
-            tableView.editing = false
-        }
-
-        let twitter = MBTableViewRowAction.new(UIImage(named: "icon-twitter-sq")!) {
-            (action, indexPath) in
-            print("favo")
-            tableView.editing = false
-        }
-
-        return [twitter, favorite, retweet, replay]
     }
 
 }
@@ -208,7 +185,4 @@ extension UserViewController: UITableViewDataSource {
         return tws.count
     }
 
-    // エディット機能の提供に必要なメソッド
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    }
 }

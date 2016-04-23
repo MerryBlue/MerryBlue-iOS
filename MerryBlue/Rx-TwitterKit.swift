@@ -137,7 +137,6 @@ public extension Twitter {
                 "list_id": listID,
                 "count": String(count)
             ]
-
             _ = self.rxURLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
                 .subscribe(
                     onNext: { data in
@@ -173,7 +172,43 @@ public extension Twitter {
             if let beforeID = beforeID {
                 parameters["beforeID"] = beforeID
             }
+            _ = self.rxURLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
+                .subscribe(
+                    onNext: { data in
+                        guard let timeline = data as? NSData else {
+                            // observer.onError(TwitterError.Unknown)
+                            return
+                        }
+                        observer.onNext(timeline)
+                        observer.onCompleted()
+                    }, onError: { error in
+                        observer.onError(error)
+                    }, onCompleted: nil, onDisposed: nil)
+            return AnonymousDisposable { }
+        }
+    }
 
+    /// Load the list timeline.
+    ///
+    /// - parameter listID:
+    /// - parameter count:      The number of tweets to retrieve contained in the timeline.
+    /// - parameter beforeID:
+    /// - parameter client:     API client used to load the request.
+    ///
+    /// - returns: The timeline data.
+    public func rxLoadListTimeline(listID: String, count: Int, beforeID: String?, client: TWTRAPIClient) -> Observable<NSData> {
+        return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
+            let httpMethod = "GET"
+            let url = "https://api.twitter.com/1.1/lists/statuses.json"
+            var parameters = [
+                "list_id": listID,
+                "count": String(count),
+                "include_entities": "true",
+                "include_rts": "true"
+            ]
+            if let beforeID = beforeID {
+                parameters["beforeID"] = beforeID
+            }
             _ = self.rxURLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
                 .subscribe(
                     onNext: { data in
@@ -219,6 +254,147 @@ public extension Twitter {
                             return
                         }
                         observer.onNext(timeline)
+                        observer.onCompleted()
+                    }, onError: { error in
+                        observer.onError(error)
+                    }, onCompleted: nil, onDisposed: nil)
+            return AnonymousDisposable { }
+        }
+    }
+
+    /// Load conversations from tweet.
+    /// - parameter tweetID:    Tweet id
+    /// - parameter client:     API client used to load the request.
+    ///
+    /// - returns: The timeline data.
+    public func rxLoadTweetConversions(tweetID: String, client: TWTRAPIClient) -> Observable<NSData> {
+        return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
+            let httpMethod = "GET"
+            let url = "https://api.twitter.com/1.1/conversation/show.json"
+            let parameters = [ "id": tweetID ]
+
+            _ = self.rxURLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
+                .subscribe(
+                    onNext: { data in
+                        guard let tweets = data as? NSData else {
+                            // observer.onError(TwitterError.Unknown)
+                            return
+                        }
+                        observer.onNext(tweets)
+                        observer.onCompleted()
+                    }, onError: { error in
+                        observer.onError(error)
+                    }, onCompleted: nil, onDisposed: nil)
+            return AnonymousDisposable { }
+        }
+    }
+
+    /// Retweet Tweet
+    /// - parameter tweetID:    Tweet id
+    /// - parameter client:     API client used to load the request.
+    ///
+    /// - returns: The timeline data.
+    public func rxLoadRetweet(tweetID: String, client: TWTRAPIClient) -> Observable<NSData> {
+        return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
+            let httpMethod = "POST"
+            let url = "https://api.twitter.com/1.1/statuses/retweet.json"
+            let parameters = [ "id": tweetID ]
+            _ = self.rxURLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
+                .subscribe(
+                    onNext: { data in
+                        guard let tweet = data as? NSData else {
+                            // observer.onError(TwitterError.Unknown)
+                            return
+                        }
+                        observer.onNext(tweet)
+                        observer.onCompleted()
+                    }, onError: { error in
+                        observer.onError(error)
+                    }, onCompleted: nil, onDisposed: nil)
+            return AnonymousDisposable { }
+        }
+    }
+
+    /// Unretweet Tweet
+    /// - parameter tweetID:    Tweet id
+    /// - parameter client:     API client used to load the request.
+    ///
+    /// - returns: The timeline data.
+    public func rxLoadUnretweet(tweetID: String, client: TWTRAPIClient) -> Observable<NSData> {
+        return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
+            let httpMethod = "POST"
+            let url = "https://api.twitter.com/1.1/statuses/unretweet.json"
+            let parameters = [ "id": tweetID ]
+            _ = self.rxURLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
+                .subscribe(
+                    onNext: { data in
+                        guard let tweet = data as? NSData else {
+                            // observer.onError(TwitterError.Unknown)
+                            return
+                        }
+                        observer.onNext(tweet)
+                        observer.onCompleted()
+                    }, onError: { error in
+                        observer.onError(error)
+                    }, onCompleted: nil, onDisposed: nil)
+            return AnonymousDisposable { }
+        }
+    }
+
+
+    /// Like Tweet
+    /// - parameter tweetID:    Tweet id
+    /// - parameter client:     API client used to load the request.
+    ///
+    /// - returns: The timeline data.
+    public func rxLoadLikeTweet(tweetID: String, client: TWTRAPIClient) -> Observable<NSData> {
+        return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
+            let httpMethod = "POST"
+            let url = "https://api.twitter.com/1.1/favorites/create.json"
+            let parameters = [
+                "id": tweetID,
+                "include_entities": "false"
+            ]
+
+            _ = self.rxURLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
+                .subscribe(
+                    onNext: { data in
+                        guard let tweet = data as? NSData else {
+                            // observer.onError(TwitterError.Unknown)
+                            return
+                        }
+                        observer.onNext(tweet)
+                        observer.onCompleted()
+                    }, onError: { error in
+                        observer.onError(error)
+                    }, onCompleted: nil, onDisposed: nil)
+            return AnonymousDisposable { }
+        }
+    }
+
+
+    /// unLike Tweet
+    /// - parameter tweetID:    Tweet id
+    /// - parameter client:     API client used to load the request.
+    ///
+    /// - returns: The timeline data.
+    public func rxLoadUnlikeTweet(tweetID: String, client: TWTRAPIClient) -> Observable<NSData> {
+        return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
+            let httpMethod = "POST"
+            let url = "https://api.twitter.com/1.1/favorites/destroy.json"
+            let parameters = [
+                "id": tweetID,
+                "include_entities": "false"
+            ]
+
+            _ = self.rxURLRequestWithMethod(httpMethod, url: url, parameters: parameters, client: client)
+                .subscribe(
+                    onNext: { data in
+                        guard let tweet = data as? NSData else {
+                            // observer.onError(TwitterError.Unknown)
+                            return
+                        }
+                        observer.onNext(tweet)
                         observer.onCompleted()
                     }, onError: { error in
                         observer.onError(error)
