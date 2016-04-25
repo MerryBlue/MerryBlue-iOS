@@ -12,12 +12,6 @@ public extension Twitter {
         return "https://api.twitter.com/1.1/"
     }
 
-    /// Loads a Twitter User.
-    ///
-    /// - parameter userID:  ID of the user account to be fetched.
-    /// - parameter client:  API client used to load the request.
-    ///
-    /// - returns: An Observable of the user.
     public func rxLoadUserShow(userID: String, client: TWTRAPIClient) -> Observable<NSData> {
         return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
             let parameters = ["user_id": userID]
@@ -33,12 +27,6 @@ public extension Twitter {
         }
     }
 
-    /// Load the lists
-    ///
-    /// - parameter ownerID:  owner twitter userID.
-    /// - parameter client:  API client used to load the request.
-    ///
-    /// - returns: The users data
     public func rxLoadLists(ownerID: String, client: TWTRAPIClient) -> Observable<NSData> {
         return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
             let parameters = ["user_id": ownerID]
@@ -54,13 +42,6 @@ public extension Twitter {
         }
     }
 
-    /// Load the friends.
-    ///
-    /// - parameter userID:  userID.
-    /// - parameter client:  API client used to load the request.
-    /// - parameter count:   Member count limit.
-    ///
-    /// - returns: The users data
     public func rxLoadFriendUsers(userID: String, client: TWTRAPIClient, count: Int = 40) -> Observable<NSData> {
         return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
             let parameters = [
@@ -79,13 +60,6 @@ public extension Twitter {
         }
     }
 
-    /// Load the follower.
-    ///
-    /// - parameter userID:  userID.
-    /// - parameter client:  API client used to load the request.
-    /// - parameter count:   Member count limit.
-    ///
-    /// - returns: The users data
     public func rxLoadFollowerUsers(userID: String, client: TWTRAPIClient, count: Int = 40) -> Observable<NSData> {
         return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
             let parameters = [
@@ -104,13 +78,6 @@ public extension Twitter {
         }
     }
 
-    /// Load the users in list.
-    ///
-    /// - parameter listID:  listID.
-    /// - parameter client:  API client used to load the request.
-    /// - parameter count:   Member count limit.
-    ///
-    /// - returns: The users data
     public func rxLoadListMembers(listID: String, client: TWTRAPIClient, count: Int = 50) -> Observable<NSData> {
         return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
             let parameters = [
@@ -129,13 +96,6 @@ public extension Twitter {
         }
     }
 
-    /// Load the user timeline.
-    ///
-    /// - parameter count:      The number of tweets to retrieve contained in the timeline.
-    /// - parameter beforeID:
-    /// - parameter client:     API client used to load the request.
-    ///
-    /// - returns: The timeline data.
     public func rxLoadTimeline(count: Int, beforeID: String?, client: TWTRAPIClient) -> Observable<NSData> {
         return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
             var parameters = [
@@ -158,14 +118,6 @@ public extension Twitter {
         }
     }
 
-    /// Load the list timeline.
-    ///
-    /// - parameter listID:
-    /// - parameter count:      The number of tweets to retrieve contained in the timeline.
-    /// - parameter beforeID:
-    /// - parameter client:     API client used to load the request.
-    ///
-    /// - returns: The timeline data.
     public func rxLoadListTimeline(listID: String, count: Int, beforeID: String?, client: TWTRAPIClient) -> Observable<NSData> {
         return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
             var parameters = [
@@ -189,13 +141,6 @@ public extension Twitter {
         }
     }
 
-    /// Load the user timeline.
-    /// - parameter userID:       User id
-    /// - parameter count:      The number of tweets to retrieve contained in the timeline.
-    /// - parameter beforeID:
-    /// - parameter client:     API client used to load the request.
-    ///
-    /// - returns: The timeline data.
     public func rxLoadUserTimeline(userID: String, count: Int, beforeID: String?, client: TWTRAPIClient) -> Observable<NSData> {
         return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
             var parameters = [
@@ -220,11 +165,6 @@ public extension Twitter {
         }
     }
 
-    /// Load conversations from tweet.
-    /// - parameter tweetID:    Tweet id
-    /// - parameter client:     API client used to load the request.
-    ///
-    /// - returns: The timeline data.
     public func rxLoadTweetConversions(tweetID: String, client: TWTRAPIClient) -> Observable<NSData> {
         return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
             let parameters = [ "id": tweetID ]
@@ -240,11 +180,6 @@ public extension Twitter {
         }
     }
 
-    /// Retweet Tweet
-    /// - parameter tweetID:    Tweet id
-    /// - parameter client:     API client used to load the request.
-    ///
-    /// - returns: The timeline data.
     public func rxLoadRetweet(tweetID: String, client: TWTRAPIClient) -> Observable<NSData> {
         return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
             let parameters = [ "id": tweetID ]
@@ -260,11 +195,6 @@ public extension Twitter {
         }
     }
 
-    /// Unretweet Tweet
-    /// - parameter tweetID:    Tweet id
-    /// - parameter client:     API client used to load the request.
-    ///
-    /// - returns: The timeline data.
     public func rxLoadUnretweet(tweetID: String, client: TWTRAPIClient) -> Observable<NSData> {
         return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
             let parameters = [ "id": tweetID ]
@@ -281,11 +211,6 @@ public extension Twitter {
     }
 
 
-    /// Like Tweet
-    /// - parameter tweetID:    Tweet id
-    /// - parameter client:     API client used to load the request.
-    ///
-    /// - returns: The timeline data.
     public func rxLoadLikeTweet(tweetID: String, client: TWTRAPIClient) -> Observable<NSData> {
         return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
             let parameters = [
@@ -305,11 +230,6 @@ public extension Twitter {
     }
 
 
-    /// unLike Tweet
-    /// - parameter tweetID:    Tweet id
-    /// - parameter client:     API client used to load the request.
-    ///
-    /// - returns: The timeline data.
     public func rxLoadUnlikeTweet(tweetID: String, client: TWTRAPIClient) -> Observable<NSData> {
         return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
             let parameters = [
@@ -328,14 +248,6 @@ public extension Twitter {
         }
     }
 
-    /// Returns a signed URL request.
-    ///
-    /// - parameter method:     HTTP method of the request.
-    /// - parameter url:       Full Twitter endpoint API URL.
-    /// - parameter parameters: Request parameters.
-    /// - parameter client:  API client used to load the request.
-    ///
-    /// - returns: The received object.
     public func rxURLRequestWithMethod(method: RequestMethod, url: String, parameters: [String : AnyObject], client: TWTRAPIClient)
         -> Observable<NSData> {
             return Observable.create { (observer: AnyObserver<NSData>) -> Disposable in
