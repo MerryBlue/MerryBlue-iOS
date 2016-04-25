@@ -77,7 +77,7 @@ class UserViewController: UIViewController {
         self.setUser()
         self.bgViewHeight = 150
         self.activityIndicator.startAnimating()
-        _ = TwitterManager.requestUserTimeline(user)
+        _ = Twitter.sharedInstance().requestUserTimeline(user)
              .subscribeNext({ (tweets: [MBTweet]) in
                 self.tweets = tweets
                 self.tableView.reloadData()
@@ -110,7 +110,7 @@ class UserViewController: UIViewController {
         if isBouncing && !isUpdating {
             isUpdating = true
             activityIndicator.startAnimating()
-            _ = TwitterManager.requestUserTimelineNext(user, tweet: tweets.last!)
+            _ = Twitter.sharedInstance().requestUserTimelineNext(user, beforeTweet: tweets.last!)
                 .subscribeNext({ (tweets: [MBTweet]) in
                     self.tweets.appendContentsOf(tweets)
                     self.tableView.reloadData()

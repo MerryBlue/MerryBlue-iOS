@@ -78,7 +78,7 @@ class ListTimelineViewController: UIViewController {
         self.title = "Timeline"
         self.bgViewHeight = 150
         self.activityIndicator.startAnimating()
-        _ = TwitterManager.requestListTimeline(list)
+        _ = Twitter.sharedInstance().requestListTimeline(list)
              .subscribeNext({ (tweets: [MBTweet]) in
                 self.tweets = tweets
                 self.tableView.reloadData()
@@ -121,7 +121,7 @@ class ListTimelineViewController: UIViewController {
             return
         }
         self.activityIndicator.startAnimating()
-        _ = TwitterManager.requestListTimeline(list)
+        _ = Twitter.sharedInstance().requestListTimeline(list)
              .subscribeNext({ (tweets: [MBTweet]) in
                 self.tweets = tweets
                 self.tableView.reloadData()

@@ -2,7 +2,7 @@ import Foundation
 import TwitterKit
 import SwiftyJSON
 
-class TwitterUser: TWTRUser {
+public class TwitterUser: TWTRUser {
     var lastStatus: MBTweet!
     var readedStatusId: String!
     var preCount: Int!
@@ -12,11 +12,11 @@ class TwitterUser: TWTRUser {
     var profileBannerImageURL: String!
     var color: UIColor!
 
-    required override init!(JSONDictionary dictionary: [NSObject: AnyObject]!) {
+    required override public init!(JSONDictionary dictionary: [NSObject: AnyObject]!) {
         super.init(JSONDictionary: dictionary)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

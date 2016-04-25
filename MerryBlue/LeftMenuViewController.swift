@@ -32,14 +32,14 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
 
     override func viewDidAppear(animated: Bool) {
         if user == nil {
-            _ = TwitterManager.requestUserProfile(TwitterManager.getUserID())
+            _ = Twitter.sharedInstance().requestUserProfile(TwitterManager.getUserID())
                 .subscribeNext({ (user: TwitterUser) in self.setProfiles(user)})
         }
         let lists = ListService.sharedInstance.adjustOptionalLists(ListService.sharedInstance.selectLists())
 
         if lists.isEmpty {
             self.activityIndicator.startAnimating()
-            _ = TwitterManager.requestLists(TwitterManager.getUserID())
+            _ = Twitter.sharedInstance().requestLists(TwitterManager.getUserID())
                 .subscribeNext({ (lists: [MBTwitterList]) in self.setupTableView(lists) })
         } else {
             setupTableView(lists)
@@ -217,7 +217,7 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             presentViewController(AlertManager.sharedInstantce.listSyncDisable(), animated: true, completion: nil)
             return
         }
-        _ = TwitterManager.requestLists(TwitterManager.getUserID())
+        _ = Twitter.sharedInstance().requestLists(TwitterManager.getUserID())
             .subscribeNext({ (lists: [MBTwitterList]) in
                 self.setupTableView(ListService.sharedInstance.fetchList(lists))
             })

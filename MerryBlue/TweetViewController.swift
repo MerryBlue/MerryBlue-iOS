@@ -18,7 +18,7 @@ class TweetViewController: UIViewController {
 
     @IBOutlet weak var favoriteButton: UIButton!
     @IBAction func favoriteButtonTapped(sender: AnyObject) {
-        _ = TwitterManager.requestToggleLikeTweet(tweet)
+        _ = Twitter.sharedInstance().requestToggleLikeTweet(tweet)
             .subscribeNext({ (tweet: MBTweet) in
                 self.tweet = tweet
                 self.loadLikeButton()
@@ -31,13 +31,13 @@ class TweetViewController: UIViewController {
             return
         }
         if !tweet.sourceTweet().isRetweeted {
-            _ = TwitterManager.requestRetweet(tweet)
+            _ = Twitter.sharedInstance().requestRetweet(tweet)
                 .subscribeNext({ (tweet: MBTweet) in
                     self.tweet = tweet
                     self.loadRetweetButton()
                 })
         } else {
-            _ = TwitterManager.requestUnretweet(tweet)
+            _ = Twitter.sharedInstance().requestUnretweet(tweet)
                 .subscribeNext({ (tweet: MBTweet) in
                     self.tweet = tweet
                     let col = UIColor.grayColor()
@@ -71,7 +71,7 @@ class TweetViewController: UIViewController {
         }
         let sourceTweet = tweet.sourceTweet()
         self.tweet = tweet
-        // _ = TwitterManager.requestTweetConversions(tweet).subscribe()
+        // _ = Twitter.sharedInstance().requestTweetConversions(tweet).subscribe()
         self.tweetTextLabel.text = sourceTweet.text
         self.nameLabel.text = sourceTweet.author.name
         self.screenNameLabel.text = "@\(sourceTweet.author.screenName)"

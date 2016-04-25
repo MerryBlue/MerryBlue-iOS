@@ -1,15 +1,15 @@
 import TwitterKit
 import SwiftyJSON
 
-class MBTweet: TWTRTweet {
+public class MBTweet: TWTRTweet {
 
     var imageURLs: [String]!
 
-    required override init!(JSONDictionary dictionary: [NSObject: AnyObject]!) {
+    public required override init!(JSONDictionary dictionary: [NSObject: AnyObject]!) {
         super.init(JSONDictionary: dictionary)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
