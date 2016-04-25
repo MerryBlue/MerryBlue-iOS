@@ -67,7 +67,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.activityIndicator.startAnimating()
         orderType = ConfigService.sharedInstance.selectOrderType(TwitterManager.getUserID())
-        _ = TwitterManager.requestMembers(list)
+        _ = Twitter.sharedInstance().requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
     }
 
@@ -93,7 +93,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             refreshControl.endRefreshing()
             return
         }
-        _ = TwitterManager.requestMembers(list)
+        _ = Twitter.sharedInstance().requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in
                 self.setupListUsers(users)
         })
@@ -235,7 +235,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         self.activityIndicator.startAnimating()
-        _ = TwitterManager.requestMembers(list)
+        _ = Twitter.sharedInstance().requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
         self.list = list
     }

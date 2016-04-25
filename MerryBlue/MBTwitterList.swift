@@ -2,13 +2,13 @@ import Foundation
 import TwitterKit
 import SwiftyJSON
 
-enum ListType: String {
+public enum ListType: String {
     case Normal         = "normal"
     case RecentFollow   = "recentFollow"
     case RecentFollower = "recentFollower"
 }
 
-class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
+public class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
     var listID: String
     var name: String
     var slug: String
@@ -59,7 +59,7 @@ class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
         }
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         // NOTE: catch error
         self.listID      = aDecoder.decodeObjectForKey(SerializedKey.ListID) as? String ?? "id error"
         self.name        = aDecoder.decodeObjectForKey(SerializedKey.Name) as? String ?? "name error"
@@ -76,7 +76,7 @@ class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
         }
     }
 
-    func encodeWithCoder(aCoder: NSCoder) {
+    public func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(self.listID, forKey: SerializedKey.ListID)
         aCoder.encodeObject(self.name, forKey: SerializedKey.Name)
         aCoder.encodeObject(self.slug, forKey: SerializedKey.Slug)
