@@ -26,8 +26,10 @@ class ListInfoCell: UITableViewCell {
             self.iconImageView.sd_setImageWithURL(NSURL(string: listInfo.imageUrl), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
         case .RecentFollow:
             self.iconImageView.image = UIImage(named: "icon-recent-follow")
+            self.iconImageView.tintColor = MBColor.Main
         case .RecentFollower:
             self.iconImageView.image = UIImage(named: "icon-recent-follower")
+            self.iconImageView.tintColor = MBColor.Main
         }
 
         if listInfo.isHomeTabEnable() {
