@@ -1,7 +1,6 @@
 import UIKit
 import TwitterKit
 import RxSwift
-import FontAwesomeKit
 
 class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 

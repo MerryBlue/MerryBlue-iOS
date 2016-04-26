@@ -1,6 +1,5 @@
 import UIKit
 import TwitterKit
-import FontAwesomeKit
 
 class UserTimelineViewController: MBTimelineViewController {
 

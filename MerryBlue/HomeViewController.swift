@@ -1,6 +1,5 @@
 import UIKit
 import TwitterKit
-import FontAwesomeKit
 
 enum HomeViewOrderType: Int {
     case TimeOrder

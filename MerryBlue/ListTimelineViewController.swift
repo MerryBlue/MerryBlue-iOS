@@ -1,6 +1,5 @@
 import UIKit
 import TwitterKit
-import FontAwesomeKit
 
 class ListTimelineViewController: UIViewController {
     var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
