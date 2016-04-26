@@ -96,11 +96,8 @@ class UserViewController: UIViewController {
             self.userHeaderImageView.contentMode = .ScaleAspectFill
             self.userHeaderImageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: UIImage(named: "twttr-icn-tweet-place-holder-photo-error@3x.png"))
         } else {
-            let gradientLayer: CAGradientLayer = CAGradientLayer()
-            gradientLayer.colors = [user.color.CGColor, UIColor.blackColor().CGColor]
-            gradientLayer.frame = self.backgroundView.bounds
-            self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
-            // self.backgroundView.backgroundColor = user.color
+            self.userHeaderImageView.image = nil
+            self.backgroundView.layer.backgroundColor = MBColor.Main.CGColor
         }
     }
 

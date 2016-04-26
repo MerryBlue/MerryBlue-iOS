@@ -72,13 +72,15 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     private func setProfiles(user: TwitterUser) {
         nameLabel.text = user.name
         screenNameLabel.text = "@\(user.screenName)"
-        do {
-            let imageData = try NSData(contentsOfURL: NSURL(string: user.profileImageURL)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-            let bannerImageData = try NSData(contentsOfURL: NSURL(string: user.profileBannerImageURL)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-            self.profileImageView.image = UIImage(data: imageData)
-            self.profileBackgroundImageView.image = UIImage(data: bannerImageData)
-        } catch {
-            print("Error: Image request invalid")
+
+        self.profileImageView.sd_setImageWithURL(NSURL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        if let url = user.profileBannerImageURL where !url.isEmpty {
+            self.profileBackgroundImageView.clipsToBounds = true
+            self.profileBackgroundImageView.contentMode = .ScaleAspectFill
+            self.profileBackgroundImageView.sd_setImageWithURL(NSURL(string: user.profileBannerImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        } else {
+            self.profileBackgroundImageView.image = nil
+            self.profileBackgroundImageView.layer.backgroundColor = MBColor.Main.CGColor
         }
     }
 
