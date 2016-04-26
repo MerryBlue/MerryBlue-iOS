@@ -216,6 +216,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.updateList()
     }
 
+    override func viewWillDisappear(animated: Bool) {
+        self.slideMenuController()?.removeLeftGestures()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        self.slideMenuController()?.addLeftGestures()
+    }
+
     func setupTabbarItemState() {
         guard let items: [UITabBarItem] = self.tabBarController!.tabBar.items,
             list = ListService.sharedInstance.selectHomeList()

@@ -131,6 +131,15 @@ class ListTimelineViewController: UIViewController {
         self.list = list
     }
 
+    override func viewWillDisappear(animated: Bool) {
+        self.slideMenuController()?.removeLeftGestures()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        self.slideMenuController()?.addLeftGestures()
+    }
+
+
 }
 
 extension ListTimelineViewController: UITableViewDelegate {
