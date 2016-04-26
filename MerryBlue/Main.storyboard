@@ -879,7 +879,7 @@
         <!--Photo View Controller-->
         <scene sceneID="utM-nC-tQH">
             <objects>
-                <viewController storyboardIdentifier="photo-view" id="7Js-Tf-hLa" customClass="PhotoViewController" customModule="MerryBlue" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="photo-view" hidesBottomBarWhenPushed="YES" id="7Js-Tf-hLa" customClass="PhotoViewController" customModule="MerryBlue" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pwI-Ro-sT0"/>
                         <viewControllerLayoutGuide type="bottom" id="Q1a-rz-iva"/>

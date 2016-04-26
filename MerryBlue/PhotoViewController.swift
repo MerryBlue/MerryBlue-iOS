@@ -27,6 +27,11 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
         self.imageViewWrap.addGestureRecognizer(doubleTapGesture)
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.hidesBarsOnTap = true
+    }
+
     override func viewDidAppear(animated: Bool) {
         self.activityIndicator.startAnimating()
         self.imageView.contentMode = .ScaleAspectFit
@@ -35,6 +40,11 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
             (image, error, sDImageCacheType, url) -> Void in
             self.activityIndicator.stopAnimating()
             })
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.hidesBarsOnTap = false
     }
 
     func doubleTap(gesture: UITapGestureRecognizer) -> Void {
