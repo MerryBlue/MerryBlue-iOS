@@ -17,7 +17,7 @@ class AssetSertvice {
     let iconSortByCountRev = UIImage(named: "icon-sort-count-rev")
 
     let loadingImage = UIImage(named: "twttr-icn-tweet-place-holder-photo-error@3x.png")
-    let iconIndicator = UIImage(named: "icon-indicator")
+    let iconIndicator = UIImage(named: "loading-image")
     let iconRecentFollow = UIImage(named: "icon-recent-follow")
     let iconRecentFollower = UIImage(named: "icon-recent-follower")
 
