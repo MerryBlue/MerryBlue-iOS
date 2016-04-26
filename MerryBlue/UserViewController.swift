@@ -94,7 +94,7 @@ class UserViewController: UIViewController {
         if let url = user.profileBannerImageURL where !url.isEmpty {
             self.userHeaderImageView.clipsToBounds = true
             self.userHeaderImageView.contentMode = .ScaleAspectFill
-            self.userHeaderImageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: UIImage(named: "twttr-icn-tweet-place-holder-photo-error@3x.png"))
+            self.userHeaderImageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
         } else {
             self.userHeaderImageView.image = nil
             self.backgroundView.layer.backgroundColor = MBColor.Main.CGColor

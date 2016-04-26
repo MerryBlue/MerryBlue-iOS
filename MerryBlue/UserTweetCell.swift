@@ -38,7 +38,7 @@ class UserTweetCell: UITableViewCell {
                 // imageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: imageHeight)
                 imageView.contentMode = .ScaleAspectFill
                 imageView.clipsToBounds = true
-                imageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: UIImage(named: "icon-indicator"))
+                imageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
                 self.imageStackView.insertArrangedSubview(imageView, atIndex: i)
             }
         }

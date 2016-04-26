@@ -25,10 +25,10 @@ class ListInfoCell: UITableViewCell {
         case .Normal:
             self.iconImageView.sd_setImageWithURL(NSURL(string: listInfo.imageUrl), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
         case .RecentFollow:
-            self.iconImageView.image = UIImage(named: "icon-recent-follow")
+            self.iconImageView.image = AssetSertvice.sharedInstance.iconRecentFollow
             self.iconImageView.tintColor = MBColor.Main
         case .RecentFollower:
-            self.iconImageView.image = UIImage(named: "icon-recent-follower")
+            self.iconImageView.image = AssetSertvice.sharedInstance.iconRecentFollower
             self.iconImageView.tintColor = MBColor.Main
         }
 
