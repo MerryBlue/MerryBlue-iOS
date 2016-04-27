@@ -3,6 +3,7 @@ class MBColor {
     internal static let Sub  = MBColor.fromHex(0xa0d9e2)
     internal static let Back = MBColor.fromHex(0xf8fcff)
     internal static let Dark = MBColor.fromHex(0x4d6196)
+    internal static let LightSub  = MBColor.fromHex(0xE3FBFF)
 
     static func fromHex(rgbValue: UInt) -> UIColor {
         return UIColor(

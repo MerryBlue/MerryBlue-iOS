@@ -167,7 +167,7 @@ extension LeftMenuViewController: UITableViewDataSource {
             cell.accessoryType = .Checkmark
             cell.setSelected(true, animated: false)
         } else if let homeList = ListService.sharedInstance.selectHomeList() where homeList.equalItem(list) {
-            cell.backgroundColor = MBColor.Sub
+            cell.backgroundColor = MBColor.LightSub
         }
     }
 
