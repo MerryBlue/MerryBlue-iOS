@@ -4,14 +4,19 @@ class ListService {
 
     static let sharedInstance = ListService()
     private let userDefaults = NSUserDefaults.standardUserDefaults()
+    var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
 
     func updateHomeList(list: MBTwitterList) {
+        delegate.homeList = list
         let archive = NSKeyedArchiver.archivedDataWithRootObject(list)
         self.userDefaults.setObject(archive, forKey: forKeyUser(UserDefaultsKey.HomeList))
         self.userDefaults.synchronize()
     }
 
     func selectHomeList() -> MBTwitterList? {
+        if let homeList = delegate.homeList {
+            return homeList
+        }
         guard let unarchivedObject = self.userDefaults.objectForKey(forKeyUser(UserDefaultsKey.HomeList)) as? NSData,
             li = NSKeyedUnarchiver.unarchiveObjectWithData(unarchivedObject) as? MBTwitterList else {
                 return nil

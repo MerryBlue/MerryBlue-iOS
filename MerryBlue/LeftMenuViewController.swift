@@ -105,12 +105,15 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let list = self.twitterLists[indexPath.row]
         // cell.setSelected(list.visible, animated: false)
+        cell.setSelected(false, animated: false)
+        cell.backgroundColor = UIColor.whiteColor()
+        cell.accessoryType = .None
+
         if tableView.editing && list.visible {
             cell.accessoryType = .Checkmark
             cell.setSelected(true, animated: false)
-        } else {
-            cell.accessoryType = .None
-            cell.setSelected(false, animated: false)
+        } else if let homeList = ListService.sharedInstance.selectHomeList() where homeList.equalItem(list) {
+            cell.backgroundColor = MBColor.Sub
         }
     }
 
