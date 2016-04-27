@@ -100,7 +100,6 @@ class HomeViewController: UIViewController {
 
     internal func setupListUsers(users: [TwitterUser]) {
         self.users = TwitterManager.sortUsersLastupdate(users)
-        self.title = list.name
         self.setOrder()
         if self.activityIndicator.isAnimating() {
             self.activityIndicator.stopAnimating()
@@ -205,13 +204,14 @@ class HomeViewController: UIViewController {
             return
         }
         self.setupTabbarItemState()
-        if let _ = self.list where self.list.equalItem(list) {
+        self.list = list
+        self.navigationItem.title = list.name
+        if let nowList = self.list where nowList.equalItem(list) {
             return
         }
         self.activityIndicator.startAnimating()
         _ = Twitter.sharedInstance().requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
-        self.list = list
     }
 
 }

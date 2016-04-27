@@ -74,7 +74,6 @@ class ListTimelineViewController: UIViewController {
             return
         }
         self.list = list
-        self.title = "Timeline"
         self.bgViewHeight = 150
         self.activityIndicator.startAnimating()
         _ = Twitter.sharedInstance().requestListTimeline(list)
@@ -116,7 +115,9 @@ class ListTimelineViewController: UIViewController {
             return
         }
         self.setupTabbarItemState()
-        if let _ = self.list where self.list.equalItem(list) {
+        self.list = list
+        self.navigationItem.title = list.name
+        if let nowList = self.list where nowList.equalItem(list) {
             return
         }
         self.activityIndicator.startAnimating()
@@ -127,7 +128,6 @@ class ListTimelineViewController: UIViewController {
                 self.activityIndicator.stopAnimating()
                 self.isUpdating = false
              })
-        self.list = list
     }
 
     override func viewWillDisappear(animated: Bool) {

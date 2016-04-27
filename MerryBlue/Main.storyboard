@@ -97,7 +97,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="600" height="49"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6ZQ-Rv-CWQ" id="qJc-Xd-rXv">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="48.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="49"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hjv-fb-TLl">
@@ -316,7 +316,7 @@
             </objects>
             <point key="canvasLocation" x="-467" y="948"/>
         </scene>
-        <!--Title-->
+        <!--Home View Controller-->
         <scene sceneID="MhS-UU-UPd">
             <objects>
                 <viewController storyboardIdentifier="home" id="gKC-Kv-Yba" customClass="HomeViewController" customModule="MerryBlue" customModuleProvider="target" sceneMemberID="viewController">
@@ -336,7 +336,7 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="82"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NbU-Fv-SnO" id="YRu-j7-H91">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="81.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="82"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="fuw-jg-6ie">
@@ -473,7 +473,7 @@
                             <constraint firstItem="uoE-sa-xzd" firstAttribute="top" secondItem="Y45-p5-7RE" secondAttribute="bottom" id="xnm-6d-Hnv"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="pXG-7z-5GG">
+                    <navigationItem key="navigationItem" id="pXG-7z-5GG">
                         <barButtonItem key="leftBarButtonItem" image="icon-list" id="vGf-2L-dIB"/>
                         <rightBarButtonItems>
                             <barButtonItem image="icon-sort-count" id="GGA-z8-Xv7"/>
@@ -572,7 +572,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="600" height="137"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7VI-Sr-c0i" id="EAx-Ct-Xkc">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="136.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="137"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Rc0-iW-Wl1">
@@ -832,11 +832,11 @@
             </objects>
             <point key="canvasLocation" x="1908" y="1357"/>
         </scene>
-        <!--Home-->
+        <!--Status-->
         <scene sceneID="LhJ-3p-INV">
             <objects>
                 <navigationController restorationIdentifier="tab-home" storyboardIdentifier="nav-home" automaticallyAdjustsScrollViewInsets="NO" id="5uS-IH-e3e" customClass="MBNavigationController" customModule="MerryBlue" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="icon-home" id="YcG-iW-w7x"/>
+                    <tabBarItem key="tabBarItem" title="Status" image="icon-home" id="YcG-iW-w7x"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="Btz-pK-74J">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -940,7 +940,7 @@
             </objects>
             <point key="canvasLocation" x="398" y="2280"/>
         </scene>
-        <!--Timeline-->
+        <!--List Timeline View Controller-->
         <scene sceneID="Air-8c-c42">
             <objects>
                 <tableViewController storyboardIdentifier="tl" id="xhV-Ea-eXj" customClass="ListTimelineViewController" customModule="MerryBlue" customModuleProvider="target" sceneMemberID="viewController">
@@ -958,7 +958,7 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="137"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="62W-Du-nGK" id="TLH-FE-Ot1">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="136.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="137"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="qbc-tU-s6W">
@@ -1048,7 +1048,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Timeline" id="Vh7-ud-5Dm">
+                    <navigationItem key="navigationItem" id="Vh7-ud-5Dm">
                         <barButtonItem key="leftBarButtonItem" image="icon-list" id="fZM-re-5OZ"/>
                     </navigationItem>
                     <connections>
