@@ -143,6 +143,19 @@ class ListTimelineViewController: UIViewController {
 
 extension ListTimelineViewController: UITableViewDelegate {
 
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let tws = tweets else { return 0 }
+        return tws.count
+    }
+
+}
+
+extension ListTimelineViewController: UITableViewDataSource {
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
         let tweet = tweets[indexPath.row]
@@ -161,19 +174,6 @@ extension ListTimelineViewController: UITableViewDelegate {
         let tweet = tweets[indexPath.row]
         self.delegate.showTweet = tweet
         self.navigationController?.pushViewController(StoryBoardService.sharedInstance.showTweetView(), animated: true)
-    }
-
-}
-
-extension ListTimelineViewController: UITableViewDataSource {
-
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let tws = tweets else { return 0 }
-        return tws.count
     }
 
 }

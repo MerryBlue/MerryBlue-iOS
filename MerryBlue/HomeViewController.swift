@@ -13,7 +13,7 @@ enum HomeViewOrderType: Int {
     }
 }
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class HomeViewController: UIViewController {
 
     var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
 
@@ -107,39 +107,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
 
         refreshControl.endRefreshing() // データが取れたら更新を終える（くるくる回るViewを消去）
-    }
-
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.users.count
-    }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let user = users[indexPath.row]
-        let cell = (tableView.dequeueReusableCellWithIdentifier("userStatusCell") as? UserStatusCell)!
-        // let cell = (tableView.dequeueReusableCellWithIdentifier(IdentifilerService.sharedInstance.homeCellID(user.userID)) as? UserStatusCell)!
-        cell.setCell(user)
-        return cell
-    }
-
-    func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let user = users[indexPath.row]
-        self.openUserTimeline(user)
-    }
-
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if filtered! && !users[indexPath.row].hasNew() {
-            cell.hidden = true
-        } else {
-            cell.hidden = false
-        }
-    }
-
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return self.cacheCellHeight!
     }
 
     private func setNavigationBar() {
@@ -245,6 +212,45 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         _ = Twitter.sharedInstance().requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
         self.list = list
+    }
+
+}
+
+extension HomeViewController: UITableViewDelegate {
+    func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let user = users[indexPath.row]
+        self.openUserTimeline(user)
+    }
+
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if filtered! && !users[indexPath.row].hasNew() {
+            cell.hidden = true
+        } else {
+            cell.hidden = false
+        }
+    }
+
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return self.cacheCellHeight!
+    }
+
+}
+
+extension HomeViewController: UITableViewDataSource {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.users.count
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let user = users[indexPath.row]
+        let cell = (tableView.dequeueReusableCellWithIdentifier("userStatusCell") as? UserStatusCell)!
+        // let cell = (tableView.dequeueReusableCellWithIdentifier(IdentifilerService.sharedInstance.homeCellID(user.userID)) as? UserStatusCell)!
+        cell.setCell(user)
+        return cell
     }
 
 }
