@@ -22,7 +22,7 @@ class UserTweetCell: UITableViewCell {
 
     func setCell(tweet: MBTweet) {
         let sourceTweet = tweet.sourceTweet()
-        self.tweetTextLabel.text = sourceTweet.text
+        self.tweetTextLabel.text = sourceTweet.prettyText()
         self.namesLabel.text = "\(sourceTweet.author.name)・@\(sourceTweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
         self.userImageView.sd_setImageWithURL(NSURL(string: sourceTweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
