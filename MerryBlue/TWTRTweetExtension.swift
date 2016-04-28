@@ -23,13 +23,11 @@ extension TWTRTweet {
         if text.characters.count < 5 {
             return text
         }
-        // is mention
-        if (text as NSString).substringToIndex(1) == "@" {
+        if self.isRetweet {
             text = "🔁" + text
         }
-        // is retweet
-        if (text as NSString).substringToIndex(5) == "RT: @" {
-            text = text.stringByReplacingOccurrencesOfString("RT:", withString: "💬", options: [])
+        if (text as NSString).substringToIndex(1) == "@" {
+            text = "💬" + text
         }
         return text
     }
