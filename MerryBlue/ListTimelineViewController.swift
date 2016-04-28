@@ -29,11 +29,10 @@ class ListTimelineViewController: UIViewController {
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        // refreshControl = UIRefreshControl()
-        // refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
-        // refreshControl.addTarget(self, action: #selector(ListTimelineViewController.pullToRefresh), forControlEvents:.ValueChanged)
-        // self.tableView.addSubview(refreshControl)
-        // self.refreshControl = nil
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
+        refreshControl.addTarget(self, action: #selector(ListTimelineViewController.pullToRefresh), forControlEvents:.ValueChanged)
+        self.tableView.addSubview(refreshControl)
 
         self.tableView.estimatedRowHeight = 20
 
@@ -41,6 +40,16 @@ class ListTimelineViewController: UIViewController {
     }
 
     func pullToRefresh() {
+        refreshControl.endRefreshing()
+        if !list.isTimelineTabEnable() {
+            self.activityIndicator.stopAnimating()
+            presentViewController(AlertManager.sharedInstantce.disableTabSpecialTab(), animated: true, completion: nil)
+            self.tweets = []
+            self.tableView.reloadData()
+            refreshControl.endRefreshing()
+            self.navigationController?.tabBarController?.selectedIndex = 1
+            return
+        }
     }
 
 
@@ -70,11 +79,17 @@ class ListTimelineViewController: UIViewController {
             goBlack()
             return
         }
-        if self.tweets != nil {
-            return
-        }
         self.list = list
         self.bgViewHeight = 150
+        if !list.isTimelineTabEnable() {
+            self.activityIndicator.stopAnimating()
+            self.tweets = []
+            self.tableView.reloadData()
+            refreshControl.endRefreshing()
+            presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
+            self.navigationController?.tabBarController?.selectedIndex = 0
+            return
+        }
         self.activityIndicator.startAnimating()
         _ = Twitter.sharedInstance().requestListTimeline(list)
              .subscribeNext({ (tweets: [MBTweet]) in

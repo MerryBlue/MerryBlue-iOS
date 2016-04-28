@@ -60,7 +60,9 @@ class HomeViewController: UIViewController {
         }
         self.list = list
         if !list.isHomeTabEnable() {
+            self.setupListUsers([])
             self.activityIndicator.stopAnimating()
+            self.navigationController?.tabBarController?.selectedIndex = 1
             presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
             return
         }
@@ -87,7 +89,9 @@ class HomeViewController: UIViewController {
             return
         }
         if !list.isHomeTabEnable() {
+            self.setupListUsers([])
             self.activityIndicator.stopAnimating()
+            self.navigationController?.tabBarController?.selectedIndex = 1
             presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
             refreshControl.endRefreshing()
             return
