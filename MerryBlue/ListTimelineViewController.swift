@@ -153,6 +153,20 @@ class ListTimelineViewController: UIViewController {
         self.slideMenuController()?.addLeftGestures()
     }
 
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let isBouncing = (self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height)) && self.tableView.dragging
+        if isBouncing && !isUpdating {
+            isUpdating = true
+            activityIndicator.startAnimating()
+            _ = Twitter.sharedInstance().requestListTimelineNext(self.list, beforeTweet: tweets.last!)
+                .subscribeNext({ (tweets: [MBTweet]) in
+                    self.tweets.appendContentsOf(tweets)
+                    self.tableView.reloadData()
+                    self.activityIndicator.stopAnimating()
+                    self.isUpdating = false
+                })
+        }
+    }
 
 }
 
