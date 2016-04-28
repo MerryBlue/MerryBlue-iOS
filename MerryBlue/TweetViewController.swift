@@ -56,8 +56,6 @@ class TweetViewController: UIViewController {
         }
     }
 
-    var hasMedia: Bool!
-
     var tweet: MBTweet!
 
     override func viewDidLoad() {
@@ -77,12 +75,11 @@ class TweetViewController: UIViewController {
         self.userImageView.sd_setImageWithURL(NSURL(string: sourceTweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
         // images set
-        self.hasMedia = tweet.imageURLs.count > 0
         let imageHeight: CGFloat = 100
         self.imageStackViewHeight.constant = CGFloat(tweet.imageURLs.count) * imageHeight
 
         _ = self.imageStackView.subviews.map { $0.removeFromSuperview() }
-        if hasMedia! && self.imageStackView.subviews.count == 0 {
+        if tweet.hasMedia() && self.imageStackView.subviews.count == 0 {
             for (i, url) in tweet.imageURLs.enumerate() {
                 let recognizer = UITapGestureRecognizer(target:self, action: #selector(TweetViewController.didClickImageView(_:)))
                 let imageView = UIImageView()

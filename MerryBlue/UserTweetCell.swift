@@ -10,8 +10,6 @@ class UserTweetCell: UITableViewCell {
     @IBOutlet weak var imageStackView: UIStackView!
     @IBOutlet weak var imageStackViewHeight: NSLayoutConstraint!
 
-    var hasMedia: Bool!
-
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -26,12 +24,11 @@ class UserTweetCell: UITableViewCell {
         self.namesLabel.text = "\(sourceTweet.author.name)・@\(sourceTweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
         self.userImageView.sd_setImageWithURL(NSURL(string: sourceTweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
-        self.hasMedia = tweet.imageURLs.count > 0
         let imageHeight: CGFloat = 100
         self.imageStackViewHeight.constant = CGFloat(tweet.imageURLs.count) * imageHeight
 
         _ = self.imageStackView.subviews.map { $0.removeFromSuperview() }
-        if hasMedia! && self.imageStackView.subviews.count == 0 {
+        if tweet.hasMedia() && self.imageStackView.subviews.count == 0 {
             for (i, url) in tweet.imageURLs.enumerate() {
                 let imageView = UIImageView()
                 imageView.userInteractionEnabled = true
