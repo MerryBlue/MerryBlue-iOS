@@ -108,7 +108,6 @@ class HomeViewController: UIViewController {
         if self.activityIndicator.isAnimating() {
             self.activityIndicator.stopAnimating()
         }
-
         refreshControl.endRefreshing() // データが取れたら更新を終える（くるくる回るViewを消去）
     }
 
@@ -154,6 +153,7 @@ class HomeViewController: UIViewController {
         default:
             break
         }
+        self.tableView.contentOffset = CGPoint(x: 0, y: -self.tableView.contentInset.top)
         self.tableView.reloadData()
     }
 

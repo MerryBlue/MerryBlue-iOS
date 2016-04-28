@@ -42,20 +42,14 @@ class ListTimelineViewController: UIViewController {
     func pullToRefresh() {
         refreshControl.endRefreshing()
         if !list.isTimelineTabEnable() {
-            self.activityIndicator.stopAnimating()
             presentViewController(AlertManager.sharedInstantce.disableTabSpecialTab(), animated: true, completion: nil)
-            self.tweets = []
-            self.tableView.reloadData()
-            refreshControl.endRefreshing()
+            self.setupTweets([])
             self.navigationController?.tabBarController?.selectedIndex = 1
             return
         }
         _ = Twitter.sharedInstance().requestListTimeline(list)
             .subscribeNext({ (tweets: [MBTweet]) in
-                self.tweets = tweets
-                self.tableView.reloadData()
-                self.activityIndicator.stopAnimating()
-                self.isUpdating = false
+                self.setupTweets(tweets)
         })
     }
 
@@ -89,10 +83,7 @@ class ListTimelineViewController: UIViewController {
         self.list = list
         self.bgViewHeight = 150
         if !list.isTimelineTabEnable() {
-            self.activityIndicator.stopAnimating()
-            self.tweets = []
-            self.tableView.reloadData()
-            refreshControl.endRefreshing()
+            self.setupTweets([])
             presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
             self.navigationController?.tabBarController?.selectedIndex = 0
             return
@@ -100,10 +91,7 @@ class ListTimelineViewController: UIViewController {
         self.activityIndicator.startAnimating()
         _ = Twitter.sharedInstance().requestListTimeline(list)
              .subscribeNext({ (tweets: [MBTweet]) in
-                self.tweets = tweets
-                self.tableView.reloadData()
-                self.activityIndicator.stopAnimating()
-                self.isUpdating = false
+                self.setupTweets(tweets)
              })
     }
 
@@ -139,16 +127,14 @@ class ListTimelineViewController: UIViewController {
         self.setupTabbarItemState()
         self.list = list
         self.navigationItem.title = list.name
+        self.tableView.contentOffset = CGPoint(x: 0, y: -self.tableView.contentInset.top)
         if let nowList = self.list where nowList.equalItem(list) {
             return
         }
         self.activityIndicator.startAnimating()
         _ = Twitter.sharedInstance().requestListTimeline(list)
              .subscribeNext({ (tweets: [MBTweet]) in
-                self.tweets = tweets
-                self.tableView.reloadData()
-                self.activityIndicator.stopAnimating()
-                self.isUpdating = false
+                self.setupTweets(tweets)
              })
     }
 
@@ -167,12 +153,16 @@ class ListTimelineViewController: UIViewController {
             activityIndicator.startAnimating()
             _ = Twitter.sharedInstance().requestListTimelineNext(self.list, beforeTweet: tweets.last!)
                 .subscribeNext({ (tweets: [MBTweet]) in
-                    self.tweets.appendContentsOf(tweets)
-                    self.tableView.reloadData()
-                    self.activityIndicator.stopAnimating()
-                    self.isUpdating = false
+                    self.setupTweets(self.tweets + tweets)
                 })
         }
+    }
+
+    func setupTweets(tweets: [MBTweet]) {
+        self.tweets = tweets
+        self.tableView.reloadData()
+        self.activityIndicator.stopAnimating()
+        self.isUpdating = false
     }
 
 }
