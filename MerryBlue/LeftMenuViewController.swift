@@ -73,6 +73,8 @@ class LeftMenuViewController: UIViewController {
         screenNameLabel.text = "@\(user.screenName)"
 
         self.profileImageView.sd_setImageWithURL(NSURL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        self.profileBackgroundImageView.layer.backgroundColor = UIColor.whiteColor().CGColor
+
         if let url = user.profileBannerImageURL where !url.isEmpty {
             self.profileBackgroundImageView.clipsToBounds = true
             self.profileBackgroundImageView.contentMode = .ScaleAspectFill
