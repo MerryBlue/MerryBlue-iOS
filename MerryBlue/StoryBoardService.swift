@@ -18,12 +18,6 @@ class StoryBoardService {
         return storyboard.instantiateViewControllerWithIdentifier("login")
     }
 
-    func userNavView() -> UIViewController {
-        let view = MBNavigationController(rootViewController: UserTimelineViewController())
-        view.modalTransitionStyle = .CrossDissolve
-        return view
-    }
-
     func userView() -> UIViewController {
         return storyboard.instantiateViewControllerWithIdentifier("user-view")
     }

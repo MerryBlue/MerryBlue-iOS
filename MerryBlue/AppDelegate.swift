@@ -12,6 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var userViewUser: TwitterUser?
     var userViewNewCount: Int?
     var openHomeID: Int?
+    var homeList: MBTwitterList?
 
     var showTweet: MBTweet?
 

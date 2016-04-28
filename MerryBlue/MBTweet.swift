@@ -13,6 +13,18 @@ public class MBTweet: TWTRTweet {
         fatalError("init(coder:) has not been implemented")
     }
 
+    public func hasMedia() -> Bool {
+        return self.imageURLs.count > 0
+    }
+
+    override func arrangeText() -> String {
+        var text = super.arrangeText()
+        if self.hasMedia() {
+            text = "🖼" + text
+        }
+        return text
+    }
+
     init?(json: SwiftyJSON.JSON) {
         super.init(JSONDictionary: json.dictionaryObject)
         let medias = json["extended_entities"]["media"].arrayValue

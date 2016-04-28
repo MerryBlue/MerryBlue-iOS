@@ -25,18 +25,20 @@ class ListInfoCell: UITableViewCell {
         case .Normal:
             self.iconImageView.sd_setImageWithURL(NSURL(string: listInfo.imageUrl), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
         case .RecentFollow:
-            self.iconImageView.image = UIImage(named: "icon-recent-follow")
+            self.iconImageView.image = AssetSertvice.sharedInstance.iconRecentFollow
+            self.iconImageView.tintColor = MBColor.Main
         case .RecentFollower:
-            self.iconImageView.image = UIImage(named: "icon-recent-follower")
+            self.iconImageView.image = AssetSertvice.sharedInstance.iconRecentFollower
+            self.iconImageView.tintColor = MBColor.Main
         }
+        self.memberNumLabel.textColor = UIColor.blackColor()
+        self.listNameLabel.textColor = UIColor.blackColor()
 
-        if listInfo.isHomeTabEnable() {
-            self.listNameLabel.textColor = UIColor.blackColor()
-            self.memberNumLabel.textColor = UIColor.blackColor()
-        } else {
-            // 選択不可
-            self.listNameLabel.textColor = MBColor.Sub
+        if !listInfo.isHomeTabEnable() {
             self.memberNumLabel.textColor = MBColor.Sub
+        }
+        if !listInfo.isTimelineTabEnable() {
+            self.listNameLabel.textColor = MBColor.Sub
         }
     }
 

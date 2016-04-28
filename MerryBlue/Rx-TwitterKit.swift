@@ -51,7 +51,7 @@ public extension Twitter {
     }
 
     public func requestUserTimelineNext(user: TwitterUser, count: Int = 30, beforeTweet: MBTweet) -> Observable<[MBTweet]> {
-        return Twitter.sharedInstance().requestUserTimeline(user, count: count, beforeID: beforeTweet.tweetID)
+        return Twitter.sharedInstance().requestUserTimeline(user, count: count, beforeID: String(Int(beforeTweet.tweetID)! - 1))
     }
 
     public func requestListTimeline(list: MBTwitterList, count: Int = 30, beforeID: String! = nil) -> Observable<[MBTweet]> {
@@ -61,10 +61,14 @@ public extension Twitter {
             "include_entities": "true",
             "include_rts": "true"
         ]
-        if let beforeID = beforeID {
-            parameters["beforeID"] = beforeID
+        if let bid = beforeID {
+            parameters["max_id"] = bid
         }
         return self.getTweetsRequest("lists/statuses", parameters: parameters)
+    }
+
+    public func requestListTimelineNext(list: MBTwitterList, count: Int = 30, beforeTweet: MBTweet) -> Observable<[MBTweet]> {
+        return Twitter.sharedInstance().requestListTimeline(list, count: count, beforeID: String(Int(beforeTweet.tweetID)! - 1))
     }
 
     public func requestToggleRetweet(tweet: TWTRTweet) -> Observable<MBTweet> {

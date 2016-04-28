@@ -1,9 +1,8 @@
 import UIKit
 import TwitterKit
 import RxSwift
-import FontAwesomeKit
 
-class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class LeftMenuViewController: UIViewController {
 
     var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
 
@@ -72,13 +71,17 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     private func setProfiles(user: TwitterUser) {
         nameLabel.text = user.name
         screenNameLabel.text = "@\(user.screenName)"
-        do {
-            let imageData = try NSData(contentsOfURL: NSURL(string: user.profileImageURL)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-            let bannerImageData = try NSData(contentsOfURL: NSURL(string: user.profileBannerImageURL)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-            self.profileImageView.image = UIImage(data: imageData)
-            self.profileBackgroundImageView.image = UIImage(data: bannerImageData)
-        } catch {
-            print("Error: Image request invalid")
+
+        self.profileImageView.sd_setImageWithURL(NSURL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        self.profileBackgroundImageView.layer.backgroundColor = UIColor.whiteColor().CGColor
+
+        if let url = user.profileBannerImageURL where !url.isEmpty {
+            self.profileBackgroundImageView.clipsToBounds = true
+            self.profileBackgroundImageView.contentMode = .ScaleAspectFill
+            self.profileBackgroundImageView.sd_setImageWithURL(NSURL(string: user.profileBannerImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        } else {
+            self.profileBackgroundImageView.image = nil
+            self.profileBackgroundImageView.layer.backgroundColor = MBColor.Main.CGColor
         }
     }
 
@@ -101,21 +104,6 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
 
-    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let list = self.twitterLists[indexPath.row]
-        // cell.setSelected(list.visible, animated: false)
-        if tableView.editing && list.visible {
-            cell.accessoryType = .Checkmark
-            cell.setSelected(true, animated: false)
-        } else {
-            cell.accessoryType = .None
-            cell.setSelected(false, animated: false)
-        }
-    }
-
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-    }
-
     func syncVisibleCells() {
         for (i, list) in twitterLists.enumerate() {
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: 0))
@@ -129,48 +117,6 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         logoutButton.addTarget(self, action: #selector(LeftMenuViewController.onClickLogoutButton(_:)), forControlEvents: .TouchUpInside)
     }
 
-    // セルの行数
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return twitterLists.count
-    }
-
-    //セルの内容を変更
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let list = twitterLists[indexPath.row]
-        let cell = (tableView.dequeueReusableCellWithIdentifier("listInfoCell", forIndexPath: indexPath) as? ListInfoCell)!
-        // let cell = (tableView.dequeueReusableCellWithIdentifier(IdentifilerService.sharedInstance.listCellID(list.listID), forIndexPath: indexPath) as? ListInfoCell)!
-        cell.setCell(list)
-        return cell
-    }
-
-    // 編集モードでセルの移動許可 & 削除拒否
-    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return .None
-    }
-    func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-        let si = sourceIndexPath.row
-        let di = destinationIndexPath.row
-        var swapRange: [Int]
-        if si < di {
-            swapRange = [Int](si..<di)
-        } else {
-            swapRange = (di..<si).reverse()
-        }
-        for i in swapRange {
-            swap(&twitterLists[i], &twitterLists[i + 1])
-        }
-    }
-    // func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
-    // }
 
     internal func setupTableView(lists: [MBTwitterList]) {
         twitterLists = lists
@@ -191,12 +137,92 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
 
     }
 
+    func pullToRefresh() {
+        if self.tableView.editing {
+            // 編集中はリスト更新制限アラート
+            presentViewController(AlertManager.sharedInstantce.listSyncDisable(), animated: true, completion: nil)
+            return
+        }
+        _ = Twitter.sharedInstance().requestLists(TwitterManager.getUserID())
+            .subscribeNext({ (lists: [MBTwitterList]) in
+                self.setupTableView(ListService.sharedInstance.fetchList(lists))
+            })
+        refreshControl.endRefreshing()
+    }
+
+}
+
+extension LeftMenuViewController: UITableViewDelegate {
+
+}
+
+extension LeftMenuViewController: UITableViewDataSource {
+
+    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        let list = self.twitterLists[indexPath.row]
+        // cell.setSelected(list.visible, animated: false)
+        cell.setSelected(false, animated: false)
+        cell.backgroundColor = UIColor.whiteColor()
+        cell.accessoryType = .None
+
+        if tableView.editing && list.visible {
+            cell.accessoryType = .Checkmark
+            cell.setSelected(true, animated: false)
+        } else if let homeList = ListService.sharedInstance.selectHomeList() where homeList.equalItem(list) {
+            cell.backgroundColor = MBColor.LightSub
+        }
+    }
+
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return twitterLists.count
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let list = twitterLists[indexPath.row]
+        let cell = (tableView.dequeueReusableCellWithIdentifier("listInfoCell", forIndexPath: indexPath) as? ListInfoCell)!
+        // let cell = (tableView.dequeueReusableCellWithIdentifier(IdentifilerService.sharedInstance.listCellID(list.listID), forIndexPath: indexPath) as? ListInfoCell)!
+        cell.setCell(list)
+        return cell
+    }
+
+    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return .None
+    }
+
+    func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
+
+    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        let si = sourceIndexPath.row
+        let di = destinationIndexPath.row
+        var swapRange: [Int]
+        if si < di {
+            swapRange = [Int](si..<di)
+        } else {
+            swapRange = (di..<si).reverse()
+        }
+        for i in swapRange {
+            swap(&twitterLists[i], &twitterLists[i + 1])
+        }
+    }
+
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         let list = twitterLists[indexPath.row]
         list.visible = false
     }
 
-    // Cell が選択された場合
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let list = self.twitterLists[indexPath.row]
         if self.tableView.editing {
@@ -209,19 +235,6 @@ class LeftMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         self.slideMenuController()?.changeMainViewController(
             (self.slideMenuController()?.mainViewController)!,
             close: true)
-    }
-
-    func pullToRefresh() {
-        if self.tableView.editing {
-            // 編集中はリスト更新制限アラート
-            presentViewController(AlertManager.sharedInstantce.listSyncDisable(), animated: true, completion: nil)
-            return
-        }
-        _ = Twitter.sharedInstance().requestLists(TwitterManager.getUserID())
-            .subscribeNext({ (lists: [MBTwitterList]) in
-                self.setupTableView(ListService.sharedInstance.fetchList(lists))
-            })
-        refreshControl.endRefreshing()
     }
 
 }

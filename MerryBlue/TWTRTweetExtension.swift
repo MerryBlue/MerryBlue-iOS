@@ -16,4 +16,34 @@ extension TWTRTweet {
     func isOwnTweet() -> Bool {
         return self.sourceTweet().author.userID == TwitterManager.getUserID()
     }
+
+    // 絵文字に置き換え
+    func arrangeText() -> String {
+        var text = self.prettyText()
+        if text.characters.count < 5 {
+            return text
+        }
+        if self.isRetweet {
+            text = "🔁" + text
+        }
+        if (text as NSString).substringToIndex(1) == "@" {
+            text = "💬" + text
+        }
+        return text
+    }
+
+    // URL などを取り除いたテキスト
+    func prettyText() -> String {
+        // replace url
+        let regex: NSRegularExpression
+        do {
+            let pattern = "(?i)https?://(?:www\\.)?\\S+(?:/|\\b)"
+            let replace = "🔗[URL]"
+            regex = try NSRegularExpression(pattern: pattern, options: [])
+            return regex.stringByReplacingMatchesInString(text, options: [], range: NSRange(location: 0, length: text.characters.count), withTemplate: replace)
+        } catch _ {
+            print("regex error")
+        }
+        return self.text
+    }
 }

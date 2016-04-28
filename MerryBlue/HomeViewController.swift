@@ -1,6 +1,5 @@
 import UIKit
 import TwitterKit
-import FontAwesomeKit
 
 enum HomeViewOrderType: Int {
     case TimeOrder
@@ -14,7 +13,7 @@ enum HomeViewOrderType: Int {
     }
 }
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class HomeViewController: UIViewController {
 
     var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
 
@@ -61,7 +60,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.list = list
         if !list.isHomeTabEnable() {
+            self.setupListUsers([])
             self.activityIndicator.stopAnimating()
+            self.navigationController?.tabBarController?.selectedIndex = 1
             presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
             return
         }
@@ -88,7 +89,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         if !list.isHomeTabEnable() {
+            self.setupListUsers([])
             self.activityIndicator.stopAnimating()
+            self.navigationController?.tabBarController?.selectedIndex = 1
             presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
             refreshControl.endRefreshing()
             return
@@ -101,46 +104,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     internal func setupListUsers(users: [TwitterUser]) {
         self.users = TwitterManager.sortUsersLastupdate(users)
-        self.title = list.name
         self.setOrder()
         if self.activityIndicator.isAnimating() {
             self.activityIndicator.stopAnimating()
         }
-
         refreshControl.endRefreshing() // データが取れたら更新を終える（くるくる回るViewを消去）
-    }
-
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.users.count
-    }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let user = users[indexPath.row]
-        let cell = (tableView.dequeueReusableCellWithIdentifier("userStatusCell") as? UserStatusCell)!
-        // let cell = (tableView.dequeueReusableCellWithIdentifier(IdentifilerService.sharedInstance.homeCellID(user.userID)) as? UserStatusCell)!
-        cell.setCell(user)
-        return cell
-    }
-
-    func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let user = users[indexPath.row]
-        self.openUserTimeline(user)
-    }
-
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if filtered! && !users[indexPath.row].hasNew() {
-            cell.hidden = true
-        } else {
-            cell.hidden = false
-        }
-    }
-
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return self.cacheCellHeight!
     }
 
     private func setNavigationBar() {
@@ -185,6 +153,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         default:
             break
         }
+        self.tableView.contentOffset = CGPoint(x: 0, y: -self.tableView.contentInset.top)
         self.tableView.reloadData()
     }
 
@@ -216,6 +185,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.updateList()
     }
 
+    override func viewWillDisappear(animated: Bool) {
+        self.slideMenuController()?.removeLeftGestures()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        self.slideMenuController()?.addLeftGestures()
+    }
+
     func setupTabbarItemState() {
         guard let items: [UITabBarItem] = self.tabBarController!.tabBar.items,
             list = ListService.sharedInstance.selectHomeList()
@@ -231,13 +208,53 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         self.setupTabbarItemState()
-        if let _ = self.list where self.list.equalItem(list) {
+        self.list = list
+        self.navigationItem.title = list.name
+        if let nowList = self.list where nowList.equalItem(list) {
             return
         }
         self.activityIndicator.startAnimating()
         _ = Twitter.sharedInstance().requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
-        self.list = list
+    }
+
+}
+
+extension HomeViewController: UITableViewDelegate {
+    func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let user = users[indexPath.row]
+        self.openUserTimeline(user)
+    }
+
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if filtered! && !users[indexPath.row].hasNew() {
+            cell.hidden = true
+        } else {
+            cell.hidden = false
+        }
+    }
+
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return self.cacheCellHeight!
+    }
+
+}
+
+extension HomeViewController: UITableViewDataSource {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.users.count
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let user = users[indexPath.row]
+        let cell = (tableView.dequeueReusableCellWithIdentifier("userStatusCell") as? UserStatusCell)!
+        // let cell = (tableView.dequeueReusableCellWithIdentifier(IdentifilerService.sharedInstance.homeCellID(user.userID)) as? UserStatusCell)!
+        cell.setCell(user)
+        return cell
     }
 
 }

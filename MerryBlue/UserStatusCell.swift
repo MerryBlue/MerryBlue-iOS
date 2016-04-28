@@ -32,7 +32,7 @@ class UserStatusCell: UITableViewCell {
             self.timeElapsedLabel.text = "----/--/-- --:--:--"
             return
         }
-        self.tweetTextLabel.text = status.text
+        self.tweetTextLabel.text = status.arrangeText()
 
         self.timeElapsedLabel.text = status.createdAt.toFuzzy()
 

@@ -1,6 +1,5 @@
 import UIKit
 import TwitterKit
-import FontAwesomeKit
 
 class ListTimelineViewController: UIViewController {
     var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
@@ -30,11 +29,10 @@ class ListTimelineViewController: UIViewController {
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        // refreshControl = UIRefreshControl()
-        // refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
-        // refreshControl.addTarget(self, action: #selector(ListTimelineViewController.pullToRefresh), forControlEvents:.ValueChanged)
-        // self.tableView.addSubview(refreshControl)
-        // self.refreshControl = nil
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
+        refreshControl.addTarget(self, action: #selector(ListTimelineViewController.pullToRefresh), forControlEvents:.ValueChanged)
+        self.tableView.addSubview(refreshControl)
 
         self.tableView.estimatedRowHeight = 20
 
@@ -42,6 +40,17 @@ class ListTimelineViewController: UIViewController {
     }
 
     func pullToRefresh() {
+        refreshControl.endRefreshing()
+        if !list.isTimelineTabEnable() {
+            presentViewController(AlertManager.sharedInstantce.disableTabSpecialTab(), animated: true, completion: nil)
+            self.setupTweets([])
+            self.navigationController?.tabBarController?.selectedIndex = 1
+            return
+        }
+        _ = Twitter.sharedInstance().requestListTimeline(list)
+            .subscribeNext({ (tweets: [MBTweet]) in
+                self.setupTweets(tweets)
+        })
     }
 
 
@@ -71,19 +80,18 @@ class ListTimelineViewController: UIViewController {
             goBlack()
             return
         }
-        if self.tweets != nil {
+        self.list = list
+        self.bgViewHeight = 150
+        if !list.isTimelineTabEnable() {
+            self.setupTweets([])
+            presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
+            self.navigationController?.tabBarController?.selectedIndex = 0
             return
         }
-        self.list = list
-        self.title = "Timeline"
-        self.bgViewHeight = 150
         self.activityIndicator.startAnimating()
         _ = Twitter.sharedInstance().requestListTimeline(list)
              .subscribeNext({ (tweets: [MBTweet]) in
-                self.tweets = tweets
-                self.tableView.reloadData()
-                self.activityIndicator.stopAnimating()
-                self.isUpdating = false
+                self.setupTweets(tweets)
              })
     }
 
@@ -117,23 +125,62 @@ class ListTimelineViewController: UIViewController {
             return
         }
         self.setupTabbarItemState()
-        if let _ = self.list where self.list.equalItem(list) {
+        self.list = list
+        self.navigationItem.title = list.name
+        self.tableView.contentOffset = CGPoint(x: 0, y: -self.tableView.contentInset.top)
+        if let nowList = self.list where nowList.equalItem(list) {
             return
         }
         self.activityIndicator.startAnimating()
         _ = Twitter.sharedInstance().requestListTimeline(list)
              .subscribeNext({ (tweets: [MBTweet]) in
-                self.tweets = tweets
-                self.tableView.reloadData()
-                self.activityIndicator.stopAnimating()
-                self.isUpdating = false
+                self.setupTweets(tweets)
              })
-        self.list = list
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        self.slideMenuController()?.removeLeftGestures()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        self.slideMenuController()?.addLeftGestures()
+    }
+
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let isBouncing = (self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height)) && self.tableView.dragging
+        if isBouncing && !isUpdating {
+            isUpdating = true
+            activityIndicator.startAnimating()
+            _ = Twitter.sharedInstance().requestListTimelineNext(self.list, beforeTweet: tweets.last!)
+                .subscribeNext({ (tweets: [MBTweet]) in
+                    self.setupTweets(self.tweets + tweets)
+                })
+        }
+    }
+
+    func setupTweets(tweets: [MBTweet]) {
+        self.tweets = tweets
+        self.tableView.reloadData()
+        self.activityIndicator.stopAnimating()
+        self.isUpdating = false
     }
 
 }
 
 extension ListTimelineViewController: UITableViewDelegate {
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let tws = tweets else { return 0 }
+        return tws.count
+    }
+
+}
+
+extension ListTimelineViewController: UITableViewDataSource {
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
@@ -153,19 +200,6 @@ extension ListTimelineViewController: UITableViewDelegate {
         let tweet = tweets[indexPath.row]
         self.delegate.showTweet = tweet
         self.navigationController?.pushViewController(StoryBoardService.sharedInstance.showTweetView(), animated: true)
-    }
-
-}
-
-extension ListTimelineViewController: UITableViewDataSource {
-
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let tws = tweets else { return 0 }
-        return tws.count
     }
 
 }
