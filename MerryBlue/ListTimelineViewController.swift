@@ -50,6 +50,13 @@ class ListTimelineViewController: UIViewController {
             self.navigationController?.tabBarController?.selectedIndex = 1
             return
         }
+        _ = Twitter.sharedInstance().requestListTimeline(list)
+            .subscribeNext({ (tweets: [MBTweet]) in
+                self.tweets = tweets
+                self.tableView.reloadData()
+                self.activityIndicator.stopAnimating()
+                self.isUpdating = false
+        })
     }
 
 
