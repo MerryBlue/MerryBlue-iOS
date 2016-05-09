@@ -28,7 +28,6 @@ class HomeViewController: UIViewController {
 
     var list: MBTwitterList!
     var users = [TwitterUser]()
-    var filtered: Bool!
     // 初めは時間順，オーダーメソッドが呼ばれるので逆に設定
     var orderType = HomeViewOrderType.TimeOrder
 
@@ -37,7 +36,6 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setNavigationBar()
-        self.filtered = false
         self.setupTableView()
         self.setupTabbarItemState()
     }
@@ -157,11 +155,6 @@ class HomeViewController: UIViewController {
         self.tableView.reloadData()
     }
 
-    func filterReaded() {
-        self.filtered = !self.filtered
-        self.tableView.reloadData()
-    }
-
     func openListsChooser() {
         guard let slideMenu = self.slideMenuController() else {
             print("Error: HomeView hove not Slidebar")
@@ -227,11 +220,6 @@ extension HomeViewController: UITableViewDelegate {
     }
 
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if filtered! && !users[indexPath.row].hasNew() {
-            cell.hidden = true
-        } else {
-            cell.hidden = false
-        }
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
