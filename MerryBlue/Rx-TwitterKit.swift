@@ -148,6 +148,19 @@ public extension Twitter {
         return self.getUsersRequest("lists/members", parameters: parameters)
     }
 
+    public func requestSearchTweets(text: String, list: MBTwitterList?, beforeID: String?, filterImage: Bool?, count: Int = MBTwitterList.memberNumActiveMaxLimit) -> Observable<[MBTweet]> {
+        let q = TwitterSearchQueryBuilder(text: text)
+        q.filterImage()
+        var parameters = [
+            "q": q.build(),
+            "count": String(count)
+        ]
+        if let bid = beforeID {
+            parameters["max_id"] = bid
+        }
+        return self.getTweetsRequest("lists/members", parameters: parameters)
+    }
+
     public func getTweetsRequest(url: String, parameters: [String: AnyObject]) -> Observable<[MBTweet]> {
         return Observable.create { (observer) -> Disposable in
             _ = self.rxURLRequestWithMethod(.GET, url: url, parameters: parameters)

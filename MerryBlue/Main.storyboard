@@ -218,7 +218,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3iF-Hb-4SG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-467" y="1894"/>
+            <point key="canvasLocation" x="-467" y="2504"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="wH9-p9-tTh">
@@ -310,6 +310,7 @@
                     <connections>
                         <segue destination="5uS-IH-e3e" kind="relationship" relationship="viewControllers" id="qyB-M4-pCm"/>
                         <segue destination="gji-Eb-TX9" kind="relationship" relationship="viewControllers" id="7Qm-x4-GDi"/>
+                        <segue destination="gde-WI-hJx" kind="relationship" relationship="viewControllers" id="dln-Nd-bed"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ftR-zW-8uz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -490,7 +491,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gK4-D2-lcA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1129" y="362"/>
+            <point key="canvasLocation" x="1537" y="-398"/>
         </scene>
         <!--User View Controller-->
         <scene sceneID="i9d-8D-x0K">
@@ -620,7 +621,7 @@
                                                                                             <string key="text">けれども私は「失敗に備えておく」というその言葉の意味を理解することができませんでした。もし私が失敗するとしても、自分の信念を持ち続けること以外、失敗への備えなどしたくないと思っていたのです。 倒れる時は後ろではなく、前のめりに倒れたいと思っていました。それなら少なくとも、何を目指して倒れたのかこの目で見ることができるからです。
 私が言いたいのはこういうことです。今日ここにいる卒業生の方々はみなさん才能があり、成功するための教育を受けています。でもみなさんに、失敗する度胸はありますか？</string>
                                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                     </subviews>
@@ -699,7 +700,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SEY-3W-9Hq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1908" y="454"/>
+            <point key="canvasLocation" x="2316" y="-306"/>
         </scene>
         <!--Tweet View Controller-->
         <scene sceneID="aNG-NT-rxj">
@@ -737,7 +738,7 @@
                                                                     <constraint firstAttribute="height" constant="25" id="Dw6-GY-AYe"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ZW-3e-N2a">
@@ -746,7 +747,7 @@
                                                                     <constraint firstAttribute="height" constant="25" id="Y48-2E-bdY"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
@@ -759,7 +760,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ZH-RC-Q8r">
                                                 <rect key="frame" x="0.0" y="52" width="584" height="23"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="DYv-Ii-cP8">
@@ -830,7 +831,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j1o-fq-JBt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1908" y="1357"/>
+            <point key="canvasLocation" x="2316" y="597"/>
         </scene>
         <!--Status-->
         <scene sceneID="LhJ-3p-INV">
@@ -851,13 +852,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="95e-Ws-YS7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="398.5" y="468.5"/>
+            <point key="canvasLocation" x="806" y="-292"/>
         </scene>
         <!--Timeline-->
         <scene sceneID="0El-ly-rii">
             <objects>
                 <navigationController restorationIdentifier="tab-tl" storyboardIdentifier="nav-tl" automaticallyAdjustsScrollViewInsets="NO" id="gji-Eb-TX9" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Timeline" image="icon-timeline" id="nNl-nQ-SqI"/>
+                    <tabBarItem key="tabBarItem" title="Timeline" image="icon-timeline" id="9JF-nK-U8O"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="iam-m5-AO3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -874,7 +875,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jhw-ee-Dqi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="398" y="1357"/>
+            <point key="canvasLocation" x="806" y="597"/>
         </scene>
         <!--Photo View Controller-->
         <scene sceneID="utM-nC-tQH">
@@ -938,7 +939,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OMW-zj-XQM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="398" y="2280"/>
+            <point key="canvasLocation" x="390" y="3120"/>
         </scene>
         <!--List Timeline View Controller-->
         <scene sceneID="Air-8c-c42">
@@ -1006,7 +1007,7 @@
                                                                             <string key="text">けれども私は「失敗に備えておく」というその言葉の意味を理解することができませんでした。もし私が失敗するとしても、自分の信念を持ち続けること以外、失敗への備えなどしたくないと思っていたのです。 倒れる時は後ろではなく、前のめりに倒れたいと思っていました。それなら少なくとも、何を目指して倒れたのかこの目で見ることができるからです。
 私が言いたいのはこういうことです。今日ここにいる卒業生の方々はみなさん才能があり、成功するための教育を受けています。でもみなさんに、失敗する度胸はありますか？</string>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
@@ -1059,7 +1060,60 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1AY-qe-hxK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1129" y="1357"/>
+            <point key="canvasLocation" x="1537" y="597"/>
+        </scene>
+        <!--Image-->
+        <scene sceneID="dDR-yZ-ZHr">
+            <objects>
+                <navigationController restorationIdentifier="tab-image" storyboardIdentifier="nav-image" id="gde-WI-hJx" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Image" image="icon-images" id="iPz-AD-tqI"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="wOh-EX-IrW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.24313725489999999" green="0.41960784309999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Kca-8F-hYf" kind="relationship" relationship="rootViewController" id="zG5-x3-HpM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BbK-Qi-KrX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="806" y="1461"/>
+        </scene>
+        <!--Collection View Controller-->
+        <scene sceneID="wNg-h6-mxY">
+            <objects>
+                <collectionViewController id="Kca-8F-hYf" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="hh9-QF-1ch">
+                        <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fQC-b8-UAo">
+                            <size key="itemSize" width="160" height="155"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="xe6-o7-7Rt">
+                                <rect key="frame" x="0.0" y="0.0" width="160" height="155"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="160" height="155"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="Kca-8F-hYf" id="w3o-yF-tSF"/>
+                            <outlet property="delegate" destination="Kca-8F-hYf" id="Cui-ce-c2g"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="JDF-od-78f"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tGX-tr-Kyh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1537" y="1461"/>
         </scene>
     </scenes>
     <resources>
@@ -1067,6 +1121,7 @@
         <image name="icon-favorite" width="22" height="16"/>
         <image name="icon-gear" width="22" height="22"/>
         <image name="icon-home" width="22" height="22"/>
+        <image name="icon-images" width="22" height="16"/>
         <image name="icon-list" width="22" height="22"/>
         <image name="icon-logout" width="22" height="22"/>
         <image name="icon-readed" width="22" height="22"/>
