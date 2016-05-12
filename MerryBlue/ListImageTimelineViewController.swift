@@ -171,7 +171,8 @@ extension ListImageTimelineViewController: UICollectionViewDataSource, UICollect
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = (collectionView.dequeueReusableCellWithReuseIdentifier("image-cell", forIndexPath: indexPath) as? ImageCell)!
-        cell.image.sd_setImageWithURL(NSURL(string: self.tweets[indexPath.row].imageURLs[0]), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
+        let tweet = self.tweets[indexPath.row]
+        cell.image.sd_setImageWithURL(NSURL(string: tweet.imageURLs[0]), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
         cell.backgroundColor = UIColor.blackColor()
         return cell
     }

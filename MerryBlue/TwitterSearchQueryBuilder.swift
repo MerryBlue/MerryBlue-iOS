@@ -1,7 +1,8 @@
 class TwitterSearchQueryBuilder {
 
     enum Operator: String {
-        case FilterImage = "filter:image"
+        case FilterImage = "filter:images"
+        case List = "list:"
     }
 
     var text = ""
@@ -27,7 +28,7 @@ class TwitterSearchQueryBuilder {
             suffixList.append(Operator.FilterImage.rawValue)
         }
         if let l = self.list {
-            suffixList.append(l.fullName)
+            suffixList.append(Operator.List.rawValue + l.fullName)
         }
         let suffix = suffixList.joinWithSeparator(" ")
         return q + " " + suffix

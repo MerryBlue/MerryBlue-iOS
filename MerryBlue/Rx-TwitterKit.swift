@@ -148,9 +148,11 @@ public extension Twitter {
         return self.getUsersRequest("lists/members", parameters: parameters)
     }
 
-    public func requestSearchTweets(text: String, list: MBTwitterList?, beforeID: String?, filterImage: Bool?, count: Int = MBTwitterList.memberNumActiveMaxLimit) -> Observable<[MBTweet]> {
+    public func requestSearchTweets(text: String, list: MBTwitterList?, beforeID: String?, filterImage: Bool = false, count: Int = MBTwitterList.memberNumActiveMaxLimit) -> Observable<[MBTweet]> {
         let q = TwitterSearchQueryBuilder(text: text)
-        q.filterImage()
+        if filterImage {
+            q.filterImage()
+        }
         if let l = list {
             q.setList(l)
         }
@@ -161,16 +163,20 @@ public extension Twitter {
         if let bid = beforeID {
             parameters["max_id"] = bid
         }
-        return self.getTweetsRequest("search/tweets", parameters: parameters)
+        return self.getTweetsRequest("search/tweets", parameters: parameters, isStatusesWrapped: true)
     }
 
-    public func getTweetsRequest(url: String, parameters: [String: AnyObject]) -> Observable<[MBTweet]> {
+    public func getTweetsRequest(url: String, parameters: [String: AnyObject], isStatusesWrapped: Bool = false) -> Observable<[MBTweet]> {
         return Observable.create { (observer) -> Disposable in
             _ = self.rxURLRequestWithMethod(.GET, url: url, parameters: parameters)
                 .subscribe(
                     onNext: { data in
                         let json = JSON(data: data)
-                        let tweets: [MBTweet] = json.map { MBTweet(json: $0.1)! }
+                        var statusesJson = json
+                        if isStatusesWrapped {
+                            statusesJson = json["statuses"]
+                        }
+                        let tweets: [MBTweet] = statusesJson.map { MBTweet(json: $0.1)! }
                         observer.onNext(tweets)
                     }, onError: { error in
                         observer.onError(error)
