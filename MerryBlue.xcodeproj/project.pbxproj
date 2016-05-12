@@ -31,6 +31,7 @@
 		457D825E1CE0750A00F9345D /* TwitterSearchQueryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D825D1CE0750A00F9345D /* TwitterSearchQueryBuilder.swift */; };
 		457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE71C933D25000A665A /* AppDelegate.swift */; };
 		457E0BEA1C933D25000A665A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE91C933D25000A665A /* HomeViewController.swift */; };
+		458829871CE41AB000E343CB /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458829861CE41AB000E343CB /* ImageCell.swift */; };
 		45A68DD91CB16F3A007719E1 /* StoryBoardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A68DD81CB16F3A007719E1 /* StoryBoardService.swift */; };
 		45A68DDB1CB1781F007719E1 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A68DDA1CB1781F007719E1 /* AlertManager.swift */; };
 		45ABA1ED1C9800B9006DE856 /* TwitterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ABA1EC1C9800B9006DE856 /* TwitterUser.swift */; };
@@ -83,6 +84,7 @@
 		457E0BE71C933D25000A665A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		457E0BE91C933D25000A665A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		457E0BF51C933D25000A665A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		458829861CE41AB000E343CB /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		45A68DD81CB16F3A007719E1 /* StoryBoardService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryBoardService.swift; sourceTree = "<group>"; };
 		45A68DDA1CB1781F007719E1 /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		45ABA1EC1C9800B9006DE856 /* TwitterUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterUser.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				45ABA1F01C981A23006DE856 /* UserStatusCell.swift */,
+				458829861CE41AB000E343CB /* ImageCell.swift */,
 				45C67AC31CB3C2C700C98329 /* UserTweetCell.swift */,
 				4551ADF41C9B33A100A00CE8 /* ListInfoCell.swift */,
 				4552AFDF1CB5F09900B762AB /* MBTableViewRowAction.swift */,
@@ -457,6 +460,7 @@
 				4540E4001CB4A956000AE6A9 /* MBTweet.swift in Sources */,
 				453B45001C98DF9B00CE5FFE /* ArrayExtension.swift in Sources */,
 				4540E4021CB50418000AE6A9 /* UIColorExtension.swift in Sources */,
+				458829871CE41AB000E343CB /* ImageCell.swift in Sources */,
 				45C67AC41CB3C2C700C98329 /* UserTweetCell.swift in Sources */,
 				4552AFE01CB5F09900B762AB /* MBTableViewRowAction.swift in Sources */,
 				451C4D8F1C9C9CEB00903A0C /* NSDateExtension.swift in Sources */,

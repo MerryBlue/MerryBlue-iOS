@@ -3,14 +3,14 @@ import TwitterKit
 
 class ListImageTimelineViewController: UIViewController {
     var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
-    @IBOutlet weak var switchListButton: UIBarButtonItem!
+    // @IBOutlet weak var switchListButton: UIBarButtonItem!
+    @IBOutlet weak var collectionView: UICollectionView!
 
     var refreshControl: UIRefreshControl!
 
-    var tweets: [MBTweet]!
+    var tweets = [MBTweet]()
 
     var cacheHeights = [CGFloat]()
     var list: MBTwitterList!
@@ -24,19 +24,19 @@ class ListImageTimelineViewController: UIViewController {
         self.setupTableView()
     }
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
     // ====== setup methods ======
 
     func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
         refreshControl.addTarget(self, action: #selector(ListImageTimelineViewController.pullToRefresh), forControlEvents:.ValueChanged)
-        self.tableView.addSubview(refreshControl)
-
-        self.tableView.estimatedRowHeight = 20
-
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.collectionView.addSubview(refreshControl)
+        // self.tableView.estimatedRowHeight = 20
+        // self.tableView.rowHeight = UITableViewAutomaticDimension
     }
 
     func pullToRefresh() {
@@ -71,8 +71,8 @@ class ListImageTimelineViewController: UIViewController {
             print("Error: no wrapperd navigation controller")
             return
         }
-        self.switchListButton.target = self
-        self.switchListButton.action = #selector(ListImageTimelineViewController.openListsChooser)
+        // self.switchListButton.target = self
+        // self.switchListButton.action = #selector(ListImageTimelineViewController.openListsChooser)
     }
 
     func goBlack() {
@@ -128,7 +128,6 @@ class ListImageTimelineViewController: UIViewController {
         self.setupTabbarItemState()
         self.list = list
         self.navigationItem.title = list.name
-        self.tableView.contentOffset = CGPoint(x: 0, y: -self.tableView.contentInset.top)
         if let nowList = self.list where nowList.equalItem(list) {
             return
         }
@@ -145,7 +144,9 @@ class ListImageTimelineViewController: UIViewController {
     }
 
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        let isBouncing = (self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height)) && self.tableView.dragging
+        var isBouncing = (self.collectionView.contentOffset.y >= (self.collectionView.contentSize.height - self.collectionView.bounds.size.height)) && self.collectionView.dragging
+        // TODO: remove
+        isBouncing = false
         if isBouncing && !isUpdating {
             isUpdating = true
             activityIndicator.startAnimating()
@@ -158,46 +159,29 @@ class ListImageTimelineViewController: UIViewController {
 
     func setupTweets(tweets: [MBTweet]) {
         self.tweets = tweets
-        self.tableView.reloadData()
+        self.collectionView.reloadData()
         self.activityIndicator.stopAnimating()
         self.isUpdating = false
     }
 
 }
 
-extension ListImageTimelineViewController: UITableViewDelegate {
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
+extension ListImageTimelineViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let tws = tweets else { return 0 }
-        return tws.count
-    }
-
-}
-
-extension ListImageTimelineViewController: UITableViewDataSource {
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
-        let tweet = tweets[indexPath.row]
-        cell.setCell(tweet)
-        for view in cell.imageStackView.subviews {
-            let recognizer = UITapGestureRecognizer(target:self, action: #selector(ListImageTimelineViewController.didClickimageView(_:)))
-            view.addGestureRecognizer(recognizer)
-        }
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = (collectionView.dequeueReusableCellWithReuseIdentifier("image-cell", forIndexPath: indexPath) as? ImageCell)!
+        cell.image.sd_setImageWithURL(NSURL(string: self.tweets[indexPath.row].imageURLs[0]), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
+        cell.backgroundColor = UIColor.blackColor()
         return cell
     }
 
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let tweet = tweets[indexPath.row]
-        self.delegate.showTweet = tweet
-        self.navigationController?.pushViewController(StoryBoardService.sharedInstance.showTweetView(), animated: true)
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.tweets.count
     }
 
 }

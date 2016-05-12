@@ -151,6 +151,9 @@ public extension Twitter {
     public func requestSearchTweets(text: String, list: MBTwitterList?, beforeID: String?, filterImage: Bool?, count: Int = MBTwitterList.memberNumActiveMaxLimit) -> Observable<[MBTweet]> {
         let q = TwitterSearchQueryBuilder(text: text)
         q.filterImage()
+        if let l = list {
+            q.setList(l)
+        }
         var parameters = [
             "q": q.build(),
             "count": String(count)
@@ -158,7 +161,7 @@ public extension Twitter {
         if let bid = beforeID {
             parameters["max_id"] = bid
         }
-        return self.getTweetsRequest("lists/members", parameters: parameters)
+        return self.getTweetsRequest("search/tweets", parameters: parameters)
     }
 
     public func getTweetsRequest(url: String, parameters: [String: AnyObject]) -> Observable<[MBTweet]> {

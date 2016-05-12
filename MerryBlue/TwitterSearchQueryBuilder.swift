@@ -6,6 +6,7 @@ class TwitterSearchQueryBuilder {
 
     var text = ""
     var isFilterImage = false
+    var list: MBTwitterList!
 
     init(text: String) {
         self.text = text
@@ -15,15 +16,20 @@ class TwitterSearchQueryBuilder {
         self.isFilterImage = isFilterImage
     }
 
+    func setList(list: MBTwitterList) {
+        self.list = list
+    }
+
     func build() -> String {
         let q = self.text
-        var operators = [Operator]()
+        var suffixList = [String]()
         if self.isFilterImage {
-            operators.append(.FilterImage)
+            suffixList.append(Operator.FilterImage.rawValue)
         }
-        let suffix = (operators.map { (op: Operator) -> String in
-            return op.rawValue
-        }).joinWithSeparator(" ")
+        if let l = self.list {
+            suffixList.append(l.fullName)
+        }
+        let suffix = suffixList.joinWithSeparator(" ")
         return q + " " + suffix
     }
 
