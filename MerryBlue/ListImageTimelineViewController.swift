@@ -5,7 +5,7 @@ class ListImageTimelineViewController: UIViewController {
     var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
-    // @IBOutlet weak var switchListButton: UIBarButtonItem!
+    @IBOutlet weak var switchListButton: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
 
     var refreshControl: UIRefreshControl!
@@ -52,7 +52,7 @@ class ListImageTimelineViewController: UIViewController {
     }
 
     func requestListTimeline(list: MBTwitterList) {
-        _ = Twitter.sharedInstance().requestSearchTweets("", list: list, beforeID: nil, filterImage: true)
+        _ = Twitter.sharedInstance().requestListImageTweets(list)
             .subscribeNext({ (tweets: [MBTweet]) in
                 self.setupTweets(tweets)
         })
@@ -72,8 +72,8 @@ class ListImageTimelineViewController: UIViewController {
             print("Error: no wrapperd navigation controller")
             return
         }
-        // self.switchListButton.target = self
-        // self.switchListButton.action = #selector(ListImageTimelineViewController.openListsChooser)
+        self.switchListButton.target = self
+        self.switchListButton.action = #selector(ListImageTimelineViewController.openListsChooser)
     }
 
     func goBlack() {
@@ -133,6 +133,7 @@ class ListImageTimelineViewController: UIViewController {
             return
         }
         self.activityIndicator.startAnimating()
+        self.setupTweets([MBTweet]())
         requestListTimeline(list)
     }
 
@@ -150,7 +151,7 @@ class ListImageTimelineViewController: UIViewController {
         if isBouncing && !isUpdating {
             isUpdating = true
             activityIndicator.startAnimating()
-            _ = Twitter.sharedInstance().requestSearchTweets("", list: list, beforeID: nil, filterImage: true)
+            _ = Twitter.sharedInstance().requestListImageTweets(list, beforeTweet: tweets.last)
                 .subscribeNext({ (tweets: [MBTweet]) in
                     self.setupTweets(self.tweets + tweets)
                 })
@@ -159,6 +160,7 @@ class ListImageTimelineViewController: UIViewController {
 
     func setupTweets(tweets: [MBTweet]) {
         self.tweets = tweets
+        self.imageCellInfos.removeAll()
         for tweet in tweets {
             for url in tweet.imageURLs {
                 imageCellInfos.append(ImageCellInfo(imageURL: url, tweet: tweet))

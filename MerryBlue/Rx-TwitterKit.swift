@@ -148,10 +148,18 @@ public extension Twitter {
         return self.getUsersRequest("lists/members", parameters: parameters)
     }
 
-    public func requestSearchTweets(text: String, list: MBTwitterList?, beforeID: String?, filterImage: Bool = false, count: Int = MBTwitterList.memberNumActiveMaxLimit) -> Observable<[MBTweet]> {
+    public func requestSearchTweets(text: String,
+                                    list: MBTwitterList?, beforeID: String?,
+                                    filterImage: Bool = false,
+                                    excludeRetweets: Bool = false,
+                                    count: Int = MBTwitterList.memberNumActiveMaxLimit)
+        -> Observable<[MBTweet]> {
         let q = TwitterSearchQueryBuilder(text: text)
         if filterImage {
             q.filterImage()
+        }
+        if excludeRetweets {
+            q.excludeRT()
         }
         if let l = list {
             q.setList(l)
@@ -166,12 +174,12 @@ public extension Twitter {
         return self.getTweetsRequest("search/tweets", parameters: parameters, isStatusesWrapped: true)
     }
 
-    public func requestListImageTweets(list: MBTwitterList, beforeTweet: MBTweet?) -> Observable<[MBTweet]> {
+    public func requestListImageTweets(list: MBTwitterList, beforeTweet: MBTweet? = nil) -> Observable<[MBTweet]> {
         var beforeID: String?
         if let bt = beforeTweet {
             beforeID = String(Int(bt.tweetID)! - 1)
         }
-        return Twitter.sharedInstance().requestSearchTweets("", list: list, beforeID: beforeID, filterImage: true)
+        return Twitter.sharedInstance().requestSearchTweets("", list: list, beforeID: beforeID, filterImage: true, excludeRetweets: true)
     }
 
     public func getTweetsRequest(url: String, parameters: [String: AnyObject], isStatusesWrapped: Bool = false) -> Observable<[MBTweet]> {
