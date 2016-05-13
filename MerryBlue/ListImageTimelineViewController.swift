@@ -1,14 +1,28 @@
 import UIKit
 import TwitterKit
 
+enum ImageViewType: Int {
+    case IncludeRT
+    case ExcludeRT
+
+    case Dummy
+
+    func next() -> ImageViewType {
+        return ImageViewType(rawValue: (self.rawValue + ImageViewType.Dummy.rawValue + 1) % ImageViewType.Dummy.rawValue)!
+    }
+}
+
 class ListImageTimelineViewController: UIViewController {
     var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     @IBOutlet weak var switchListButton: UIBarButtonItem!
+    @IBOutlet weak var rtModeButton: UIBarButtonItem!
+
     @IBOutlet weak var collectionView: UICollectionView!
 
     var refreshControl: UIRefreshControl!
+    var rtMode: ImageViewType = .ExcludeRT
 
     var tweets = [MBTweet]()
     var imageCellInfos = [ImageCellInfo]()
@@ -52,12 +66,17 @@ class ListImageTimelineViewController: UIViewController {
     }
 
     func requestListTimeline(list: MBTwitterList) {
-        _ = Twitter.sharedInstance().requestListImageTweets(list)
+        _ = Twitter.sharedInstance().requestListImageTweets(list, includeRT: self.rtMode == .IncludeRT)
             .subscribeNext({ (tweets: [MBTweet]) in
                 self.setupTweets(tweets)
         })
     }
 
+    func toggleRTMode() {
+        self.rtMode = self.rtMode.next()
+        ConfigService.sharedInstance.updateImageViewModeType(TwitterManager.getUserID(), type: self.rtMode)
+        requestListTimeline(self.list)
+    }
 
     func openListsChooser() {
         guard let slideMenu = self.slideMenuController() else {
@@ -74,6 +93,9 @@ class ListImageTimelineViewController: UIViewController {
         }
         self.switchListButton.target = self
         self.switchListButton.action = #selector(ListImageTimelineViewController.openListsChooser)
+
+        self.rtModeButton.target = self
+        self.rtModeButton.action = #selector(ListImageTimelineViewController.toggleRTMode)
     }
 
     func goBlack() {
@@ -93,6 +115,7 @@ class ListImageTimelineViewController: UIViewController {
             self.navigationController?.tabBarController?.selectedIndex = 0
             return
         }
+        self.rtMode = ConfigService.sharedInstance.selectImageViewModeType(TwitterManager.getUserID())
         self.activityIndicator.startAnimating()
         requestListTimeline(list)
     }
@@ -161,9 +184,19 @@ class ListImageTimelineViewController: UIViewController {
     func setupTweets(tweets: [MBTweet]) {
         self.tweets = tweets
         self.imageCellInfos.removeAll()
+        var urlDict = Dictionary<String, ImageCellInfo>()
         for tweet in tweets {
             for url in tweet.imageURLs {
-                imageCellInfos.append(ImageCellInfo(imageURL: url, tweet: tweet))
+                if let _ = urlDict[url] {
+                } else {
+                    let imageCellInfo = ImageCellInfo(imageURL: url, tweet: tweet)
+                    imageCellInfos.append(imageCellInfo)
+                    urlDict[url] = imageCellInfo
+                }
+                guard let info = urlDict[url] else {
+                    return
+                }
+                info.counts += 1
             }
         }
         self.collectionView.reloadData()

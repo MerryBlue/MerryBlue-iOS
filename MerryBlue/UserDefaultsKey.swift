@@ -8,5 +8,6 @@ struct UserDefaultsKey {
     static let KeySeparator = "___"
 
     static let OrderType = "order"
+    static let ImageViewModeType = "image-view-mode"
 
 }

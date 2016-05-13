@@ -174,12 +174,12 @@ public extension Twitter {
         return self.getTweetsRequest("search/tweets", parameters: parameters, isStatusesWrapped: true)
     }
 
-    public func requestListImageTweets(list: MBTwitterList, beforeTweet: MBTweet? = nil) -> Observable<[MBTweet]> {
+    public func requestListImageTweets(list: MBTwitterList, includeRT: Bool = false, beforeTweet: MBTweet? = nil) -> Observable<[MBTweet]> {
         var beforeID: String?
         if let bt = beforeTweet {
             beforeID = String(Int(bt.tweetID)! - 1)
         }
-        return Twitter.sharedInstance().requestSearchTweets("", list: list, beforeID: beforeID, filterImage: true, excludeRetweets: true)
+        return Twitter.sharedInstance().requestSearchTweets("", list: list, beforeID: beforeID, filterImage: true, excludeRetweets: !includeRT)
     }
 
     public func getTweetsRequest(url: String, parameters: [String: AnyObject], isStatusesWrapped: Bool = false) -> Observable<[MBTweet]> {
