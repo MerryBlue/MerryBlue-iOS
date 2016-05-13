@@ -166,6 +166,14 @@ public extension Twitter {
         return self.getTweetsRequest("search/tweets", parameters: parameters, isStatusesWrapped: true)
     }
 
+    public func requestListImageTweets(list: MBTwitterList, beforeTweet: MBTweet?) -> Observable<[MBTweet]> {
+        var beforeID: String?
+        if let bt = beforeTweet {
+            beforeID = String(Int(bt.tweetID)! - 1)
+        }
+        return Twitter.sharedInstance().requestSearchTweets("", list: list, beforeID: beforeID, filterImage: true)
+    }
+
     public func getTweetsRequest(url: String, parameters: [String: AnyObject], isStatusesWrapped: Bool = false) -> Observable<[MBTweet]> {
         return Observable.create { (observer) -> Disposable in
             _ = self.rxURLRequestWithMethod(.GET, url: url, parameters: parameters)

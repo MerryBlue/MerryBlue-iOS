@@ -11,6 +11,7 @@ class ListImageTimelineViewController: UIViewController {
     var refreshControl: UIRefreshControl!
 
     var tweets = [MBTweet]()
+    var imageCellInfos = [ImageCellInfo]()
 
     var cacheHeights = [CGFloat]()
     var list: MBTwitterList!
@@ -144,13 +145,12 @@ class ListImageTimelineViewController: UIViewController {
     }
 
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        var isBouncing = (self.collectionView.contentOffset.y >= (self.collectionView.contentSize.height - self.collectionView.bounds.size.height)) && self.collectionView.dragging
-        // TODO: remove
-        isBouncing = false
+        let isBouncing = (self.collectionView.contentOffset.y >= (self.collectionView.contentSize.height - self.collectionView.bounds.size.height))
+            && self.collectionView.dragging
         if isBouncing && !isUpdating {
             isUpdating = true
             activityIndicator.startAnimating()
-            _ = Twitter.sharedInstance().requestListTimelineNext(self.list, beforeTweet: tweets.last!)
+            _ = Twitter.sharedInstance().requestSearchTweets("", list: list, beforeID: nil, filterImage: true)
                 .subscribeNext({ (tweets: [MBTweet]) in
                     self.setupTweets(self.tweets + tweets)
                 })
@@ -159,6 +159,11 @@ class ListImageTimelineViewController: UIViewController {
 
     func setupTweets(tweets: [MBTweet]) {
         self.tweets = tweets
+        for tweet in tweets {
+            for url in tweet.imageURLs {
+                imageCellInfos.append(ImageCellInfo(imageURL: url, tweet: tweet))
+            }
+        }
         self.collectionView.reloadData()
         self.activityIndicator.stopAnimating()
         self.isUpdating = false
@@ -171,8 +176,9 @@ extension ListImageTimelineViewController: UICollectionViewDataSource, UICollect
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = (collectionView.dequeueReusableCellWithReuseIdentifier("image-cell", forIndexPath: indexPath) as? ImageCell)!
-        let tweet = self.tweets[indexPath.row]
-        cell.image.sd_setImageWithURL(NSURL(string: tweet.imageURLs[0]), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
+        let info = self.imageCellInfos[indexPath.row]
+        cell.imageView.contentMode = .ScaleAspectFill
+        cell.imageView.sd_setImageWithURL(NSURL(string: info.imageURL), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
         cell.backgroundColor = UIColor.blackColor()
         return cell
     }
@@ -182,7 +188,24 @@ extension ListImageTimelineViewController: UICollectionViewDataSource, UICollect
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.tweets.count
+        return self.imageCellInfos.count
+    }
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let w = self.view.frame.size.width / 3
+        return CGSize(width: w, height: w)
+    }
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
+    }
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
     }
 
 }

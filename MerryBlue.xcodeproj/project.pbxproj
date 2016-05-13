@@ -32,6 +32,7 @@
 		457E0BE81C933D25000A665A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE71C933D25000A665A /* AppDelegate.swift */; };
 		457E0BEA1C933D25000A665A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457E0BE91C933D25000A665A /* HomeViewController.swift */; };
 		458829871CE41AB000E343CB /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458829861CE41AB000E343CB /* ImageCell.swift */; };
+		458829891CE59B7900E343CB /* ImageCellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458829881CE59B7900E343CB /* ImageCellInfo.swift */; };
 		45A68DD91CB16F3A007719E1 /* StoryBoardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A68DD81CB16F3A007719E1 /* StoryBoardService.swift */; };
 		45A68DDB1CB1781F007719E1 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A68DDA1CB1781F007719E1 /* AlertManager.swift */; };
 		45ABA1ED1C9800B9006DE856 /* TwitterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ABA1EC1C9800B9006DE856 /* TwitterUser.swift */; };
@@ -85,6 +86,7 @@
 		457E0BE91C933D25000A665A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		457E0BF51C933D25000A665A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		458829861CE41AB000E343CB /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		458829881CE59B7900E343CB /* ImageCellInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCellInfo.swift; sourceTree = "<group>"; };
 		45A68DD81CB16F3A007719E1 /* StoryBoardService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryBoardService.swift; sourceTree = "<group>"; };
 		45A68DDA1CB1781F007719E1 /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		45ABA1EC1C9800B9006DE856 /* TwitterUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterUser.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				45BD1C231C97207B002A2159 /* MBTwitterList.swift */,
 				45ABA1EC1C9800B9006DE856 /* TwitterUser.swift */,
 				4540E3FF1CB4A956000AE6A9 /* MBTweet.swift */,
+				458829881CE59B7900E343CB /* ImageCellInfo.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -457,6 +460,7 @@
 				455F3D981CA2F57D001495A9 /* MBNavigationController.swift in Sources */,
 				45A68DD91CB16F3A007719E1 /* StoryBoardService.swift in Sources */,
 				457E0BEA1C933D25000A665A /* HomeViewController.swift in Sources */,
+				458829891CE59B7900E343CB /* ImageCellInfo.swift in Sources */,
 				4540E4001CB4A956000AE6A9 /* MBTweet.swift in Sources */,
 				453B45001C98DF9B00CE5FFE /* ArrayExtension.swift in Sources */,
 				4540E4021CB50418000AE6A9 /* UIColorExtension.swift in Sources */,
