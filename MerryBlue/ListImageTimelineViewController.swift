@@ -74,6 +74,7 @@ class ListImageTimelineViewController: UIViewController {
 
     func toggleRTMode() {
         self.rtMode = self.rtMode.next()
+        self.rtModeButton.title = self.rtMode == .IncludeRT ? "All" : "NoRT"
         ConfigService.sharedInstance.updateImageViewModeType(TwitterManager.getUserID(), type: self.rtMode)
         requestListTimeline(self.list)
     }
@@ -96,6 +97,8 @@ class ListImageTimelineViewController: UIViewController {
 
         self.rtModeButton.target = self
         self.rtModeButton.action = #selector(ListImageTimelineViewController.toggleRTMode)
+        self.rtMode = ConfigService.sharedInstance.selectImageViewModeType(TwitterManager.getUserID())
+        self.rtModeButton.title = self.rtMode == .IncludeRT ? "All" : "NoRT"
     }
 
     func goBlack() {
@@ -115,7 +118,6 @@ class ListImageTimelineViewController: UIViewController {
             self.navigationController?.tabBarController?.selectedIndex = 0
             return
         }
-        self.rtMode = ConfigService.sharedInstance.selectImageViewModeType(TwitterManager.getUserID())
         self.activityIndicator.startAnimating()
         requestListTimeline(list)
     }

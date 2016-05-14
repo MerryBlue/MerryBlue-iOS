@@ -189,6 +189,7 @@ public extension Twitter {
                     onNext: { data in
                         let json = JSON(data: data)
                         var statusesJson = json
+
                         if isStatusesWrapped {
                             statusesJson = json["statuses"]
                         }
