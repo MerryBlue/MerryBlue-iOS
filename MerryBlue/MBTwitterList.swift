@@ -18,6 +18,7 @@ public class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
     var imageUrl: String
     var listType: ListType
     var visible: Bool
+    var isPrivate: Bool
 
     static let memberNumActiveMaxLimit = 100
     static let recentFollowUser = 20
@@ -33,6 +34,7 @@ public class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
         self.memberCount = jsonData["member_count"].intValue
         self.imageUrl    = user.profileImageURL
         self.visible     = true
+        self.isPrivate   = jsonData["mode"] == "private"
         self.listType    = .Normal
     }
 
@@ -40,8 +42,9 @@ public class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
         self.fullName    = ""
         self.listID      = ""
         self.slug        = ""
-        self.listType = type
-        self.visible = true
+        self.listType    = type
+        self.visible     = true
+        self.isPrivate   = false
 
         switch type {
         case .RecentFollow:
@@ -72,6 +75,7 @@ public class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
         self.memberCount = aDecoder.decodeObjectForKey(SerializedKey.MemberCount) as? Int ?? 0
         self.imageUrl    = aDecoder.decodeObjectForKey(SerializedKey.ImageUrl) as? String ?? "image error"
         self.visible     = aDecoder.decodeObjectForKey(SerializedKey.Visible) as? Bool ?? true
+        self.isPrivate   = aDecoder.decodeObjectForKey(SerializedKey.Private) as? Bool ?? true
         // old version patch
         if let typeID = aDecoder.decodeObjectForKey(SerializedKey.TypeID) as? Int where self.memberCount == 0 {
             self.listType = MBTwitterList.toType(typeID)
@@ -90,6 +94,7 @@ public class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
         aCoder.encodeObject(self.imageUrl, forKey: SerializedKey.ImageUrl)
         aCoder.encodeObject(self.listType.rawValue, forKey: SerializedKey.ListType)
         aCoder.encodeObject(self.visible, forKey: SerializedKey.Visible)
+        aCoder.encodeObject(self.isPrivate, forKey: SerializedKey.Private)
     }
 
     static func toType(typeID: Int) -> ListType {
@@ -129,4 +134,5 @@ struct SerializedKey {
     static let TypeID      = "typeID"
     static let ListType    = "listType"
     static let Visible     = "visilbe"
+    static let Private     = "private"
 }

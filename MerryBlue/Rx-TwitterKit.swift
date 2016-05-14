@@ -54,12 +54,13 @@ public extension Twitter {
         return Twitter.sharedInstance().requestUserTimeline(user, count: count, beforeID: String(Int(beforeTweet.tweetID)! - 1))
     }
 
-    public func requestListTimeline(list: MBTwitterList, count: Int = 30, beforeID: String! = nil) -> Observable<[MBTweet]> {
+
+    public func requestListTimeline(list: MBTwitterList, count: Int = 30, beforeID: String! = nil, excludeRetweets: Bool = false) -> Observable<[MBTweet]> {
         var parameters = [
             "list_id": list.listID,
             "count": String(count),
             "include_entities": "true",
-            "include_rts": "true"
+            "include_rts": excludeRetweets ? "false" : "true"
         ]
         if let bid = beforeID {
             parameters["max_id"] = bid
@@ -178,6 +179,9 @@ public extension Twitter {
         var beforeID: String?
         if let bt = beforeTweet {
             beforeID = String(Int(bt.tweetID)! - 1)
+        }
+        if list.isPrivate {
+            return Twitter.sharedInstance().requestListTimeline(list, count: 200, beforeID: beforeID, excludeRetweets: !includeRT)
         }
         return Twitter.sharedInstance().requestSearchTweets("", list: list, beforeID: beforeID, filterImage: true, excludeRetweets: !includeRT)
     }
