@@ -1184,8 +1184,11 @@
                                             <constraint firstAttribute="trailingMargin" secondItem="PKI-K7-Vrf" secondAttribute="trailing" constant="-8" id="zej-od-DWM"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="favCountLabel" destination="nyh-Bm-eWC" id="geL-Nc-6RH"/>
                                             <outlet property="imageView" destination="6c8-H2-u7N" id="uXw-f9-Vn4"/>
+                                            <outlet property="infoView" destination="PKI-K7-Vrf" id="Hwn-2F-WHA"/>
                                             <outlet property="ownerImageView" destination="TH8-Pn-PbV" id="yVn-f0-61U"/>
+                                            <outlet property="rtCountLabel" destination="sVd-og-Mw0" id="kTI-Ap-pKG"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

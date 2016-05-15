@@ -3,8 +3,11 @@ import UIKit
 class ImageCell: UICollectionViewCell {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet weak var ownerImageView: UIImageView!
-    @IBOutlet weak var countLabel: UILabel!
+    // @IBOutlet weak var countLabel: UILabel!
 
+    @IBOutlet weak var infoView: UIView!
+    @IBOutlet weak var rtCountLabel: UILabel!
+    @IBOutlet weak var favCountLabel: UILabel!
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -20,9 +23,12 @@ class ImageCell: UICollectionViewCell {
         let tweet = info.tweet.sourceTweet()
         self.ownerImageView.sd_setImageWithURL(NSURL(string: tweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
         // self.countLabel.text = String(info.counts)
+        self.favCountLabel.text = tweet.miniDisplayLikeCount()
+        self.rtCountLabel.text = tweet.miniDisplayRetweetCount()
     }
 
     func setVisible(isVisible: Bool) {
+        self.infoView.alpha = isVisible ? 1 : 0
     }
 
 }
