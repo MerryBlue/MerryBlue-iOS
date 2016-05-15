@@ -22,4 +22,7 @@ class ImageCell: UICollectionViewCell {
         // self.countLabel.text = String(info.counts)
     }
 
+    func setVisible(isVisible: Bool) {
+    }
+
 }

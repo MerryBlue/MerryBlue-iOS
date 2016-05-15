@@ -1213,12 +1213,16 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="cnV-D0-NWd">
                         <barButtonItem key="leftBarButtonItem" image="icon-list" id="O99-MM-dXO"/>
-                        <barButtonItem key="rightBarButtonItem" title="NoRT" id="Qjp-kw-3u0"/>
+                        <rightBarButtonItems>
+                            <barButtonItem title="RT" id="Qjp-kw-3u0"/>
+                            <barButtonItem title="Info" id="cuy-Nm-yGr"/>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="F2W-tn-aD7" id="vZq-PH-It0"/>
                         <outlet property="collectionView" destination="0UZ-7v-5WZ" id="psX-rS-F9P"/>
+                        <outlet property="infoModeButton" destination="cuy-Nm-yGr" id="m0F-Be-qK0"/>
                         <outlet property="rtModeButton" destination="Qjp-kw-3u0" id="9dO-Pa-qaR"/>
                         <outlet property="switchListButton" destination="O99-MM-dXO" id="U4G-da-vF4"/>
                     </connections>

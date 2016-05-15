@@ -18,11 +18,13 @@ class ListImageTimelineViewController: UIViewController {
 
     @IBOutlet weak var switchListButton: UIBarButtonItem!
     @IBOutlet weak var rtModeButton: UIBarButtonItem!
+    @IBOutlet weak var infoModeButton: UIBarButtonItem!
 
     @IBOutlet weak var collectionView: UICollectionView!
 
     var refreshControl: UIRefreshControl!
     var rtMode: ImageViewType = .ExcludeRT
+    var infoMode = true
 
     var tweets = [MBTweet]()
     var imageCellInfos = [ImageCellInfo]()
@@ -74,9 +76,16 @@ class ListImageTimelineViewController: UIViewController {
 
     func toggleRTMode() {
         self.rtMode = self.rtMode.next()
-        self.rtModeButton.title = self.rtMode == .IncludeRT ? "All" : "NoRT"
+        self.rtModeButton.tintColor = self.rtMode == .IncludeRT ? UIColor.whiteColor() : UIColor.grayColor()
         ConfigService.sharedInstance.updateImageViewModeType(TwitterManager.getUserID(), type: self.rtMode)
         requestListTimeline(self.list)
+    }
+
+    func toggleInfoMode() {
+        self.infoMode = !self.infoMode
+        self.infoModeButton.tintColor = self.infoMode ? UIColor.whiteColor() : UIColor.grayColor()
+        ConfigService.sharedInstance.updateImageInfoModeType(TwitterManager.getUserID(), type: self.infoMode)
+        self.collectionView.reloadData()
     }
 
     func openListsChooser() {
@@ -98,7 +107,11 @@ class ListImageTimelineViewController: UIViewController {
         self.rtModeButton.target = self
         self.rtModeButton.action = #selector(ListImageTimelineViewController.toggleRTMode)
         self.rtMode = ConfigService.sharedInstance.selectImageViewModeType(TwitterManager.getUserID())
-        self.rtModeButton.title = self.rtMode == .IncludeRT ? "All" : "NoRT"
+        self.rtModeButton.tintColor = self.rtMode == .IncludeRT ? UIColor.whiteColor() : UIColor.grayColor()
+        self.infoModeButton.target = self
+        self.infoModeButton.action = #selector(ListImageTimelineViewController.toggleInfoMode)
+        self.infoMode = ConfigService.sharedInstance.selectInfoModeType(TwitterManager.getUserID())
+        self.infoModeButton.tintColor = self.infoMode ? UIColor.whiteColor() : UIColor.grayColor()
     }
 
     func goBlack() {
@@ -216,6 +229,7 @@ extension ListImageTimelineViewController: UICollectionViewDataSource, UICollect
         cell.setCellInfo(info)
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(ListImageTimelineViewController.didClickImageView(_:)))
         cell.addGestureRecognizer(recognizer)
+        cell.setVisible(self.infoMode)
         return cell
     }
 
