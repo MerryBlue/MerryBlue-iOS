@@ -47,16 +47,11 @@ class HomeViewController: UIViewController {
     }
 
     override func viewDidAppear(animated: Bool) {
-        checkLogin()
+        self.checkLogin()
         guard let list = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return
         }
-        if self.list != nil && self.list.listID == list.listID {
-            self.tableView.reloadData()
-            return
-        }
-        self.list = list
         if !list.isHomeTabEnable() {
             self.setupListUsers([])
             self.activityIndicator.stopAnimating()
@@ -64,10 +59,8 @@ class HomeViewController: UIViewController {
             presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
             return
         }
-        self.activityIndicator.startAnimating()
         orderType = ConfigService.sharedInstance.selectOrderType(TwitterManager.getUserID())
-        _ = Twitter.sharedInstance().requestMembers(list)
-            .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
+        self.updateList()
     }
 
     func setupTableView() {
@@ -167,15 +160,8 @@ class HomeViewController: UIViewController {
         self.delegate.userViewUser = user
         self.delegate.userViewNewCount = user.newCount()
         user.updateReadedCount()
+        self.tableView.reloadData()
         self.navigationController?.pushViewController(StoryBoardService.sharedInstance.userView(), animated: true)
-    }
-
-    override func didMoveToParentViewController(parent: UIViewController?) {
-        super.willMoveToParentViewController(parent)
-        guard let _ = TwitterManager.getUserID() else {
-            return
-        }
-        self.updateList()
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -201,11 +187,11 @@ class HomeViewController: UIViewController {
             return
         }
         self.setupTabbarItemState()
-        self.list = list
-        self.navigationItem.title = list.name
         if let nowList = self.list where nowList.equalItem(list) {
             return
         }
+        self.list = list
+        self.navigationItem.title = list.name
         self.activityIndicator.startAnimating()
         _ = Twitter.sharedInstance().requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })

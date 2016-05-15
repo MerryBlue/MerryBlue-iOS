@@ -80,7 +80,6 @@ class ListTimelineViewController: UIViewController {
             goBlack()
             return
         }
-        self.list = list
         self.bgViewHeight = 150
         if !list.isTimelineTabEnable() {
             self.setupTweets([])
@@ -88,11 +87,7 @@ class ListTimelineViewController: UIViewController {
             self.navigationController?.tabBarController?.selectedIndex = 0
             return
         }
-        self.activityIndicator.startAnimating()
-        _ = Twitter.sharedInstance().requestListTimeline(list)
-             .subscribeNext({ (tweets: [MBTweet]) in
-                self.setupTweets(tweets)
-             })
+        self.updateList()
     }
 
     func setupTabbarItemState() {
@@ -111,27 +106,19 @@ class ListTimelineViewController: UIViewController {
         }
     }
 
-    override func didMoveToParentViewController(parent: UIViewController?) {
-        super.willMoveToParentViewController(parent)
-        guard let _ = TwitterManager.getUserID() else {
-            return
-        }
-        self.updateList()
-    }
-
     internal func updateList() {
         guard let list = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
             return
         }
-        self.setupTabbarItemState()
-        self.list = list
-        self.navigationItem.title = list.name
-        self.tableView.contentOffset = CGPoint(x: 0, y: -self.tableView.contentInset.top)
         if let nowList = self.list where nowList.equalItem(list) {
             return
         }
+        self.list = list
+        self.setupTabbarItemState()
+        self.navigationItem.title = list.name
         self.activityIndicator.startAnimating()
+        self.tableView.contentOffset = CGPoint(x: 0, y: -self.tableView.contentInset.top)
         _ = Twitter.sharedInstance().requestListTimeline(list)
              .subscribeNext({ (tweets: [MBTweet]) in
                 self.setupTweets(tweets)
