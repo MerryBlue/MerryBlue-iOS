@@ -19,7 +19,7 @@ class ImageCell: UICollectionViewCell {
         self.imageView.sd_setImageWithURL(NSURL(string: info.imageURL), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
         let tweet = info.tweet.sourceTweet()
         self.ownerImageView.sd_setImageWithURL(NSURL(string: tweet.author.profileImageMiniURL), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
-        self.countLabel.text = String(info.counts)
+        // self.countLabel.text = String(info.counts)
     }
 
 }
