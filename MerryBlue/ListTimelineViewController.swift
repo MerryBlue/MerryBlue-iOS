@@ -103,7 +103,7 @@ class ListTimelineViewController: UIViewController {
         items[1].enabled = list.isTimelineTabEnable()
     }
 
-    func didClickimageView(recognizer: UIGestureRecognizer) {
+    func didClickImageView(recognizer: UIGestureRecognizer) {
         if let imageView = recognizer.view as? UIImageView {
             let nextViewController = StoryBoardService.sharedInstance.photoViewController()
             nextViewController.viewerImgUrl = NSURL(string: imageView.sd_imageURL().absoluteString + ":orig")
@@ -187,7 +187,7 @@ extension ListTimelineViewController: UITableViewDataSource {
         let tweet = tweets[indexPath.row]
         cell.setCell(tweet)
         for view in cell.imageStackView.subviews {
-            let recognizer = UITapGestureRecognizer(target:self, action: #selector(ListTimelineViewController.didClickimageView(_:)))
+            let recognizer = UITapGestureRecognizer(target:self, action: #selector(ListTimelineViewController.didClickImageView(_:)))
             view.addGestureRecognizer(recognizer)
         }
         return cell

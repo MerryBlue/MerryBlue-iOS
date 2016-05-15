@@ -206,6 +206,15 @@ class ListImageTimelineViewController: UIViewController {
         self.isUpdating = false
     }
 
+    func didClickImageView(recognizer: UIGestureRecognizer) {
+        if let cellView = recognizer.view as? ImageCell {
+            // if let cellView = recognizer.view? as? UICollectionViewCell {
+            let nextViewController = StoryBoardService.sharedInstance.photoViewController()
+            nextViewController.viewerImgUrl = NSURL(string: cellView.imageView.sd_imageURL().absoluteString + ":orig")
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+        }
+    }
+
 }
 
 
@@ -217,6 +226,8 @@ extension ListImageTimelineViewController: UICollectionViewDataSource, UICollect
         cell.imageView.contentMode = .ScaleAspectFill
         cell.imageView.sd_setImageWithURL(NSURL(string: info.imageURL), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
         cell.backgroundColor = UIColor.blackColor()
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(ListImageTimelineViewController.didClickImageView(_:)))
+        cell.addGestureRecognizer(recognizer)
         return cell
     }
 
