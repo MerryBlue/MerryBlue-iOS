@@ -213,9 +213,7 @@ extension ListImageTimelineViewController: UICollectionViewDataSource, UICollect
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = (collectionView.dequeueReusableCellWithReuseIdentifier("image-cell", forIndexPath: indexPath) as? ImageCell)!
         let info = self.imageCellInfos[indexPath.row]
-        cell.imageView.contentMode = .ScaleAspectFill
-        cell.imageView.sd_setImageWithURL(NSURL(string: info.imageURL), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
-        cell.backgroundColor = UIColor.blackColor()
+        cell.setCellInfo(info)
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(ListImageTimelineViewController.didClickImageView(_:)))
         cell.addGestureRecognizer(recognizer)
         return cell
