@@ -82,6 +82,7 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
             self.scrollView.zoomToRect(zoomRect, animated: true)
         } else {
             self.scrollView.setZoomScale(self.scrollView.minimumZoomScale, animated: true)
+            self.tweetInfoView.alpha = 1
         }
     }
 
@@ -92,6 +93,12 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
 
         zoomRect.origin.x = center.x - zoomRect.size.width / 2.0
         zoomRect.origin.y = center.y - zoomRect.size.height / 2.0
+
+        if self.scrollView.zoomScale == self.scrollView.maximumZoomScale {
+            self.tweetInfoView.alpha = 1
+        } else {
+            self.tweetInfoView.alpha = 0
+        }
 
         return zoomRect
     }
