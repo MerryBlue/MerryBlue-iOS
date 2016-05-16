@@ -13,6 +13,8 @@ enum ImageViewType: Int {
 }
 
 class ListImageTimelineViewController: UIViewController {
+    static let ColumnNum: CGFloat = 2
+
     var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
@@ -243,7 +245,7 @@ extension ListImageTimelineViewController: UICollectionViewDataSource, UICollect
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let w = self.view.frame.size.width / 3
+        let w = self.view.frame.size.width / ListImageTimelineViewController.ColumnNum
         return CGSize(width: w, height: w)
     }
 
