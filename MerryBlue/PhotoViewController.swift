@@ -1,4 +1,5 @@
 import UIKit
+import TwitterKit
 
 // プロトコルを追加
 class PhotoViewController: UIViewController, UIScrollViewDelegate {
@@ -8,6 +9,11 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
+    @IBOutlet weak var tweetUserIconImageView: UIImageView!
+    @IBOutlet weak var tweetNamesLabel: UILabel!
+    @IBOutlet weak var tweetTextLabel: UILabel!
+
+    var tweet: TWTRTweet!
     var viewerImgUrl: NSURL!
     var viewerImg: UIImage!
 
@@ -35,11 +41,19 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidAppear(animated: Bool) {
         self.activityIndicator.startAnimating()
         self.imageView.contentMode = .ScaleAspectFit
-        self.imageView.sd_setImageWithURL(self.viewerImgUrl)
         self.imageView.sd_setImageWithURL(self.viewerImgUrl, completed: {
             (image, error, sDImageCacheType, url) -> Void in
             self.activityIndicator.stopAnimating()
             })
+        self.setTweet()
+    }
+
+    func setTweet() {
+        if let tweet = self.tweet {
+            self.tweetUserIconImageView.sd_setImageWithURL(NSURL(string: tweet.author.profileImageURL))
+            self.tweetTextLabel.text = tweet.text
+            self.tweetNamesLabel.text = "\(tweet.author.name)・@\(tweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
+        }
     }
 
     override func viewWillDisappear(animated: Bool) {

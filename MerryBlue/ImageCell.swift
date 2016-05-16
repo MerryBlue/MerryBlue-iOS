@@ -1,4 +1,5 @@
 import UIKit
+import TwitterKit
 
 class ImageCell: UICollectionViewCell {
     @IBOutlet var imageView: UIImageView!
@@ -8,6 +9,8 @@ class ImageCell: UICollectionViewCell {
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var rtCountLabel: UILabel!
     @IBOutlet weak var favCountLabel: UILabel!
+    var tweet: TWTRTweet!
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -20,7 +23,7 @@ class ImageCell: UICollectionViewCell {
         self.backgroundColor = UIColor.blackColor()
         self.imageView.contentMode = .ScaleAspectFill
         self.imageView.sd_setImageWithURL(NSURL(string: info.imageURL), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
-        let tweet = info.tweet.sourceTweet()
+        self.tweet = info.tweet.sourceTweet()
         self.ownerImageView.sd_setImageWithURL(NSURL(string: tweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
         // self.countLabel.text = String(info.counts)
         self.favCountLabel.text = tweet.miniDisplayLikeCount()

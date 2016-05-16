@@ -214,6 +214,7 @@ class ListImageTimelineViewController: UIViewController {
             // if let cellView = recognizer.view? as? UICollectionViewCell {
             let nextViewController = StoryBoardService.sharedInstance.photoViewController()
             nextViewController.viewerImgUrl = NSURL(string: cellView.imageView.sd_imageURL().absoluteString + ":orig")
+            nextViewController.tweet = cellView.tweet
             self.navigationController?.pushViewController(nextViewController, animated: true)
         }
     }
