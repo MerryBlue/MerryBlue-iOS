@@ -46,11 +46,12 @@ class ListService {
         let oldLists = self.selectLists()
         var compLists = [MBTwitterList]()
         for oLi in oldLists {
+            if oLi.isSpecialType() {
+                compLists.append(oLi)
+                continue
+            }
             for nLi in newLists {
-                if oLi.isSpecialType() {
-                    compLists.append(oLi)
-                    break
-                } else if oLi.listID == nLi.listID {
+                if oLi.listID == nLi.listID {
                     compLists.append(nLi)
                     break
                 }

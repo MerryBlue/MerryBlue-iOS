@@ -54,12 +54,13 @@ public extension Twitter {
         return Twitter.sharedInstance().requestUserTimeline(user, count: count, beforeID: String(Int(beforeTweet.tweetID)! - 1))
     }
 
-    public func requestListTimeline(list: MBTwitterList, count: Int = 30, beforeID: String! = nil) -> Observable<[MBTweet]> {
+
+    public func requestListTimeline(list: MBTwitterList, count: Int = 30, beforeID: String! = nil, excludeRetweets: Bool = false) -> Observable<[MBTweet]> {
         var parameters = [
             "list_id": list.listID,
             "count": String(count),
             "include_entities": "true",
-            "include_rts": "true"
+            "include_rts": excludeRetweets ? "false" : "true"
         ]
         if let bid = beforeID {
             parameters["max_id"] = bid
@@ -148,13 +149,55 @@ public extension Twitter {
         return self.getUsersRequest("lists/members", parameters: parameters)
     }
 
-    public func getTweetsRequest(url: String, parameters: [String: AnyObject]) -> Observable<[MBTweet]> {
+    public func requestSearchTweets(text: String,
+                                    list: MBTwitterList?, beforeID: String?,
+                                    filterImage: Bool = false,
+                                    excludeRetweets: Bool = false,
+                                    count: Int = MBTwitterList.memberNumActiveMaxLimit)
+        -> Observable<[MBTweet]> {
+        let q = TwitterSearchQueryBuilder(text: text)
+        if filterImage {
+            q.filterImage()
+        }
+        if excludeRetweets {
+            q.excludeRT()
+        }
+        if let l = list {
+            q.setList(l)
+        }
+        var parameters = [
+            "q": q.build(),
+            "count": String(count)
+        ]
+        if let bid = beforeID {
+            parameters["max_id"] = bid
+        }
+        return self.getTweetsRequest("search/tweets", parameters: parameters, isStatusesWrapped: true)
+    }
+
+    public func requestListImageTweets(list: MBTwitterList, includeRT: Bool = false, beforeTweet: MBTweet? = nil) -> Observable<[MBTweet]> {
+        var beforeID: String?
+        if let bt = beforeTweet {
+            beforeID = String(Int(bt.tweetID)! - 1)
+        }
+        if list.isPrivate {
+            return Twitter.sharedInstance().requestListTimeline(list, count: 200, beforeID: beforeID, excludeRetweets: !includeRT)
+        }
+        return Twitter.sharedInstance().requestSearchTweets("", list: list, beforeID: beforeID, filterImage: true, excludeRetweets: !includeRT)
+    }
+
+    public func getTweetsRequest(url: String, parameters: [String: AnyObject], isStatusesWrapped: Bool = false) -> Observable<[MBTweet]> {
         return Observable.create { (observer) -> Disposable in
             _ = self.rxURLRequestWithMethod(.GET, url: url, parameters: parameters)
                 .subscribe(
                     onNext: { data in
                         let json = JSON(data: data)
-                        let tweets: [MBTweet] = json.map { MBTweet(json: $0.1)! }
+                        var statusesJson = json
+
+                        if isStatusesWrapped {
+                            statusesJson = json["statuses"]
+                        }
+                        let tweets: [MBTweet] = statusesJson.map { MBTweet(json: $0.1)! }
                         observer.onNext(tweets)
                     }, onError: { error in
                         observer.onError(error)

@@ -133,10 +133,6 @@ class LeftMenuViewController: UIViewController {
         // self.fetchListUpdate(lists)
     }
 
-    private func fetchListUpdate(lists: [MBTwitterList]) {
-
-    }
-
     func pullToRefresh() {
         if self.tableView.editing {
             // 編集中はリスト更新制限アラート

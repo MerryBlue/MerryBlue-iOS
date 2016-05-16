@@ -46,4 +46,19 @@ extension TWTRTweet {
         }
         return self.text
     }
+
+    func miniDisplayLikeCount() -> String {
+        if self.likeCount > 99 {
+            return "99+"
+        }
+        return String(self.likeCount)
+    }
+
+    func miniDisplayRetweetCount() -> String {
+        if self.retweetCount > 99 {
+            return "99+"
+        }
+        return String(self.retweetCount)
+    }
+
 }

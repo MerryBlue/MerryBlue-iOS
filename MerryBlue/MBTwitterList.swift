@@ -11,12 +11,14 @@ public enum ListType: String {
 public class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
     var listID: String
     var name: String
+    var fullName: String
     var slug: String
     var desc: String
     var memberCount: Int
     var imageUrl: String
     var listType: ListType
     var visible: Bool
+    var isPrivate: Bool
 
     static let memberNumActiveMaxLimit = 100
     static let recentFollowUser = 20
@@ -26,19 +28,23 @@ public class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
         let user = TWTRUser(JSONDictionary: jsonData["user"].dictionaryObject)
         self.listID      = jsonData["id"].stringValue
         self.name        = jsonData["name"].stringValue
+        self.fullName    = jsonData["full_name"].stringValue
         self.slug        = jsonData["slug"].stringValue
         self.desc        = jsonData["desc"].stringValue
         self.memberCount = jsonData["member_count"].intValue
         self.imageUrl    = user.profileImageURL
         self.visible     = true
+        self.isPrivate   = jsonData["mode"] == "private"
         self.listType    = .Normal
     }
 
     init?(type: ListType) {
+        self.fullName    = ""
         self.listID      = ""
         self.slug        = ""
-    self.listType = type
-        self.visible = true
+        self.listType    = type
+        self.visible     = true
+        self.isPrivate   = false
 
         switch type {
         case .RecentFollow:
@@ -63,11 +69,13 @@ public class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
         // NOTE: catch error
         self.listID      = aDecoder.decodeObjectForKey(SerializedKey.ListID) as? String ?? "id error"
         self.name        = aDecoder.decodeObjectForKey(SerializedKey.Name) as? String ?? "name error"
+        self.fullName    = aDecoder.decodeObjectForKey(SerializedKey.FullName) as? String ?? "fullName error"
         self.slug        = aDecoder.decodeObjectForKey(SerializedKey.Slug) as? String ?? "slug error"
         self.desc        = aDecoder.decodeObjectForKey(SerializedKey.Desc) as? String ?? "desc error"
         self.memberCount = aDecoder.decodeObjectForKey(SerializedKey.MemberCount) as? Int ?? 0
         self.imageUrl    = aDecoder.decodeObjectForKey(SerializedKey.ImageUrl) as? String ?? "image error"
         self.visible     = aDecoder.decodeObjectForKey(SerializedKey.Visible) as? Bool ?? true
+        self.isPrivate   = aDecoder.decodeObjectForKey(SerializedKey.Private) as? Bool ?? true
         // old version patch
         if let typeID = aDecoder.decodeObjectForKey(SerializedKey.TypeID) as? Int where self.memberCount == 0 {
             self.listType = MBTwitterList.toType(typeID)
@@ -79,12 +87,14 @@ public class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
     public func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(self.listID, forKey: SerializedKey.ListID)
         aCoder.encodeObject(self.name, forKey: SerializedKey.Name)
+        aCoder.encodeObject(self.fullName, forKey: SerializedKey.FullName)
         aCoder.encodeObject(self.slug, forKey: SerializedKey.Slug)
         aCoder.encodeObject(self.desc, forKey: SerializedKey.Desc)
         aCoder.encodeObject(self.memberCount, forKey: SerializedKey.MemberCount)
         aCoder.encodeObject(self.imageUrl, forKey: SerializedKey.ImageUrl)
         aCoder.encodeObject(self.listType.rawValue, forKey: SerializedKey.ListType)
         aCoder.encodeObject(self.visible, forKey: SerializedKey.Visible)
+        aCoder.encodeObject(self.isPrivate, forKey: SerializedKey.Private)
     }
 
     static func toType(typeID: Int) -> ListType {
@@ -116,6 +126,7 @@ public class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
 struct SerializedKey {
     static let ListID      = "id"
     static let Name        = "name"
+    static let FullName    = "fullName"
     static let Slug        = "slug"
     static let Desc        = "desc"
     static let MemberCount = "memberCount"
@@ -123,4 +134,5 @@ struct SerializedKey {
     static let TypeID      = "typeID"
     static let ListType    = "listType"
     static let Visible     = "visilbe"
+    static let Private     = "private"
 }
