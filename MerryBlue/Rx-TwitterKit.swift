@@ -18,7 +18,24 @@ public extension Twitter {
         case .RecentFollow: return requestFriendUsers(TwitterManager.getUserID())
         case .RecentFollower: return requestFollowerUsers(TwitterManager.getUserID())
         case .Normal: return requestListMembers(list)
+        }
+    }
 
+    func requestMembersLastTweets(list: MBTwitterList) -> Observable<[MBTweet]> {
+        return Observable.create { observer -> Disposable in
+            _ = self.requestMembers(list)
+                .subscribe(
+                    onNext: { (users: [TwitterUser]) in
+                        let tweets = users.map({ (user: TwitterUser) -> MBTweet in
+                            let tweet = user.lastStatus
+                            tweet.setAuthor(user)
+                            return tweet
+                        })
+                        observer.onNext(tweets)
+                    }, onError: { error in
+                        observer.onError(error)
+                    }, onCompleted: nil, onDisposed: nil)
+            return AnonymousDisposable { }
         }
     }
 
@@ -132,12 +149,16 @@ public extension Twitter {
     }
 
     public func requestFriendUsers(userID: String, count: Int = 20) -> Observable<[TwitterUser]> {
-        let parameters = [ "count": String(count) ]
+        let parameters = [
+            "count": String(count)
+        ]
         return self.getUsersRequest("friends/list", parameters: parameters)
     }
 
     public func requestFollowerUsers(userID: String, count: Int = 20) -> Observable<[TwitterUser]> {
-        let parameters = [ "count": String(count) ]
+        let parameters = [
+            "count": String(count)
+        ]
         return self.getUsersRequest("followers/list", parameters: parameters)
     }
 

@@ -22,7 +22,12 @@ class UserTweetCell: UITableViewCell {
         let sourceTweet = tweet.sourceTweet()
         self.tweetTextLabel.text = sourceTweet.prettyText()
         self.namesLabel.text = "\(sourceTweet.author.name)・@\(sourceTweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
-        self.userImageView.sd_setImageWithURL(NSURL(string: sourceTweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+
+        if let url = sourceTweet.author.profileImageURL {
+            self.userImageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        } else if let url = tweet.exAuthor.profileImageURL {
+            self.userImageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        }
 
         let imageHeight: CGFloat = 100
         self.imageStackViewHeight.constant = CGFloat(tweet.imageURLs.count) * imageHeight
