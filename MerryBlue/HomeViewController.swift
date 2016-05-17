@@ -73,14 +73,6 @@ class HomeViewController: UIViewController {
             self.openListsChooser()
             return
         }
-        if !list.isHomeTabEnable() {
-            self.setupListUsers([])
-            self.activityIndicator.stopAnimating()
-            self.navigationController?.tabBarController?.selectedIndex = 1
-            presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
-            refreshControl.endRefreshing()
-            return
-        }
         _ = Twitter.sharedInstance().requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in
                 self.setupListUsers(users)
@@ -89,7 +81,7 @@ class HomeViewController: UIViewController {
 
     internal func setupListUsers(users: [TwitterUser]) {
         self.users = TwitterManager.sortUsersLastupdate(users)
-        if self.listEnable {
+        if !self.listEnable {
             self.users.insert(self.users.first!, atIndex: 0)
         }
         self.setOrder()
@@ -192,9 +184,7 @@ class HomeViewController: UIViewController {
         self.activityIndicator.startAnimating()
         _ = Twitter.sharedInstance().requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
-        if !list.isHomeTabEnable() {
-            self.listEnable = false
-        }
+        self.listEnable = list.isHomeTabEnable()
     }
 
 }
