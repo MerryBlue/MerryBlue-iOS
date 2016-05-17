@@ -32,6 +32,7 @@ class HomeViewController: UIViewController {
     var orderType = HomeViewOrderType.TimeOrder
 
     var cacheCellHeight: CGFloat!
+    var listEnable = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,15 +49,8 @@ class HomeViewController: UIViewController {
 
     override func viewDidAppear(animated: Bool) {
         self.checkLogin()
-        guard let list = ListService.sharedInstance.selectHomeList() else {
+        guard let _ = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
-            return
-        }
-        if !list.isHomeTabEnable() {
-            self.setupListUsers([])
-            self.activityIndicator.stopAnimating()
-            self.navigationController?.tabBarController?.selectedIndex = 1
-            presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
             return
         }
         orderType = ConfigService.sharedInstance.selectOrderType(TwitterManager.getUserID())
@@ -95,6 +89,9 @@ class HomeViewController: UIViewController {
 
     internal func setupListUsers(users: [TwitterUser]) {
         self.users = TwitterManager.sortUsersLastupdate(users)
+        if self.listEnable {
+            self.users.insert(self.users.first!, atIndex: 0)
+        }
         self.setOrder()
         if self.activityIndicator.isAnimating() {
             self.activityIndicator.stopAnimating()
@@ -195,6 +192,9 @@ class HomeViewController: UIViewController {
         self.activityIndicator.startAnimating()
         _ = Twitter.sharedInstance().requestMembers(list)
             .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
+        if !list.isHomeTabEnable() {
+            self.listEnable = false
+        }
     }
 
 }
@@ -224,8 +224,12 @@ extension HomeViewController: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let user = users[indexPath.row]
         let cell = (tableView.dequeueReusableCellWithIdentifier("userStatusCell") as? UserStatusCell)!
+        if indexPath.row == 0 && !self.listEnable {
+            cell.setInfoCell(self.list)
+            return cell
+        }
+        let user = users[indexPath.row]
         // let cell = (tableView.dequeueReusableCellWithIdentifier(IdentifilerService.sharedInstance.homeCellID(user.userID)) as? UserStatusCell)!
         cell.setCell(user)
         return cell
