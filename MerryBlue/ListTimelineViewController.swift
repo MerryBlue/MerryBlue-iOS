@@ -171,10 +171,11 @@ extension ListTimelineViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
         let tweet = tweets[indexPath.row]
-        cell.setCell(tweet)
         if indexPath.row == 0 && !self.list.isTimelineTabEnable() {
-            cell.textLabel?.text = "テスト"
+            cell.setInfoCell(self.list)
             return cell
+        } else {
+            cell.setCell(tweet)
         }
         for view in cell.imageStackView.subviews {
             let recognizer = UITapGestureRecognizer(target:self, action: #selector(ListTimelineViewController.didClickImageView(_:)))
