@@ -45,11 +45,11 @@ class UserTweetCell: UITableViewCell {
 
     }
 
-    func setInfoCell(list: MBTwitterList) {
+    func setInfoCell(list: MBTwitterList, message: String) {
         self.namesLabel.text = "情報セル"
         self.userImageView.image = UIImage(named: "icon-replay-sq")
         self.userImageView.tintColor = MBColor.Main
-        self.tweetTextLabel.text = "このリストは特別なリストなため各ユーザの最終ツイートのみ表示しています"
+        self.tweetTextLabel.text = message
         self.backgroundColor = MBColor.LightSub
         self.imageStackViewHeight.constant = 0
     }

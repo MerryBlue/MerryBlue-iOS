@@ -17,6 +17,7 @@ class ListTimelineViewController: UIViewController {
 
     var isUpdating = true
     var bgViewHeight: CGFloat!
+    var isNoTweet = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,6 +142,10 @@ class ListTimelineViewController: UIViewController {
 
     func setupTweets(tweets: [MBTweet]) {
         self.tweets = tweets
+        if self.tweets.count == 0 {
+            self.tweets.append(MBTweet())
+            self.isNoTweet = true
+        }
         self.tableView.reloadData()
         self.activityIndicator.stopAnimating()
         self.isUpdating = false
@@ -167,7 +172,10 @@ extension ListTimelineViewController: UITableViewDataSource {
         let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
         let tweet = tweets[indexPath.row]
         if !self.list.isTimelineTabEnable() {
-            cell.setInfoCell(self.list)
+            cell.setInfoCell(self.list, message: "このリストは特別なリストなためタイムラインを取得できません")
+            return cell
+        } else if isNoTweet {
+            cell.setInfoCell(self.list, message: "該当ツイートがありません")
             return cell
         } else {
             cell.setCell(tweet)
