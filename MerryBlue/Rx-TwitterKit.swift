@@ -31,7 +31,7 @@ public extension Twitter {
                             tweet.setAuthor(user)
                             return tweet
                         })
-                        observer.onNext(tweets)
+                        observer.onNext(TwitterManager.sortTweetsLastupdate(tweets))
                     }, onError: { error in
                         observer.onError(error)
                     }, onCompleted: nil, onDisposed: nil)
@@ -150,7 +150,8 @@ public extension Twitter {
 
     public func requestFriendUsers(userID: String, count: Int = 20) -> Observable<[TwitterUser]> {
         let parameters = [
-            "count": String(count)
+            "count": String(count),
+            "include_user_entities": "true"
         ]
         return self.getUsersRequest("friends/list", parameters: parameters)
     }

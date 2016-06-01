@@ -20,14 +20,11 @@ class UserTweetCell: UITableViewCell {
 
     func setCell(tweet: MBTweet) {
         let sourceTweet = tweet.sourceTweet()
+        let author = tweet.getExAuthor()
         self.tweetTextLabel.text = sourceTweet.prettyText()
-        self.namesLabel.text = "\(sourceTweet.author.name)・@\(sourceTweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
+        self.namesLabel.text = "\(author.name)・@\(author.screenName)・\(tweet.createdAt.toFuzzy())"
 
-        if let url = sourceTweet.author.profileImageURL {
-            self.userImageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
-        } else if let url = tweet.exAuthor.profileImageURL {
-            self.userImageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
-        }
+        self.userImageView.sd_setImageWithURL(NSURL(string: author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
         let imageHeight: CGFloat = 100
         self.backgroundColor = UIColor.whiteColor()

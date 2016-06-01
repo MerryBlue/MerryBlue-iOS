@@ -30,8 +30,8 @@ public class MBTweet: TWTRTweet {
         self.exAuthor = user
     }
 
-    public func getExAuthorURL() -> TWTRUser {
-        guard let author = self.author else {
+    public func getExAuthor() -> TWTRUser {
+        guard let _ = self.author.name else {
             return self.exAuthor
         }
         return author
