@@ -73,11 +73,7 @@ class TweetViewController: UIViewController {
         self.nameLabel.text = sourceTweet.author.name
         self.screenNameLabel.text = "@\(sourceTweet.author.screenName)"
 
-        if let url = sourceTweet.author.profileImageURL {
-            self.userImageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
-        } else if let url = tweet.exAuthor.profileImageURL {
-            self.userImageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
-        }
+        self.userImageView.sd_setImageWithURL(NSURL(string: sourceTweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
         // images set
         let imageHeight: CGFloat = 100

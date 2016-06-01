@@ -4,7 +4,10 @@ import SwiftyJSON
 public class MBTweet: TWTRTweet {
 
     var imageURLs: [String]!
-    var exAuthor: TwitterUser!
+
+    public override init() {
+        super.init()
+    }
 
     public required override init!(JSONDictionary dictionary: [NSObject: AnyObject]!) {
         super.init(JSONDictionary: dictionary)
@@ -24,17 +27,6 @@ public class MBTweet: TWTRTweet {
             text = "🖼" + text
         }
         return text
-    }
-
-    public func setAuthor(user: TwitterUser) {
-        self.exAuthor = user
-    }
-
-    public func getExAuthor() -> TWTRUser {
-        guard let _ = self.author.name else {
-            return self.exAuthor
-        }
-        return author
     }
 
     init?(json: SwiftyJSON.JSON) {

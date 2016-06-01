@@ -28,7 +28,6 @@ public extension Twitter {
                     onNext: { (users: [TwitterUser]) in
                         let tweets = users.map({ (user: TwitterUser) -> MBTweet in
                             let tweet = user.lastStatus
-                            tweet.setAuthor(user)
                             return tweet
                         })
                         observer.onNext(TwitterManager.sortTweetsLastupdate(tweets))

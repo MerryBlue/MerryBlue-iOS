@@ -51,10 +51,8 @@ class ListTimelineViewController: UIViewController {
                     self.setupTweets(tweets)
                 })
         } else {
-            _ = Twitter.sharedInstance().requestMembersLastTweets(list)
-                .subscribeNext({ (tweets: [MBTweet]) in
-                    self.setupTweets(tweets)
-                })
+            let tweets = [MBTweet()]
+            self.setupTweets(tweets)
         }
     }
 
@@ -143,9 +141,6 @@ class ListTimelineViewController: UIViewController {
 
     func setupTweets(tweets: [MBTweet]) {
         self.tweets = tweets
-        if !self.list.isTimelineTabEnable() {
-            self.tweets.insert(self.tweets.first!, atIndex: 0)
-        }
         self.tableView.reloadData()
         self.activityIndicator.stopAnimating()
         self.isUpdating = false
@@ -171,7 +166,7 @@ extension ListTimelineViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
         let tweet = tweets[indexPath.row]
-        if indexPath.row == 0 && !self.list.isTimelineTabEnable() {
+        if !self.list.isTimelineTabEnable() {
             cell.setInfoCell(self.list)
             return cell
         } else {

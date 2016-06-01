@@ -20,7 +20,7 @@ class UserTweetCell: UITableViewCell {
 
     func setCell(tweet: MBTweet) {
         let sourceTweet = tweet.sourceTweet()
-        let author = tweet.getExAuthor()
+        let author = sourceTweet.author
         self.tweetTextLabel.text = sourceTweet.prettyText()
         self.namesLabel.text = "\(author.name)・@\(author.screenName)・\(tweet.createdAt.toFuzzy())"
 
