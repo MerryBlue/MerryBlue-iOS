@@ -30,6 +30,7 @@ class UserTweetCell: UITableViewCell {
         }
 
         let imageHeight: CGFloat = 100
+        self.backgroundColor = UIColor.whiteColor()
         self.imageStackViewHeight.constant = CGFloat(tweet.imageURLs.count) * imageHeight
 
         _ = self.imageStackView.subviews.map { $0.removeFromSuperview() }
