@@ -17,6 +17,7 @@ class ListTimelineViewController: UIViewController {
 
     var isUpdating = true
     var bgViewHeight: CGFloat!
+    var isNoTweet = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,16 +42,19 @@ class ListTimelineViewController: UIViewController {
 
     func pullToRefresh() {
         refreshControl.endRefreshing()
-        if !list.isTimelineTabEnable() {
-            presentViewController(AlertManager.sharedInstantce.disableTabSpecialTab(), animated: true, completion: nil)
-            self.setupTweets([])
-            self.navigationController?.tabBarController?.selectedIndex = 1
-            return
+        self.requestTimeline()
+    }
+
+    func requestTimeline() {
+        if self.list.isTimelineTabEnable() {
+            _ = Twitter.sharedInstance().requestListTimeline(list)
+                .subscribeNext({ (tweets: [MBTweet]) in
+                    self.setupTweets(tweets)
+                })
+        } else {
+            let tweets = [MBTweet()]
+            self.setupTweets(tweets)
         }
-        _ = Twitter.sharedInstance().requestListTimeline(list)
-            .subscribeNext({ (tweets: [MBTweet]) in
-                self.setupTweets(tweets)
-        })
     }
 
 
@@ -76,17 +80,11 @@ class ListTimelineViewController: UIViewController {
     }
 
     override func viewDidAppear(animated: Bool) {
-        guard let list = ListService.sharedInstance.selectHomeList() else {
+        guard let _ = ListService.sharedInstance.selectHomeList() else {
             goBlack()
             return
         }
         self.bgViewHeight = 150
-        if !list.isTimelineTabEnable() {
-            self.setupTweets([])
-            presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
-            self.navigationController?.tabBarController?.selectedIndex = 0
-            return
-        }
         self.updateList()
     }
 
@@ -119,10 +117,7 @@ class ListTimelineViewController: UIViewController {
         self.navigationItem.title = list.name
         self.activityIndicator.startAnimating()
         self.tableView.contentOffset = CGPoint(x: 0, y: -self.tableView.contentInset.top)
-        _ = Twitter.sharedInstance().requestListTimeline(list)
-             .subscribeNext({ (tweets: [MBTweet]) in
-                self.setupTweets(tweets)
-             })
+        self.requestTimeline()
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -135,7 +130,7 @@ class ListTimelineViewController: UIViewController {
 
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let isBouncing = (self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height)) && self.tableView.dragging
-        if isBouncing && !isUpdating {
+        if isBouncing && !isUpdating && self.list.isTimelineTabEnable() {
             isUpdating = true
             activityIndicator.startAnimating()
             _ = Twitter.sharedInstance().requestListTimelineNext(self.list, beforeTweet: tweets.last!)
@@ -147,6 +142,10 @@ class ListTimelineViewController: UIViewController {
 
     func setupTweets(tweets: [MBTweet]) {
         self.tweets = tweets
+        if self.tweets.count == 0 {
+            self.tweets.append(MBTweet())
+            self.isNoTweet = true
+        }
         self.tableView.reloadData()
         self.activityIndicator.stopAnimating()
         self.isUpdating = false
@@ -172,7 +171,15 @@ extension ListTimelineViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = (tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath) as? UserTweetCell)!
         let tweet = tweets[indexPath.row]
-        cell.setCell(tweet)
+        if !self.list.isTimelineTabEnable() {
+            cell.setInfoCell(self.list, message: "このリストは特別なリストなためタイムラインを取得できません")
+            return cell
+        } else if isNoTweet {
+            cell.setInfoCell(self.list, message: "該当ツイートがありません")
+            return cell
+        } else {
+            cell.setCell(tweet)
+        }
         for view in cell.imageStackView.subviews {
             let recognizer = UITapGestureRecognizer(target:self, action: #selector(ListTimelineViewController.didClickImageView(_:)))
             view.addGestureRecognizer(recognizer)

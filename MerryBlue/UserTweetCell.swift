@@ -20,11 +20,14 @@ class UserTweetCell: UITableViewCell {
 
     func setCell(tweet: MBTweet) {
         let sourceTweet = tweet.sourceTweet()
+        let author = sourceTweet.author
         self.tweetTextLabel.text = sourceTweet.prettyText()
-        self.namesLabel.text = "\(sourceTweet.author.name)・@\(sourceTweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
-        self.userImageView.sd_setImageWithURL(NSURL(string: sourceTweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        self.namesLabel.text = "\(author.name)・@\(author.screenName)・\(tweet.createdAt.toFuzzy())"
+
+        self.userImageView.sd_setImageWithURL(NSURL(string: author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
         let imageHeight: CGFloat = 100
+        self.backgroundColor = UIColor.whiteColor()
         self.imageStackViewHeight.constant = CGFloat(tweet.imageURLs.count) * imageHeight
 
         _ = self.imageStackView.subviews.map { $0.removeFromSuperview() }
@@ -41,5 +44,15 @@ class UserTweetCell: UITableViewCell {
         }
 
     }
+
+    func setInfoCell(list: MBTwitterList, message: String) {
+        self.namesLabel.text = "情報セル"
+        self.userImageView.image = UIImage(named: "icon-replay-sq")
+        self.userImageView.tintColor = MBColor.Main
+        self.tweetTextLabel.text = message
+        self.backgroundColor = MBColor.LightSub
+        self.imageStackViewHeight.constant = 0
+    }
+
 
 }

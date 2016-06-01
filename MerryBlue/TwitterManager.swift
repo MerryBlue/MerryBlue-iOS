@@ -23,6 +23,10 @@ class TwitterManager {
         return users.sort { return $0.compareNewCountRevTo($1) }
     }
 
+    static func sortTweetsLastupdate(tweets: [MBTweet]) -> [MBTweet] {
+        return tweets.sort { return $0.createdAt.compare($1.createdAt) == NSComparisonResult.OrderedDescending }
+    }
+
     static func isLogin() -> Bool {
         return Twitter.sharedInstance().sessionStore.session() != nil
     }

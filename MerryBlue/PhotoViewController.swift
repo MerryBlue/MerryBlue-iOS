@@ -28,13 +28,15 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
         self.scrollView.showsHorizontalScrollIndicator = true
         self.scrollView.showsVerticalScrollIndicator = true
 
-        let doubleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PhotoViewController.doubleTap(_:)))
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(PhotoViewController.doubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         self.imageViewWrap.userInteractionEnabled = true
         self.imageViewWrap.addGestureRecognizer(doubleTapGesture)
         // let singleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PhotoViewController.singleTap(_:)))
         // singleTapGesture.numberOfTapsRequired = 1
         // self.imageViewWrap.addGestureRecognizer(singleTapGesture)
+        let longpressGesture = UILongPressGestureRecognizer(target: self, action: #selector(PhotoViewController.longPress(_:)))
+        self.imageViewWrap.addGestureRecognizer(longpressGesture)
         self.tweetInfoView.alpha = 0
     }
 
@@ -73,6 +75,17 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
     //     }
     // }
 
+    func longPress(gesture: UITapGestureRecognizer) -> Void {
+        guard let image = self.imageView.image else {
+            return
+        }
+        let activityItems = [image]
+        let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        let excludedActivityTypes: [String] = []
+        activityVC.excludedActivityTypes = excludedActivityTypes
+        self.presentViewController(activityVC, animated: true, completion: nil)
+    }
+
     func doubleTap(gesture: UITapGestureRecognizer) -> Void {
 
         // print(self.scrollView.zoomScale)
@@ -82,6 +95,7 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
             self.scrollView.zoomToRect(zoomRect, animated: true)
         } else {
             self.scrollView.setZoomScale(self.scrollView.minimumZoomScale, animated: true)
+            self.tweetInfoView.alpha = 1
         }
     }
 
@@ -92,6 +106,12 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
 
         zoomRect.origin.x = center.x - zoomRect.size.width / 2.0
         zoomRect.origin.y = center.y - zoomRect.size.height / 2.0
+
+        if self.scrollView.zoomScale == self.scrollView.maximumZoomScale {
+            self.tweetInfoView.alpha = 1
+        } else {
+            self.tweetInfoView.alpha = 0
+        }
 
         return zoomRect
     }

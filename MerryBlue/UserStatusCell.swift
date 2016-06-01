@@ -24,16 +24,13 @@ class UserStatusCell: UITableViewCell {
     func setCell(user: TwitterUser) {
         self.nameLabel.text = user.name
         self.screenNameLabel.text = "@\(user.screenName)"
-
         self.iconImageView.sd_setImageWithURL(NSURL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
-
         guard let status = user.lastStatus else {
             self.tweetTextLabel.text = "ツイートが読み込めませんでした"
             self.timeElapsedLabel.text = "----/--/-- --:--:--"
             return
         }
         self.tweetTextLabel.text = status.arrangeText()
-
         self.timeElapsedLabel.text = status.createdAt.toFuzzy()
 
         if user.hasNew() {
@@ -43,6 +40,20 @@ class UserStatusCell: UITableViewCell {
         } else {
             newCountLabel.hidden = true
         }
+        self.backgroundColor = UIColor.whiteColor()
+    }
+
+    func setInfoCell(message: String) {
+        self.nameLabel.text = "情報セル"
+        self.screenNameLabel.text = "( 'ω')"
+        self.iconImageView.image = UIImage(named: "icon-replay-sq")
+        self.iconImageView.tintColor = MBColor.Main
+        self.tweetTextLabel.text = message
+        self.timeElapsedLabel.text = NSDate().toFuzzy()
+        self.backgroundColor = MBColor.LightSub
+
+        newCountLabel.hidden = true
+        newCountLabel.text = "'_'"
     }
 
 }

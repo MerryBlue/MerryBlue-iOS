@@ -12,6 +12,10 @@ public class TwitterUser: TWTRUser {
     var profileBannerImageURL: String!
     var color: UIColor!
 
+    override init() {
+        super.init()
+    }
+
     required override public init!(JSONDictionary dictionary: [NSObject: AnyObject]!) {
         super.init(JSONDictionary: dictionary)
     }

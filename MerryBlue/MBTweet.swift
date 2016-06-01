@@ -5,6 +5,10 @@ public class MBTweet: TWTRTweet {
 
     var imageURLs: [String]!
 
+    public override init() {
+        super.init()
+    }
+
     public required override init!(JSONDictionary dictionary: [NSObject: AnyObject]!) {
         super.init(JSONDictionary: dictionary)
     }
