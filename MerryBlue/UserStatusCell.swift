@@ -43,12 +43,12 @@ class UserStatusCell: UITableViewCell {
         self.backgroundColor = UIColor.whiteColor()
     }
 
-    func setInfoCell(list: MBTwitterList) {
+    func setInfoCell(message: String) {
         self.nameLabel.text = "情報セル"
         self.screenNameLabel.text = "( 'ω')"
         self.iconImageView.image = UIImage(named: "icon-replay-sq")
         self.iconImageView.tintColor = MBColor.Main
-        self.tweetTextLabel.text = "このリストはユーザ数が多いため最近追加されたユーザのみ表示されます．\(list.memberCount) -> \(MBTwitterList.memberNumActiveMaxLimit)"
+        self.tweetTextLabel.text = message
         self.timeElapsedLabel.text = NSDate().toFuzzy()
         self.backgroundColor = MBColor.LightSub
 

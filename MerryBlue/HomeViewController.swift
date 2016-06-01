@@ -33,6 +33,7 @@ class HomeViewController: UIViewController {
 
     var cacheCellHeight: CGFloat!
     var listEnable = true
+    var isNoUser = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +82,10 @@ class HomeViewController: UIViewController {
 
     internal func setupListUsers(users: [TwitterUser]) {
         self.users = TwitterManager.sortUsersLastupdate(users)
+        if self.users.count == 0 {
+            self.users.append(TwitterUser())
+            self.isNoUser = true
+        }
         if !self.listEnable {
             self.users.insert(self.users.first!, atIndex: 0)
         }
@@ -216,7 +221,11 @@ extension HomeViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = (tableView.dequeueReusableCellWithIdentifier("userStatusCell") as? UserStatusCell)!
         if indexPath.row == 0 && !self.listEnable {
-            cell.setInfoCell(self.list)
+            let message = "このリストはユーザ数が多いため最近追加されたユーザのみ表示されます．\(list.memberCount) -> \(MBTwitterList.memberNumActiveMaxLimit)"
+            cell.setInfoCell(message)
+            return cell
+        } else if self.isNoUser {
+            cell.setInfoCell("該当ユーザがいません")
             return cell
         }
         let user = users[indexPath.row]
