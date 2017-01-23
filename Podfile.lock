@@ -1,11 +1,11 @@
 PODS:
-  - RxCocoa (3.0.0):
-    - RxSwift (~> 3.0)
-  - RxSwift (3.0.0)
+  - RxCocoa (3.1.0):
+    - RxSwift (~> 3.1)
+  - RxSwift (3.1.0)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
-  - SlideMenuControllerSwift (3.0.0)
+  - SlideMenuControllerSwift (3.0.1)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
@@ -25,12 +25,12 @@ CHECKOUT OPTIONS:
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  RxCocoa: 0a2f3ae381cf16f4021a4cee7a4420f83058a965
-  RxSwift: a930cd662f5b4a7ca9dc3518585dba91dadf497c
+  RxCocoa: 50d7564866da9299161e86a263ce12a0873904d8
+  RxSwift: 83ff553e7593fdfdcb2562933a64c0284dffdadc
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
-  SlideMenuControllerSwift: 9c0a84f9a3fba51681debd7be77617094562ebcc
+  SlideMenuControllerSwift: 9a163b16d54afab734add42858cba7ef7c307755
   SwiftyJSON: 05cf0e98a950e2ba343735264f5a96b81e755d00
 
-PODFILE CHECKSUM: 57a302db1c4ef079473325d4083944b76e458bb3
+PODFILE CHECKSUM: 99dfb8f5ce04226e85e3c98ed6e592adef5a46fa
 
 COCOAPODS: 1.1.1

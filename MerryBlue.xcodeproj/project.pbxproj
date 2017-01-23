@@ -87,6 +87,9 @@
 		457E0BF51C933D25000A665A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		458829861CE41AB000E343CB /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		458829881CE59B7900E343CB /* ImageCellInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCellInfo.swift; sourceTree = "<group>"; };
+		4591E2A81E3640F30021376F /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "Pods/../build/Debug-iphoneos/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
+		4591E2AA1E3647010021376F /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../Library/Developer/Xcode/DerivedData/MerryBlue-gwbkwxmhcruouldsntfioeslhsgi/Build/Products/Debug-iphonesimulator/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
+		4591E2AC1E36470D0021376F /* SlideMenuControllerSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SlideMenuControllerSwift.framework; path = "../../../Library/Developer/Xcode/DerivedData/MerryBlue-gwbkwxmhcruouldsntfioeslhsgi/Build/Products/Debug-iphonesimulator/SlideMenuControllerSwift/SlideMenuControllerSwift.framework"; sourceTree = "<group>"; };
 		45A68DD81CB16F3A007719E1 /* StoryBoardService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryBoardService.swift; sourceTree = "<group>"; };
 		45A68DDA1CB1781F007719E1 /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		45ABA1EC1C9800B9006DE856 /* TwitterUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterUser.swift; sourceTree = "<group>"; };
@@ -248,6 +251,9 @@
 		45EBEDE41C93F46F002C6040 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4591E2AC1E36470D0021376F /* SlideMenuControllerSwift.framework */,
+				4591E2AA1E3647010021376F /* SwiftyJSON.framework */,
+				4591E2A81E3640F30021376F /* SwiftyJSON.framework */,
 				45EBEDE01C93F2B6002C6040 /* Fabric.framework */,
 				45EBEDE71C93F488002C6040 /* TwitterCore.framework */,
 				45EBEDEB1C93F5D2002C6040 /* TwitterKit.framework */,
@@ -592,6 +598,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/DigitsKit.framework/Versions/A/Resources/DigitsKitResources.bundle",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/SwiftyJSON",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -621,6 +628,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/DigitsKit.framework/Versions/A/Resources/DigitsKitResources.bundle",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/SwiftyJSON",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -692,6 +700,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/DigitsKit.framework/Versions/A/Resources/DigitsKitResources.bundle",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/SwiftyJSON",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
