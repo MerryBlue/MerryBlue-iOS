@@ -34,7 +34,7 @@ public extension Twitter {
                     }, onError: { error in
                         observer.onError(error)
                     }, onCompleted: nil, onDisposed: nil)
-            return AnonymousDisposable { }
+            return Disposables.create()
         }
     }
 
@@ -49,7 +49,7 @@ public extension Twitter {
                     }, onError: { error in
                         observer.onError(error)
                     }, onCompleted: nil, onDisposed: nil)
-            return AnonymousDisposable { }
+            return Disposables.create()
         }
     }
 
@@ -143,7 +143,7 @@ public extension Twitter {
                     }, onError: { error in
                         observer.onError(error)
                     }, onCompleted: nil, onDisposed: nil)
-            return AnonymousDisposable { }
+            return Disposables.create()
         }
     }
 
@@ -223,7 +223,7 @@ public extension Twitter {
                     }, onError: { error in
                         observer.onError(error)
                     }, onCompleted: nil, onDisposed: nil)
-            return AnonymousDisposable { }
+            return Disposables.create()
         }
     }
 
@@ -238,7 +238,7 @@ public extension Twitter {
                     }, onError: { error in
                         observer.onError(error)
                     }, onCompleted: nil, onDisposed: nil)
-            return AnonymousDisposable { }
+            return Disposables.create()
         }
     }
 
@@ -253,7 +253,7 @@ public extension Twitter {
                     }, onError: { error in
                         observer.onError(error)
                     }, onCompleted: nil, onDisposed: nil)
-            return AnonymousDisposable { }
+            return Disposables.create()
         }
     }
 
@@ -267,10 +267,10 @@ public extension Twitter {
                         observer.onError(connectionError!)
                         return
                     }
-                    observer.onNext(data)
+                    observer.onNext(data as NSData)
                     observer.onCompleted()
                 }
-                return AnonymousDisposable { }
+                return Disposables.create()
             }
     }
 

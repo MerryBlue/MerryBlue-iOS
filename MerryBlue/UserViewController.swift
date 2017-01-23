@@ -1,5 +1,6 @@
 import Foundation
 import TwitterKit
+import UIKit
 import SDWebImage
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
@@ -97,31 +98,31 @@ class UserViewController: UIViewController {
         }
         self.user = user
         self.title = self.user.screenNameWithAt()
-        self.newCount = delegate.userViewNewCount! ?? 0
+        self.newCount = delegate.userViewNewCount! 
         self.setUser()
         self.bgViewHeight = 150
         self.activityIndicator.startAnimating()
         _ = Twitter.sharedInstance().requestUserTimeline(user)
-             .subscribeNext({ (tweets: [MBTweet]) in
+            .subscribe(onNext: {(tweets: [MBTweet]) in
                 self.tweets = tweets
                 self.tableView.reloadData()
                 self.activityIndicator.stopAnimating()
                 self.isUpdating = false
-             })
+            })
     }
 
     func setUser() {
         self.nameLable.text = user.name
         self.screenNameLabel.text = user.screenName
-        self.userImageView.sd_setImageWithURL(URL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        self.userImageView.sd_setImage(with: URL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
         if let url = user.profileBannerImageURL, !url.isEmpty {
             self.userHeaderImageView.clipsToBounds = true
             self.userHeaderImageView.contentMode = .scaleAspectFill
-            self.userHeaderImageView.sd_setImageWithURL(URL(string: url), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+            self.userHeaderImageView.sd_setImage(with: URL(string: url), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
         } else {
             self.userHeaderImageView.image = nil
-            self.backgroundView.layer.backgroundColor = MBColor.Main.CGColor
+            self.backgroundView.layer.backgroundColor = MBColor.Main.cgColor
         }
     }
 
@@ -132,8 +133,8 @@ class UserViewController: UIViewController {
             isUpdating = true
             activityIndicator.startAnimating()
             _ = Twitter.sharedInstance().requestUserTimelineNext(user, beforeTweet: tweets.last!)
-                .subscribeNext({ (tweets: [MBTweet]) in
-                    self.tweets.appendContentsOf(tweets)
+                .subscribe(onNext: { (tweets: [MBTweet]) in
+                    self.tweets.append(contentsOf: tweets)
                     self.tableView.reloadData()
                     self.activityIndicator.stopAnimating()
                     self.isUpdating = false
@@ -183,7 +184,7 @@ extension UserViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let bottomLine = CALayer()
         bottomLine.frame = CGRect(x: 0.0, y: 0.0, width: 5.0, height: cell.frame.height)
-        bottomLine.backgroundColor = indexPath.row < newCount ? MBColor.Sub.CGColor : UIColor.whiteColor().CGColor
+        bottomLine.backgroundColor = indexPath.row < newCount ? MBColor.Sub.cgColor : UIColor.white.cgColor
         cell.layer.addSublayer(bottomLine)
     }
 

@@ -1,3 +1,4 @@
+import UIKit
 import Foundation
 import TwitterKit
 import SwiftyJSON
@@ -25,7 +26,7 @@ open class TwitterUser: TWTRUser {
     }
 
     init?(json: SwiftyJSON.JSON) {
-        super(jsonDictionary: json.dictionaryObject)
+        super.init(jsonDictionary: json.dictionaryObject)
         if json["status"] != nil {
             self.lastStatus = MBTweet(json: json["status"])
         } else {
@@ -37,7 +38,7 @@ open class TwitterUser: TWTRUser {
         self.profileBannerImageURL = json["profile_banner_url"].stringValue
         let colStr = json["profile_sidebar_fill_color"].stringValue
         if colStr != "000000" {
-            self.color = UIColor.hexFrom(colStr)
+            self.color = UIColor.hex(hexStr: colStr)
         } else {
             self.color = MBColor.Main
         }

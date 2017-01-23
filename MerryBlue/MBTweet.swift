@@ -30,7 +30,7 @@ open class MBTweet: TWTRTweet {
     }
 
     init?(json: SwiftyJSON.JSON) {
-        super(jsonDictionary: json.dictionaryObject)
+        super.init(jsonDictionary: json.dictionaryObject)
         var medias = json["entities"]["media"].arrayValue
         if json["extended_entities"]["media"].arrayValue.count > 0 {
             medias = json["extended_entities"]["media"].arrayValue

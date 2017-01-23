@@ -81,8 +81,7 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
         }
         let activityItems = [image]
         let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-        let excludedActivityTypes: [String] = []
-        activityVC.excludedActivityTypes = excludedActivityTypes
+        activityVC.excludedActivityTypes = []
         self.present(activityVC, animated: true, completion: nil)
     }
 

@@ -24,7 +24,7 @@ class UserTweetCell: UITableViewCell {
         self.tweetTextLabel.text = sourceTweet.prettyText()
         self.namesLabel.text = "\(author?.name)・@\(author?.screenName)・\(tweet.createdAt.toFuzzy())"
 
-        self.userImageView.sd_setImageWithURL(URL(string: (author?.profileImageURL)!), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        self.userImageView.sd_setImage(with: URL(string: (author?.profileImageURL)!), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
         let imageHeight: CGFloat = 100
         self.backgroundColor = UIColor.white
@@ -38,7 +38,7 @@ class UserTweetCell: UITableViewCell {
                 // imageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: imageHeight)
                 imageView.contentMode = .scaleAspectFill
                 imageView.clipsToBounds = true
-                imageView.sd_setImageWithURL(URL(string: url), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
+                imageView.sd_setImage(with: URL(string: url), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
                 self.imageStackView.insertArrangedSubview(imageView, at: i)
             }
         }

@@ -8,7 +8,12 @@ extension Date {
         let cal = Calendar.current
         let components = (cal as NSCalendar).components([.year, .day, .hour, .minute, .second], from: self, to: now, options: [])
 
-        let diffSec = components.second + components.minute*60 + components.hour*3600 + components.day*86400 + components.year*31536000
+        let cMinute = components.minute! * 60
+        let cHour = components.hour! * 3600
+        let cDay = components.day! * 86400
+        let cYear = components.year! * 31536000
+        let diffSec = components.second! + cMinute + cHour + cDay + cYear
+        
         var result = String()
 
         if diffSec < 60 {

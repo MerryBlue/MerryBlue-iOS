@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 class MBNavigationController: UINavigationController {
 
@@ -6,7 +7,7 @@ class MBNavigationController: UINavigationController {
         super.viewDidAppear(animated)
 
         self.setNavigationBarHidden(false, animated: false)
-        self.navigationBar.translucent = false
+        self.navigationBar.isTranslucent = false
     }
 
 }

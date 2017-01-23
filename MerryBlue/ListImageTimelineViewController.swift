@@ -61,7 +61,7 @@ class ListImageTimelineViewController: UIViewController {
     func pullToRefresh() {
         refreshControl.endRefreshing()
         if !list.isTimelineTabEnable() {
-            presentViewController(AlertManager.sharedInstantce.disableTabSpecialTab(), animated: true, completion: nil)
+            present(AlertManager.sharedInstantce.disableTabSpecialTab(), animated: true, completion: nil)
             self.setupTweets([])
             self.navigationController?.tabBarController?.selectedIndex = 1
             return
@@ -70,8 +70,8 @@ class ListImageTimelineViewController: UIViewController {
     }
 
     func requestListTimeline(_ list: MBTwitterList) {
-        _ = Twitter.sharedInstance().requestListImageTweets(list, includeRT: self.rtMode == .IncludeRT)
-            .subscribeNext({ (tweets: [MBTweet]) in
+        _ = Twitter.sharedInstance().requestListImageTweets(list, includeRT: self.rtMode.rawValue == ImageViewType.includeRT.rawValue)
+            .subscribe(onNext: { (tweets: [MBTweet]) in
                 self.setupTweets(tweets)
         })
     }
@@ -128,7 +128,7 @@ class ListImageTimelineViewController: UIViewController {
         self.bgViewHeight = 150
         if !list.isTimelineTabEnable() {
             self.setupTweets([])
-            presentViewController(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
+            present(AlertManager.sharedInstantce.listMemberLimit(), animated: true, completion: nil)
             self.navigationController?.tabBarController?.selectedIndex = 0
             return
         }
@@ -181,7 +181,7 @@ class ListImageTimelineViewController: UIViewController {
             isUpdating = true
             activityIndicator.startAnimating()
             _ = Twitter.sharedInstance().requestListImageTweets(list, beforeTweet: tweets.last)
-                .subscribeNext({ (tweets: [MBTweet]) in
+                .subscribe(onNext: { (tweets: [MBTweet]) in
                     self.setupTweets(self.tweets + tweets)
                 })
         }

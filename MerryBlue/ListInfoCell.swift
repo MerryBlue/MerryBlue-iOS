@@ -23,7 +23,7 @@ class ListInfoCell: UITableViewCell {
         self.memberNumLabel.text = String(listInfo.memberCount)
         switch listInfo.listType {
         case .Normal:
-            self.iconImageView.sd_setImageWithURL(URL(string: listInfo.imageUrl), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+            self.iconImageView.sd_setImage(with: URL(string: listInfo.imageUrl), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
         case .RecentFollow:
             self.iconImageView.image = AssetSertvice.sharedInstance.iconRecentFollow
             self.iconImageView.tintColor = MBColor.Main

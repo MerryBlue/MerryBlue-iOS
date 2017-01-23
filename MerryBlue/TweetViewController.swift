@@ -18,7 +18,7 @@ class TweetViewController: UIViewController {
     @IBOutlet weak var favoriteButton: UIButton!
     @IBAction func favoriteButtonTapped(_ sender: AnyObject) {
         _ = Twitter.sharedInstance().requestToggleLikeTweet(tweet)
-            .subscribeNext({ (tweet: MBTweet) in
+            .subscribe(onNext: { (tweet: MBTweet) in
                 self.tweet = tweet
                 self.loadLikeButton()
             })
@@ -31,16 +31,16 @@ class TweetViewController: UIViewController {
         }
         if !tweet.sourceTweet().isRetweeted {
             _ = Twitter.sharedInstance().requestRetweet(tweet)
-                .subscribeNext({ (tweet: MBTweet) in
+                .subscribe(onNext: { (tweet: MBTweet) in
                     self.tweet = tweet
                     self.loadRetweetButton()
                 })
         } else {
             _ = Twitter.sharedInstance().requestUnretweet(tweet)
-                .subscribeNext({ (tweet: MBTweet) in
+                .subscribe(onNext: { (tweet: MBTweet) in
                     self.tweet = tweet
-                    let col = UIColor.grayColor()
-                    self.retweetButton.setTitleColor(col, forState: .Normal)
+                    let col = UIColor.gray
+                    self.retweetButton.setTitleColor(col, for: .normal)
                     self.retweetButton.tintColor = col
                 })
         }
@@ -73,7 +73,7 @@ class TweetViewController: UIViewController {
         self.nameLabel.text = sourceTweet.author.name
         self.screenNameLabel.text = "@\(sourceTweet.author.screenName)"
 
-        self.userImageView.sd_setImageWithURL(URL(string: sourceTweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        self.userImageView.sd_setImage(with: URL(string: sourceTweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
         // images set
         let imageHeight: CGFloat = 100
@@ -89,7 +89,7 @@ class TweetViewController: UIViewController {
                 // imageView.frame = CGRect(x: 0, y: 0, width: imageView.frame.width, height: imageHeight)
                 imageView.contentMode = .scaleAspectFill
                 imageView.clipsToBounds = true
-                imageView.sd_setImageWithURL(URL(string: url), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
+                imageView.sd_setImage(with: URL(string: url), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
                 self.imageStackView.insertArrangedSubview(imageView, at: i)
             }
         }
@@ -102,8 +102,8 @@ class TweetViewController: UIViewController {
         if sourceTweet.likeCount > 0 {
             favoriteButton.setTitle(String(sourceTweet.likeCount), for: UIControlState())
         }
-        let col = sourceTweet.isLiked ? MBColor.Dark : UIColor.grayColor()
-        favoriteButton.setTitleColor(col, forState: .Normal)
+        let col = sourceTweet.isLiked ? MBColor.Dark : UIColor.gray
+        favoriteButton.setTitleColor(col, for: .normal)
         favoriteButton.tintColor = col
 
     }

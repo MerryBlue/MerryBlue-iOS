@@ -1,10 +1,11 @@
 import Foundation
+import UIKit
 
 class ListService {
 
     static let sharedInstance = ListService()
     fileprivate let userDefaults = UserDefaults.standard
-    var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
+    var delegate = UIApplication.shared.delegate as! AppDelegate
 
     func updateHomeList(_ list: MBTwitterList) {
         delegate.homeList = list

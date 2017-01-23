@@ -75,7 +75,7 @@ class HomeViewController: UIViewController {
             return
         }
         _ = Twitter.sharedInstance().requestMembers(list)
-            .subscribeNext({ (users: [TwitterUser]) in
+            .subscribe(onNext: { (users: [TwitterUser]) in
                 self.setupListUsers(users)
         })
     }
@@ -187,7 +187,7 @@ class HomeViewController: UIViewController {
         self.navigationItem.title = list.name
         self.activityIndicator.startAnimating()
         _ = Twitter.sharedInstance().requestMembers(list)
-            .subscribeNext({ (users: [TwitterUser]) in self.setupListUsers(users) })
+            .subscribe(onNext: { (users: [TwitterUser]) in self.setupListUsers(users) })
         self.listEnable = list.isHomeTabEnable()
     }
 

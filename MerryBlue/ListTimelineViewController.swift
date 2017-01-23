@@ -48,7 +48,7 @@ class ListTimelineViewController: UIViewController {
     func requestTimeline() {
         if self.list.isTimelineTabEnable() {
             _ = Twitter.sharedInstance().requestListTimeline(list)
-                .subscribeNext({ (tweets: [MBTweet]) in
+                .subscribe(onNext: { (tweets: [MBTweet]) in
                     self.setupTweets(tweets)
                 })
         } else {
@@ -133,7 +133,7 @@ class ListTimelineViewController: UIViewController {
             isUpdating = true
             activityIndicator.startAnimating()
             _ = Twitter.sharedInstance().requestListTimelineNext(self.list, beforeTweet: tweets.last!)
-                .subscribeNext({ (tweets: [MBTweet]) in
+                .subscribe(onNext: { (tweets: [MBTweet]) in
                     self.setupTweets(self.tweets + tweets)
                 })
         }

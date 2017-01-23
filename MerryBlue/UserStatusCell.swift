@@ -24,7 +24,7 @@ class UserStatusCell: UITableViewCell {
     func setCell(_ user: TwitterUser) {
         self.nameLabel.text = user.name
         self.screenNameLabel.text = "@\(user.screenName)"
-        self.iconImageView.sd_setImageWithURL(URL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        self.iconImageView.sd_setImage(with: URL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
         guard let status = user.lastStatus else {
             self.tweetTextLabel.text = "ツイートが読み込めませんでした"
             self.timeElapsedLabel.text = "----/--/-- --:--:--"

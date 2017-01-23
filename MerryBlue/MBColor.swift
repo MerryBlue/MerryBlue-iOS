@@ -1,3 +1,5 @@
+import UIKit
+
 class MBColor {
     internal static let Main = MBColor.fromHex(0x3e6ba2)
     internal static let Sub  = MBColor.fromHex(0xa0d9e2)

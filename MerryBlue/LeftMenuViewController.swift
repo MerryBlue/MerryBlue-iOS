@@ -32,14 +32,14 @@ class LeftMenuViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         if user == nil {
             _ = Twitter.sharedInstance().requestUserProfile(TwitterManager.getUserID())
-                .subscribeNext({ (user: TwitterUser) in self.setProfiles(user)})
+                .subscribe(onNext: { (user: TwitterUser) in self.setProfiles(user)})
         }
         let lists = ListService.sharedInstance.adjustOptionalLists(ListService.sharedInstance.selectLists())
 
         if lists.isEmpty {
             self.activityIndicator.startAnimating()
             _ = Twitter.sharedInstance().requestLists(TwitterManager.getUserID())
-                .subscribeNext({ (lists: [MBTwitterList]) in self.setupTableView(lists) })
+                .subscribe(onNext: { (lists: [MBTwitterList]) in self.setupTableView(lists) })
         } else {
             setupTableView(lists)
         }
@@ -72,16 +72,16 @@ class LeftMenuViewController: UIViewController {
         nameLabel.text = user.name
         screenNameLabel.text = "@\(user.screenName)"
 
-        self.profileImageView.sd_setImageWithURL(URL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        self.profileImageView.sd_setImage(with: URL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
         self.profileBackgroundImageView.layer.backgroundColor = UIColor.white.cgColor
 
         if let url = user.profileBannerImageURL, !url.isEmpty {
             self.profileBackgroundImageView.clipsToBounds = true
             self.profileBackgroundImageView.contentMode = .scaleAspectFill
-            self.profileBackgroundImageView.sd_setImageWithURL(URL(string: user.profileBannerImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+            self.profileBackgroundImageView.sd_setImage(with: URL(string: user.profileBannerImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
         } else {
             self.profileBackgroundImageView.image = nil
-            self.profileBackgroundImageView.layer.backgroundColor = MBColor.Main.CGColor
+            self.profileBackgroundImageView.layer.backgroundColor = MBColor.Main.cgColor
         }
     }
 
@@ -127,7 +127,7 @@ class LeftMenuViewController: UIViewController {
         }
 
         if lists.isEmpty {
-            presentViewController(AlertManager.sharedInstantce.listNotFound(), animated: true, completion: nil)
+            present(AlertManager.sharedInstantce.listNotFound(), animated: true, completion: nil)
         }
         ListService.sharedInstance.updateLists(lists)
         // self.fetchListUpdate(lists)
@@ -136,11 +136,11 @@ class LeftMenuViewController: UIViewController {
     func pullToRefresh() {
         if self.tableView.isEditing {
             // 編集中はリスト更新制限アラート
-            presentViewController(AlertManager.sharedInstantce.listSyncDisable(), animated: true, completion: nil)
+            present(AlertManager.sharedInstantce.listSyncDisable(), animated: true, completion: nil)
             return
         }
         _ = Twitter.sharedInstance().requestLists(TwitterManager.getUserID())
-            .subscribeNext({ (lists: [MBTwitterList]) in
+            .subscribe(onNext: { (lists: [MBTwitterList]) in
                 self.setupTableView(ListService.sharedInstance.fetchList(lists))
             })
         refreshControl.endRefreshing()

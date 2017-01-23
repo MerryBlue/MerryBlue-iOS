@@ -22,9 +22,9 @@ class ImageCell: UICollectionViewCell {
     func setCellInfo(_ info: ImageCellInfo) {
         self.backgroundColor = UIColor.black
         self.imageView.contentMode = .scaleAspectFill
-        self.imageView.sd_setImageWithURL(URL(string: info.imageURL), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
+        self.imageView.sd_setImage(with: URL(string: info.imageURL), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
         self.tweet = info.tweet.sourceTweet()
-        self.ownerImageView.sd_setImageWithURL(URL(string: tweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
+        self.ownerImageView.sd_setImage(with: URL(string: tweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
         // self.countLabel.text = String(info.counts)
         self.favCountLabel.text = tweet.miniDisplayLikeCount()
         self.rtCountLabel.text = tweet.miniDisplayRetweetCount()
