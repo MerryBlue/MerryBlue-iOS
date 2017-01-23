@@ -2,20 +2,20 @@ import UIKit
 import TwitterKit
 
 enum HomeViewOrderType: Int {
-    case TimeOrder
-    case ReadCountOrder
-    case ReadCountOrderRev
+    case timeOrder
+    case readCountOrder
+    case readCountOrderRev
 
-    case Dummy
+    case dummy
 
     func next() -> HomeViewOrderType {
-        return HomeViewOrderType(rawValue: (self.rawValue + HomeViewOrderType.Dummy.rawValue + 1) % HomeViewOrderType.Dummy.rawValue)!
+        return HomeViewOrderType(rawValue: (self.rawValue + HomeViewOrderType.dummy.rawValue + 1) % HomeViewOrderType.dummy.rawValue)!
     }
 }
 
 class HomeViewController: UIViewController {
 
-    var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
+    var delegate = (UIApplication.shared.delegate as? AppDelegate)!
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -29,7 +29,7 @@ class HomeViewController: UIViewController {
     var list: MBTwitterList!
     var users = [TwitterUser]()
     // 初めは時間順，オーダーメソッドが呼ばれるので逆に設定
-    var orderType = HomeViewOrderType.TimeOrder
+    var orderType = HomeViewOrderType.timeOrder
 
     var cacheCellHeight: CGFloat!
     var listEnable = true
@@ -44,11 +44,11 @@ class HomeViewController: UIViewController {
 
     func checkLogin() {
         if !TwitterManager.isLogin() {
-            self.presentViewController(StoryBoardService.sharedInstance.signInViewController(), animated: true, completion: nil)
+            self.present(StoryBoardService.sharedInstance.signInViewController(), animated: true, completion: nil)
         }
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         self.checkLogin()
         guard let _ = ListService.sharedInstance.selectHomeList() else {
             self.openListsChooser()
@@ -64,7 +64,7 @@ class HomeViewController: UIViewController {
 
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Loading...") // Loading中に表示する文字を決める
-        refreshControl.addTarget(self, action: #selector(HomeViewController.pullToRefresh), forControlEvents:.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(HomeViewController.pullToRefresh), for:.valueChanged)
         self.tableView.addSubview(refreshControl)
         cacheCellHeight = self.tableView.rowHeight
     }
@@ -80,23 +80,23 @@ class HomeViewController: UIViewController {
         })
     }
 
-    internal func setupListUsers(users: [TwitterUser]) {
+    internal func setupListUsers(_ users: [TwitterUser]) {
         self.users = TwitterManager.sortUsersLastupdate(users)
         if self.users.count == 0 {
             self.users.append(TwitterUser())
             self.isNoUser = true
         }
         if !self.listEnable {
-            self.users.insert(self.users.first!, atIndex: 0)
+            self.users.insert(self.users.first!, at: 0)
         }
         self.setOrder()
-        if self.activityIndicator.isAnimating() {
+        if self.activityIndicator.isAnimating {
             self.activityIndicator.stopAnimating()
         }
         refreshControl.endRefreshing() // データが取れたら更新を終える（くるくる回るViewを消去）
     }
 
-    private func setNavigationBar() {
+    fileprivate func setNavigationBar() {
         guard let _ = self.navigationController else {
             print("Error: no wrapperd navigation controller")
             return
@@ -126,13 +126,13 @@ class HomeViewController: UIViewController {
 
     func setOrder() {
         switch orderType {
-        case HomeViewOrderType.TimeOrder:
+        case HomeViewOrderType.timeOrder:
             self.users = TwitterManager.sortUsersLastupdate(users)
             self.orderButton.image = AssetSertvice.sharedInstance.iconSortByTime
-        case HomeViewOrderType.ReadCountOrder:
+        case HomeViewOrderType.readCountOrder:
             self.users = TwitterManager.sortUsersNewCount(users)
             self.orderButton.image = AssetSertvice.sharedInstance.iconSortByCount
-        case HomeViewOrderType.ReadCountOrderRev:
+        case HomeViewOrderType.readCountOrderRev:
             self.users = TwitterManager.sortUsersNewCountRev(users)
             self.orderButton.image = AssetSertvice.sharedInstance.iconSortByCountRev
         default:
@@ -150,7 +150,7 @@ class HomeViewController: UIViewController {
         slideMenu.openLeft()
     }
 
-    func openUserTimeline(user: TwitterUser) {
+    func openUserTimeline(_ user: TwitterUser) {
         self.delegate.userViewUser = user
         self.delegate.userViewNewCount = user.newCount()
         user.updateReadedCount()
@@ -158,21 +158,20 @@ class HomeViewController: UIViewController {
         self.navigationController?.pushViewController(StoryBoardService.sharedInstance.userView(), animated: true)
     }
 
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         self.slideMenuController()?.removeLeftGestures()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.slideMenuController()?.addLeftGestures()
     }
 
     func setupTabbarItemState() {
         guard let items: [UITabBarItem] = self.tabBarController!.tabBar.items,
-            list = ListService.sharedInstance.selectHomeList()
-            where items.count == 2 else { return }
+            let list = ListService.sharedInstance.selectHomeList(), items.count == 2 else { return }
 
-        items[0].enabled = list.isHomeTabEnable()
-        items[1].enabled = list.isTimelineTabEnable()
+        items[0].isEnabled = list.isHomeTabEnable()
+        items[1].isEnabled = list.isTimelineTabEnable()
     }
 
     internal func updateList() {
@@ -181,7 +180,7 @@ class HomeViewController: UIViewController {
             return
         }
         self.setupTabbarItemState()
-        if let nowList = self.list where nowList.equalItem(list) {
+        if let nowList = self.list, nowList.equalItem(list) {
             return
         }
         self.list = list
@@ -195,31 +194,31 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UITableViewDelegate {
-    func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ table: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = users[indexPath.row]
         self.openUserTimeline(user)
     }
 
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     }
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.cacheCellHeight!
     }
 
 }
 
 extension HomeViewController: UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.users.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = (tableView.dequeueReusableCellWithIdentifier("userStatusCell") as? UserStatusCell)!
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = (tableView.dequeueReusableCell(withIdentifier: "userStatusCell") as? UserStatusCell)!
         if indexPath.row == 0 && !self.listEnable {
             let message = "このリストはユーザ数が多いため最近追加されたユーザのみ表示されます．\(list.memberCount) -> \(MBTwitterList.memberNumActiveMaxLimit)"
             cell.setInfoCell(message)

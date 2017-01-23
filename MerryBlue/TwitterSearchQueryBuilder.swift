@@ -15,15 +15,15 @@ class TwitterSearchQueryBuilder {
         self.text = text
     }
 
-    func filterImage(isFilterImage: Bool = true) {
+    func filterImage(_ isFilterImage: Bool = true) {
         self.isFilterImage = isFilterImage
     }
 
-    func excludeRT(isExcludeRT: Bool = true) {
+    func excludeRT(_ isExcludeRT: Bool = true) {
         self.isExcludeRT = isExcludeRT
     }
 
-    func setList(list: MBTwitterList) {
+    func setList(_ list: MBTwitterList) {
         self.list = list
     }
 
@@ -39,7 +39,7 @@ class TwitterSearchQueryBuilder {
         if let l = self.list {
             suffixList.append(Operator.List.rawValue + l.fullName)
         }
-        let suffix = suffixList.joinWithSeparator(" ")
+        let suffix = suffixList.joined(separator: " ")
         return q + " " + suffix
     }
 

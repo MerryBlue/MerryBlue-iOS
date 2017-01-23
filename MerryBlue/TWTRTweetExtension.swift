@@ -10,7 +10,7 @@ import TwitterKit
 
 extension TWTRTweet {
     func sourceTweet() -> TWTRTweet {
-        return self.isRetweet ? self.retweetedTweet : self
+        return self.isRetweet ? self.retweeted : self
     }
 
     func isOwnTweet() -> Bool {
@@ -26,7 +26,7 @@ extension TWTRTweet {
         if self.isRetweet {
             text = "🔁" + text
         }
-        if (text as NSString).substringToIndex(1) == "@" {
+        if (text as NSString).substring(to: 1) == "@" {
             text = "💬" + text
         }
         return text
@@ -40,7 +40,7 @@ extension TWTRTweet {
             let pattern = "(?i)https?://(?:www\\.)?\\S+(?:/|\\b)"
             let replace = "🔗[URL]"
             regex = try NSRegularExpression(pattern: pattern, options: [])
-            return regex.stringByReplacingMatchesInString(text, options: [], range: NSRange(location: 0, length: text.characters.count), withTemplate: replace)
+            return regex.stringByReplacingMatches(in: text, options: [], range: NSRange(location: 0, length: text.characters.count), withTemplate: replace)
         } catch _ {
             print("regex error")
         }

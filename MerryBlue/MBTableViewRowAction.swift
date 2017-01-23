@@ -2,7 +2,7 @@ class MBTableViewRowAction: UITableViewRowAction {
 
     var image: UIImage?
 
-    func _setButton(button: UIButton) {
+    func _setButton(_ button: UIButton) {
         if let image = image, let titleLabel = button.titleLabel {
             let labelString = NSString(string: titleLabel.text!)
             let titleSize = labelString.sizeWithAttributes([NSFontAttributeName: titleLabel.font])
@@ -14,7 +14,7 @@ class MBTableViewRowAction: UITableViewRowAction {
         }
     }
 
-    class func new(icon: UIImage, handler: (UITableViewRowAction, NSIndexPath) -> Void) -> MBTableViewRowAction {
+    class func new(_ icon: UIImage, handler: (UITableViewRowAction, NSIndexPath) -> Void) -> MBTableViewRowAction {
         let rowAction = MBTableViewRowAction(style: .Normal, title: "      ", handler: handler)
         rowAction.image = icon
         rowAction.backgroundColor = MBColor.Main

@@ -1,6 +1,6 @@
 extension UIColor {
 
-    static func hexFrom(hex: String, alpha: Float = 1.0) -> UIColor {
+    static func hexFrom(_ hex: String, alpha: Float = 1.0) -> UIColor {
         let hexStr = hex.stringByReplacingOccurrencesOfString("#", withString: "")
         let scanner = NSScanner(string: hexStr as String)
         var color: UInt32 = 0

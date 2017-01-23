@@ -6,11 +6,11 @@ struct IdentifilerKey {
 class IdentifilerService {
     static let sharedInstance = IdentifilerService()
 
-    func homeCellID(userID: String) -> String {
+    func homeCellID(_ userID: String) -> String {
         return IdentifilerKey.homeCell + userID
     }
 
-    func listCellID(listID: String) -> String {
+    func listCellID(_ listID: String) -> String {
         return IdentifilerKey.listCell + listID
     }
 

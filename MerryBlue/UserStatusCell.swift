@@ -14,17 +14,17 @@ class UserStatusCell: UITableViewCell {
         super.awakeFromNib()
 
         self.contentView.frame = self.bounds
-        self.contentView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        self.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
 
-    func setCell(user: TwitterUser) {
+    func setCell(_ user: TwitterUser) {
         self.nameLabel.text = user.name
         self.screenNameLabel.text = "@\(user.screenName)"
-        self.iconImageView.sd_setImageWithURL(NSURL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        self.iconImageView.sd_setImageWithURL(URL(string: user.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
         guard let status = user.lastStatus else {
             self.tweetTextLabel.text = "ツイートが読み込めませんでした"
             self.timeElapsedLabel.text = "----/--/-- --:--:--"
@@ -35,24 +35,24 @@ class UserStatusCell: UITableViewCell {
 
         if user.hasNew() {
             // self.layer.addBorder(UIRectEdge.Left, color: UIColor.greenColor(), thickness: 4)
-            newCountLabel.hidden = false
+            newCountLabel.isHidden = false
             newCountLabel.text = user.newCount() < 1000 ? String(user.newCount()) : "999"
         } else {
-            newCountLabel.hidden = true
+            newCountLabel.isHidden = true
         }
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
     }
 
-    func setInfoCell(message: String) {
+    func setInfoCell(_ message: String) {
         self.nameLabel.text = "情報セル"
         self.screenNameLabel.text = "( 'ω')"
         self.iconImageView.image = UIImage(named: "icon-replay-sq")
         self.iconImageView.tintColor = MBColor.Main
         self.tweetTextLabel.text = message
-        self.timeElapsedLabel.text = NSDate().toFuzzy()
+        self.timeElapsedLabel.text = Date().toFuzzy()
         self.backgroundColor = MBColor.LightSub
 
-        newCountLabel.hidden = true
+        newCountLabel.isHidden = true
         newCountLabel.text = "'_'"
     }
 

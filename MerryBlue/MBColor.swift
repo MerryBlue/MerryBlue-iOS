@@ -5,7 +5,7 @@ class MBColor {
     internal static let Dark = MBColor.fromHex(0x4d6196)
     internal static let LightSub  = MBColor.fromHex(0xE3FBFF)
 
-    static func fromHex(rgbValue: UInt) -> UIColor {
+    static func fromHex(_ rgbValue: UInt) -> UIColor {
         return UIColor(
             red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
             green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,

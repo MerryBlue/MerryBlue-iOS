@@ -2,7 +2,7 @@ import Foundation
 
 class MBNavigationController: UINavigationController {
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         self.setNavigationBarHidden(false, animated: false)

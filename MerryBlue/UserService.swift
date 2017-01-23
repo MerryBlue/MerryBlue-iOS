@@ -3,15 +3,15 @@ import Foundation
 class UserService {
 
     static let sharedInstance = UserService()
-    private let userDefaults = NSUserDefaults.standardUserDefaults()
+    fileprivate let userDefaults = UserDefaults.standard
 
-    func selectUser(userID: String) -> Int? {
-        return self.userDefaults.objectForKey(forKeyUser(UserDefaultsKey.UserTweetCount, userID)) as? Int
+    func selectUser(_ userID: String) -> Int? {
+        return self.userDefaults.object(forKey: forKeyUser(UserDefaultsKey.UserTweetCount, userID)) as? Int
     }
 
-    func updateUser(userID: String, tweetCount: Int) {
+    func updateUser(_ userID: String, tweetCount: Int) {
         // let archive = NSKeyedArchiver.archivedDataWithRootObject(lists)
-        self.userDefaults.setObject(tweetCount, forKey: forKeyUser(UserDefaultsKey.UserTweetCount, userID))
+        self.userDefaults.set(tweetCount, forKey: forKeyUser(UserDefaultsKey.UserTweetCount, userID))
         self.userDefaults.synchronize()
     }
 
@@ -24,8 +24,8 @@ class UserService {
     //     return lists
     // }
 
-    func forKeyUser(keys: String...) -> String {
-        return ([TwitterManager.getUserID()] + keys).joinWithSeparator(UserDefaultsKey.KeySeparator)
+    func forKeyUser(_ keys: String...) -> String {
+        return ([TwitterManager.getUserID()] + keys).joined(separator: UserDefaultsKey.KeySeparator)
     }
 
 }

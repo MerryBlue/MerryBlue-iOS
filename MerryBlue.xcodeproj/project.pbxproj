@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D00246C9AB6774F0A763EB8 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB997101D3CFE421879951E7 /* Pods.framework */; };
 		451A9E601CD23A360007D45A /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45EBEDEC1C93F5D2002C6040 /* TwitterKitResources.bundle */; };
 		451B85221CAA519E003DD63F /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451B85211CAA519D003DD63F /* UIImageExtension.swift */; };
 		451B85241CAA6173003DD63F /* IdentifilerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451B85231CAA6173003DD63F /* IdentifilerService.swift */; };
@@ -57,10 +56,11 @@
 		45EBEDF41C93F6CE002C6040 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EBEDF31C93F6CE002C6040 /* SignInViewController.swift */; };
 		45EC9A8A1CA1A99100ABE06A /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EC9A891CA1A99100ABE06A /* LeftMenuViewController.swift */; };
 		45FF1A091CC676E3009EE9CD /* TweetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FF1A081CC676E3009EE9CD /* TweetViewController.swift */; };
+		BD4913E25C81995CCFF999BB /* Pods_MerryBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A82BBDD748234F2210EEF4 /* Pods_MerryBlue.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		111146BA25A5A70FE8C4BFDC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		41A50B549A30C17F3FB229EA /* Pods-MerryBlue.release-deploygate.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MerryBlue.release-deploygate.xcconfig"; path = "Pods/Target Support Files/Pods-MerryBlue/Pods-MerryBlue.release-deploygate.xcconfig"; sourceTree = "<group>"; };
 		451B85211CAA519D003DD63F /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		451B85231CAA6173003DD63F /* IdentifilerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifilerService.swift; sourceTree = "<group>"; };
 		451C4D8A1C9C7FAB00903A0C /* ListService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListService.swift; sourceTree = "<group>"; };
@@ -112,8 +112,10 @@
 		45EBEDF31C93F6CE002C6040 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		45EC9A891CA1A99100ABE06A /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
 		45FF1A081CC676E3009EE9CD /* TweetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetViewController.swift; sourceTree = "<group>"; };
-		9C18D3FA173A83ADD5394426 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		6245FCD19922CA2164ED0F29 /* Pods-MerryBlue.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MerryBlue.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MerryBlue/Pods-MerryBlue.debug.xcconfig"; sourceTree = "<group>"; };
+		6DC50B53CD7F7CCFB1BDFA55 /* Pods-MerryBlue.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MerryBlue.release.xcconfig"; path = "Pods/Target Support Files/Pods-MerryBlue/Pods-MerryBlue.release.xcconfig"; sourceTree = "<group>"; };
 		AB997101D3CFE421879951E7 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3A82BBDD748234F2210EEF4 /* Pods_MerryBlue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MerryBlue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +127,7 @@
 				45EBEDEA1C93F488002C6040 /* TwitterCore.framework in Frameworks */,
 				45EBEDE31C93F2B6002C6040 /* Crashlytics.framework in Frameworks */,
 				45EBEDE21C93F2B6002C6040 /* Fabric.framework in Frameworks */,
-				1D00246C9AB6774F0A763EB8 /* Pods.framework in Frameworks */,
+				BD4913E25C81995CCFF999BB /* Pods_MerryBlue.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,7 +163,7 @@
 				457E0BE61C933D25000A665A /* MerryBlue */,
 				457E0BE51C933D25000A665A /* Products */,
 				45EBEDE41C93F46F002C6040 /* Frameworks */,
-				F44374A9BA852C42BA3591FF /* Pods */,
+				51DAF344E055EF68A0E0E6C3 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -252,6 +254,7 @@
 				45EBEDEC1C93F5D2002C6040 /* TwitterKitResources.bundle */,
 				45EBEDE11C93F2B6002C6040 /* Crashlytics.framework */,
 				AB997101D3CFE421879951E7 /* Pods.framework */,
+				F3A82BBDD748234F2210EEF4 /* Pods_MerryBlue.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -271,11 +274,12 @@
 			name = ViewController;
 			sourceTree = "<group>";
 		};
-		F44374A9BA852C42BA3591FF /* Pods */ = {
+		51DAF344E055EF68A0E0E6C3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9C18D3FA173A83ADD5394426 /* Pods.debug.xcconfig */,
-				111146BA25A5A70FE8C4BFDC /* Pods.release.xcconfig */,
+				6245FCD19922CA2164ED0F29 /* Pods-MerryBlue.debug.xcconfig */,
+				6DC50B53CD7F7CCFB1BDFA55 /* Pods-MerryBlue.release.xcconfig */,
+				41A50B549A30C17F3FB229EA /* Pods-MerryBlue.release-deploygate.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -287,14 +291,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 457E0BF81C933D25000A665A /* Build configuration list for PBXNativeTarget "MerryBlue" */;
 			buildPhases = (
-				0D442C2A52C4C7FE9122D441 /* Check Pods Manifest.lock */,
+				61B418D244239215C163E19A /* [CP] Check Pods Manifest.lock */,
 				457E0BE01C933D25000A665A /* Sources */,
 				457E0BE11C933D25000A665A /* Frameworks */,
 				457E0BE21C933D25000A665A /* Resources */,
 				45EBEDDF1C93EE9A002C6040 /* ShellScript */,
-				48D3C2CB6B5F320B43581265 /* Embed Pods Frameworks */,
-				1570BC5EC4D97A87D2E2799F /* Copy Pods Resources */,
 				94313D792E5D72A380D8C762 /* Swift Lint */,
+				2C141CE446BE3D55AA23E103 /* [CP] Embed Pods Frameworks */,
+				280C92890706B93F23BE9A87 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -318,6 +322,7 @@
 					457E0BE31C933D25000A665A = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = P44FH6EFF8;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -354,34 +359,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0D442C2A52C4C7FE9122D441 /* Check Pods Manifest.lock */ = {
+		280C92890706B93F23BE9A87 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MerryBlue/Pods-MerryBlue-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1570BC5EC4D97A87D2E2799F /* Copy Pods Resources */ = {
+		2C141CE446BE3D55AA23E103 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MerryBlue/Pods-MerryBlue-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		45EBEDDF1C93EE9A002C6040 /* ShellScript */ = {
@@ -397,19 +402,19 @@
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run 383c02e04f42e38d407da4295be284d1e327a6be 5a874b4f1b6ceeeb5c3c01f592214cfeb0c57c6d30b43a1a88350b24124e3100";
 		};
-		48D3C2CB6B5F320B43581265 /* Embed Pods Frameworks */ = {
+		61B418D244239215C163E19A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		94313D792E5D72A380D8C762 /* Swift Lint */ = {
@@ -527,6 +532,7 @@
 				PROVISIONING_PROFILE = "2d6b6cd7-12d9-4cb4-8ae5-0d85cf70051e";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -568,13 +574,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.elzup.merry-blue";
 				PROVISIONING_PROFILE = "54203ac2-2a42-48c8-8259-f848d40715e6";
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 2.3;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		457E0BF91C933D25000A665A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9C18D3FA173A83ADD5394426 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 6245FCD19922CA2164ED0F29 /* Pods-MerryBlue.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -598,12 +605,13 @@
 				PROVISIONING_PROFILE = "2d6b6cd7-12d9-4cb4-8ae5-0d85cf70051e";
 				SWIFT_OBJC_BRIDGING_HEADER = "MerryBlue-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		457E0BFA1C933D25000A665A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 111146BA25A5A70FE8C4BFDC /* Pods.release.xcconfig */;
+			baseConfigurationReference = 6DC50B53CD7F7CCFB1BDFA55 /* Pods-MerryBlue.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -625,6 +633,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "54203ac2-2a42-48c8-8259-f848d40715e6";
 				SWIFT_OBJC_BRIDGING_HEADER = "MerryBlue-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -666,13 +675,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.elzup.merry-blue";
 				PROVISIONING_PROFILE = "8803de2d-c2ca-43fa-af0b-ee1e2056fdf1";
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 2.3;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = "Release-Deploygate";
 		};
 		45A68DD71CB12AF6007719E1 /* Release-Deploygate */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 111146BA25A5A70FE8C4BFDC /* Pods.release.xcconfig */;
+			baseConfigurationReference = 41A50B549A30C17F3FB229EA /* Pods-MerryBlue.release-deploygate.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -694,6 +704,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "8803de2d-c2ca-43fa-af0b-ee1e2056fdf1";
 				SWIFT_OBJC_BRIDGING_HEADER = "MerryBlue-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = "Release-Deploygate";
 		};

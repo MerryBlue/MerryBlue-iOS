@@ -15,7 +15,7 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var tweetTextLabel: UILabel!
 
     var tweet: TWTRTweet!
-    var viewerImgUrl: NSURL!
+    var viewerImgUrl: URL!
     var viewerImg: UIImage!
 
     override func viewDidLoad() {
@@ -24,13 +24,13 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
         self.scrollView.delegate = self
         self.scrollView.minimumZoomScale = 1
         self.scrollView.maximumZoomScale = 8
-        self.scrollView.scrollEnabled = true
+        self.scrollView.isScrollEnabled = true
         self.scrollView.showsHorizontalScrollIndicator = true
         self.scrollView.showsVerticalScrollIndicator = true
 
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(PhotoViewController.doubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
-        self.imageViewWrap.userInteractionEnabled = true
+        self.imageViewWrap.isUserInteractionEnabled = true
         self.imageViewWrap.addGestureRecognizer(doubleTapGesture)
         // let singleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PhotoViewController.singleTap(_:)))
         // singleTapGesture.numberOfTapsRequired = 1
@@ -40,15 +40,15 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
         self.tweetInfoView.alpha = 0
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.hidesBarsOnTap = true
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         self.activityIndicator.startAnimating()
-        self.imageView.contentMode = .ScaleAspectFit
-        self.imageView.sd_setImageWithURL(self.viewerImgUrl, completed: {
+        self.imageView.contentMode = .scaleAspectFit
+        self.imageView.sd_setImage(with: self.viewerImgUrl, completed: {
             (image, error, sDImageCacheType, url) -> Void in
             self.activityIndicator.stopAnimating()
             })
@@ -57,14 +57,14 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
 
     func setTweet() {
         if let tweet = self.tweet {
-            self.tweetUserIconImageView.sd_setImageWithURL(NSURL(string: tweet.author.profileImageURL))
+            self.tweetUserIconImageView.sd_setImage(with: URL(string: tweet.author.profileImageURL))
             self.tweetTextLabel.text = tweet.prettyText()
             self.tweetNamesLabel.text = "\(tweet.author.name)・@\(tweet.author.screenName)・\(tweet.createdAt.toFuzzy())"
             self.tweetInfoView.alpha = 1
         }
     }
 
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.hidesBarsOnTap = false
     }
@@ -75,7 +75,7 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
     //     }
     // }
 
-    func longPress(gesture: UITapGestureRecognizer) -> Void {
+    func longPress(_ gesture: UITapGestureRecognizer) -> Void {
         guard let image = self.imageView.image else {
             return
         }
@@ -83,23 +83,23 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
         let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         let excludedActivityTypes: [String] = []
         activityVC.excludedActivityTypes = excludedActivityTypes
-        self.presentViewController(activityVC, animated: true, completion: nil)
+        self.present(activityVC, animated: true, completion: nil)
     }
 
-    func doubleTap(gesture: UITapGestureRecognizer) -> Void {
+    func doubleTap(_ gesture: UITapGestureRecognizer) -> Void {
 
         // print(self.scrollView.zoomScale)
         if self.scrollView.zoomScale < self.scrollView.maximumZoomScale {
             let newScale: CGFloat = self.scrollView.zoomScale * 3
-            let zoomRect: CGRect = self.zoomRectForScale(newScale, center: gesture.locationInView(gesture.view))
-            self.scrollView.zoomToRect(zoomRect, animated: true)
+            let zoomRect: CGRect = self.zoomRectForScale(newScale, center: gesture.location(in: gesture.view))
+            self.scrollView.zoom(to: zoomRect, animated: true)
         } else {
             self.scrollView.setZoomScale(self.scrollView.minimumZoomScale, animated: true)
             self.tweetInfoView.alpha = 1
         }
     }
 
-    func zoomRectForScale(scale: CGFloat, center: CGPoint) -> CGRect {
+    func zoomRectForScale(_ scale: CGFloat, center: CGPoint) -> CGRect {
         var zoomRect: CGRect = CGRect()
         zoomRect.size.height = self.scrollView.frame.size.height / scale
         zoomRect.size.width = self.scrollView.frame.size.width / scale
@@ -122,7 +122,7 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
     }
 
     // ピンチイン・ピンチアウト時に呼ばれる
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageViewWrap
     }
 

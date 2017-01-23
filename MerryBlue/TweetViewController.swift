@@ -3,7 +3,7 @@ import TwitterKit
 
 class TweetViewController: UIViewController {
 
-    var delegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
+    var delegate = (UIApplication.shared.delegate as? AppDelegate)!
 
     // @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
@@ -16,7 +16,7 @@ class TweetViewController: UIViewController {
     @IBOutlet weak var imageStackViewHeight: NSLayoutConstraint!
 
     @IBOutlet weak var favoriteButton: UIButton!
-    @IBAction func favoriteButtonTapped(sender: AnyObject) {
+    @IBAction func favoriteButtonTapped(_ sender: AnyObject) {
         _ = Twitter.sharedInstance().requestToggleLikeTweet(tweet)
             .subscribeNext({ (tweet: MBTweet) in
                 self.tweet = tweet
@@ -25,7 +25,7 @@ class TweetViewController: UIViewController {
     }
 
     @IBOutlet weak var retweetButton: UIButton!
-    @IBAction func retweetButtonTapped(sender: AnyObject) {
+    @IBAction func retweetButtonTapped(_ sender: AnyObject) {
         if tweet.sourceTweet().isOwnTweet() {
             return
         }
@@ -46,11 +46,11 @@ class TweetViewController: UIViewController {
         }
     }
     @IBOutlet weak var openButton: UIButton!
-    @IBAction func openButtonTapped(sender: AnyObject) {
+    @IBAction func openButtonTapped(_ sender: AnyObject) {
         // let twitterUrl = NSURL(string: "twitter://status?id=\(tweet.tweetID)")!
-        let url = NSURL(string: "https://twitter.com/chomado/status/\(tweet.tweetID)")
-        if UIApplication.sharedApplication().canOpenURL(url!) {
-            UIApplication.sharedApplication().openURL(url!)
+        let url = URL(string: "https://twitter.com/chomado/status/\(tweet.tweetID)")
+        if UIApplication.shared.canOpenURL(url!) {
+            UIApplication.shared.openURL(url!)
         } else {
             AlertManager.sharedInstantce.disableOpenApp()
         }
@@ -62,7 +62,7 @@ class TweetViewController: UIViewController {
         super.viewDidLoad()
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         guard let tweet = delegate.showTweet else {
             return
         }
@@ -73,7 +73,7 @@ class TweetViewController: UIViewController {
         self.nameLabel.text = sourceTweet.author.name
         self.screenNameLabel.text = "@\(sourceTweet.author.screenName)"
 
-        self.userImageView.sd_setImageWithURL(NSURL(string: sourceTweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        self.userImageView.sd_setImageWithURL(URL(string: sourceTweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
         // images set
         let imageHeight: CGFloat = 100
@@ -81,16 +81,16 @@ class TweetViewController: UIViewController {
 
         _ = self.imageStackView.subviews.map { $0.removeFromSuperview() }
         if tweet.hasMedia() && self.imageStackView.subviews.count == 0 {
-            for (i, url) in tweet.imageURLs.enumerate() {
+            for (i, url) in tweet.imageURLs.enumerated() {
                 let recognizer = UITapGestureRecognizer(target:self, action: #selector(TweetViewController.didClickImageView(_:)))
                 let imageView = UIImageView()
                 imageView.addGestureRecognizer(recognizer)
-                imageView.userInteractionEnabled = true
+                imageView.isUserInteractionEnabled = true
                 // imageView.frame = CGRect(x: 0, y: 0, width: imageView.frame.width, height: imageHeight)
-                imageView.contentMode = .ScaleAspectFill
+                imageView.contentMode = .scaleAspectFill
                 imageView.clipsToBounds = true
-                imageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
-                self.imageStackView.insertArrangedSubview(imageView, atIndex: i)
+                imageView.sd_setImageWithURL(URL(string: url), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
+                self.imageStackView.insertArrangedSubview(imageView, at: i)
             }
         }
         loadLikeButton()
@@ -100,7 +100,7 @@ class TweetViewController: UIViewController {
     func loadLikeButton() {
         let sourceTweet = tweet.sourceTweet()
         if sourceTweet.likeCount > 0 {
-            favoriteButton.setTitle(String(sourceTweet.likeCount), forState: .Normal)
+            favoriteButton.setTitle(String(sourceTweet.likeCount), for: UIControlState())
         }
         let col = sourceTweet.isLiked ? MBColor.Dark : UIColor.grayColor()
         favoriteButton.setTitleColor(col, forState: .Normal)
@@ -111,25 +111,25 @@ class TweetViewController: UIViewController {
     func loadRetweetButton() {
         let sourceTweet = tweet.sourceTweet()
         if sourceTweet.retweetCount > 0 {
-            retweetButton.setTitle(String(sourceTweet.retweetCount), forState: .Normal)
+            retweetButton.setTitle(String(sourceTweet.retweetCount), for: UIControlState())
         }
-        var col = UIColor.grayColor()
+        var col = UIColor.gray
         if sourceTweet.isRetweeted {
             col = MBColor.Dark
         } else if sourceTweet.isOwnTweet() {
-            col = UIColor.lightGrayColor()
+            col = UIColor.lightGray
         }
-        retweetButton.setTitleColor(col, forState: .Normal)
+        retweetButton.setTitleColor(col, for: UIControlState())
         retweetButton.tintColor = col
 
     }
 
-    func didClickImageView(recognizer: UIGestureRecognizer) {
+    func didClickImageView(_ recognizer: UIGestureRecognizer) {
         guard let imageView: UIImageView = recognizer.view as? UIImageView else {
             return
         }
         let nextViewController = StoryBoardService.sharedInstance.photoViewController()
-        nextViewController.viewerImgUrl = NSURL(string: imageView.sd_imageURL().absoluteString + ":orig")
+        nextViewController.viewerImgUrl = URL(string: imageView.sd_imageURL().absoluteString + ":orig")
         self.navigationController?.pushViewController(nextViewController, animated: true)
     }
 

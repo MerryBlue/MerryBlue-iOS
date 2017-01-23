@@ -1,12 +1,12 @@
 import Foundation
 
-extension NSDate {
+extension Date {
 
     func toFuzzy() -> String {
-        let now = NSDate()
+        let now = Date()
 
-        let cal = NSCalendar.currentCalendar()
-        let components = cal.components([.Year, .Day, .Hour, .Minute, .Second], fromDate: self, toDate: now, options: [])
+        let cal = Calendar.current
+        let components = (cal as NSCalendar).components([.year, .day, .hour, .minute, .second], from: self, to: now, options: [])
 
         let diffSec = components.second + components.minute*60 + components.hour*3600 + components.day*86400 + components.year*31536000
         var result = String()
@@ -20,25 +20,25 @@ extension NSDate {
         } else if diffSec < 2764800 {
             result = "\(diffSec/86400)日前"
         } else {
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
 
-            if components.year > 0 {
+            if components.year! > 0 {
                 dateFormatter.dateFormat = "yyyy年M月d日"
-                result = dateFormatter.stringFromDate(self)
+                result = dateFormatter.string(from: self)
             } else {
                 dateFormatter.dateFormat = "M月d日"
-                result = dateFormatter.stringFromDate(self)
+                result = dateFormatter.string(from: self)
             }
         }
 
         return result
     }
 
-    class func parse(dateString: String) -> NSDate {
-        let formatter = NSDateFormatter()
+    static func parse(_ dateString: String) -> Date {
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZZZ"
-        let d = formatter.dateFromString(dateString)
-        return NSDate(timeInterval: 0, sinceDate: d!)
+        let d = formatter.date(from: dateString)
+        return Date(timeInterval: 0, since: d!)
     }
 
 }

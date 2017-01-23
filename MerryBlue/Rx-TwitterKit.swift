@@ -13,7 +13,7 @@ public extension Twitter {
         return "https://api.twitter.com/1.1/"
     }
 
-    func requestMembers(list: MBTwitterList) -> Observable<[TwitterUser]> {
+    func requestMembers(_ list: MBTwitterList) -> Observable<[TwitterUser]> {
         switch list.listType {
         case .RecentFollow: return requestFriendUsers(TwitterManager.getUserID())
         case .RecentFollower: return requestFollowerUsers(TwitterManager.getUserID())
@@ -21,14 +21,14 @@ public extension Twitter {
         }
     }
 
-    func requestMembersLastTweets(list: MBTwitterList) -> Observable<[MBTweet]> {
+    func requestMembersLastTweets(_ list: MBTwitterList) -> Observable<[MBTweet]> {
         return Observable.create { observer -> Disposable in
             _ = self.requestMembers(list)
                 .subscribe(
                     onNext: { (users: [TwitterUser]) in
                         let tweets = users.map({ (user: TwitterUser) -> MBTweet in
                             let tweet = user.lastStatus
-                            return tweet
+                            return tweet!
                         })
                         observer.onNext(TwitterManager.sortTweetsLastupdate(tweets))
                     }, onError: { error in
@@ -38,13 +38,13 @@ public extension Twitter {
         }
     }
 
-    public func requestUserProfile(userID: String) -> Observable<TwitterUser> {
+    public func requestUserProfile(_ userID: String) -> Observable<TwitterUser> {
         return Observable.create { observer -> Disposable in
             let parameters = ["user_id": userID]
-            _ = self.rxURLRequestWithMethod(.GET, url: "users/show", parameters: parameters)
+            _ = self.rxURLRequestWithMethod(.GET, url: "users/show", parameters: parameters as [String : AnyObject])
                 .subscribe(
                     onNext: { data in
-                        let json = JSON(data: data)
+                        let json = JSON(data: data as Data)
                         observer.onNext(TwitterUser(json: json)!)
                     }, onError: { error in
                         observer.onError(error)
@@ -53,7 +53,7 @@ public extension Twitter {
         }
     }
 
-    public func requestUserTimeline(user: TwitterUser, count: Int = 30, beforeID: String! = nil) -> Observable<[MBTweet]> {
+    public func requestUserTimeline(_ user: TwitterUser, count: Int = 30, beforeID: String! = nil) -> Observable<[MBTweet]> {
         var parameters = [
             "user_id": user.userID,
             "count": String(count),
@@ -63,15 +63,15 @@ public extension Twitter {
         if let bid = beforeID {
             parameters["max_id"] = bid
         }
-        return self.getTweetsRequest("statuses/user_timeline", parameters: parameters)
+        return self.getTweetsRequest("statuses/user_timeline", parameters: parameters as [String : AnyObject])
     }
 
-    public func requestUserTimelineNext(user: TwitterUser, count: Int = 30, beforeTweet: MBTweet) -> Observable<[MBTweet]> {
+    public func requestUserTimelineNext(_ user: TwitterUser, count: Int = 30, beforeTweet: MBTweet) -> Observable<[MBTweet]> {
         return Twitter.sharedInstance().requestUserTimeline(user, count: count, beforeID: String(Int(beforeTweet.tweetID)! - 1))
     }
 
 
-    public func requestListTimeline(list: MBTwitterList, count: Int = 30, beforeID: String! = nil, excludeRetweets: Bool = false) -> Observable<[MBTweet]> {
+    public func requestListTimeline(_ list: MBTwitterList, count: Int = 30, beforeID: String! = nil, excludeRetweets: Bool = false) -> Observable<[MBTweet]> {
         var parameters = [
             "list_id": list.listID,
             "count": String(count),
@@ -81,14 +81,14 @@ public extension Twitter {
         if let bid = beforeID {
             parameters["max_id"] = bid
         }
-        return self.getTweetsRequest("lists/statuses", parameters: parameters)
+        return self.getTweetsRequest("lists/statuses", parameters: parameters as [String : AnyObject])
     }
 
-    public func requestListTimelineNext(list: MBTwitterList, count: Int = 30, beforeTweet: MBTweet) -> Observable<[MBTweet]> {
+    public func requestListTimelineNext(_ list: MBTwitterList, count: Int = 30, beforeTweet: MBTweet) -> Observable<[MBTweet]> {
         return Twitter.sharedInstance().requestListTimeline(list, count: count, beforeID: String(Int(beforeTweet.tweetID)! - 1))
     }
 
-    public func requestToggleRetweet(tweet: TWTRTweet) -> Observable<MBTweet> {
+    public func requestToggleRetweet(_ tweet: TWTRTweet) -> Observable<MBTweet> {
         if tweet.isRetweeted {
             return requestUnretweet(tweet)
         } else {
@@ -96,17 +96,17 @@ public extension Twitter {
         }
     }
 
-    public func requestRetweet(tweet: TWTRTweet) -> Observable<MBTweet> {
+    public func requestRetweet(_ tweet: TWTRTweet) -> Observable<MBTweet> {
         let parameters = [ "id": tweet.tweetID ]
-        return self.postTweetRequest("statuses/retweet", parameters: parameters)
+        return self.postTweetRequest("statuses/retweet", parameters: parameters as [String : AnyObject])
     }
 
-    public func requestUnretweet(tweet: TWTRTweet) -> Observable<MBTweet> {
+    public func requestUnretweet(_ tweet: TWTRTweet) -> Observable<MBTweet> {
         let parameters = [ "id": tweet.tweetID ]
-        return self.postTweetRequest("statuses/unretweet", parameters: parameters)
+        return self.postTweetRequest("statuses/unretweet", parameters: parameters as [String : AnyObject])
     }
 
-    public func requestToggleLikeTweet(tweet: TWTRTweet) -> Observable<MBTweet> {
+    public func requestToggleLikeTweet(_ tweet: TWTRTweet) -> Observable<MBTweet> {
         if tweet.isLiked {
             return requestUnlikeTweet(tweet)
         } else {
@@ -114,30 +114,30 @@ public extension Twitter {
         }
     }
 
-    public func requestLikeTweet(tweet: TWTRTweet) -> Observable<MBTweet> {
+    public func requestLikeTweet(_ tweet: TWTRTweet) -> Observable<MBTweet> {
         let parameters = [
             "id": tweet.tweetID,
             "include_entities": "false"
         ]
-        return self.postTweetRequest("favorites/create", parameters: parameters)
+        return self.postTweetRequest("favorites/create", parameters: parameters as [String : AnyObject])
     }
 
-    public func requestUnlikeTweet(tweet: TWTRTweet) -> Observable<MBTweet> {
+    public func requestUnlikeTweet(_ tweet: TWTRTweet) -> Observable<MBTweet> {
         let parameters = [
             "id": tweet.tweetID,
             "include_entities": "false"
         ]
-        return self.postTweetRequest("favorites/destroy", parameters: parameters)
+        return self.postTweetRequest("favorites/destroy", parameters: parameters as [String : AnyObject])
     }
 
 
-    public func requestLists(ownerID: String) -> Observable<[MBTwitterList]> {
+    public func requestLists(_ ownerID: String) -> Observable<[MBTwitterList]> {
         return Observable.create { observer -> Disposable in
             let parameters = ["user_id": ownerID]
-            _ = self.rxURLRequestWithMethod(.GET, url: "lists/list", parameters: parameters)
+            _ = self.rxURLRequestWithMethod(.GET, url: "lists/list", parameters: parameters as [String : AnyObject])
                 .subscribe(
                     onNext: { data in
-                        let json = JSON(data: data)
+                        let json = JSON(data: data as Data)
                         let lists = json.map { return MBTwitterList(jsonData: $1) }
                         observer.onNext(lists)
                     }, onError: { error in
@@ -147,30 +147,30 @@ public extension Twitter {
         }
     }
 
-    public func requestFriendUsers(userID: String, count: Int = 20) -> Observable<[TwitterUser]> {
+    public func requestFriendUsers(_ userID: String, count: Int = 20) -> Observable<[TwitterUser]> {
         let parameters = [
             "count": String(count),
             "include_user_entities": "true"
         ]
-        return self.getUsersRequest("friends/list", parameters: parameters)
+        return self.getUsersRequest("friends/list", parameters: parameters as [String : AnyObject])
     }
 
-    public func requestFollowerUsers(userID: String, count: Int = 20) -> Observable<[TwitterUser]> {
+    public func requestFollowerUsers(_ userID: String, count: Int = 20) -> Observable<[TwitterUser]> {
         let parameters = [
             "count": String(count)
         ]
-        return self.getUsersRequest("followers/list", parameters: parameters)
+        return self.getUsersRequest("followers/list", parameters: parameters as [String : AnyObject])
     }
 
-    public func requestListMembers(list: MBTwitterList, count: Int = MBTwitterList.memberNumActiveMaxLimit) -> Observable<[TwitterUser]> {
+    public func requestListMembers(_ list: MBTwitterList, count: Int = MBTwitterList.memberNumActiveMaxLimit) -> Observable<[TwitterUser]> {
         let parameters = [
             "list_id": list.listID,
             "count": String(count)
         ]
-        return self.getUsersRequest("lists/members", parameters: parameters)
+        return self.getUsersRequest("lists/members", parameters: parameters as [String : AnyObject])
     }
 
-    public func requestSearchTweets(text: String,
+    public func requestSearchTweets(_ text: String,
                                     list: MBTwitterList?, beforeID: String?,
                                     filterImage: Bool = false,
                                     excludeRetweets: Bool = false,
@@ -193,10 +193,10 @@ public extension Twitter {
         if let bid = beforeID {
             parameters["max_id"] = bid
         }
-        return self.getTweetsRequest("search/tweets", parameters: parameters, isStatusesWrapped: true)
+        return self.getTweetsRequest("search/tweets", parameters: parameters as [String : AnyObject], isStatusesWrapped: true)
     }
 
-    public func requestListImageTweets(list: MBTwitterList, includeRT: Bool = false, beforeTweet: MBTweet? = nil) -> Observable<[MBTweet]> {
+    public func requestListImageTweets(_ list: MBTwitterList, includeRT: Bool = false, beforeTweet: MBTweet? = nil) -> Observable<[MBTweet]> {
         var beforeID: String?
         if let bt = beforeTweet {
             beforeID = String(Int(bt.tweetID)! - 1)
@@ -207,12 +207,12 @@ public extension Twitter {
         return Twitter.sharedInstance().requestSearchTweets("", list: list, beforeID: beforeID, filterImage: true, excludeRetweets: !includeRT)
     }
 
-    public func getTweetsRequest(url: String, parameters: [String: AnyObject], isStatusesWrapped: Bool = false) -> Observable<[MBTweet]> {
+    public func getTweetsRequest(_ url: String, parameters: [String: AnyObject], isStatusesWrapped: Bool = false) -> Observable<[MBTweet]> {
         return Observable.create { (observer) -> Disposable in
             _ = self.rxURLRequestWithMethod(.GET, url: url, parameters: parameters)
                 .subscribe(
                     onNext: { data in
-                        let json = JSON(data: data)
+                        let json = JSON(data: data as Data)
                         var statusesJson = json
 
                         if isStatusesWrapped {
@@ -227,12 +227,12 @@ public extension Twitter {
         }
     }
 
-    public func getUsersRequest(url: String, parameters: [String: AnyObject]) -> Observable<[TwitterUser]> {
+    public func getUsersRequest(_ url: String, parameters: [String: AnyObject]) -> Observable<[TwitterUser]> {
         return Observable.create { (observer) -> Disposable in
             _ = self.rxURLRequestWithMethod(.GET, url: url, parameters: parameters)
                 .subscribe(
                     onNext: { data in
-                        let json = JSON(data: data)
+                        let json = JSON(data: data as Data)
                         let users = json["users"].array!.map { return TwitterUser(json: $0)! }
                         observer.onNext(users)
                     }, onError: { error in
@@ -242,12 +242,12 @@ public extension Twitter {
         }
     }
 
-    public func postTweetRequest(url: String, parameters: [String: AnyObject]) -> Observable<MBTweet> {
+    public func postTweetRequest(_ url: String, parameters: [String: AnyObject]) -> Observable<MBTweet> {
         return Observable.create { (observer) -> Disposable in
             _ = self.rxURLRequestWithMethod(.POST, url: url, parameters: parameters)
                 .subscribe(
                     onNext: { data in
-                        let json = JSON(data: data)
+                        let json = JSON(data: data as Data)
                         let tweet = MBTweet(json: json)!
                         observer.onNext(tweet)
                     }, onError: { error in
@@ -257,11 +257,11 @@ public extension Twitter {
         }
     }
 
-    public func rxURLRequestWithMethod(method: RequestMethod, url: String, parameters: [String: AnyObject])
+    public func rxURLRequestWithMethod(_ method: RequestMethod, url: String, parameters: [String: AnyObject])
         -> Observable<NSData> {
             return Observable.create { observer -> Disposable in
                 let client = TwitterManager.getClient()
-                let request = client.URLRequestWithMethod(method.rawValue, URL: "\(self.APIHost())\(url).json", parameters: parameters, error: nil)
+                let request = client.urlRequest(withMethod: method.rawValue, url: "\(self.APIHost())\(url).json", parameters: parameters, error: nil)
                 client.sendTwitterRequest(request) { response, data, connectionError in
                     guard let data = data else {
                         observer.onError(connectionError!)

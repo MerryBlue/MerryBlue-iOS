@@ -11,19 +11,19 @@ class ListInfoCell: UITableViewCell {
         super.awakeFromNib()
 
         self.contentView.frame = self.bounds
-        self.contentView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        self.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
 
-    func setCell(listInfo: MBTwitterList) {
+    func setCell(_ listInfo: MBTwitterList) {
         self.listNameLabel.text = listInfo.name
         self.memberNumLabel.text = String(listInfo.memberCount)
         switch listInfo.listType {
         case .Normal:
-            self.iconImageView.sd_setImageWithURL(NSURL(string: listInfo.imageUrl), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+            self.iconImageView.sd_setImageWithURL(URL(string: listInfo.imageUrl), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
         case .RecentFollow:
             self.iconImageView.image = AssetSertvice.sharedInstance.iconRecentFollow
             self.iconImageView.tintColor = MBColor.Main
@@ -31,8 +31,8 @@ class ListInfoCell: UITableViewCell {
             self.iconImageView.image = AssetSertvice.sharedInstance.iconRecentFollower
             self.iconImageView.tintColor = MBColor.Main
         }
-        self.memberNumLabel.textColor = UIColor.blackColor()
-        self.listNameLabel.textColor = UIColor.blackColor()
+        self.memberNumLabel.textColor = UIColor.black
+        self.listNameLabel.textColor = UIColor.black
 
         if !listInfo.isHomeTabEnable() {
             self.memberNumLabel.textColor = MBColor.Sub
