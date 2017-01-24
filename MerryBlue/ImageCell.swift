@@ -19,18 +19,18 @@ class ImageCell: UICollectionViewCell {
         super.init(coder: aDecoder)!
     }
 
-    func setCellInfo(info: ImageCellInfo) {
-        self.backgroundColor = UIColor.blackColor()
-        self.imageView.contentMode = .ScaleAspectFill
-        self.imageView.sd_setImageWithURL(NSURL(string: info.imageURL), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
+    func setCellInfo(_ info: ImageCellInfo) {
+        self.backgroundColor = UIColor.black
+        self.imageView.contentMode = .scaleAspectFill
+        self.imageView.sd_setImage(with: URL(string: info.imageURL), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
         self.tweet = info.tweet.sourceTweet()
-        self.ownerImageView.sd_setImageWithURL(NSURL(string: tweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
+        self.ownerImageView.sd_setImage(with: URL(string: tweet.author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
         // self.countLabel.text = String(info.counts)
         self.favCountLabel.text = tweet.miniDisplayLikeCount()
         self.rtCountLabel.text = tweet.miniDisplayRetweetCount()
     }
 
-    func setVisible(isVisible: Bool) {
+    func setVisible(_ isVisible: Bool) {
         self.infoView.alpha = isVisible ? 1 : 0
     }
 

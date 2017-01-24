@@ -1,7 +1,7 @@
 import TwitterKit
 import SwiftyJSON
 
-public class MBTweet: TWTRTweet {
+open class MBTweet: TWTRTweet {
 
     var imageURLs: [String]!
 
@@ -9,15 +9,15 @@ public class MBTweet: TWTRTweet {
         super.init()
     }
 
-    public required override init!(JSONDictionary dictionary: [NSObject: AnyObject]!) {
-        super.init(JSONDictionary: dictionary)
+    public required override init!(jsonDictionary dictionary: [AnyHashable: Any]!) {
+        super.init(jsonDictionary: dictionary)
     }
 
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func hasMedia() -> Bool {
+    open func hasMedia() -> Bool {
         return self.imageURLs.count > 0
     }
 
@@ -30,7 +30,7 @@ public class MBTweet: TWTRTweet {
     }
 
     init?(json: SwiftyJSON.JSON) {
-        super.init(JSONDictionary: json.dictionaryObject)
+        super.init(jsonDictionary: json.dictionaryObject)
         var medias = json["entities"]["media"].arrayValue
         if json["extended_entities"]["media"].arrayValue.count > 0 {
             medias = json["extended_entities"]["media"].arrayValue

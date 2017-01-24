@@ -1,19 +1,16 @@
 PODS:
-  - RxBlocking (2.3.0):
-    - RxSwift (~> 2.3)
-  - RxCocoa (2.3.0):
-    - RxSwift (~> 2.3)
-  - RxSwift (2.3.0)
-  - SDWebImage (3.7.5):
-    - SDWebImage/Core (= 3.7.5)
-  - SDWebImage/Core (3.7.5)
-  - SlideMenuControllerSwift (2.0.5)
-  - SwiftyJSON (2.3.2)
+  - RxCocoa (3.1.0):
+    - RxSwift (~> 3.1)
+  - RxSwift (3.1.0)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+  - SlideMenuControllerSwift (3.0.1)
+  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
-  - RxBlocking (~> 2.0)
-  - RxCocoa (~> 2.0)
-  - RxSwift (~> 2.0)
+  - RxCocoa (~> 3.0)
+  - RxSwift (~> 3.0)
   - SDWebImage
   - SlideMenuControllerSwift
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
@@ -24,15 +21,16 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SwiftyJSON:
-    :commit: 2a5b70f06001316d4fb54501edc70b4084705da0
+    :commit: adf34cfb4c9f2ff4e3c420c6d9fb1e2eaf3b3791
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  RxBlocking: 4616f93183a76aeee681262377e5c4aca0515b06
-  RxCocoa: cde4e993f496d2577bc3ba8b7dc7bf55a4ed809a
-  RxSwift: 0df59cc5edf28a31dbf83b049220b4b8e76b07c8
-  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
-  SlideMenuControllerSwift: 9dcae36265e14c4f42e729f212463beb60d2cf96
-  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  RxCocoa: 50d7564866da9299161e86a263ce12a0873904d8
+  RxSwift: 83ff553e7593fdfdcb2562933a64c0284dffdadc
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  SlideMenuControllerSwift: 9a163b16d54afab734add42858cba7ef7c307755
+  SwiftyJSON: 05cf0e98a950e2ba343735264f5a96b81e755d00
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 99dfb8f5ce04226e85e3c98ed6e592adef5a46fa
+
+COCOAPODS: 1.1.1

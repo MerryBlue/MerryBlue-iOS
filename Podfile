@@ -1,12 +1,16 @@
-use_frameworks!
+source 'https://github.com/CocoaPods/Specs.git'
 
-pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
+platform :ios, '8.0'
 
-pod 'RxSwift',    '~> 2.0'
-pod 'RxCocoa',    '~> 2.0'
-pod 'RxBlocking', '~> 2.0'
-# pod 'RxTests',    '~> 2.0'
+target 'MerryBlue' do
+  use_frameworks!
+  pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
+  pod 'RxSwift',    '~> 3.0'
+  pod 'RxCocoa',    '~> 3.0'
 
-pod 'SDWebImage'
+  pod 'SDWebImage'
+  pod 'SlideMenuControllerSwift'
+end
 
-pod 'SlideMenuControllerSwift'
+  # pod 'RxBlocking', '~> 3.0'
+  # pod 'RxTests',    '~> 3.0'

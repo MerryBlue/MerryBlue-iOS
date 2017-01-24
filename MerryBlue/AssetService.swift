@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class AssetSertvice {
     static let IconSize = 26

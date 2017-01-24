@@ -8,7 +8,7 @@ public enum ListType: String {
     case RecentFollower = "recentFollower"
 }
 
-public class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
+open class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
     var listID: String
     var name: String
     var fullName: String
@@ -25,14 +25,14 @@ public class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
     static let recentFollowerUser = 20
 
     init(jsonData: SwiftyJSON.JSON) {
-        let user = TWTRUser(JSONDictionary: jsonData["user"].dictionaryObject)
+        let user = TWTRUser(jsonDictionary: jsonData["user"].dictionaryObject)
         self.listID      = jsonData["id"].stringValue
         self.name        = jsonData["name"].stringValue
         self.fullName    = jsonData["full_name"].stringValue
         self.slug        = jsonData["slug"].stringValue
         self.desc        = jsonData["desc"].stringValue
         self.memberCount = jsonData["member_count"].intValue
-        self.imageUrl    = user.profileImageURL
+        self.imageUrl    = (user?.profileImageURL)!
         self.visible     = true
         self.isPrivate   = jsonData["mode"] == "private"
         self.listType    = .Normal
@@ -67,41 +67,41 @@ public class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
 
     public required init?(coder aDecoder: NSCoder) {
         // NOTE: catch error
-        self.listID      = aDecoder.decodeObjectForKey(SerializedKey.ListID) as? String ?? "id error"
-        self.name        = aDecoder.decodeObjectForKey(SerializedKey.Name) as? String ?? "name error"
-        self.fullName    = aDecoder.decodeObjectForKey(SerializedKey.FullName) as? String ?? "fullName error"
-        self.slug        = aDecoder.decodeObjectForKey(SerializedKey.Slug) as? String ?? "slug error"
-        self.desc        = aDecoder.decodeObjectForKey(SerializedKey.Desc) as? String ?? "desc error"
-        self.memberCount = aDecoder.decodeObjectForKey(SerializedKey.MemberCount) as? Int ?? 0
-        self.imageUrl    = aDecoder.decodeObjectForKey(SerializedKey.ImageUrl) as? String ?? "image error"
-        self.visible     = aDecoder.decodeObjectForKey(SerializedKey.Visible) as? Bool ?? true
-        self.isPrivate   = aDecoder.decodeObjectForKey(SerializedKey.Private) as? Bool ?? true
+        self.listID      = aDecoder.decodeObject(forKey: SerializedKey.ListID) as? String ?? "id error"
+        self.name        = aDecoder.decodeObject(forKey: SerializedKey.Name) as? String ?? "name error"
+        self.fullName    = aDecoder.decodeObject(forKey: SerializedKey.FullName) as? String ?? "fullName error"
+        self.slug        = aDecoder.decodeObject(forKey: SerializedKey.Slug) as? String ?? "slug error"
+        self.desc        = aDecoder.decodeObject(forKey: SerializedKey.Desc) as? String ?? "desc error"
+        self.memberCount = aDecoder.decodeObject(forKey: SerializedKey.MemberCount) as? Int ?? 0
+        self.imageUrl    = aDecoder.decodeObject(forKey: SerializedKey.ImageUrl) as? String ?? "image error"
+        self.visible     = aDecoder.decodeObject(forKey: SerializedKey.Visible) as? Bool ?? true
+        self.isPrivate   = aDecoder.decodeObject(forKey: SerializedKey.Private) as? Bool ?? true
         // old version patch
-        if let typeID = aDecoder.decodeObjectForKey(SerializedKey.TypeID) as? Int where self.memberCount == 0 {
+        if let typeID = aDecoder.decodeObject(forKey: SerializedKey.TypeID) as? Int, self.memberCount == 0 {
             self.listType = MBTwitterList.toType(typeID)
         } else {
-            self.listType = ListType(rawValue: (aDecoder.decodeObjectForKey(SerializedKey.ListType) as? String)!) ?? ListType.Normal
+            self.listType = ListType(rawValue: (aDecoder.decodeObject(forKey: SerializedKey.ListType) as? String)!) ?? ListType.Normal
         }
     }
 
-    public func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self.listID, forKey: SerializedKey.ListID)
-        aCoder.encodeObject(self.name, forKey: SerializedKey.Name)
-        aCoder.encodeObject(self.fullName, forKey: SerializedKey.FullName)
-        aCoder.encodeObject(self.slug, forKey: SerializedKey.Slug)
-        aCoder.encodeObject(self.desc, forKey: SerializedKey.Desc)
-        aCoder.encodeObject(self.memberCount, forKey: SerializedKey.MemberCount)
-        aCoder.encodeObject(self.imageUrl, forKey: SerializedKey.ImageUrl)
-        aCoder.encodeObject(self.listType.rawValue, forKey: SerializedKey.ListType)
-        aCoder.encodeObject(self.visible, forKey: SerializedKey.Visible)
-        aCoder.encodeObject(self.isPrivate, forKey: SerializedKey.Private)
+    open func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.listID, forKey: SerializedKey.ListID)
+        aCoder.encode(self.name, forKey: SerializedKey.Name)
+        aCoder.encode(self.fullName, forKey: SerializedKey.FullName)
+        aCoder.encode(self.slug, forKey: SerializedKey.Slug)
+        aCoder.encode(self.desc, forKey: SerializedKey.Desc)
+        aCoder.encode(self.memberCount, forKey: SerializedKey.MemberCount)
+        aCoder.encode(self.imageUrl, forKey: SerializedKey.ImageUrl)
+        aCoder.encode(self.listType.rawValue, forKey: SerializedKey.ListType)
+        aCoder.encode(self.visible, forKey: SerializedKey.Visible)
+        aCoder.encode(self.isPrivate, forKey: SerializedKey.Private)
     }
 
-    static func toType(typeID: Int) -> ListType {
+    static func toType(_ typeID: Int) -> ListType {
         return [ 0: ListType.Normal, 1: ListType.RecentFollow ][typeID]!
     }
 
-    func isType(type: ListType) -> Bool {
+    func isType(_ type: ListType) -> Bool {
         return self.listType == type
     }
 
@@ -109,7 +109,7 @@ public class MBTwitterList: NSObject, NSCoding, MenuItemProtocol {
         return self.listType != .Normal
     }
 
-    func equalItem(list: MBTwitterList) -> Bool {
+    func equalItem(_ list: MBTwitterList) -> Bool {
         return self.listType == list.listType && self.listID == list.listID
     }
 

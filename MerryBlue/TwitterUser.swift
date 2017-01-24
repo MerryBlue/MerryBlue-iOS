@@ -1,8 +1,9 @@
+import UIKit
 import Foundation
 import TwitterKit
 import SwiftyJSON
 
-public class TwitterUser: TWTRUser {
+open class TwitterUser: TWTRUser {
     var lastStatus: MBTweet!
     var readedStatusId: String!
     var preCount: Int!
@@ -16,8 +17,8 @@ public class TwitterUser: TWTRUser {
         super.init()
     }
 
-    required override public init!(JSONDictionary dictionary: [NSObject: AnyObject]!) {
-        super.init(JSONDictionary: dictionary)
+    required override public init!(jsonDictionary dictionary: [AnyHashable: Any]!) {
+        super.init(jsonDictionary: dictionary)
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -25,7 +26,7 @@ public class TwitterUser: TWTRUser {
     }
 
     init?(json: SwiftyJSON.JSON) {
-        super.init(JSONDictionary: json.dictionaryObject)
+        super.init(jsonDictionary: json.dictionaryObject)
         if json["status"] != nil {
             self.lastStatus = MBTweet(json: json["status"])
         } else {
@@ -37,12 +38,12 @@ public class TwitterUser: TWTRUser {
         self.profileBannerImageURL = json["profile_banner_url"].stringValue
         let colStr = json["profile_sidebar_fill_color"].stringValue
         if colStr != "000000" {
-            self.color = UIColor.hexFrom(colStr)
+            self.color = UIColor.hex(hexStr: colStr)
         } else {
             self.color = MBColor.Main
         }
 
-        if let count = UserService.sharedInstance.selectUser(self.userID) where !isSecret() {
+        if let count = UserService.sharedInstance.selectUser(self.userID), !isSecret() {
             // ログあり かつ 相手のツイートが見れる場合
             self.preCount = count
             self.tweetCount = Int(max(self.tweetCount, self.preCount))
@@ -68,7 +69,7 @@ public class TwitterUser: TWTRUser {
         UserService.sharedInstance.updateUser(self.userID, tweetCount: self.tweetCount)
     }
 
-    func compareNewCountTo(user: TwitterUser) -> Bool {
+    func compareNewCountTo(_ user: TwitterUser) -> Bool {
         let c = self.newCount() - user.newCount()
         if c != 0 {
             return c > 0
@@ -77,7 +78,7 @@ public class TwitterUser: TWTRUser {
     }
 
     // NewCount が少ない順 ただし 0 は最後
-    func compareNewCountRevTo(user: TwitterUser) -> Bool {
+    func compareNewCountRevTo(_ user: TwitterUser) -> Bool {
         // 小さい順
         if self.newCount() == 0 && user.newCount() > 0 {
             return false
@@ -91,14 +92,14 @@ public class TwitterUser: TWTRUser {
         return self.compareLastTweetTo(user)
     }
 
-    func compareLastTweetTo(user: TwitterUser) -> Bool {
+    func compareLastTweetTo(_ user: TwitterUser) -> Bool {
         guard let s1 = self.lastStatus else {
             return false
         }
         guard let s2 = user.lastStatus else {
             return true
         }
-        return s1.createdAt.compare(s2.createdAt) == NSComparisonResult.OrderedDescending
+        return s1.createdAt.compare(s2.createdAt) == ComparisonResult.orderedDescending
     }
 
 }

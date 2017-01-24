@@ -14,38 +14,38 @@ class UserTweetCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
 
-    func setCell(tweet: MBTweet) {
+    func setCell(_ tweet: MBTweet) {
         let sourceTweet = tweet.sourceTweet()
         let author = sourceTweet.author
         self.tweetTextLabel.text = sourceTweet.prettyText()
-        self.namesLabel.text = "\(author.name)・@\(author.screenName)・\(tweet.createdAt.toFuzzy())"
+        self.namesLabel.text = "\(author?.name)・@\(author?.screenName)・\(tweet.createdAt.toFuzzy())"
 
-        self.userImageView.sd_setImageWithURL(NSURL(string: author.profileImageURL), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
+        self.userImageView.sd_setImage(with: URL(string: (author?.profileImageURL)!), placeholderImage: AssetSertvice.sharedInstance.loadingImage)
 
         let imageHeight: CGFloat = 100
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
         self.imageStackViewHeight.constant = CGFloat(tweet.imageURLs.count) * imageHeight
 
         _ = self.imageStackView.subviews.map { $0.removeFromSuperview() }
         if tweet.hasMedia() && self.imageStackView.subviews.count == 0 {
-            for (i, url) in tweet.imageURLs.enumerate() {
+            for (i, url) in tweet.imageURLs.enumerated() {
                 let imageView = UIImageView()
-                imageView.userInteractionEnabled = true
+                imageView.isUserInteractionEnabled = true
                 // imageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: imageHeight)
-                imageView.contentMode = .ScaleAspectFill
+                imageView.contentMode = .scaleAspectFill
                 imageView.clipsToBounds = true
-                imageView.sd_setImageWithURL(NSURL(string: url), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
-                self.imageStackView.insertArrangedSubview(imageView, atIndex: i)
+                imageView.sd_setImage(with: URL(string: url), placeholderImage: AssetSertvice.sharedInstance.iconIndicator)
+                self.imageStackView.insertArrangedSubview(imageView, at: i)
             }
         }
 
     }
 
-    func setInfoCell(list: MBTwitterList, message: String) {
+    func setInfoCell(_ list: MBTwitterList, message: String) {
         self.namesLabel.text = "情報セル"
         self.userImageView.image = UIImage(named: "icon-replay-sq")
         self.userImageView.tintColor = MBColor.Main
